@@ -1,4 +1,4 @@
-package problem3.softserve;
+package softserve.edu.problem3;
 
 public class Task243a {
 

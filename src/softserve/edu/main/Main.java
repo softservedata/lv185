@@ -1,13 +1,13 @@
-package main.softserve;
+package softserve.edu.main;
 
 import java.util.Scanner;
 
-import problem1.softserve.Task88b;
-import problem1.softserve.Task88h;
-import problem2.softserve.Task325;
-import problem2.softserve.Task332;
-import problem3.softserve.Task243a;
-import problem3.softserve.Task561;
+import softserve.edu.problem1.Task88b;
+import softserve.edu.problem1.Task88h;
+import softserve.edu.problem2.Task325;
+import softserve.edu.problem2.Task332;
+import softserve.edu.problem3.Task243a;
+import softserve.edu.problem3.Task561;
 
 public class Main {
 	private static Scanner sc;

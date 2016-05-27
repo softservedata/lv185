@@ -1,4 +1,4 @@
-package problem1.softserve;
+package softserve.edu.problem1;
 
 //import java.util.Scanner;
 
