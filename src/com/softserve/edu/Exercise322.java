@@ -1,5 +1,5 @@
 
-package naturalnambers.excersice322;
+package com.softserve.edu;
 
 public class Exercise322 {
     public static void main(String[] args) {

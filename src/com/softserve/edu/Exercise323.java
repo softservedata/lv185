@@ -1,5 +1,5 @@
 
-package excercise323;
+package com.softserve.edu;
 
 import java.util.Scanner;
 

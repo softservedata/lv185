@@ -1,5 +1,5 @@
 
-package naturalnambers;
+package com.softserve.edu;
 
 /**
  *
