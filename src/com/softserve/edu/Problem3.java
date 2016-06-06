@@ -20,7 +20,7 @@ public class Problem3 {
 				System.out.println(i);
 		}
 
-		System.out.println("3 digits Armstrong numbers");
+		System.out.println("4 digits Armstrong numbers");
 		for (int i = 1000; i <= 9999; i++) {
 			ArrayList<Integer> k = ll(i);
 			if (Math.pow(k.get(0), 4) + Math.pow(k.get(1), 4) + Math.pow(k.get(2), 4) + Math.pow(k.get(3), 4) == i)
