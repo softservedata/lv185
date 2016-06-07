@@ -10,7 +10,7 @@ public class ConnetionToDatabase {
 //	initialization
 	 private static Connection con = null;
 	    private static String username = "postgres";
-	    private static String password = "Marot1165";
+	    private static String password = "root";
 	    private static String URL = "jdbc:postgresql://localhost:5432/HealthLife";
 	    
 	    public static void main(String[] args) throws SQLException, ClassNotFoundException {
