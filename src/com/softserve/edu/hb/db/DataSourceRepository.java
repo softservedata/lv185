@@ -27,6 +27,7 @@ public final class DataSourceRepository {
 //				"jdbc:jtds:sqlserver://CLASS02/Lv185;instance=SQLEXPRESS;", "db185", "db185");
 //	}
 
+	// TODO Develop new class and move method
 	private Driver getJdbcDriverMySql() {
 		Driver jdbcDriver = null;
 		try {
@@ -41,6 +42,7 @@ public final class DataSourceRepository {
 		return new DataSource(getJdbcDriverMySql(), "jdbc:mysql://localhost:3306/lv185", "root", "root");
 	}
 
+	@Deprecated //TODO
     public DataSource getConnectorMySqlByCVS() {
 		// TODO
 		String connectionUrl = null; //= DataSourceUtils.get().getConnectionUrl();
@@ -49,6 +51,7 @@ public final class DataSourceRepository {
 		return new DataSource(getJdbcDriverMySql(), connectionUrl, username, password);
     }
 
+	@Deprecated //TODO
     public DataSource getConnectorMySqlByProperties() {
 		// TODO
 		String connectionUrl = null; //= DataSourceUtils.get().getConnectionUrl();
