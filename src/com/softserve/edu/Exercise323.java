@@ -7,8 +7,8 @@ public class Exercise323  {
     public static void main(String[] args) {
         int n;
         System.out.print("Please, inpunt the number - ");
-        Scanner sr = new Scanner(System.in);
-        n = sr.nextInt();
+        Scanner scan = new Scanner(System.in);
+        n = scan.nextInt();
         if (n<0){System.err.println("This programm calculate n>0 only. Your input is:" +n);}
         for (int i = 1; i < n; i++) {
             int NOD=0;
