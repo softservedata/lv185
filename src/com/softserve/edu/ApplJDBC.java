@@ -22,6 +22,7 @@ public class ApplJDBC {
             System.out.println("Connection Successful! \n"); }
         if (con == null) {
             System.exit(0); }
+        
         Statement st = con.createStatement();
    
         ResultSet rs = st.executeQuery("select * from roles;");
@@ -34,8 +35,10 @@ public class ApplJDBC {
             }
             System.out.println();
         }
-        System.out.println();
-        if (rs != null)
+        
+       System.out.println();
+       
+         if (rs != null)
             rs.close();
         if (st != null)
             st.close();
