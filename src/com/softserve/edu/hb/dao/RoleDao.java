@@ -3,7 +3,7 @@ package com.softserve.edu.hb.dao;
 import com.softserve.edu.hb.entity.RoleDB;
 import com.softserve.edu.hb.entity.RoleDB.RoleDBQueries;
 
-public final class RoleDao extends ADao<RoleDB> {
+public final class RoleDao extends ADaoCRUD<RoleDB> {
 	private static volatile RoleDao instance = null;
 
 	private RoleDao() {

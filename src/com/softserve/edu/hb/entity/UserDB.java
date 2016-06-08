@@ -1,6 +1,6 @@
 package com.softserve.edu.hb.entity;
 
-import com.softserve.edu.hb.dao.IDao.DaoQueries;
+import com.softserve.edu.hb.dao.IDaoCRUD.DaoQueries;
 
 public class UserDB implements IEntity {
 

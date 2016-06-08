@@ -3,7 +3,7 @@ package com.softserve.edu.hb.dao;
 import com.softserve.edu.hb.entity.UserDB;
 import com.softserve.edu.hb.entity.UserDB.UserDBQueries;
 
-public final class UserDao extends ADao<UserDB> {
+public final class UserDao extends ADaoCRUD<UserDB> {
 	private static volatile UserDao instance = null;
 
 	private UserDao() {
