@@ -1,5 +1,5 @@
 
-package com.softserve.edu;
+package com.softserve.eduaaa;
 
 import java.util.Scanner;
 

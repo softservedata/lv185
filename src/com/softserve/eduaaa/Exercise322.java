@@ -1,5 +1,5 @@
 
-package com.softserve.edu;
+package com.softserve.eduaaa;
 
 public class Exercise322 {
     public static void main(String[] args) {
