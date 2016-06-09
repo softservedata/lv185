@@ -34,8 +34,8 @@ public final class CompetitionsDao extends ADaoCRUD<CompetitionsDB> {
 			Integer.parseInt(args[0] == null ? "0" : args[0]),
 			args[1] == null ? new String() : args[1],
 			args[2] == null ? new String() : args[2],
-			Long.parseLong(args[3] == null ? "0" : args[3]),
-			Long.parseLong(args[4] == null ? "0" : args[4]),
+			args[3] == null ? new String() : args[3],
+			args[4] == null ? new String() : args[4],
 			Integer.parseInt(args[5] == null ? "0" : args[5]));
 	}
 

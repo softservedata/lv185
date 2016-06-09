@@ -5,13 +5,13 @@ import com.softserve.edu.hb.dao.IDaoCRUD.DaoQueries;
 public class CompetitionsDB implements IEntity {
 
 	public static enum CompetitionsDBQueries {
-		INSERT(DaoQueries.INSERT, "INSERT INTO competitions (id_competitions, name, description, start, end, id_criterias) VALUES (%s, '%s', '%s', %s, %s, %s);"),
+		INSERT(DaoQueries.INSERT, "INSERT INTO competitions (id_competitions, name, description, start, end, id_criterias) VALUES (%s, '%s', '%s', '%s', '%s', %s);"),
 		GET_BY_ID(DaoQueries.GET_BY_ID,	"SELECT id_competitions, name, description, start, end, id_criterias FROM competitions WHERE id_competitions = %s;"),
 		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_competitions, name, description, start, end, id_criterias FROM competitions WHERE %s = '%s';"),
 		GET_ALL(DaoQueries.GET_ALL,	"SELECT id_competitions, name, description, start, end, id_criterias FROM competitions;"),
-		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE competitions SET %s = '%s' WHERE %s = '%s' and start = null;");
-		//	DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE competitions WHERE id_user = %s;"),
-		//	DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE competitions WHERE %s = '%s';");
+		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE competitions SET %s = '%s' WHERE %s = '%s';"),
+		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE competitions WHERE id_competitions = %s;"),
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE competitions WHERE %s = '%s';");
 		// DELETE_USER_BY_PARTIAL_LOGIN("DELETE dbo.competitions WHERE Login LIKE
 		// '%s%%';");
 		private DaoQueries daoQuery;
@@ -35,13 +35,13 @@ public class CompetitionsDB implements IEntity {
 	private Integer id_competitions;
 	private String name;
 	private String description;
-	private Long start;
-	private Long end;
+	private String start;
+	private String end;
 	private Integer id_criterias;
 
 	// TODO Create Factory, Builder
 	public CompetitionsDB(Integer id_competitions, String name, String description,
-			Long start, Long end, Integer id_criterias) {
+			String start, String end, Integer id_criterias) {
 		this.id_competitions = id_competitions;
 		this.name = name;
 		this.description = description;
@@ -64,11 +64,11 @@ public class CompetitionsDB implements IEntity {
 		this.description = description;
 	}
 
-	public void setStart(Long start) {
+	public void setStart(String start) {
 		this.start = start;
 	}
 
-	public void setEnd(Long end) {
+	public void setEnd(String end) {
 		this.end = end;
 	}
 
@@ -94,11 +94,11 @@ public class CompetitionsDB implements IEntity {
 		return description;
 	}
 
-	public Long getStart() {
+	public String getStart() {
 		return start;
 	}
 
-	public Long getEnd() {
+	public String getEnd() {
 		return end;
 	}
 
