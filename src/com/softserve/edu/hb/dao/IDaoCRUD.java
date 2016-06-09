@@ -1,6 +1,5 @@
 package com.softserve.edu.hb.dao;
 
-public interface IDaoCRUD {
 	public interface IDaoCRUD<TEntity> extends IDaoRead<TEntity> {
 
 		public static enum DaoQueries {
@@ -27,4 +26,4 @@ public interface IDaoCRUD {
 	    boolean delete(TEntity entity);
 
 	}
-}
+

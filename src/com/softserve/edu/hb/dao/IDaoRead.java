@@ -1,6 +1,5 @@
 package com.softserve.edu.hb.dao;
 
-public interface IDaoRead {
 
 import java.util.List;
 
@@ -16,4 +15,4 @@ public interface IDaoRead<TEntity> {
     List<TEntity> getAll();
 
 	}
-	}
+	

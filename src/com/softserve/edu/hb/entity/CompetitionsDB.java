@@ -2,9 +2,9 @@ package com.softserve.edu.hb.entity;
 
 import com.softserve.edu.hb.dao.IDaoCRUD.DaoQueries;
 
-public class CompetitionsDB implements IEntity {
+public class CompetitionsDB implements IEntity{
 
-	public static enum UserDBQueries {
+	public static enum CompetitionsDBQueries {
         INSERT(DaoQueries.INSERT, "INSERT INTO users (id_competitions, name, description, start, end, id_criterias) "
         		+ "VALUES (%s, '%s', '%s', '%s', '%s', %s);"),
         GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT id_competitions, name, description, start, end, id_criterias FROM competitions"
@@ -19,7 +19,7 @@ public class CompetitionsDB implements IEntity {
         private DaoQueries daoQuery;
         private String query;
 
-        private UserDBQueries(DaoQueries daoQuery, String query) {
+        private CompetitionsDBQueries(DaoQueries daoQuery, String query) {
         	this.daoQuery = daoQuery;
             this.query = query;
         }
@@ -35,7 +35,7 @@ public class CompetitionsDB implements IEntity {
     }
     
     private Integer id_competitions;
-    private string name;
+    private String name;
     private String description;
     private String start;
     private String end;
@@ -43,7 +43,7 @@ public class CompetitionsDB implements IEntity {
 	public Integer getId_competitions() {
 		return id_competitions;
 	}
-	public string getName() {
+	public String getName() {
 		return name;
 	}
 	public String getDescription() {
@@ -61,7 +61,7 @@ public class CompetitionsDB implements IEntity {
 	public void setId_competitions(Integer id_competitions) {
 		this.id_competitions = id_competitions;
 	}
-	public void setName(string name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	public void setDescription(String description) {
@@ -76,7 +76,7 @@ public class CompetitionsDB implements IEntity {
 	public void setId_criterias(String id_criterias) {
 		this.id_criterias = id_criterias;
 	}
-	public CompetitionsDB(Integer id_competitions, string name, String description, String start, String end,
+	public CompetitionsDB(Integer id_competitions, String name, String description, String start, String end,
 			String id_criterias) {
 		super();
 		this.id_competitions = id_competitions;
@@ -85,6 +85,11 @@ public class CompetitionsDB implements IEntity {
 		this.start = start;
 		this.end = end;
 		this.id_criterias = id_criterias;
+	}
+	@Override
+	public Integer getId() {
+		
+		return null;
 	}
     
     
