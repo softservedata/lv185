@@ -13,35 +13,45 @@ public class GroupDB implements IEntity {
 		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE groups WHERE id_group = %s;"),
 		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE groups WHERE %s = '%s';");
 		
-		private DaoQueries daoQueries;
+		private DaoQueries daoQuery;
 		private String query;
 		
-		private GroupDBQueries(DaoQueries daoQueries, String query) {
-			this.daoQueries = daoQueries;
+		private GroupDBQueries(DaoQueries daoQuery, String query) {
+			this.daoQuery = daoQuery;
 			this.query = query;
 		}
 		
-		public DaoQueries getDaoQuerie() {
-			return daoQueries;
+		public DaoQueries getDaoQuery() {
+			return daoQuery;
 		}
 		
+		@Override
 		public String toString() {
 			return query;
 		}
 	}
 
-	public Integer id_group;
-	public String name;
-	public String description;
-	public String status;
+	private Integer idGroup;
+	private String name;
+	private String description;
+	private String status;
+	
+	public GroupDB(Integer idGroup, String name, String description, String status) {
+		super();
+		this.idGroup = idGroup;
+		this.name = name;
+		this.description = description;
+		this.status = status;
+	}
+
 	@Override
 	public Integer getId() {
-		return getId_group();
+		return getIdGroup();
 	}
 	
 	//getters
-	public Integer getId_group() {
-		return id_group;
+	public Integer getIdGroup() {
+		return idGroup;
 	}
 	public String getName() {
 		return name;
@@ -54,8 +64,8 @@ public class GroupDB implements IEntity {
 	}
 	
 	//setters
-	public void setId_group(Integer id_group) {
-		this.id_group = id_group;
+	public void setIdGroup(Integer idGroup) {
+		this.idGroup = idGroup;
 	}
 	public void setName(String name) {
 		this.name = name;
