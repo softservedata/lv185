@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.softserve.edu.hb.dao.IDaoCRUD.DaoQueries;
-import com.softserve.edu.hb.db.ConnectionUtils;
+import com.softserve.edu.hb.db.ConnectionManager;
 
 abstract class ADaoInit {
 	protected abstract void init();
@@ -45,7 +45,7 @@ abstract class ADaoRead<TEntity> extends ADaoInit implements IDaoRead<TEntity> {
 			 throw new RuntimeException(String.format(QUERY_NOT_FOUND, DaoQueries.GET_BY_ID.name()));
 		}
 		try {
-			statement = ConnectionUtils.get().getConnection().createStatement();
+			statement = ConnectionManager.getInstance().getConnection().createStatement();
 			resultSet = statement.executeQuery(String.format(query, id));
 			if (resultSet.next()) {
 				queryResult = new String[resultSet.getMetaData().getColumnCount()];
@@ -91,7 +91,7 @@ abstract class ADaoRead<TEntity> extends ADaoInit implements IDaoRead<TEntity> {
 			throw new RuntimeException(String.format(QUERY_NOT_FOUND, DaoQueries.GET_BY_FIELD.name()));
 		}
 		try {
-			statement = ConnectionUtils.get().getConnection().createStatement();
+			statement = ConnectionManager.getInstance().getConnection().createStatement();
 			resultSet = statement.executeQuery(String.format(query, fieldName, text));
 			queryResult = new String[resultSet.getMetaData().getColumnCount()];
 			while (resultSet.next()) {
@@ -141,7 +141,7 @@ abstract class ADaoRead<TEntity> extends ADaoInit implements IDaoRead<TEntity> {
 			throw new RuntimeException(String.format(QUERY_NOT_FOUND, DaoQueries.GET_ALL.name()));
 		}
 		try {
-			statement = ConnectionUtils.get().getConnection().createStatement();
+			statement = ConnectionManager.getInstance().getConnection().createStatement();
 			resultSet = statement.executeQuery(query);
 			queryResult = new String[resultSet.getMetaData().getColumnCount()];
 			while (resultSet.next()) {

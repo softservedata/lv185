@@ -1,6 +1,7 @@
 package com.softserve.edu;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +15,9 @@ public class ApplJDBC {
     
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         System.out.println("Start...");
+        //Driver driver = new com.microsoft.sqlserver.jdbc.SQLServerDriver();
+        Driver driver = new com.mysql.jdbc.Driver();
+        System.out.println("driverName = " + driver.getClass().getName());
         ////DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
         ////DriverManager.registerDriver(new net.sourceforge.jtds.jdbc.Driver());
         //

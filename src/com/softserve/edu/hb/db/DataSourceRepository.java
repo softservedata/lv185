@@ -1,17 +1,12 @@
 package com.softserve.edu.hb.db;
 
-import java.sql.Driver;
-import java.sql.SQLException;
-
 public final class DataSourceRepository {
-	private final static String FAILED_JDBC_DRIVER = "Failed to Create JDBC Driver";
-	//
 	private static volatile DataSourceRepository instance = null;
 
 	private DataSourceRepository() {
 	}
 
-	public static DataSourceRepository get() {
+	public static DataSourceRepository getInstance() {
 		if (instance == null) {
 			synchronized (DataSourceRepository.class) {
 				if (instance == null) {
@@ -27,28 +22,19 @@ public final class DataSourceRepository {
 //				"jdbc:jtds:sqlserver://CLASS02/Lv185;instance=SQLEXPRESS;", "db185", "db185");
 //	}
 
-	// TODO Develop new class and move method
-	private Driver getJdbcDriverMySql() {
-		Driver jdbcDriver = null;
-		try {
-			jdbcDriver = new com.mysql.jdbc.Driver();
-		} catch (SQLException e) {
-			throw new RuntimeException(FAILED_JDBC_DRIVER, e);
-		}
-		return jdbcDriver;
-	}
-	
-	public DataSource getConnectorMySqlLocalHost() {
-		return new DataSource(getJdbcDriverMySql(), "jdbc:mysql://localhost:3306/lv185", "root", "root");
+	public DataSource getDefault() {
+		return new DataSource(JdbcDriverRepository.getInstance().getMySql(),
+				"jdbc:mysql://localhost:3306/lv185", "root", "root");
 	}
 
-	@Deprecated //TODO
-    public DataSource getConnectorMySqlByCVS() {
-		// TODO
-		String connectionUrl = null; //= DataSourceUtils.get().getConnectionUrl();
-		String username = null;
-		String password = null;
-		return new DataSource(getJdbcDriverMySql(), connectionUrl, username, password);
+	public DataSource getMySqlLocalHost() {
+		return new DataSource(JdbcDriverRepository.getInstance().getMySql(),
+				"jdbc:mysql://localhost:3306/lv185", "root", "root");
+	}
+
+    public DataSource getFirstConnectorByCVS() {
+		// TODO for List
+		return new DataSourceUtils().getAllDataSources().get(0);
     }
 
 	@Deprecated //TODO
@@ -57,7 +43,8 @@ public final class DataSourceRepository {
 		String connectionUrl = null; //= DataSourceUtils.get().getConnectionUrl();
 		String username = null;
 		String password = null;
-		return new DataSource(getJdbcDriverMySql(), connectionUrl, username, password);
+		return new DataSource(JdbcDriverRepository.getInstance().getMySql(),
+				connectionUrl, username, password);
     }
 
 }

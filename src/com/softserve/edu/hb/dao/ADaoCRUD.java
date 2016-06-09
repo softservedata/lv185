@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 
-import com.softserve.edu.hb.db.ConnectionUtils;
+import com.softserve.edu.hb.db.ConnectionManager;
 import com.softserve.edu.hb.entity.IEntity;
 
 abstract class ADaoCRUD<TEntity extends IEntity> extends ADaoRead<TEntity> implements IDaoCRUD<TEntity> {
@@ -26,7 +26,7 @@ abstract class ADaoCRUD<TEntity extends IEntity> extends ADaoRead<TEntity> imple
 			throw new RuntimeException(String.format(QUERY_NOT_FOUND, DaoQueries.INSERT.name()));
 		}
 		try {
-			statement = ConnectionUtils.get().getConnection().createStatement();
+			statement = ConnectionManager.getInstance().getConnection().createStatement();
 			// TODO CHECK!
 			result = statement.execute(String.format(query,
 					(Object[]) Arrays.copyOfRange(getFields(entity), 1, getFields(entity).length)));
@@ -56,7 +56,7 @@ abstract class ADaoCRUD<TEntity extends IEntity> extends ADaoRead<TEntity> imple
 			throw new RuntimeException(String.format(QUERY_NOT_FOUND, DaoQueries.UPDATE_BY_FIELD.name()));
 		}
 		try {
-			statement = ConnectionUtils.get().getConnection().createStatement();
+			statement = ConnectionManager.getInstance().getConnection().createStatement();
 			// TODO Use statement.executeUpdate
 			result = statement.execute(String.format(query, fieldName, text, fieldCondition, textCondition));
 		} catch (SQLException e) {
@@ -86,7 +86,7 @@ abstract class ADaoCRUD<TEntity extends IEntity> extends ADaoRead<TEntity> imple
 			throw new RuntimeException(String.format(QUERY_NOT_FOUND, DaoQueries.DELETE_BY_ID.name()));
 		}
 		try {
-			statement = ConnectionUtils.get().getConnection().createStatement();
+			statement = ConnectionManager.getInstance().getConnection().createStatement();
 			//System.out.println("DAO query: " + String.format(query, id));
 			result = statement.execute(String.format(query, id));
 			//System.out.println("DAO result : " + result);
@@ -115,7 +115,7 @@ abstract class ADaoCRUD<TEntity extends IEntity> extends ADaoRead<TEntity> imple
 			throw new RuntimeException(String.format(QUERY_NOT_FOUND, DaoQueries.DELETE_BY_FIELD.name()));
 		}
 		try {
-			statement = ConnectionUtils.get().getConnection().createStatement();
+			statement = ConnectionManager.getInstance().getConnection().createStatement();
 			result = statement.execute(String.format(query, fieldCondition, textCondition));
 		} catch (SQLException e) {
 			//throw new GeneralCustomException(DATABASE_READING_ERROR, e);
