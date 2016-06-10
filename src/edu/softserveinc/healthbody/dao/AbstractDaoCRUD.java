@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 
-import edu.softserveinc.healthbody.db.ConnectionManager;
+import edu.softserveinc.healthbody.db.ConnectionDb;
 import edu.softserveinc.healthbody.entity.IEntity;
 
 abstract class AbstractDaoCRUD<TEntity extends IEntity> extends AbstractDaoRead<TEntity> implements BasicCRUDDao<TEntity> {
@@ -16,11 +16,10 @@ abstract class AbstractDaoCRUD<TEntity extends IEntity> extends AbstractDaoRead<
 		super();
 	}
 	
-	protected abstract String[] getFields(TEntity entity);
 	
 	// private methods to make less duplication
 	private boolean executeStatement(String s) throws SQLException {
-		statement = ConnectionManager.getInstance().getConnection().createStatement();
+		statement = ConnectionDb.get().getConnection().createStatement();
 		return statement.execute(s);
 	}
 
@@ -116,5 +115,9 @@ abstract class AbstractDaoCRUD<TEntity extends IEntity> extends AbstractDaoRead<
 			}
 		}
 		return result;
+	}
+	
+	public boolean delete(TEntity entity) {
+		return deleteById(entity.getId());
 	}
 }

@@ -8,13 +8,15 @@ import java.util.HashMap;
 import java.util.List;
 
 import edu.softserveinc.healthbody.dao.BasicCRUDDao.DaoQueries;
-import edu.softserveinc.healthbody.db.ConnectionManager;
+import edu.softserveinc.healthbody.db.ConnectionDb;
+import edu.softserveinc.healthbody.entity.GroupDB;
+import edu.softserveinc.healthbody.entity.UserDB;
 
 abstract class ADaoInit {
 	protected abstract void init();
 }
 
-abstract class AbstractDaoRead<TEntity> implements BasicReadDao<TEntity>{
+abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao<TEntity>{
 	protected final static String QUERY_NOT_FOUND = "Query not found %s";
 	protected final static String EMPTY_RESULTSET = "Empty ResultSet by Query %s";
 	protected final static String DATABASE_READING_ERROR = "Database Reading Error";
@@ -31,10 +33,12 @@ abstract class AbstractDaoRead<TEntity> implements BasicReadDao<TEntity>{
 	}
 	
 	protected abstract TEntity createInstance(String[] args);
+	
+	protected abstract String[] getFields(TEntity entity);
 
 	//executing query
 	private String[] executeQueryStatement(String s) throws SQLException {
-		statement = ConnectionManager.getInstance().getConnection().createStatement();
+		statement = ConnectionDb.get().getConnection().createStatement();
 		resultSet = statement.executeQuery(s);
 		return new String[resultSet.getMetaData().getColumnCount()];
 	}
@@ -132,12 +136,6 @@ abstract class AbstractDaoRead<TEntity> implements BasicReadDao<TEntity>{
 		try {
 			queryResult = executeQueryStatement(query);
 			all.add(createInstance(getQueryResultArr(queryResult)));
-//			while (resultSet.next()) {
-//				for (i = 0; i < queryResult.length; i++) {
-//					queryResult[i] = resultSet.getString(i + 1);
-//				}
-//				all.add(createInstance(queryResult));
-//			}
 		} catch (SQLException e) {
 			throw new RuntimeException(DATABASE_READING_ERROR, e);
 		} finally {
@@ -160,6 +158,22 @@ abstract class AbstractDaoRead<TEntity> implements BasicReadDao<TEntity>{
 			throw new RuntimeException(String.format(EMPTY_RESULTSET, query));
 		}
 		return all;
+	}
+	
+	public String getIdByTwoEntities(String idFirstEntity, String idSecondEntity){
+		String id = null;
+		String query = sqlQueries.get(DaoQueries.GET_ID_BY_FIELDS).toString();
+		if (query == null) {
+			throw new RuntimeException(String.format(QUERY_NOT_FOUND, DaoQueries.GET_ID_BY_FIELDS.name()));
+		}
+		try {
+			queryResult = executeQueryStatement(String.format(query, idFirstEntity, idSecondEntity));			
+			id = getFields(createInstance(getQueryResultArr(queryResult)))[0];			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return id;
 	}
 
 }
