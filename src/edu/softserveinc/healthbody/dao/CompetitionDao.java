@@ -1,21 +1,21 @@
-package com.softserve.edu.hb.dao;
+package edu.softserveinc.healthbody.dao;
 
-import com.softserve.edu.hb.entity.CompetitionsDB;
-import com.softserve.edu.hb.entity.CompetitionsDB.CompetitionsDBQueries;
+import edu.softserveinc.healthbody.entity.CompetitionDB;
+import edu.softserveinc.healthbody.entity.CompetitionDB.CompetitionDBQueries;
 
-public final class CompetitionsDao extends ADaoCRUD<CompetitionsDB> {
-	private static volatile CompetitionsDao instance = null;
+public final class CompetitionDao extends AbstractDaoCRUD<CompetitionDB> {
+	private static volatile CompetitionDao instance = null;
 
-	private CompetitionsDao() {
+	private CompetitionDao() {
 		super();
 		init();
 	}
 
-	public static CompetitionsDao get() {
+	public static CompetitionDao get() {
 		if (instance == null) {
-			synchronized (CompetitionsDao.class) {
+			synchronized (CompetitionDao.class) {
 				if (instance == null) {
-					instance = new CompetitionsDao();
+					instance = new CompetitionDao();
 				}
 			}
 		}
@@ -24,13 +24,13 @@ public final class CompetitionsDao extends ADaoCRUD<CompetitionsDB> {
 
 	// TODO Create abstract method in ADao
 	protected void init() {
-		for (CompetitionsDBQueries competitionsDBQueries : CompetitionsDBQueries.values()) {
-			sqlQueries.put(competitionsDBQueries.getDaoQuery(), competitionsDBQueries);
+		for (CompetitionDBQueries competitionDBQueries : CompetitionDBQueries.values()) {
+			sqlQueries.put(competitionDBQueries.getDaoQuery(), competitionDBQueries);
 		}
 	}
 
-	protected CompetitionsDB createInstance(String[] args) {
-		return new CompetitionsDB(
+	protected CompetitionDB createInstance(String[] args) {
+		return new CompetitionDB(
 			Integer.parseInt(args[0] == null ? "0" : args[0]),
 			args[1] == null ? new String() : args[1],
 			args[2] == null ? new String() : args[2],
@@ -39,7 +39,7 @@ public final class CompetitionsDao extends ADaoCRUD<CompetitionsDB> {
 			Integer.parseInt(args[5] == null ? "0" : args[5]));
 	}
 
-	protected String[] getFields(CompetitionsDB entity) {
+	protected String[] getFields(CompetitionDB entity) {
 		//String[] fields = new String[UserDB.class.getDeclaredFields().length];
 		String[] fields = new String[6];
 		fields[0] = entity.getId_competitions().toString();
@@ -51,7 +51,7 @@ public final class CompetitionsDao extends ADaoCRUD<CompetitionsDB> {
 		return fields;
 	}
 
-	//	public CompetitionsDB getCompetitionsDBByLogin(String login) {
+	//	public CompetitionDB getCompetitionsDBByLogin(String login) {
 	//		return getByFieldName("Login", login).get(0);
 	//	}
 
