@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import edu.softserveinc.healthbody.dao.BasicCRUDDao.DaoQueries;
-import edu.softserveinc.healthbody.db.ConnectionDb;
+import edu.softserveinc.healthbody.db.ConnectionManager;
 
 abstract class ADaoInit {
 	protected abstract void init();
@@ -34,7 +34,7 @@ abstract class AbstractDaoRead<TEntity> implements BasicReadDao<TEntity>{
 
 	//executing query
 	private String[] executeQueryStatement(String s) throws SQLException {
-		statement = ConnectionDb.get().getConnection().createStatement();
+		statement = ConnectionManager.getInstance().getConnection().createStatement();
 		resultSet = statement.executeQuery(s);
 		return new String[resultSet.getMetaData().getColumnCount()];
 	}

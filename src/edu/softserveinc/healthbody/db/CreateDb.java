@@ -11,7 +11,7 @@ public class CreateDb {
 	{
 
 		try {
-			connection = ConnectionDb.get().getConnection();
+			connection = ConnectionManager.getInstance().getConnection();
 			statement = connection.createStatement();
 			String sql = "CREATE DATA BASE healthbody";
 			statement.executeUpdate(sql);

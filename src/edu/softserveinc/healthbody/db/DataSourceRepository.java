@@ -2,7 +2,6 @@ package edu.softserveinc.healthbody.db;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Properties;
 
 public class DataSourceRepository {
@@ -15,7 +14,7 @@ public class DataSourceRepository {
 
 	}
 	
-	public static DataSourceRepository get() {
+	public static DataSourceRepository getInstance() {
 		if(instance == null) {
 			synchronized (DataSourceRepository.class) {
 				if(instance == null) {
@@ -26,13 +25,13 @@ public class DataSourceRepository {
 		return instance;
 	}
 	
-	public DataSource getConnectionPostgresLocalHost() throws SQLException {
+	public DataSource getPostgresLocalHost() {
 		try {
 			in = new FileInputStream("resources/database.properties");
 			props.load(in);
 		} catch (IOException e) {
 			e.getMessage();
 		}
-		return new DataSource(DriverRepository.getJdbcDriverPostgres(),  props.getProperty("db.url") , props.getProperty("db.user"), props.getProperty("db.password"));
+		return new DataSource(DriverRepository.getInstance().getPostgresDriver(),  props.getProperty("db.url") , props.getProperty("db.user"), props.getProperty("db.password"));
 	}
 }

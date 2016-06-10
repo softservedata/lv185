@@ -31,25 +31,25 @@ public class UserDB implements IEntity {
 		
 	}
 
-	public Integer id_user;
-	public String login;
-	public String passwd;
-	public String firsName;
-	public String lastName;
-	public String mail;
-	public String gender;
-	public Integer weight;
-	public Integer age;
-	public String googleApi;
-	public String health;
-	public String avatar;
-	public String status;
-	public Integer id_role;
+	private Integer idUser;
+	private String login;
+	private String passwd;
+	private String firsName;
+	private String lastName;
+	private String mail;
+	private String gender;
+	private Integer weight;
+	private Integer age;
+	private String googleApi;
+	private String health;
+	private String avatar;
+	private String status;
+	private Integer idRole;
 
-	public UserDB(Integer id_user, String login, String passwd, String firsName, String lastName, String gender,
-			Integer weight, Integer age, Integer id_role) {
+	public UserDB(Integer idUser, String login, String passwd, String firsName, String lastName, String gender,
+			Integer weight, Integer age, Integer idRole) {
 		super();
-		this.id_user = id_user;
+		this.idUser = idUser;
 		this.login = login;
 		this.passwd = passwd;
 		this.firsName = firsName;
@@ -57,18 +57,18 @@ public class UserDB implements IEntity {
 		this.gender = gender;
 		this.weight = weight;
 		this.age = age;
-		this.id_role = id_role;
+		this.idRole = idRole;
 	}
 
 	@Override
 	public Integer getId() {
 
-		return id_user;
+		return idUser;
 	}
 
 	// setters
-	public void setIdUser(Integer id_user) {
-		this.id_user = id_user;
+	public void setIdUser(Integer idUser) {
+		this.idUser = idUser;
 	}
 
 	public void setLogin(String login) {
@@ -119,8 +119,8 @@ public class UserDB implements IEntity {
 		this.status = status;
 	}
 
-	public void setIdRole(Integer id_role) {
-		this.id_role = id_role;
+	public void setIdRole(Integer idRole) {
+		this.idRole = idRole;
 	}
 
 	// getters
@@ -177,7 +177,7 @@ public class UserDB implements IEntity {
 	}
 
 	public Integer getIdRole() {
-		return id_role;
+		return idRole;
 	}
 
 }
