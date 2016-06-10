@@ -4,6 +4,8 @@ import com.softserve.edu.hb.entity.UserDB;
 import com.softserve.edu.hb.entity.UserDB.UserDBQueries;
 
 public final class UserDao extends ADaoCRUD<UserDB> {
+	private final static String LOGIN_FIELDNAME = "Login";
+	//
 	private static volatile UserDao instance = null;
 
 	private UserDao() {
@@ -48,7 +50,7 @@ public final class UserDao extends ADaoCRUD<UserDB> {
 	}
 
 	public UserDB getUserDBByLogin(String login) {
-		return getByFieldName("Login", login).get(0);
+		return getByFieldName(LOGIN_FIELDNAME, login).get(0);
 	}
 
 	// TODO DELETE Method

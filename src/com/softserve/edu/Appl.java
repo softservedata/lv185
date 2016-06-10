@@ -9,7 +9,8 @@ public class Appl {
 	
 	public static void main(String[] args) {
 		//ConnectionManager.getInstance(DataSourceRepository.getInstance().getMySqlLocalHost());
-		ConnectionManager.getInstance(DataSourceRepository.getInstance().getFirstConnectorByCVS());
+		//ConnectionManager.getInstance(DataSourceRepository.getInstance().getFirstConnectorByCVS());
+		ConnectionManager.getInstance(DataSourceRepository.getInstance().getConnectorByProperties());
 		for (UserDTO userDTO : UserUIService.get().getAllUsers()) {
 		//for (UserDTO userDTO : UserUIService.get().getUsersByRole("manager")) {
 			System.out.println("Login = " + userDTO.getLoginUser()

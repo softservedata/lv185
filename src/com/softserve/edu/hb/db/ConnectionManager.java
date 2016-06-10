@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 public class ConnectionManager {
 	private final static String FAILED_REGISTRATE_DRIVER = "Failed to Registrate JDBC Driver";
+	private final static String FAILED_CREATE_CONNECTION = "Failed to Create Connection";
+	private final static String FAILED_CLOSE_CONNECTION = "Failed to Close Connection";
 	//
 	private static volatile ConnectionManager instance = null;
 	//
@@ -86,9 +88,9 @@ public class ConnectionManager {
 		if (connection == null) {
 			try {
 				connection = DriverManager.getConnection(getDataSource().getConnectionUrl(),
-						dataSource.getUsername(), dataSource.getPassword());
+						getDataSource().getUsername(), getDataSource().getPassword());
 			} catch (SQLException e) {
-				throw new RuntimeException(FAILED_REGISTRATE_DRIVER, e);
+				throw new RuntimeException(FAILED_CREATE_CONNECTION, e);
 			}
 			addConnection(connection);
 		}
@@ -102,7 +104,7 @@ public class ConnectionManager {
 					try {
 						instance.getAllConnections().get(key).close();
 					} catch (SQLException e) {
-						throw new RuntimeException(FAILED_REGISTRATE_DRIVER, e);
+						throw new RuntimeException(FAILED_CLOSE_CONNECTION, e);
 					}
 					instance.getAllConnections().put(key, null);
 				}

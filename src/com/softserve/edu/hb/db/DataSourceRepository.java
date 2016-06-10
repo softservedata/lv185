@@ -37,14 +37,8 @@ public final class DataSourceRepository {
 		return new DataSourceUtils().getAllDataSources().get(0);
     }
 
-	@Deprecated //TODO
-    public DataSource getConnectorMySqlByProperties() {
-		// TODO
-		String connectionUrl = null; //= DataSourceUtils.get().getConnectionUrl();
-		String username = null;
-		String password = null;
-		return new DataSource(JdbcDriverRepository.getInstance().getMySql(),
-				connectionUrl, username, password);
+    public DataSource getConnectorByProperties() {
+		return new DataSourcePropertiesUtil().getDataSource();
     }
 
 }
