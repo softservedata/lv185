@@ -6,6 +6,7 @@ public interface BasicCRUDDao<TEntity> extends BasicReadDao<TEntity> {
 		INSERT,
 		GET_BY_ID,
 		GET_BY_FIELD,
+		GET_ID_BY_FIELDS,
 		GET_ALL,
 		UPDATE_BY_FIELD,
 		DELETE_BY_ID,
