@@ -5,7 +5,7 @@ import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
 public class Group implements IEntity {
 	
 	public static enum GroupDBQueries {
-		INSERT(DaoQueries.INSERT, "INSERT INTO groups (name, description, status) VALUES ('%s', '%s', '%s');"),
+		INSERT(DaoQueries.INSERT, "INSERT INTO groups (name, description, status) VALUES (?, ?, ?);"),
 		GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT * FROM groups WHERE id_group = ?;"),
 		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT * FROM groups WHERE ? = ?;"),
 		GET_ALL(DaoQueries.GET_ALL, "SELECT * FROM contests;"),

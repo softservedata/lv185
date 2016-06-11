@@ -5,7 +5,7 @@ import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
 public class User implements IEntity {
 	
 	public static enum UserDBQueries {
-        INSERT(DaoQueries.INSERT, "INSERT INTO users (id_role, login, passwd, firstname, lastname, age, weight, gender) VALUES (%s, '%s', '%s','%s', '%s','%s', '%s','%s');"),
+        INSERT(DaoQueries.INSERT, "INSERT INTO users (id_role, login, passwd, firstname, lastname, age, weight, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"),
         GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT * FROM users WHERE id_user = ?;"),
         GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT * FROM users WHERE ? = ?;"),
         GET_ALL(DaoQueries.GET_ALL, "SELECT * FROM users;"),
