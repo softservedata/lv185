@@ -2,7 +2,7 @@ package edu.softserveinc.healthbody.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
+//import java.sql.Statement;
 import java.util.Arrays;
 
 import edu.softserveinc.healthbody.db.ConnectionManager;
@@ -19,12 +19,12 @@ abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEnt
 
 	protected abstract String[] getFields(TEntity entity);
 	
-	private boolean executeStatement(String s) throws SQLException, JDBCDriverException {
-				try (Statement statement = ConnectionManager.getInstance().getConnection().createStatement()) {
-		
-					return statement.execute(s);
-				}
-			}
+//	private boolean executeStatement(String s) throws SQLException, JDBCDriverException {
+//				try (Statement statement = ConnectionManager.getInstance().getConnection().createStatement()) {
+//		
+//					return statement.execute(s);
+//				}
+//			}
 		
 
 	// create
@@ -34,12 +34,21 @@ abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEnt
 		if (query == null) {
 			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.INSERT.name()));
 		}
-		try {
-			result = executeStatement(String.format(query,
-					(Object[]) Arrays.copyOfRange(getFields(entity), 1, getFields(entity).length)));
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
+			String[] fields = Arrays.copyOfRange(getFields(entity), 1, getFields(entity).length);
+			for (int i = 0; i < fields.length; i++) {
+				pst.setString(i + 1, fields[i]);
+			}
+			pst.execute();
 		} catch (SQLException e) {
 			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
 		}
+//		try {
+//			result = executeStatement(String.format(query,
+//					(Object[]) Arrays.copyOfRange(getFields(entity), 1, getFields(entity).length)));
+//		} catch (SQLException e) {
+//			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+//		}
 		return result;
 	}
 
