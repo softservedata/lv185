@@ -2,6 +2,7 @@ package edu.softserveinc.healthbody.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 
 import edu.softserveinc.healthbody.db.ConnectionManager;
@@ -17,6 +18,14 @@ abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEnt
 	}
 
 	protected abstract String[] getFields(TEntity entity);
+	
+	private boolean executeStatement(String s) throws SQLException, JDBCDriverException {
+				try (Statement statement = ConnectionManager.getInstance().getConnection().createStatement()) {
+		
+					return statement.execute(s);
+				}
+			}
+		
 
 	// create
 	public boolean insert(TEntity entity) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException {
