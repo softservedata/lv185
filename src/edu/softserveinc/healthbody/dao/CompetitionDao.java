@@ -3,7 +3,7 @@ package edu.softserveinc.healthbody.dao;
 import edu.softserveinc.healthbody.entity.CompetitionDB;
 import edu.softserveinc.healthbody.entity.CompetitionDB.CompetitionDBQueries;
 
-public final class CompetitionDao extends AbstractDaoCRUD<CompetitionDB> {
+public final class CompetitionDao extends AbstractDao<CompetitionDB> {
 	private static volatile CompetitionDao instance = null;
 
 	private CompetitionDao() {

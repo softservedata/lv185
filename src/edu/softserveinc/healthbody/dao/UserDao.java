@@ -4,8 +4,12 @@ import java.lang.reflect.Field;
 
 import edu.softserveinc.healthbody.entity.UserDB;
 import edu.softserveinc.healthbody.entity.UserDB.UserDBQueries;
+import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
+import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
+import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
+import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 
-public final class UserDao extends AbstractDaoCRUD<UserDB> {
+public final class UserDao extends AbstractDao<UserDB> {
 	private static volatile UserDao instance = null;
 
 	private UserDao() {
@@ -44,21 +48,6 @@ public final class UserDao extends AbstractDaoCRUD<UserDB> {
 			}
 			
 		}
-//		for (int i = 1; i < fields.length; i++) {
-//			if (fields[i] instanceof String) {
-//				if (fields[i] == null) {
-//					fields[i] = new String();
-//				} else {
-//					fields[i] = fields[i];
-//				}
-//			} else {
-//				if (fields[0] == null) {
-//					Integer.parseInt(fields[i] = "0");
-//				} else {
-//					Integer.parseInt(fields[i] = fields[i]);
-//				}
-//			}
-//		}
 		return fields;
 	}
 
@@ -72,7 +61,7 @@ public final class UserDao extends AbstractDaoCRUD<UserDB> {
 				Integer.parseInt(args[8] == null ? "0" : args[1]));
 	}
 
-	public UserDB getUserDBByLogin(String login) {
+	public UserDB getUserDBByLogin(String login) throws JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException {
 		return getByField("Login", login).get(0);
 	}
 }

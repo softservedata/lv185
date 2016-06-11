@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
+
 public class CreateDb {
 
 	Connection connection = null;
@@ -15,8 +17,12 @@ public class CreateDb {
 			statement = connection.createStatement();
 			String sql = "CREATE DATA BASE healthbody";
 			statement.executeUpdate(sql);
+		} catch (JDBCDriverException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (SQLException e) {
-			e.getMessage();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

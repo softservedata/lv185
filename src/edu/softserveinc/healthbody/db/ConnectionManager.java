@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
+
 public class ConnectionManager {
 	private final static String FAILED_REGISTRATE_DRIVER = "Failed to Registrate JDBC Driver";
 
@@ -20,7 +22,7 @@ public class ConnectionManager {
 	public static ConnectionManager getInstance() {
 		return instance;
 	}
-	public static ConnectionManager getInstance(DataSource dataSource) {
+	public static ConnectionManager getInstance(DataSource dataSource) throws JDBCDriverException {
 		if (instance == null) {
 			synchronized (ConnectionManager.class) {
 				if (instance == null) {
@@ -39,7 +41,7 @@ public class ConnectionManager {
 	 * 			not null		null				save dataSource
 	 * 			not null		not null			if equals then nothing 
 	 */
-	private void checkStatus(DataSource dataSource) {
+	private void checkStatus(DataSource dataSource) throws JDBCDriverException {
 		if(dataSource == null) {
 			if(getDataSource() == null) {
 				setDataSource(DataSourceRepository.getInstance().getPostgresLocalHost());
@@ -54,7 +56,7 @@ public class ConnectionManager {
 		return dataSource;
 	}
 
-	private void setDataSource(DataSource dataSource) {
+	private void setDataSource(DataSource dataSource) throws JDBCDriverException {
 		synchronized (ConnectionManager.class) {
 		this.dataSource = dataSource;
 		registerDriver();
@@ -62,11 +64,11 @@ public class ConnectionManager {
 		}
 	}
 
-	private void registerDriver() {
+	private void registerDriver() throws JDBCDriverException {
 		try {
 			DriverManager.registerDriver(getDataSource().getJdbcDriver());
 		} catch (SQLException e) {
-			throw new RuntimeException(FAILED_REGISTRATE_DRIVER, e);
+			throw new JDBCDriverException(FAILED_REGISTRATE_DRIVER, e);
 		}
 		
 	}
@@ -79,7 +81,7 @@ public class ConnectionManager {
 		getAllConections().put(Thread.currentThread().getId(), connection);
 	}
 
-	public Connection getConnection() {
+	public Connection getConnection() throws JDBCDriverException {
 		Connection connection = getAllConections().get(Thread.currentThread().getId());
 		if (connection == null) {
 			try {
@@ -88,21 +90,21 @@ public class ConnectionManager {
 				connection = DriverManager.getConnection(dataSource.getConnectionUrl(), dataSource.getUser(),
 						dataSource.getPasswrd());
 			} catch (SQLException e) {
-				throw new RuntimeException(FAILED_REGISTRATE_DRIVER, e);
+				throw new JDBCDriverException(FAILED_REGISTRATE_DRIVER, e);
 			}
 			addConnection(connection);
 		}
 		return connection;
 	}
 
-	public static void closeAllConnections() {
+	public static void closeAllConnections() throws JDBCDriverException {
 			if (instance != null) {
 				for(Long key: instance.getAllConections().keySet()) {
 					if(instance.getAllConections().get(key)!=null) {
 						try {
 							instance.getAllConections().get(key).close();
 						} catch (SQLException e) {
-							throw new RuntimeException(FAILED_REGISTRATE_DRIVER, e);
+							throw new JDBCDriverException(FAILED_REGISTRATE_DRIVER, e);
 						}
 						instance.getAllConections().put(key, null);
 					}

@@ -1,5 +1,9 @@
 package edu.softserveinc.healthbody.dao;
 
+import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
+import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
+import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
+
 public interface BasicCRUDDao<TEntity> extends BasicReadDao<TEntity> {
 	
 	public static enum DaoQueries {
@@ -13,11 +17,11 @@ public interface BasicCRUDDao<TEntity> extends BasicReadDao<TEntity> {
 		DELETE_BY_FIELD;
 	}
 	
-	boolean insert(TEntity entity);
+	boolean insert(TEntity entity) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException;
 	
-	boolean updateByField(String fieldName, String text, String fieldCondition, String textCondition);
+	boolean updateByField(String fieldName, String text, String fieldCondition, String textCondition) throws JDBCDriverException, DataBaseReadingException;
 	
-	boolean deleteById(Integer id);
+	boolean deleteById(Integer id) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException;
 	
-	boolean deleteByField(String fieldCondition, String textCondition);
+	boolean deleteByField(String fieldCondition, String textCondition) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException;
 }

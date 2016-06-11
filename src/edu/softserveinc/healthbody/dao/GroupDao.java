@@ -1,15 +1,16 @@
 package edu.softserveinc.healthbody.dao;
 
 import java.lang.reflect.Field;
-import java.util.HashSet;
 import java.util.List;
 
 import edu.softserveinc.healthbody.entity.GroupDB;
-import edu.softserveinc.healthbody.entity.UserDB;
-import edu.softserveinc.healthbody.entity.UserGroupViewDB;
+import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
+import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
+import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
+import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.entity.GroupDB.GroupDBQueries;
 
-public final class GroupDao extends AbstractDaoCRUD<GroupDB> {
+public final class GroupDao extends AbstractDao<GroupDB> {
 	
 	private static volatile GroupDao instance = null;
 
@@ -59,11 +60,11 @@ public final class GroupDao extends AbstractDaoCRUD<GroupDB> {
 			return fields;
 		}
 		
-		public boolean createGroup(GroupDB group){
+		public boolean createGroup(GroupDB group) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException{
 			return insert(group);
 		}
 		
-		public boolean editGroup(GroupDB group, String id, String name, String description, String status){
+		public boolean editGroup(GroupDB group, String id, String name, String description, String status) throws JDBCDriverException, DataBaseReadingException{
 			String[] fields = getFields(group);	
 			boolean result = false;
 			updateByField(fields[0], id, fields[1]	, name);
@@ -75,11 +76,11 @@ public final class GroupDao extends AbstractDaoCRUD<GroupDB> {
 			return result;
 		}
 		
-		public boolean deleteGroup(GroupDB group){
+		public boolean deleteGroup(GroupDB group) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException{
 			return delete(group);
 		}
 		
-		public List<GroupDB> view(){
+		public List<GroupDB> view() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException{
 			return getAll();
 		}
 		
