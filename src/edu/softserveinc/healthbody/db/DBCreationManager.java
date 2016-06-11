@@ -6,7 +6,7 @@ import java.sql.Statement;
 public class DBCreationManager {
 	
 	public static enum TableQueries {    
-		USERS_TABEL ("CREATE TABLE \"Users\"("
+		USERS_TABLE ("CREATE TABLE \"Users\"("
 					  +"id_user integer NOT NULL DEFAULT nextval(\'\"Users_id_seq\"\'::regclass),"
 					  +"login character varying(50),"
 					  +"password character varying(25),"
@@ -25,13 +25,13 @@ public class DBCreationManager {
 					  +"CONSTRAINT fk_role_id FOREIGN KEY (id_role)"
 					  +"REFERENCES \"Role\" (id_role)) MATCH SIMPLE"
 					  +"ON UPDATE NO ACTION ON DELETE NO ACTION"),
-		GROUPS_TABEL ("CREATE TABLE \"Groups\"("
+		GROUPS_TABLE ("CREATE TABLE \"Groups\"("
 					  +"id_group integer NOT NULL DEFAULT nextval(\'\"Groups_id_seq\"\'::regclass),"
 					  +"name character varying(50),"
 					  +"description text,"
 					  +"status character varying,"
 					  +"CONSTRAINT pk_groups_id PRIMARY KEY (id_group))"),
-		COMPETION_TABEL ("CREATE TABLE \"Competition\"("
+		COMPETION_TABLE ("CREATE TABLE \"Competition\"("
 					  +"id_competition integer NOT NULL DEFAULT nextval(\'\"Contest_id_seq\"\'::regclass),"
 					  +"name character varying(50),"
 					  +"description text,"
@@ -39,7 +39,7 @@ public class DBCreationManager {
 					  +"end date,"
 					  +"id_criterias bigint,"
 					  +"CONSTRAINT pk_contest_id PRIMARY KEY (id_competition))"),
-		USER_GROUP_TABEL ("CREATE TABLE \"UsersGroups\"("
+		USER_GROUP_TABLE ("CREATE TABLE \"UsersGroups\"("
 					  +"id_user_group integer NOT NULL DEFAULT nextval(\'\"UsersGroups_id_seq\"\'::regclass),"
 					  +"id_user bigint,"
 					  +"id_group bigint,"
@@ -69,7 +69,7 @@ public class DBCreationManager {
     private DBCreationManager() {
     }
 
-    public static DBCreationManager get() {
+    public static DBCreationManager getInstance() {
         if (instance == null) {
             synchronized (DBCreationManager.class) {
                 if (instance == null) {
@@ -80,12 +80,11 @@ public class DBCreationManager {
         return instance;
     }
     
-    public boolean createSchema(Statement statement) throws SQLException{
+    public boolean createDatabase(Statement statement) throws SQLException{
     	boolean result = false;
-    	result = statement.execute("CREATE SCHEMA /'healthybodydb/'");
+    	result = statement.execute("CREATE DATABASE healthbodydb WITH ENCODING='UTF8' CONNECTION LIMIT=-1;");
     	return result;
     }
-    
     
     public boolean createTable(Statement statement, TableQueries tableQuery) throws SQLException{
     	boolean result = false;
