@@ -59,7 +59,7 @@ public final class GroupDao extends AbstractDao<Group> {
 			return insert(group);
 		}
 		
-		public boolean editGroup(Group group, String id, String name, String description, String status) throws JDBCDriverException, DataBaseReadingException{
+		public boolean editGroup(Group group, String id, String name, String description, String status) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException{
 			String[] fields = getFields(group);	
 			boolean result = false;
 			updateByField(fields[0], id, fields[1]	, name);

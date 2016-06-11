@@ -36,12 +36,12 @@ abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEnt
 
 	// update
 	@Override
-	public boolean updateByField(String fieldName, String text, String fieldCondition, String textCondition)
-			throws JDBCDriverException, DataBaseReadingException {
+	public boolean updateByField(String fieldName, String text, String fieldCondition, String textCondition) 
+			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException {
 		boolean result = false;
 		String query = sqlQueries.get(DaoQueries.UPDATE_BY_FIELD).toString();
 		if (query == null) {
-			throw new RuntimeException(String.format(QUERY_NOT_FOUND, DaoQueries.UPDATE_BY_FIELD.name()));
+			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.UPDATE_BY_FIELD.name()));
 		}
 		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 			pst.setString(1, fieldName);

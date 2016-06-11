@@ -19,7 +19,7 @@ public interface BasicDao<TEntity> extends BasicReadDao<TEntity> {
 	
 	boolean insert(TEntity entity) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException;
 	
-	boolean updateByField(String fieldName, String text, String fieldCondition, String textCondition) throws JDBCDriverException, DataBaseReadingException;
+	boolean updateByField(String fieldName, String text, String fieldCondition, String textCondition) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException;
 	
 	boolean deleteById(Integer id) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException;
 	
