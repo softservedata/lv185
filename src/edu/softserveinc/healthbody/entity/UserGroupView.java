@@ -21,11 +21,11 @@ public class UserGroupView implements IEntity{
 	    }
 
 		public static enum UserGroupViewQueries {
-	        GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT users.id_user, users.login, roles.name FROM users INNER JOIN roles ON users.id_role = roles.id_role WHERE users.id_user = %s;"),
-	        GET_ID_BY_FIELDS(DaoQueries.GET_ID_BY_FIELDS, "SELECT usersgroups.id_user_group FROM usersgroups, users, groups WHERE usersgroups.id_user = %s AND "
-						 																										+"usersgroups.id_group = %s;"),		
+	        GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT users.id_user, users.login, roles.name FROM users INNER JOIN roles ON users.id_role = roles.id_role WHERE users.id_user = ?;"),
+	        GET_ID_BY_FIELDS(DaoQueries.GET_ID_BY_FIELDS, "SELECT usersgroups.id_user_group FROM usersgroups, users, groups WHERE usersgroups.id_user = ? AND "
+						 																										+"usersgroups.id_group = ?;"),		
 //	        											  "SELECT usersgroups.id_user_group FROM usersgroup INNER JOIN users ON usersgroups.id_user = %s INNER JOIN groups ON usersgroups.id_group = %s;"),
-	        UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE usersgroup SET %s = '%s' WHERE %s = '%s';"),
+	        UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE usersgroup SET ? = ? WHERE ? = ?;"),
 	        GET_ALL(DaoQueries.GET_ALL, "SELECT users.id_user, users.login, roles.name FROM users INNER JOIN roles ON users.id_role = roles.id_role;");
 	        private DaoQueries daoQuery;
 	        private String query;

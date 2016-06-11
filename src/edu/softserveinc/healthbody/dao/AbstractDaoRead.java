@@ -1,8 +1,8 @@
 package edu.softserveinc.healthbody.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,14 +54,17 @@ abstract class AbstractDaoRead<TEntity> implements BasicReadDao<TEntity> {
 		if (query == null) {
 			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.GET_BY_ID.name()));
 		}
-		try (Statement pst = ConnectionManager.getInstance().getConnection().createStatement();
-				ResultSet resultSet = pst.executeQuery(String.format(query, id))) {
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
+			pst.setInt(1, id);
+			try (ResultSet resultSet = pst.executeQuery()) {
 			queryResult = new String[resultSet.getMetaData().getColumnCount()];
 			entity = createInstance(getQueryResultArr(queryResult));
-		} catch (SQLException e) {
-			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
-
+			} 
 		}
+		catch (SQLException e) {
+			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+		}
+		 
 		return entity;
 	}
 
@@ -72,11 +75,15 @@ abstract class AbstractDaoRead<TEntity> implements BasicReadDao<TEntity> {
 		if (query == null) {
 			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.GET_BY_FIELD.name()));
 		}
-		try (Statement pst = ConnectionManager.getInstance().getConnection().createStatement();
-				ResultSet resultSet = pst.executeQuery(String.format(query, fieldname, text))) {
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
+				pst.setString(1, fieldname);
+				pst.setString(2, text);
+			try (ResultSet resultSet = pst.executeQuery()) {
 			queryResult = new String[resultSet.getMetaData().getColumnCount()];
 			all.add(createInstance(getQueryResultArr(queryResult)));
-		} catch (SQLException e) {
+			} 
+		}
+		catch (SQLException e) {
 
 			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
 		}
@@ -93,8 +100,8 @@ abstract class AbstractDaoRead<TEntity> implements BasicReadDao<TEntity> {
 		if (query == null) {
 			throw new RuntimeException(String.format(QUERY_NOT_FOUND, DaoQueries.GET_ALL.name()));
 		}
-		try (Statement pst = ConnectionManager.getInstance().getConnection().createStatement();
-				ResultSet resultSet = pst.executeQuery(String.format(query))) {
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query);			
+			ResultSet resultSet = pst.executeQuery()) {
 			queryResult = new String[resultSet.getMetaData().getColumnCount()];
 			all.add(createInstance(getQueryResultArr(queryResult)));
 		} catch (SQLException e) {
@@ -111,11 +118,15 @@ abstract class AbstractDaoRead<TEntity> implements BasicReadDao<TEntity> {
 		if (query == null) {
 			throw new RuntimeException(String.format(QUERY_NOT_FOUND, DaoQueries.GET_ID_BY_FIELDS.name()));
 		}
-		try (Statement pst = ConnectionManager.getInstance().getConnection().createStatement();
-				ResultSet resultSet = pst.executeQuery(String.format(query, idFirstEntity, idSecondEntity))) {
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
+			pst.setString(1, idFirstEntity);
+			pst.setString(2, idSecondEntity);
+			try (ResultSet resultSet = pst.executeQuery()) {
 			queryResult = new String[resultSet.getMetaData().getColumnCount()];			
 			id = getFields(createInstance(getQueryResultArr(queryResult)))[0];			
-		} catch (SQLException e) {
+			} 
+		}
+		catch (SQLException e) {
 			throw new EmptyResultSetException(DATABASE_READING_ERROR, e);
 		}
 		

@@ -6,12 +6,12 @@ public class User implements IEntity {
 	
 	public static enum UserDBQueries {
         INSERT(DaoQueries.INSERT, "INSERT INTO users (id_role, login, passwd, firstname, lastname, age, weight, gender) VALUES (%s, '%s', '%s','%s', '%s','%s', '%s','%s');"),
-        GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT * FROM users WHERE id_user = %s;"),
-        GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT * FROM users WHERE %s = '%s';"),
+        GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT * FROM users WHERE id_user = ?;"),
+        GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT * FROM users WHERE ? = ?;"),
         GET_ALL(DaoQueries.GET_ALL, "SELECT * FROM users;"),
-        UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE users SET %s = '%s' WHERE %s = '%s';"),
-        DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE users WHERE id_user = %s;"),
-        DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE users WHERE %s = '%s';");
+        UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE users SET ? = ? WHERE ? = ?;"),
+        DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE users WHERE id_user = ?;"),
+        DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE users WHERE %s = ?;");
 		
 		private DaoQueries daoQuery;
 		private String query;

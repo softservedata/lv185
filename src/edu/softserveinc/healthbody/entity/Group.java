@@ -6,12 +6,12 @@ public class Group implements IEntity {
 	
 	public static enum GroupDBQueries {
 		INSERT(DaoQueries.INSERT, "INSERT INTO groups (name, description, status) VALUES ('%s', '%s', '%s');"),
-		GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT * FROM groups WHERE id_group = %s;"),
-		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT * FROM groups WHERE %s = '%s';"),
+		GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT * FROM groups WHERE id_group = ?;"),
+		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT * FROM groups WHERE ? = ?;"),
 		GET_ALL(DaoQueries.GET_ALL, "SELECT * FROM contests;"),
-		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE groups SET %s = '%s' WHERE %s = '%s';"),
-		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE groups WHERE id_group = %s;"),
-		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE groups WHERE %s = '%s';");
+		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE groups SET ? = ? WHERE ? = ?;"),
+		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE groups WHERE id_group = ?;"),
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE groups WHERE %s = ?;");
 		
 		private DaoQueries daoQuery;
 		private String query;
