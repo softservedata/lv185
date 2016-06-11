@@ -1,5 +1,8 @@
 package edu.softserveinc.healthbody.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.softserveinc.healthbody.entity.Competition;
 import edu.softserveinc.healthbody.entity.Competition.CompetitionDBQueries;
 
@@ -40,15 +43,14 @@ public final class CompetitionDao extends AbstractDao<Competition> {
 	}
 
 	protected String[] getFields(Competition entity) {
-		//String[] fields = new String[UserDB.class.getDeclaredFields().length];
-		String[] fields = new String[6];
-		fields[0] = entity.getId_competitions().toString();
-		fields[1] = entity.getName();
-		fields[2] = entity.getDescription();
-		fields[3] = entity.getStart().toString();
-		fields[4] = entity.getEnd().toString();
-		fields[5] = entity.getId_criterias().toString();
-		return fields;
+		List<String> fields = new ArrayList<>();
+		fields.add(entity.getId_competitions().toString());
+		fields.add(entity.getName());
+		fields.add(entity.getDescription());
+		fields.add(entity.getStart().toString());
+		fields.add(entity.getEnd().toString());
+		fields.add(entity.getId_criterias().toString());
+		return (String[]) fields.toArray();
 	}
 
 	//	public CompetitionDB getCompetitionsDBByLogin(String login) {

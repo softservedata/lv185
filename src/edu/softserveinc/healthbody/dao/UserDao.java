@@ -1,6 +1,7 @@
 package edu.softserveinc.healthbody.dao;
 
-import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.softserveinc.healthbody.entity.User;
 import edu.softserveinc.healthbody.entity.User.UserDBQueries;
@@ -36,19 +37,22 @@ public final class UserDao extends AbstractDao<User> {
 
 	@Override
 	protected String[] getFields(User entity) {
-		String[] fields = new String[User.class.getDeclaredFields().length];
-		Field[] fieldsEE = User.class.getDeclaredFields(); 
-		for(int i =0;i<fieldsEE.length;i++){
-			fieldsEE[i].setAccessible(true);
-			try {
-				fields[i] = fieldsEE[i].get(entity).toString();
-			} catch (IllegalArgumentException | IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		return fields;
+		List<String> fields = new ArrayList<>();
+		fields.add(entity.getIdUser().toString());
+		fields.add(entity.getLogin());
+		fields.add(entity.getPasswd());
+		fields.add(entity.getFirsName());
+		fields.add(entity.getLastName());
+		fields.add(entity.getMail());
+		fields.add(entity.getGender());
+		fields.add(entity.getWeight().toString());
+		fields.add(entity.getAge().toString());
+		fields.add(entity.getGoogleApi());
+		fields.add(entity.getHealth());
+		fields.add(entity.getAvatar());
+		fields.add(entity.getStatus());
+		fields.add(entity.getIdRole().toString());
+		return (String[]) fields.toArray();
 	}
 
 	@Override

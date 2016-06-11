@@ -1,6 +1,6 @@
 package edu.softserveinc.healthbody.dao;
 
-import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.softserveinc.healthbody.entity.Group;
@@ -47,17 +47,12 @@ public final class GroupDao extends AbstractDao<Group> {
 
 		@Override
 		protected String[] getFields(Group entity) {
-			String[] fields = new String[Group.class.getDeclaredFields().length];
-			Field[] fieldsEE = Group.class.getDeclaredFields(); 
-			for(int i =0;i<fieldsEE.length;i++){
-				fieldsEE[i].setAccessible(true);
-				try {
-					fields[i] = fieldsEE[i].get(entity).toString();
-				} catch (IllegalArgumentException | IllegalAccessException e) {
-					e.printStackTrace();
-				}					
-			}
-			return fields;
+			List<String> fields = new ArrayList<>();
+			fields.add(entity.getIdGroup().toString());
+			fields.add(entity.getName());
+			fields.add(entity.getDescription());
+			fields.add(entity.getStatus());
+			return (String[]) fields.toArray();
 		}
 		
 		public boolean createGroup(Group group) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException{
