@@ -1,17 +1,17 @@
 package edu.softserveinc.healthbody.entity;
 
-import edu.softserveinc.healthbody.dao.BasicCRUDDao.DaoQueries;
+import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
 
-public class CompetitionDB implements IEntity {
+public class Competition implements IEntity {
 
 	public static enum CompetitionDBQueries {
 		INSERT(DaoQueries.INSERT, "INSERT INTO competitions (id_competition, name, description, start, end, id_criteria) VALUES (%s, '%s', '%s', '%s', '%s', %s);"),
-		GET_BY_ID(DaoQueries.GET_BY_ID,	"SELECT id_competition, name, description, start, end, id_criteria FROM competitions WHERE id_competition = %s;"),
-		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_competition, name, description, start, end, id_criteria FROM competitions WHERE %s = '%s';"),
+		GET_BY_ID(DaoQueries.GET_BY_ID,	"SELECT id_competition, name, description, start, end, id_criteria FROM competitions WHERE id_competition = ?;"),
+		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_competition, name, description, start, end, id_criteria FROM competitions WHERE ? = ?;"),
 		GET_ALL(DaoQueries.GET_ALL,	"SELECT id_competition, name, description, start, end, id_criteria FROM competitions;"),
-		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE competitions SET %s = '%s' WHERE %s = '%s';"),
-		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE competitions WHERE id_competition = %s;"),
-		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE competitions WHERE %s = '%s';");
+		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE competitions SET ? = ? WHERE ? = ?;"),
+		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE competitions WHERE id_competition = ?;"),
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE competitions WHERE %s = ?;");
 		// DELETE_USER_BY_PARTIAL_LOGIN("DELETE dbo.competitions WHERE Login LIKE
 		// '%s%%';");
 		private DaoQueries daoQuery;
@@ -40,7 +40,7 @@ public class CompetitionDB implements IEntity {
 	private Integer id_criterias;
 
 	// TODO Create Factory, Builder
-	public CompetitionDB(Integer id_competitions, String name, String description,
+	public Competition(Integer id_competitions, String name, String description,
 			String start, String end, Integer id_criterias) {
 		this.id_competitions = id_competitions;
 		this.name = name;

@@ -3,14 +3,14 @@ package edu.softserveinc.healthbody.dao;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import edu.softserveinc.healthbody.entity.GroupDB;
+import edu.softserveinc.healthbody.entity.Group;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
-import edu.softserveinc.healthbody.entity.GroupDB.GroupDBQueries;
+import edu.softserveinc.healthbody.entity.Group.GroupDBQueries;
 
-public final class GroupDao extends AbstractDao<GroupDB> {
+public final class GroupDao extends AbstractDao<Group> {
 	
 	private static volatile GroupDao instance = null;
 
@@ -37,8 +37,8 @@ public final class GroupDao extends AbstractDao<GroupDB> {
 		}
 
 		@Override
-		protected GroupDB createInstance(String[] args) {
-			return new GroupDB(
+		protected Group createInstance(String[] args) {
+			return new Group(
 					Integer.parseInt(args[0] == null ? "0" : args[0]),
 					args[1] == null ? new String() : args[1],
 					args[2] == null ? new String() : args[2],
@@ -46,9 +46,9 @@ public final class GroupDao extends AbstractDao<GroupDB> {
 		}
 
 		@Override
-		protected String[] getFields(GroupDB entity) {
-			String[] fields = new String[GroupDB.class.getDeclaredFields().length];
-			Field[] fieldsEE = GroupDB.class.getDeclaredFields(); 
+		protected String[] getFields(Group entity) {
+			String[] fields = new String[Group.class.getDeclaredFields().length];
+			Field[] fieldsEE = Group.class.getDeclaredFields(); 
 			for(int i =0;i<fieldsEE.length;i++){
 				fieldsEE[i].setAccessible(true);
 				try {
@@ -60,11 +60,11 @@ public final class GroupDao extends AbstractDao<GroupDB> {
 			return fields;
 		}
 		
-		public boolean createGroup(GroupDB group) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException{
+		public boolean createGroup(Group group) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException{
 			return insert(group);
 		}
 		
-		public boolean editGroup(GroupDB group, String id, String name, String description, String status) throws JDBCDriverException, DataBaseReadingException{
+		public boolean editGroup(Group group, String id, String name, String description, String status) throws JDBCDriverException, DataBaseReadingException{
 			String[] fields = getFields(group);	
 			boolean result = false;
 			updateByField(fields[0], id, fields[1]	, name);
@@ -76,11 +76,11 @@ public final class GroupDao extends AbstractDao<GroupDB> {
 			return result;
 		}
 		
-		public boolean deleteGroup(GroupDB group) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException{
+		public boolean deleteGroup(Group group) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException{
 			return delete(group);
 		}
 		
-		public List<GroupDB> view() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException{
+		public List<Group> view() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException{
 			return getAll();
 		}
 		

@@ -1,9 +1,9 @@
 package edu.softserveinc.healthbody.dao;
 
-import edu.softserveinc.healthbody.entity.CompetitionDB;
-import edu.softserveinc.healthbody.entity.CompetitionDB.CompetitionDBQueries;
+import edu.softserveinc.healthbody.entity.Competition;
+import edu.softserveinc.healthbody.entity.Competition.CompetitionDBQueries;
 
-public final class CompetitionDao extends AbstractDao<CompetitionDB> {
+public final class CompetitionDao extends AbstractDao<Competition> {
 	private static volatile CompetitionDao instance = null;
 
 	private CompetitionDao() {
@@ -29,8 +29,8 @@ public final class CompetitionDao extends AbstractDao<CompetitionDB> {
 		}
 	}
 
-	protected CompetitionDB createInstance(String[] args) {
-		return new CompetitionDB(
+	protected Competition createInstance(String[] args) {
+		return new Competition(
 			Integer.parseInt(args[0] == null ? "0" : args[0]),
 			args[1] == null ? new String() : args[1],
 			args[2] == null ? new String() : args[2],
@@ -39,7 +39,7 @@ public final class CompetitionDao extends AbstractDao<CompetitionDB> {
 			Integer.parseInt(args[5] == null ? "0" : args[5]));
 	}
 
-	protected String[] getFields(CompetitionDB entity) {
+	protected String[] getFields(Competition entity) {
 		//String[] fields = new String[UserDB.class.getDeclaredFields().length];
 		String[] fields = new String[6];
 		fields[0] = entity.getId_competitions().toString();
