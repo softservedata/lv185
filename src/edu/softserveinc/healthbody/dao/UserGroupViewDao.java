@@ -9,6 +9,7 @@ import edu.softserveinc.healthbody.entity.UserGroupView.UserGroupViewQueries;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
+import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 
 public class UserGroupViewDao extends AbstractDao<UserGroupView>{
 	
@@ -65,7 +66,7 @@ public class UserGroupViewDao extends AbstractDao<UserGroupView>{
 	}
 	
 	
-	public boolean addUserToGroup(User user, Group group) throws JDBCDriverException, EmptyResultSetException, DataBaseReadingException{
+	public boolean addUserToGroup(User user, Group group) throws QueryNotFoundException, JDBCDriverException, EmptyResultSetException, DataBaseReadingException{
 		boolean result = false;
 		String id_user_group = getIdByTwoEntities(String.valueOf(user.getIdUser()), String.valueOf(group.getIdGroup().toString()));
 		if (id_user_group != null){

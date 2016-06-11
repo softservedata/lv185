@@ -2,6 +2,11 @@ package edu.softserveinc.healthbody.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+<<<<<<< HEAD
+=======
+//import java.sql.Statement;
+import java.util.Arrays;
+>>>>>>> ed233f193d45bc1f8f17863063c093f01adf8108
 
 import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.entity.IEntity;
@@ -17,6 +22,17 @@ abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEnt
 
 	protected abstract String[] getFields(TEntity entity);
 	
+<<<<<<< HEAD
+=======
+//	private boolean executeStatement(String s) throws SQLException, JDBCDriverException {
+//				try (Statement statement = ConnectionManager.getInstance().getConnection().createStatement()) {
+//		
+//					return statement.execute(s);
+//				}
+//			}
+		
+
+>>>>>>> ed233f193d45bc1f8f17863063c093f01adf8108
 	// create
 	public boolean insert(TEntity entity) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException {
 		boolean result = false;
@@ -25,24 +41,38 @@ abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEnt
 			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.INSERT.name()));
 		}
 		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
+<<<<<<< HEAD
 			for (int i = 0; i < getFields(entity).length; i++){
 				pst.setString(i + 1, getFields(entity)[i]);
 			}
 			result = pst.execute();
+=======
+			String[] fields = Arrays.copyOfRange(getFields(entity), 1, getFields(entity).length);
+			for (int i = 0; i < fields.length; i++) {
+				pst.setString(i + 1, fields[i]);
+			}
+			pst.execute();
+>>>>>>> ed233f193d45bc1f8f17863063c093f01adf8108
 		} catch (SQLException e) {
 			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
 		}
+//		try {
+//			result = executeStatement(String.format(query,
+//					(Object[]) Arrays.copyOfRange(getFields(entity), 1, getFields(entity).length)));
+//		} catch (SQLException e) {
+//			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+//		}
 		return result;
 	}
 
 	// update
 	@Override
-	public boolean updateByField(String fieldName, String text, String fieldCondition, String textCondition)
-			throws JDBCDriverException, DataBaseReadingException {
+	public boolean updateByField(String fieldName, String text, String fieldCondition, String textCondition) 
+			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException {
 		boolean result = false;
 		String query = sqlQueries.get(DaoQueries.UPDATE_BY_FIELD).toString();
 		if (query == null) {
-			throw new RuntimeException(String.format(QUERY_NOT_FOUND, DaoQueries.UPDATE_BY_FIELD.name()));
+			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.UPDATE_BY_FIELD.name()));
 		}
 		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 			pst.setString(1, fieldName);
