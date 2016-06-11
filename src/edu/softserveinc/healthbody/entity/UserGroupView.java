@@ -1,8 +1,8 @@
 package edu.softserveinc.healthbody.entity;
 
-import edu.softserveinc.healthbody.dao.BasicCRUDDao.DaoQueries;
+import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
 
-public class UserGroupViewDB implements IEntity{
+public class UserGroupView implements IEntity{
 
 		public static enum UserGroupViewFields {
 			USERSGROUPS_ID("usersgroups.id_user_group"),
@@ -50,7 +50,7 @@ public class UserGroupViewDB implements IEntity{
 		private Integer idGroup;
 		private Boolean memberGgoup;
 
-		public UserGroupViewDB(Integer idUserGroup, Integer idUser, Integer idGroup, Boolean memberGgoup) {
+		public UserGroupView(Integer idUserGroup, Integer idUser, Integer idGroup, Boolean memberGgoup) {
 			this.idUserGroup = idUserGroup;
 			this.idUser = idUser;
 			this.idGroup = idGroup;

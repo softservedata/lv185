@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import edu.softserveinc.healthbody.dao.BasicCRUDDao.DaoQueries;
+import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
 import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;

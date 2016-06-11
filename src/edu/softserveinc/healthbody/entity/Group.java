@@ -1,8 +1,8 @@
 package edu.softserveinc.healthbody.entity;
 
-import edu.softserveinc.healthbody.dao.BasicCRUDDao.DaoQueries;
+import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
 
-public class GroupDB implements IEntity {
+public class Group implements IEntity {
 	
 	public static enum GroupDBQueries {
 		INSERT(DaoQueries.INSERT, "INSERT INTO groups (name, description, status) VALUES ('%s', '%s', '%s');"),
@@ -36,7 +36,7 @@ public class GroupDB implements IEntity {
 	private String description;
 	private String status;
 	
-	public GroupDB(Integer idGroup, String name, String description, String status) {
+	public Group(Integer idGroup, String name, String description, String status) {
 		super();
 		this.idGroup = idGroup;
 		this.name = name;

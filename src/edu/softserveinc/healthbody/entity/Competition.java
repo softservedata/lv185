@@ -1,8 +1,8 @@
 package edu.softserveinc.healthbody.entity;
 
-import edu.softserveinc.healthbody.dao.BasicCRUDDao.DaoQueries;
+import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
 
-public class CompetitionDB implements IEntity {
+public class Competition implements IEntity {
 
 	public static enum CompetitionDBQueries {
 		INSERT(DaoQueries.INSERT, "INSERT INTO competitions (id_competition, name, description, start, end, id_criteria) VALUES (%s, '%s', '%s', '%s', '%s', %s);"),
@@ -40,7 +40,7 @@ public class CompetitionDB implements IEntity {
 	private Integer id_criterias;
 
 	// TODO Create Factory, Builder
-	public CompetitionDB(Integer id_competitions, String name, String description,
+	public Competition(Integer id_competitions, String name, String description,
 			String start, String end, Integer id_criterias) {
 		this.id_competitions = id_competitions;
 		this.name = name;

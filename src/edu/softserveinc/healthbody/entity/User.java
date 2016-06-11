@@ -1,8 +1,8 @@
 package edu.softserveinc.healthbody.entity;
 
-import edu.softserveinc.healthbody.dao.BasicCRUDDao.DaoQueries;
+import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
 
-public class UserDB implements IEntity {
+public class User implements IEntity {
 	
 	public static enum UserDBQueries {
         INSERT(DaoQueries.INSERT, "INSERT INTO users (id_role, login, passwd, firstname, lastname, age, weight, gender) VALUES (%s, '%s', '%s','%s', '%s','%s', '%s','%s');"),
@@ -46,7 +46,7 @@ public class UserDB implements IEntity {
 	private String status;
 	private Integer idRole;
 
-	public UserDB(Integer idUser, String login, String passwd, String firsName, String lastName, String gender,
+	public User(Integer idUser, String login, String passwd, String firsName, String lastName, String gender,
 			Integer weight, Integer age, Integer idRole) {
 		super();
 		this.idUser = idUser;
