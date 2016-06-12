@@ -2,6 +2,8 @@ package edu.softserveinc.healthbody.dao;
 
 import java.lang.reflect.Field;
 
+import org.apache.log4j.Logger;
+
 import edu.softserveinc.healthbody.entity.Group;
 import edu.softserveinc.healthbody.entity.User;
 import edu.softserveinc.healthbody.entity.UserGroupView;
@@ -10,10 +12,12 @@ import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
+import edu.softserveinc.helthbody.log.Log;
 
 public class UserGroupViewDao extends AbstractDao<UserGroupView>{
 	
 	private static volatile UserGroupViewDao instance = null;
+	private Logger logger = Log.init(this.getClass().getName());
 	
 	public UserGroupViewDao() {
 		super();
@@ -59,7 +63,7 @@ public class UserGroupViewDao extends AbstractDao<UserGroupView>{
 			try {
 				fields[i] = fieldsEE[i].get(entity).toString();
 			} catch (IllegalArgumentException | IllegalAccessException e) {
-				e.printStackTrace();
+				logger.error("UserGroupView failed", e);
 			}			
 		}
 		return fields;
