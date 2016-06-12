@@ -8,7 +8,7 @@ import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
-import edu.softserveinc.healthbody.dao.DAOStatementsConstant.GroupDBQueries;;
+import edu.softserveinc.healthbody.dao.DaoStatementsConstant.GroupDBQueries;;
 
 public final class GroupDao extends AbstractDao<Group> {
 	

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.softserveinc.healthbody.entity.Competition;
-import edu.softserveinc.healthbody.dao.DAOStatementsConstant.CompetitionDBQueries;;
+import edu.softserveinc.healthbody.dao.DaoStatementsConstant.CompetitionDBQueries;;
 
 public final class CompetitionDao extends AbstractDao<Competition> {
 	private static volatile CompetitionDao instance = null;
