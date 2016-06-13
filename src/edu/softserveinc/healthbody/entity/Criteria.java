@@ -1,13 +1,13 @@
 package edu.softserveinc.healthbody.entity;
 
-public class Criterias implements IEntity {
+public class Criteria implements IEntity {
 	
 	private Integer idCriteria;
 	private String name;
 	private Double metrics;
 	private String getGoogle;
 	
-	public Criterias(Integer idCriteria, String name, Double metrics,
+	public Criteria (Integer idCriteria, String name, Double metrics,
 			String getGoogle) {
 		this.idCriteria = idCriteria;
 		this.name = name;
