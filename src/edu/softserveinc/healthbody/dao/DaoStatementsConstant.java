@@ -1,3 +1,4 @@
+
 package edu.softserveinc.healthbody.dao;
 
 import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
@@ -10,7 +11,7 @@ public class DaoStatementsConstant {
         GET_ALL(DaoQueries.GET_ALL, "SELECT * FROM users;"),
         UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE users SET ? = ? WHERE ? = ?;"),
         DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE users WHERE id_user = ?;"),
-        DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE users WHERE %s = ?;");
+        DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE users WHERE ? = ?;");
 		private DaoQueries daoQuery;
 		private String query;
 		
@@ -34,7 +35,7 @@ public class DaoStatementsConstant {
 		GET_ALL(DaoQueries.GET_ALL, "SELECT * FROM contests;"),
 		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE groups SET ? = ? WHERE ? = ?;"),
 		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE groups WHERE id_group = ?;"),
-		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE groups WHERE %s = ?;");
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE groups WHERE ? = ?;");
 		
 		private DaoQueries daoQuery;
 		private String query;
@@ -58,7 +59,7 @@ public class DaoStatementsConstant {
 		GET_ALL(DaoQueries.GET_ALL,	"SELECT id_competition, name, description, start, end, id_criteria FROM competitions;"),
 		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE competitions SET ? = ? WHERE ? = ?;"),
 		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE competitions WHERE id_competition = ?;"),
-		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE competitions WHERE %s = ?;");
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE competitions WHERE ? = ?;");
 		private DaoQueries daoQuery;
 		private String query;
 
@@ -81,7 +82,7 @@ public class DaoStatementsConstant {
 		GET_ALL(DaoQueries.GET_ALL, "SELECT * FROM metadata;"),
 		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE metadata SET ? = ? WHERE ? = ?;"),
 		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE metadata WHERE id_meta_data = ?;"),
-		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE metadata WHERE %s = ?;");
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE metadata WHERE ? = ?;");
 		
 		private DaoQueries daoQuery;
 		private String query;
@@ -145,4 +146,28 @@ public class DaoStatementsConstant {
 			return query;
 		}
 	}
+	public static enum UsersCompetitionsDBQueries {
+		INSERT(DaoQueries.INSERT, "INSERT INTO UsersCompetitions (id_user, id_group, user_score, id_awards, time_received) VALUES (?, ?, ?, ?, ?, ?);"),
+		GET_BY_ID(DaoQueries.GET_BY_ID,	"SELECT id_userCompetitions, id_user, id_group, user_score, id_awards, time_received FROM UsersCompetitions WHERE id_userCompetitions = ?;"),
+		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_userCompetitions, id_user, id_group, user_score, id_awards, time_received FROM GroupCompetitions WHERE ? = ?;"),
+		GET_ALL(DaoQueries.GET_ALL,	"SELECT id_userCompetitions, id_user, id_group, user_score, id_awards, time_received FROM GroupCompetitions;"),
+		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE UsersCompetitions SET ? = ? WHERE ? = ?;"),
+		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE UsersCompetitions WHERE id_userCompetitions = ?;"),
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE UsersCompetitions WHERE ? = ?;");
+		private DaoQueries daoQuery;
+		private String query;
+
+		private UsersCompetitionsDBQueries(DaoQueries daoQuery, String query) {
+			this.daoQuery = daoQuery;
+			this.query = query;
+		}
+
+		public DaoQueries getDaoQuery() {
+			return daoQuery;
+		}
+		public String toString() {
+			return query;
+		}
+	}
 }
+
