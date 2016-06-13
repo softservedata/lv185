@@ -18,7 +18,7 @@ abstract class ADaoInit {
 	protected abstract void init();
 }
 
-abstract class AbstractDaoRead<TEntity> implements BasicReadDao<TEntity> {
+abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao<TEntity> {
 	protected final static String QUERY_NOT_FOUND = "Query not found %s";
 	protected final static String EMPTY_RESULTSET = "Empty ResultSet by Query %s";
 	protected final static String DATABASE_READING_ERROR = "Database Reading Error";
