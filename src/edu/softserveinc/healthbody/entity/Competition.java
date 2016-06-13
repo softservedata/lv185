@@ -3,27 +3,27 @@ package edu.softserveinc.healthbody.entity;
 
 public class Competition implements IEntity {
 
-	private Integer id_competition;
+	private Integer idCompetition;
 	private String name;
 	private String description;
 	private String start;
 	private String finish;
-	private Integer id_criteria;
+	private Integer idCriteria;
 
-	public Competition(Integer id_competition, String name, String description,
-			String start, String finish, Integer id_criteria) {
-		this.id_competition = id_competition;
+	public Competition(Integer idCompetition, String name, String description,
+			String start, String finish, Integer idCriteria) {
+		this.idCompetition = idCompetition;
 		this.name = name;
 		this.description = description;
 		this.start = start;
 		this.finish = finish;
-		this.id_criteria = id_criteria;
+		this.idCriteria = idCriteria;
 	}
 	
 	// setters
 
-	public void setId_competitions(Integer id_competition) {
-		this.id_competition = id_competition;
+	public void setIdCompetitions(Integer idCompetition) {
+		this.idCompetition = idCompetition;
 	}
 
 	public void setName(String name) {
@@ -42,18 +42,18 @@ public class Competition implements IEntity {
 		this.finish = finish;
 	}
 
-	public void setId_criteria(Integer id_criteria) {
-		this.id_criteria = id_criteria;
+	public void setIdCriteria(Integer idCriteria) {
+		this.idCriteria = idCriteria;
 	}
 
 	// getters
 	
 	public Integer getId() {
-		return getId_competition();
+		return getIdCompetition();
 	}
 	
-	public Integer getId_competition() {
-		return id_competition;
+	public Integer getIdCompetition() {
+		return idCompetition;
 	}
 
 	public String getName() {
@@ -72,8 +72,8 @@ public class Competition implements IEntity {
 		return finish;
 	}
 
-	public Integer getId_criteria() {
-		return id_criteria;
+	public Integer getIdCriteria() {
+		return idCriteria;
 	}
 	
 }

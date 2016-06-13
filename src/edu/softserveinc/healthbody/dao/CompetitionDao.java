@@ -50,12 +50,12 @@ public final class CompetitionDao extends AbstractDao<Competition> {
 	@Override
 	protected String[] getFields(Competition entity) {
 		List<String> fields = new ArrayList<>();
-		fields.add(entity.getId_competition().toString());
+		fields.add(entity.getIdCompetition().toString());
 		fields.add(entity.getName());
 		fields.add(entity.getDescription());
 		fields.add(entity.getStart().toString());
 		fields.add(entity.getFinish().toString());
-		fields.add(entity.getId_criteria().toString());
+		fields.add(entity.getIdCriteria().toString());
 		return (String[]) fields.toArray();
 	}
 
@@ -63,17 +63,17 @@ public final class CompetitionDao extends AbstractDao<Competition> {
 		return insert(competition);
 	}
 	
-	public boolean editGroup(Competition competition, String id_competition, String name, String description,
-			String start, String finish, String id_criteria) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException{
+	public boolean editGroup(Competition competition, String idCompetition, String name, String description,
+			String start, String finish, String idCriteria) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException{
 		String[] fields = getFields(competition);	
 		boolean result = false;
-		updateByField(fields[0], id_competition, fields[1]	, name);
-		updateByField(fields[0], id_competition, fields[2]	, description);
-		updateByField(fields[0], id_competition, fields[3]	, start);
-		updateByField(fields[0], id_competition, fields[4]	, finish);
-		updateByField(fields[0], id_competition, fields[5]	, id_criteria);
+		updateByField(fields[0], idCompetition, fields[1]	, name);
+		updateByField(fields[0], idCompetition, fields[2]	, description);
+		updateByField(fields[0], idCompetition, fields[3]	, start);
+		updateByField(fields[0], idCompetition, fields[4]	, finish);
+		updateByField(fields[0], idCompetition, fields[5]	, idCriteria);
 		if (fields[3] != null) result = false;
-		else if (fields[1] == name && fields[2] == description && fields[3] == start && fields[4] == finish && fields[5] == id_criteria){
+		else if (fields[1] == name && fields[2] == description && fields[3] == start && fields[4] == finish && fields[5] == idCriteria){
 			result = true;			
 		}
 		return result;

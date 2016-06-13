@@ -5,7 +5,7 @@ import java.sql.Statement;
 
 public class DBCreationManager {
 	public static enum TableQueries {
-		USERS_TABLE("CREATE TABLE IF NOT EXISTS \"Users\"("
+		USERS_TABLE("CREATE TABLE IF NOT EXISTS \"users\"("
 				+ "id_user serial primary key,"
 				+ "login varchar(50),"
 				+ "password varchar(25),"
@@ -16,29 +16,49 @@ public class DBCreationManager {
 				+ "weight real,"
 				+ "gender \"char\","
 				+ "usable varchar(50),"
-				+ "avatar varchar,"
+				+ "avatar varchar(50),"
 				+ "google_field varchar(150),"
 				+ "id_role bigint,"
-				+ "status varchar)"),
-		GROUPS_TABLE("CREATE TABLE IF NOT EXISTS \"Groups\"("
+				+ "status varchar(50))"),
+		GROUPS_TABLE("CREATE TABLE IF NOT EXISTS \"groups\"("
 				+ "id_group serial primary key,"
 				+ "name varchar(50),"
-				+ "description text,"
-				+ "status varchar)"),
-		COMPETION_TABLE("CREATE TABLE IF NOT EXISTS \"Competition\"("
+				+ "description varchar(50),"
+				+ "status varchar(50))"),
+		COMPETION_TABLE("CREATE TABLE IF NOT EXISTS \"competition\"("
 				+ "id_competition serial primary key,"
 				+ "name varchar(50),"
-				+ "description varchar(250),"
+				+ "description varchar(200),"
 				+ "start date,"
 				+ "finish date,"
 				+ "id_criteria bigint)"),
-		USER_GROUP_TABLE("CREATE TABLE IF NOT EXISTS \"UsersGroups\"("
+		AWARD_TABLE("CREATE TABLE IF NOT EXISTS \"awards\"("
+				+ "id_award serial primary key,"
+				+ "name varchar(50))"),
+		USER_GROUP_TABLE("CREATE TABLE IF NOT EXISTS \"usersgroups\"("
 				+ "id_user_group serial primary key,"
 				+ "id_user bigint,"
 				+ "id_group bigint,"
-				+ "member_group varchar,"
-				+ "FOREIGN KEY (id_group)  REFERENCES \"Groups\" (id_group),"
-				+ "FOREIGN KEY (id_user) REFERENCES \"Users\" (id_user))");
+				+ "member_group varchar(50),"
+				+ "FOREIGN KEY (id_group)  REFERENCES \"groups\" (id_group),"
+				+ "FOREIGN KEY (id_user) REFERENCES \"users\" (id_user))"),
+		USER_COMPETITION_TABLE("CREATE TABLE IF NOT EXISTS \"userscompetitions\"("
+				+ "id_user_competition serial primary key,"
+				+ "id_user bigint,"
+				+ "id_group bigint,"
+				+ "id_award bigint,"
+				+ "user_scope bigint,"
+				+ "time_received varchar(50),"
+				+ "FOREIGN KEY (id_user) REFERENCES \"users\" (id_user),"
+				+ "FOREIGN KEY (id_group)  REFERENCES \"groups\" (id_group),"
+				+ "FOREIGN KEY (id_award) REFERENCES \"awards\" (id_award))"),
+		ROLE_TABLE("CREATE TABLE IF NOT EXISTS \"roles\"("
+				+ "id_role serial primary key,"
+				+ "name varchar(50),"
+				+ "description varchar(200))"),
+		META_DATA_TABLE("CREATE TABLE IF NOT EXISTS \"metadata\"("
+				+ "id_meta_data serial primary key,"
+				+ "last_synch varchar(50))");
 
 		private String table;
 
@@ -78,7 +98,9 @@ public class DBCreationManager {
 
 	public boolean createDatabase(Statement statement, String databaseName) throws SQLException {
 		boolean result = false;
-		statement.execute("CREATE DATABASE " + databaseName + ";");
+		if (!statement.execute("SELECT 1 from pg_database WHERE datname=\'"+databaseName+"\';")){
+			result = statement.execute("CREATE DATABASE "+databaseName);   
+		}
 		return result;
 	}
 
