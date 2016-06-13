@@ -146,18 +146,18 @@ public class DaoStatementsConstant {
 			return query;
 		}
 	}
-	public static enum UsersCompetitionsDBQueries {
-		INSERT(DaoQueries.INSERT, "INSERT INTO UsersCompetitions (id_user, id_group, user_score, id_awards, time_received) VALUES (?, ?, ?, ?, ?, ?);"),
-		GET_BY_ID(DaoQueries.GET_BY_ID,	"SELECT id_userCompetitions, id_user, id_group, user_score, id_awards, time_received FROM UsersCompetitions WHERE id_userCompetitions = ?;"),
-		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_userCompetitions, id_user, id_group, user_score, id_awards, time_received FROM GroupCompetitions WHERE ? = ?;"),
-		GET_ALL(DaoQueries.GET_ALL,	"SELECT id_userCompetitions, id_user, id_group, user_score, id_awards, time_received FROM GroupCompetitions;"),
-		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE UsersCompetitions SET ? = ? WHERE ? = ?;"),
-		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE UsersCompetitions WHERE id_userCompetitions = ?;"),
-		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE UsersCompetitions WHERE ? = ?;");
+	public static enum UserCompetitionsDBQueries {
+		INSERT(DaoQueries.INSERT, "INSERT INTO UserCompetitions (id_user, id_group, user_score, id_awards, time_received) VALUES (?, ?, ?, ?, ?, ?);"),
+		GET_BY_ID(DaoQueries.GET_BY_ID,	"SELECT id_userCompetitions, id_user, id_group, user_score, id_awards, time_received FROM UserCompetitions WHERE id_userCompetitions = ?;"),
+		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_userCompetitions, id_user, id_group, user_score, id_awards, time_received FROM UserCompetitions WHERE ? = ?;"),
+		GET_ALL(DaoQueries.GET_ALL,	"SELECT id_userCompetitions, id_user, id_group, user_score, id_awards, time_received FROM UserCompetitions;"),
+		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE UserCompetitions SET ? = ? WHERE ? = ?;"),
+		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE UserCompetitions WHERE id_userCompetitions = ?;"),
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE UserCompetitions WHERE ? = ?;");
 		private DaoQueries daoQuery;
 		private String query;
 
-		private UsersCompetitionsDBQueries(DaoQueries daoQuery, String query) {
+		private UserCompetitionsDBQueries(DaoQueries daoQuery, String query) {
 			this.daoQuery = daoQuery;
 			this.query = query;
 		}
