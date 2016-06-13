@@ -20,7 +20,6 @@ public class User implements IEntity {
 
 	public User(Integer idUser, String login, String passwd, String firsName, String lastName, String gender,
 			Integer weight, Integer age, Integer idRole) {
-		super();
 		this.idUser = idUser;
 		this.login = login;
 		this.passwd = passwd;

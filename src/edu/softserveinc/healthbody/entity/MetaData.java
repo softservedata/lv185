@@ -5,6 +5,11 @@ public class MetaData implements IEntity {
 	private Integer idMetaData;
 	private String lastSynch;
 
+	public MetaData(Integer idMetaData, String lastSynch) {
+		this.idMetaData = idMetaData;
+		this.lastSynch = lastSynch;
+	}
+
 	@Override
 	public Integer getId() {
 		return getIdMetaData();

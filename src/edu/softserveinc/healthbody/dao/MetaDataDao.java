@@ -1,5 +1,8 @@
 package edu.softserveinc.healthbody.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant.MetaDataDBQueries;
 import edu.softserveinc.healthbody.entity.MetaData;
 
@@ -33,14 +36,17 @@ public class MetaDataDao extends AbstractDao<MetaData> {
 	}
 	@Override
 	protected String[] getFields(MetaData entity) {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> fields = new ArrayList<>();
+		fields.add(entity.getIdMetaData().toString());
+		fields.add(entity.getLastSynch());
+		return (String[])fields.toArray();
 	}
 
 	@Override
 	protected MetaData createInstance(String[] args) {
-		// TODO Auto-generated method stub
-		return null;
+		return new MetaData(
+				Integer.parseInt(args[0] == null ? "0" : args[0]),
+				args[1] == null ? new String() : args[1]);
 	}
 
 }
