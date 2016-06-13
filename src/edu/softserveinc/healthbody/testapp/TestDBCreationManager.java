@@ -28,33 +28,17 @@ public class TestDBCreationManager {
 			System.exit(0);
 		}
 		Statement st = con.createStatement();
+	
 		try {
-			System.out.println("Trying to delete database: " + databaseName);
-			DBCreationManager.getInstance().deleteDatabase(st, databaseName);
-			System.out.println("Database deleted: " + databaseName);
-		} catch (SQLException e) {
-			if (e.getErrorCode() == 0) { // Database does not exist
-				System.out.println("SQL Error...");
-			} else { // Something else happened
-				e.printStackTrace();
-			}
-		}
-		try {
-			System.out.println("Trying to create database: " + databaseName);
 			DBCreationManager.getInstance().createDatabase(st, databaseName);
-			System.out.println("Database created: " + databaseName);
-		} catch (SQLException e) {
-			if (e.getErrorCode() == 0) { // Database exists
-				System.out.println("Database exists...");
-			} else { // Something else happened
-				e.printStackTrace();
+			System.out.println("Database - "+databaseName+" was created");
+		
+			for (TableQueries query : TableQueries.values()) {
+				System.out.println("Creating " + query.name());
+				DBCreationManager.getInstance().createTable(st, query.toString());
 			}
-		}
-		con = DriverManager.getConnection(URL + databaseName, username, password);
-		st = con.createStatement();
-		for (TableQueries query : TableQueries.values()) {
-			System.out.println("Creating " + query.name());
-			DBCreationManager.getInstance().createTable(st, query.toString());
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
 		if (st != null)
