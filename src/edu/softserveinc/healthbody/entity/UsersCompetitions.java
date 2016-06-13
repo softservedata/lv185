@@ -2,37 +2,21 @@ package edu.softserveinc.healthbody.entity;
 
 public class UsersCompetitions implements IEntity {
 	
-	public static enum UsersCompetitionsFields {
-		USERSCOMPETITIONS_ID("userscompetitions.id_user_competition"),
-		USERS_ID("userscompetitions.id_user"),
-		COMPETITIONS_ID("userscompetitions.id_competition");
-        private String field;
-
-        private UsersCompetitionsFields(String field) {
-            this.field = field;
-        }
-
-        @Override
-        public String toString() {
-            return field;
-        }
-    }
-	
 	private Integer idUserCompetition;
     private Integer idUser;
 	private Integer idGroup;
 	private Integer userScore;
-	private Integer idAwardsTypes;
+	private Integer idAwards;
 	private String timeReceived;
 	
 	public UsersCompetitions(Integer idUserCompetition, Integer idUser, Integer idGroup, Integer userScore,
-			Integer idAwardsTypes, String timeReceived) {
+			Integer idAwards, String timeReceived) {
 		
 		this.idUserCompetition = idUserCompetition;
 		this.idUser = idUser;
 		this.idGroup = idGroup;
 		this.userScore = userScore;
-		this.idAwardsTypes = idAwardsTypes;
+		this.idAwards = idAwards;
 		this.timeReceived = timeReceived;
 	}
 
@@ -53,8 +37,8 @@ public class UsersCompetitions implements IEntity {
 		this.userScore = userScore;
 	}
 
-	public void setIdAwardsTypes(Integer idAwardsTypes) {
-		this.idAwardsTypes = idAwardsTypes;
+	public void setIdAwardsTypes(Integer idAwards) {
+		this.idAwards = idAwards;
 	}
 
 	public void setTimeReceived(String timeReceived) {
@@ -84,8 +68,8 @@ public class UsersCompetitions implements IEntity {
 		return userScore;
 	}
 
-	public Integer getIdAwardsTypes() {
-		return idAwardsTypes;
+	public Integer getIdAwards() {
+		return idAwards;
 	}
 
 	public String getTimeReceived() {
