@@ -5,20 +5,38 @@ import java.sql.Statement;
 
 public class DBCreationManager {
 	public static enum TableQueries {
-		USERS_TABLE("CREATE TABLE IF NOT EXISTS \"Users\"(" + "id_user serial primary key," + "login varchar(50),"
-				+ "password varchar(25)," + "first_name varchar(50)," + "last_name varchar(50),"
-				+ "\"e-mail\" varchar(50)," + "age bigint," + "weight real," + "gender \"char\","
-				+ "usable varchar(50)," + "avatar varchar," + "google_field varchar(150)," + "id_role bigint,"
+		USERS_TABLE("CREATE TABLE IF NOT EXISTS \"Users\"("
+				+ "id_user serial primary key,"
+				+ "login varchar(50),"
+				+ "password varchar(25),"
+				+ "first_name varchar(50),"
+				+ "last_name varchar(50),"
+				+ "\"e-mail\" varchar(50),"
+				+ "age bigint,"
+				+ "weight real,"
+				+ "gender \"char\","
+				+ "usable varchar(50),"
+				+ "avatar varchar,"
+				+ "google_field varchar(150),"
+				+ "id_role bigint,"
 				+ "status varchar)"),
 		GROUPS_TABLE("CREATE TABLE IF NOT EXISTS \"Groups\"("
-				+ "id_group serial primary key," + "name varchar(50)," + "description text,"
+				+ "id_group serial primary key,"
+				+ "name varchar(50),"
+				+ "description text,"
 				+ "status varchar)"),
-		COMPETION_TABLE("CREATE TABLE IF NOT EXISTS \"Competition\"(" + "id_competition serial primary key,"
-				+ "name varchar(50)," + "description varchar(250)," + "start_date date,"
-				+ "end_date date," + "id_criterias bigint)"),
+		COMPETION_TABLE("CREATE TABLE IF NOT EXISTS \"Competition\"("
+				+ "id_competition serial primary key,"
+				+ "name varchar(50),"
+				+ "description varchar(250),"
+				+ "start date,"
+				+ "finish date,"
+				+ "id_criteria bigint)"),
 		USER_GROUP_TABLE("CREATE TABLE IF NOT EXISTS \"UsersGroups\"("
-				+ "id_user_group serial primary key," + "id_user bigint,"
-				+ "id_group bigint," + "member_group varchar,"
+				+ "id_user_group serial primary key,"
+				+ "id_user bigint,"
+				+ "id_group bigint,"
+				+ "member_group varchar,"
 				+ "FOREIGN KEY (id_group)  REFERENCES \"Groups\" (id_group),"
 				+ "FOREIGN KEY (id_user) REFERENCES \"Users\" (id_user))");
 
