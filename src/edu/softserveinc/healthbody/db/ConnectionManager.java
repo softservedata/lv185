@@ -19,8 +19,8 @@ public class ConnectionManager {
 		this.connections = new HashMap<Long, Connection>();
 	}
 
-	public static ConnectionManager getInstance() {
-		return instance;
+	public static ConnectionManager getInstance() throws JDBCDriverException {
+		return getInstance(null);
 	}
 	public static ConnectionManager getInstance(DataSource dataSource) throws JDBCDriverException {
 		if (instance == null) {
