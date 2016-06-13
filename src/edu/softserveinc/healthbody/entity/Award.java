@@ -26,7 +26,7 @@ public class Award implements IEntity {
 	}
 	
 	//setters
-	public void setIdGroup(Integer idAward) {
+	public void setIdAward(Integer idAward) {
 		this.idAward = idAward;
 	}
 	public void setName(String name) {
