@@ -52,13 +52,13 @@ public class DaoStatementsConstant {
 		}
 	}
 	public static enum CompetitionDBQueries {
-		INSERT(DaoQueries.INSERT, "INSERT INTO competitions (id_competition, name, description, start, end, id_criteria) VALUES (?, ?, ?, ?, ?, ?);"),
-		GET_BY_ID(DaoQueries.GET_BY_ID,	"SELECT id_competition, name, description, start, end, id_criteria FROM competitions WHERE id_competition = ?;"),
-		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_competition, name, description, start, end, id_criteria FROM competitions WHERE ? = ?;"),
-		GET_ALL(DaoQueries.GET_ALL,	"SELECT id_competition, name, description, start, end, id_criteria FROM competitions;"),
-		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE competitions SET ? = ? WHERE ? = ?;"),
-		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE competitions WHERE id_competition = ?;"),
-		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE competitions WHERE ? = ?;");
+		INSERT(DaoQueries.INSERT, "INSERT INTO competition (idCompetition, name, description, start, finish, idCriteria) VALUES (?, ?, ?, ?, ?, ?);"),
+		GET_BY_ID(DaoQueries.GET_BY_ID,	"SELECT idCompetition, name, description, start, finish, idCriteria FROM competition WHERE idCompetition = ?;"),
+		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT idCompetition, name, description, start, finish, idCriteria FROM competition WHERE ? = ?;"),
+		GET_ALL(DaoQueries.GET_ALL,	"SELECT idCompetition, name, description, start, finish, idCriteria FROM competition;"),
+		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE competition SET ? = ? WHERE ? = ?;"),
+		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE competition WHERE idCompetition = ?;"),
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE competition WHERE ? = ?;");
 		private DaoQueries daoQuery;
 		private String query;
 
@@ -162,6 +162,31 @@ public class DaoStatementsConstant {
 		
 		private RoleDBQueries(DaoQueries daoQuery, String query) {
 
+			this.daoQuery = daoQuery;
+			this.query = query;
+		}
+		
+		public DaoQueries getDaoQuery() {
+			return daoQuery;
+		}
+		public String toString() {
+			return query;
+		}
+	}
+	
+	public static enum CriteriaDBQueries {
+		INSERT(DaoQueries.INSERT, "INSERT INTO criteria (name, metrics, getGoogle) VALUES (?, ?, ?);"),
+		GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT name, metrics, getGoogle FROM criteria WHERE idCriteria = ?;"),
+		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT name, metrics, getGoogle FROM criteria WHERE ? = ?;"),
+		GET_ALL(DaoQueries.GET_ALL, "SELECT name, metrics, getGoogle FROM criteria;"),
+		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE criteria SET ? = ? WHERE ? = ?;"),
+		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE criteria WHERE idCriteria = ?;"),
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE criteria WHERE ? = ?;");
+		
+		private DaoQueries daoQuery;
+		private String query;
+		
+		private CriteriaDBQueries(DaoQueries daoQuery, String query) {
 			this.daoQuery = daoQuery;
 			this.query = query;
 		}
