@@ -30,9 +30,9 @@ public class DBCreationManager {
 					  +"id_competition serial primary key,"
 					  +"name varchar(50),"
 					  +"description varchar(250),"
-					  +"start_date date,"
-					  +"end_date date,"
-					  +"id_criterias bigint)"),
+					  +"start date,"
+					  +"finish date,"
+					  +"id_criteria bigint)"),
 		USER_GROUP_TABEL ("CREATE TABLE IF NOT EXISTS \"UsersGroups\"("
 					  +"id_user_group serial primary key,"
 					  +"id_user bigint,"

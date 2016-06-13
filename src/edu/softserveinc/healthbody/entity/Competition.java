@@ -3,28 +3,27 @@ package edu.softserveinc.healthbody.entity;
 
 public class Competition implements IEntity {
 
-	private Integer id_competitions;
+	private Integer id_competition;
 	private String name;
 	private String description;
 	private String start;
-	private String end;
-	private Integer id_criterias;
+	private String finish;
+	private Integer id_criteria;
 
-	// TODO Create Factory, Builder
-	public Competition(Integer id_competitions, String name, String description,
-			String start, String end, Integer id_criterias) {
-		this.id_competitions = id_competitions;
+	public Competition(Integer id_competition, String name, String description,
+			String start, String finish, Integer id_criteria) {
+		this.id_competition = id_competition;
 		this.name = name;
 		this.description = description;
 		this.start = start;
-		this.end = end;
-		this.id_criterias = id_criterias;
+		this.finish = finish;
+		this.id_criteria = id_criteria;
 	}
 	
 	// setters
 
-	public void setId_competitions(Integer id_competitions) {
-		this.id_competitions = id_competitions;
+	public void setId_competitions(Integer id_competition) {
+		this.id_competition = id_competition;
 	}
 
 	public void setName(String name) {
@@ -39,22 +38,22 @@ public class Competition implements IEntity {
 		this.start = start;
 	}
 
-	public void setEnd(String end) {
-		this.end = end;
+	public void setFinish(String finish) {
+		this.finish = finish;
 	}
 
-	public void setId_criterias(Integer id_criterias) {
-		this.id_criterias = id_criterias;
+	public void setId_criteria(Integer id_criteria) {
+		this.id_criteria = id_criteria;
 	}
 
 	// getters
 	
 	public Integer getId() {
-		return getId_competitions();
+		return getId_competition();
 	}
 	
-	public Integer getId_competitions() {
-		return id_competitions;
+	public Integer getId_competition() {
+		return id_competition;
 	}
 
 	public String getName() {
@@ -69,12 +68,12 @@ public class Competition implements IEntity {
 		return start;
 	}
 
-	public String getEnd() {
-		return end;
+	public String getFinish() {
+		return finish;
 	}
 
-	public Integer getId_criterias() {
-		return id_criterias;
+	public Integer getId_criteria() {
+		return id_criteria;
 	}
 	
 }
