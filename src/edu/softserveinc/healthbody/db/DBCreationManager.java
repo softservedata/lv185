@@ -25,15 +25,15 @@ public class DBCreationManager {
 				+ "name varchar(50),"
 				+ "description text,"
 				+ "status varchar)"),
-		COMPETION_TABLE("CREATE TABLE IF NOT EXISTS \"Competition\"("
+		COMPETION_TABLE("CREATE TABLE IF NOT EXISTS \"competition\"("
 				+ "idCompetition serial primary key,"
 				+ "name varchar(50),"
 				+ "description varchar(200),"
 				+ "start date,"
 				+ "finish date,"
 				+ "idCriteria bigint)"),
-		USER_GROUP_TABLE("CREATE TABLE IF NOT EXISTS \"UsersGroups\"("
-				+ "id_criteria bigint)"
+		USER_GROUP_TABLE("CREATE TABLE IF NOT EXISTS \"usersgroups\"("
+				+ "id_criteria bigint,"
 				+ "id_user_group serial primary key,"
 				+ "id_user bigint,"
 				+ "id_group bigint,"
