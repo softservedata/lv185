@@ -17,6 +17,8 @@ public class Appl {
 				+ "\tRole = " + userDTO.getRoleName());	
 		}
 		//new DataSourceUtils().getAllDataSources();
+		UserUIService.get().insertUser(new UserDTO("Tester2", "manager"));
+		ConnectionManager.closeAllConnections();
 	}
 
 }
