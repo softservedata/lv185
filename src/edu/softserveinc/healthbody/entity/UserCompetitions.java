@@ -1,6 +1,6 @@
 package edu.softserveinc.healthbody.entity;
 
-public class UsersCompetitions implements IEntity {
+public class UserCompetitions implements IEntity {
 	
 	private Integer idUserCompetition;
     private Integer idUser;
@@ -9,7 +9,7 @@ public class UsersCompetitions implements IEntity {
 	private Integer idAwards;
 	private String timeReceived;
 	
-	public UsersCompetitions(Integer idUserCompetition, Integer idUser, Integer idGroup, Integer userScore,
+	public UserCompetitions(Integer idUserCompetition, Integer idUser, Integer idGroup, Integer userScore,
 			Integer idAwards, String timeReceived) {
 		
 		this.idUserCompetition = idUserCompetition;
