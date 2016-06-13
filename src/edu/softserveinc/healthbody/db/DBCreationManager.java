@@ -26,12 +26,12 @@ public class DBCreationManager {
 				+ "description text,"
 				+ "status varchar)"),
 		COMPETION_TABLE("CREATE TABLE IF NOT EXISTS \"Competition\"("
-				+ "id_competition serial primary key,"
+				+ "idCompetition serial primary key,"
 				+ "name varchar(50),"
 				+ "description varchar(250),"
 				+ "start date,"
 				+ "finish date,"
-				+ "id_criteria bigint)"),
+				+ "idCriteria bigint)"),
 		USER_GROUP_TABLE("CREATE TABLE IF NOT EXISTS \"UsersGroups\"("
 				+ "id_user_group serial primary key,"
 				+ "id_user bigint,"
