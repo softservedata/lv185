@@ -10,14 +10,14 @@ public class GroupCompetitions implements IEntity{
 		return idGroupCompetitions;
 	}
 
+
 	public GroupCompetitions(Integer idGroupCompetitions, Integer idGroup, Integer idCompetition) {
-		super();
 		this.idGroupCompetitions = idGroupCompetitions;
 		this.idGroup = idGroup;
 		this.idCompetition = idCompetition;
 	}
 
-//	getters
+	//	getters
 	public Integer getIdGroupCompetitions() {
 		return idGroupCompetitions;
 	}
