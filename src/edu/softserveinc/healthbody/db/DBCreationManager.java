@@ -58,7 +58,7 @@ public class DBCreationManager {
     private DBCreationManager() {
     }
 
-    public static DBCreationManager get() {
+    public static DBCreationManager getInstance() {
         if (instance == null) {
             synchronized (DBCreationManager.class) {
                 if (instance == null) {

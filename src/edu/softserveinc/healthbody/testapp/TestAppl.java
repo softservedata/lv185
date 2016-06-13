@@ -33,7 +33,7 @@ public class TestAppl {
 		}
 		Statement st = con.createStatement();
 		try {
-			DBCreationManager.getInstance().createDatabase(st);
+			DBCreationManager.getInstance().createDB(st, databaseName);
 			logger.info("Database created...");
 		} catch (SQLException e) {
 			if (e.getErrorCode() == 0) { // Database exists
@@ -47,7 +47,7 @@ public class TestAppl {
 		for (TableQueries query : TableQueries.values()) {
 			//And here we crush..... 
 			//TODO Check correctness of SQL Queries in DBCreationManager
-			DBCreationManager.getInstance().createTable(st, query);
+			DBCreationManager.getInstance().createTable(st, query.toString());
 		}
 		logger.info("Tables created in database...");
 		if (st != null) {

@@ -1,4 +1,4 @@
-package edu.softserveinc.healthbody.main;
+package edu.softserveinc.healthbody.testapp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,11 +26,11 @@ public class TestDBCreationManager {
         if (con == null) {
             System.exit(0); }
         Statement st = con.createStatement();
-        DBCreationManager.get().createDB(st, "health");
-        DBCreationManager.get().createTable(st, TableQueries.USERS_TABEL.toString());
-        DBCreationManager.get().createTable(st, TableQueries.GROUPS_TABEL.toString());
-        DBCreationManager.get().createTable(st, TableQueries.COMPETION_TABEL.toString());
-        DBCreationManager.get().createTable(st, TableQueries.USER_GROUP_TABEL.toString());
+        DBCreationManager.getInstance().createDB(st, "health");
+        DBCreationManager.getInstance().createTable(st, TableQueries.USERS_TABEL.toString());
+        DBCreationManager.getInstance().createTable(st, TableQueries.GROUPS_TABEL.toString());
+        DBCreationManager.getInstance().createTable(st, TableQueries.COMPETION_TABEL.toString());
+        DBCreationManager.getInstance().createTable(st, TableQueries.USER_GROUP_TABEL.toString());
 
         if (st != null)
             st.close();
