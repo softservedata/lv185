@@ -25,13 +25,19 @@ public class DBCreationManager {
 				+ "name varchar(50),"
 				+ "description varchar(50),"
 				+ "status varchar(50))"),
+		CRITERIA_TABLE("CREATE TABLE IF NOT EXISTS \"criteria\"("
+				+ "idCriteria serial primary key,"
+				+ "name varchar(50),"
+				+ "metrics double precision,"
+				+ "getGoogle varchar(200))"),
 		COMPETION_TABLE("CREATE TABLE IF NOT EXISTS \"competition\"("
-				+ "id_competition serial primary key,"
+				+ "idCompetition serial primary key,"
 				+ "name varchar(50),"
 				+ "description varchar(200),"
 				+ "start date,"
 				+ "finish date,"
-				+ "id_criteria bigint)"),
+				+ "idCriteria int)"
+				+ "FOREIGN KEY (idCriteria) REFERENCES \"criteria\" (idCriteria))"),
 		AWARD_TABLE("CREATE TABLE IF NOT EXISTS \"awards\"("
 				+ "id_award serial primary key,"
 				+ "name varchar(50))"),
