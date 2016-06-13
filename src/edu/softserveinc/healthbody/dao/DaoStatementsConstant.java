@@ -122,6 +122,27 @@ public class DaoStatementsConstant {
 			return query;
 		}
 	}
+	public static enum GroupCompetitionsDBQueries {
+		INSERT(DaoQueries.INSERT, "INSERT INTO GroupCompetitions (idGroupCompetitions,idGroup,idCompetition) VALUES (?, ?, ?);"),
+		GET_BY_ID(DaoQueries.GET_BY_ID,	"SELECT idGroupCompetitions,idGroup,idCompetition FROM GroupCompetitions WHERE idGroupCompetitions = ?;"),
+		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT idGroupCompetitions,idGroup,idCompetition FROM GroupCompetitions WHERE ? = ?;"),
+		GET_ALL(DaoQueries.GET_ALL,	"SELECT idGroupCompetitions,idGroup,idCompetition FROM GroupCompetitions;"),
+		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE GroupCompetitions SET ? = ? WHERE ? = ?;"),
+		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE GroupCompetitions WHERE idGroupCompetitions = ?;"),
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE GroupCompetitions WHERE ? = ?;");
+		private DaoQueries daoQuery;
+		private String query;
 
+		private GroupCompetitionsDBQueries(DaoQueries daoQuery, String query) {
+			this.daoQuery = daoQuery;
+			this.query = query;
+		}
+
+		public DaoQueries getDaoQuery() {
+			return daoQuery;
+		}
+		public String toString() {
+			return query;
+		}
+	}
 }
- 
