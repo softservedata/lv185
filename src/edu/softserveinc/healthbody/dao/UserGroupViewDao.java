@@ -12,7 +12,7 @@ import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
-import edu.softserveinc.helthbody.log.Log;
+import edu.softserveinc.healthbody.log.Log;
 
 public class UserGroupViewDao extends AbstractDao<UserGroupView>{
 	

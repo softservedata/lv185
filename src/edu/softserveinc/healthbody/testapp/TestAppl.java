@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 
 import edu.softserveinc.healthbody.db.DBCreationManager;
 import edu.softserveinc.healthbody.db.DBCreationManager.TableQueries;
-import edu.softserveinc.helthbody.log.Log;
+import edu.softserveinc.healthbody.log.Log;
 
 public class TestAppl {
 	//TODO

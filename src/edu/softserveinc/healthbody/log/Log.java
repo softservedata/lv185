@@ -1,4 +1,4 @@
-package edu.softserveinc.helthbody.log;
+package edu.softserveinc.healthbody.log;
 
 import java.io.InputStream;
 
