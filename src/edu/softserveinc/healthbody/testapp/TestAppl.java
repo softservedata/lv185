@@ -33,7 +33,7 @@ public class TestAppl {
 		}
 		Statement st = con.createStatement();
 		try {
-			DBCreationManager.getInstance().createDB(st, databaseName);
+			DBCreationManager.getInstance().createDatabase(st, databaseName);
 			logger.info("Database created...");
 		} catch (SQLException e) {
 			if (e.getErrorCode() == 0) { // Database exists
