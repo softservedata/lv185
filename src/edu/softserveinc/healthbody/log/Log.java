@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 public class Log {
-	private final static String LOGGER_PROPERTIES_FILENAME = "./resources/log4j.properties";
+	private final static String LOGGER_PROPERTIES_FILENAME = "edu/softserveinc/healthbody/resources/log4j.properties";
     
     public static Logger init(String className) {
     	ClassLoader classloader = Thread.currentThread().getContextClassLoader();
