@@ -29,7 +29,7 @@ public final class UserDao extends AbstractDao<User> {
 		return instance;
 	}
 
-	private void init() {
+	protected void init() {
 		for (UserDBQueries userDBQueries : UserDBQueries.values()) {
 			sqlQueries.put(userDBQueries.getDaoQuery(), userDBQueries);
 		}

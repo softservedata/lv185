@@ -25,7 +25,7 @@ public class MetaDataDao extends AbstractDao<MetaData> {
 		return instance;
 	}
 
-	private void init() {
+	protected void init() {
 		for (MetaDataDBQueries metaDataDBQueries : MetaDataDBQueries.values()) {
 			sqlQueries.put(metaDataDBQueries.getDaoQuery(), metaDataDBQueries);
 		}
