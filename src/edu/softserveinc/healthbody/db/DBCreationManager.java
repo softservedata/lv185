@@ -23,23 +23,35 @@ public class DBCreationManager {
 		GROUPS_TABLE("CREATE TABLE IF NOT EXISTS \"groups\"("
 				+ "id_group serial primary key,"
 				+ "name varchar(50),"
-				+ "description text,"
-				+ "status varchar)"),
+				+ "description varchar(50),"
+				+ "status varchar(50))"),
 		COMPETION_TABLE("CREATE TABLE IF NOT EXISTS \"competition\"("
-				+ "idCompetition serial primary key,"
+				+ "id_competition serial primary key,"
 				+ "name varchar(50),"
 				+ "description varchar(200),"
 				+ "start date,"
 				+ "finish date,"
-				+ "idCriteria bigint)"),
+				+ "id_criteria bigint)"),
+		AWARD_TABLE("CREATE TABLE IF NOT EXISTS \"awards\"("
+				+ "id_award serial primary key,"
+				+ "name varchar(50))"),
 		USER_GROUP_TABLE("CREATE TABLE IF NOT EXISTS \"usersgroups\"("
-				+ "id_criteria bigint,"
 				+ "id_user_group serial primary key,"
 				+ "id_user bigint,"
 				+ "id_group bigint,"
 				+ "member_group varchar(50),"
 				+ "FOREIGN KEY (id_group)  REFERENCES \"groups\" (id_group),"
 				+ "FOREIGN KEY (id_user) REFERENCES \"users\" (id_user))"),
+		USER_COMPETITION_TABLE("CREATE TABLE IF NOT EXISTS \"userscompetitions\"("
+				+ "id_user_competition serial primary key,"
+				+ "id_user bigint,"
+				+ "id_group bigint,"
+				+ "id_award bigint,"
+				+ "user_scope bigint,"
+				+ "time_received varchar(50),"
+				+ "FOREIGN KEY (id_user) REFERENCES \"users\" (id_user),"
+				+ "FOREIGN KEY (id_group)  REFERENCES \"groups\" (id_group),"
+				+ "FOREIGN KEY (id_award) REFERENCES \"awards\" (id_award))"),
 		ROLE_TABLE("CREATE TABLE IF NOT EXISTS \"roles\"("
 				+ "id_role serial primary key,"
 				+ "name varchar(50),"
