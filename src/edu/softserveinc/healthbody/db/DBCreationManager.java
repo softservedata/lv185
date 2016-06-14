@@ -23,21 +23,21 @@ public class DBCreationManager {
 		GROUPS_TABLE("CREATE TABLE IF NOT EXISTS \"groups\"("
 				+ "id_group serial primary key,"
 				+ "name varchar(50),"
-				+ "description varchar(50),"
+				+ "description varchar(200),"
 				+ "status varchar(50))"),
-		CRITERIA_TABLE("CREATE TABLE IF NOT EXISTS \"criteria\"("
-				+ "idCriteria serial primary key,"
+		CRITERIAS_TABLE("CREATE TABLE IF NOT EXISTS \"criterias\"("
+				+ "id_criteria serial primary key,"
 				+ "name varchar(50),"
 				+ "metrics double precision,"
-				+ "getGoogle varchar(200))"),
-		COMPETION_TABLE("CREATE TABLE IF NOT EXISTS \"competition\"("
-				+ "idCompetition serial primary key,"
+				+ "get_google varchar(200))"),
+		COMPETIONS_TABLE("CREATE TABLE IF NOT EXISTS \"competitions\"("
+				+ "id_competition serial primary key,"
 				+ "name varchar(50),"
 				+ "description varchar(200),"
 				+ "start date,"
 				+ "finish date,"
-				+ "idCriteria int)"
-				+ "FOREIGN KEY (idCriteria) REFERENCES \"criteria\" (idCriteria))"),
+				+ "id_criteria bigint,"
+				+ "FOREIGN KEY (id_criteria) REFERENCES \"criterias\" (id_criteria))"),
 		AWARD_TABLE("CREATE TABLE IF NOT EXISTS \"awards\"("
 				+ "id_award serial primary key,"
 				+ "name varchar(50))"),
@@ -51,12 +51,12 @@ public class DBCreationManager {
 		USER_COMPETITION_TABLE("CREATE TABLE IF NOT EXISTS \"userscompetitions\"("
 				+ "id_user_competition serial primary key,"
 				+ "id_user bigint,"
-				+ "id_group bigint,"
+				+ "id_competition bigint,"
 				+ "id_award bigint,"
 				+ "user_scope bigint,"
 				+ "time_received varchar(50),"
 				+ "FOREIGN KEY (id_user) REFERENCES \"users\" (id_user),"
-				+ "FOREIGN KEY (id_group)  REFERENCES \"groups\" (id_group),"
+				+ "FOREIGN KEY (id_competition)  REFERENCES \"competitions\" (id_competition),"
 				+ "FOREIGN KEY (id_award) REFERENCES \"awards\" (id_award))"),
 		ROLE_TABLE("CREATE TABLE IF NOT EXISTS \"roles\"("
 				+ "id_role serial primary key,"
