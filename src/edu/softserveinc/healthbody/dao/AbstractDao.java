@@ -27,8 +27,8 @@ abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEnt
 		}
 		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 
-			for (int i = 0; i < getFields(entity).length; i++){
-				pst.setString(i + 1, getFields(entity)[i]);
+			for (int i = 1; i < getFields(entity).length; i++){
+				pst.setString(i, getFields(entity)[i]);
 			}
 			result = pst.execute();
 		} catch (SQLException e) {
