@@ -4,7 +4,6 @@ package edu.softserveinc.healthbody.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 
 import edu.softserveinc.healthbody.entity.Group;
 import edu.softserveinc.healthbody.entity.User;
@@ -14,12 +13,12 @@ import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
-import edu.softserveinc.healthbody.log.Log;
+
 
 public class UserGroupViewDao extends AbstractDao<UserGroupView>{
 	
 	private static volatile UserGroupViewDao instance = null;
-	private Logger logger = Log.init(this.getClass().getName());
+
 	
 	public UserGroupViewDao() {
 		super();
