@@ -3,7 +3,7 @@ package edu.softserveinc.healthbody.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.softserveinc.healthbody.dao.DaoStatementsConstant.UserCompetitionsDBQueries;
+import edu.softserveinc.healthbody.dao.DaoStatementsConstant.UserGroupViewQueries.UserCompetitionsDBQueries;
 import edu.softserveinc.healthbody.entity.UserCompetitions;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
