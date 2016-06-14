@@ -110,11 +110,8 @@ public class DBCreationManager {
 
 	public boolean createDatabase(Statement statement, String databaseName) throws SQLException {
 		boolean result = false;
-		String sqlQuery = "select datname from pg_catalog.pg_database where datname = \'" + databaseName + "\';";
-		System.out.println(sqlQuery);
-		result = statement.execute(sqlQuery);
-		ResultSet rs = statement.getResultSet();
-		if (rs.next()){
+		statement.execute("select datname from pg_catalog.pg_database where datname = \'" + databaseName + "\';");
+		if (statement.getResultSet().next()){
 			System.out.println("Database exists!!!");
 		} else {
 			System.out.println("Database does not exist");
