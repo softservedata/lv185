@@ -1,6 +1,8 @@
 package edu.softserveinc.healthbody.dao;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -56,17 +58,12 @@ public class UserGroupViewDao extends AbstractDao<UserGroupView>{
 
 	@Override
 	protected String[] getFields(UserGroupView entity) {
-		String[] fields = new String[UserGroupView.class.getDeclaredFields().length];
-		Field[] fieldsEE = UserGroupView.class.getDeclaredFields(); 
-		for(int i =0;i<fieldsEE.length;i++){
-			fieldsEE[i].setAccessible(true);
-			try {
-				fields[i] = fieldsEE[i].get(entity).toString();
-			} catch (IllegalArgumentException | IllegalAccessException e) {
-				logger.error("UserGroupView failed", e);
-			}			
-		}
-		return fields;
+		List<String> fields = new ArrayList<>();
+		fields.add(entity.getIdUserGroup().toString());
+		fields.add(entity.getIdUser().toString());
+		fields.add(entity.getIdGroup().toString());
+		fields.add(entity.getMemberGgoup().toString());
+		return (String[]) fields.toArray();
 	}
 	
 	
