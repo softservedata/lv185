@@ -123,8 +123,30 @@ public class DaoStatementsConstant {
 			return query;
 		}
 	}
-	
-	public static enum GroupCompetitionsDBQueries {
+	public static enum AwardDBQueries {
+		INSERT(DaoQueries.INSERT, "INSERT INTO awards (name) VALUES (?);"),
+		GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT * FROM awards WHERE id_award = ?;"),
+		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT * FROM awards WHERE ? = ?;"),
+		GET_ALL(DaoQueries.GET_ALL, "SELECT id_award, name FROM awards;"),
+		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE awards SET ? = ? WHERE ? = ?;"),
+		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE awards WHERE id_award = ?;"),
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE awards WHERE ? = ?;");
+		
+		private DaoQueries daoQuery;
+		private String query;
+		
+		private AwardDBQueries(DaoQueries daoQuery, String query) {
+			this.daoQuery = daoQuery;
+			this.query = query;
+		}
+		
+		public DaoQueries getDaoQuery() {
+			return daoQuery;
+		}
+		public String toString() {
+			return query;
+		}
+}	public static enum GroupCompetitionsDBQueries {
 		INSERT(DaoQueries.INSERT, "INSERT INTO GroupCompetitions (id_group_competition,id_group,id_competition) VALUES (?, ?, ?);"),
 		GET_BY_ID(DaoQueries.GET_BY_ID,	"SELECT id_group_competition,id_group,id_competition FROM GroupCompetitions WHERE id_group_competition = ?;"),
 		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_group_competition,id_group,id_competition FROM GroupCompetitions WHERE ? = ?;"),
