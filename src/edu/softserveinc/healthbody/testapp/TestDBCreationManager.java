@@ -19,6 +19,7 @@ public class TestDBCreationManager {
 	private static String password = "root";
 	private static String URL = "jdbc:postgresql://localhost:5432/";
 	private static String databaseName = "healthbodydb";
+	private static String deleteDatabase = "false";
 
 	public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		logger.info("TestDBCreationManager starts...");
@@ -31,14 +32,24 @@ public class TestDBCreationManager {
 			System.exit(0);
 		}
 		
+		// This method check if value deleteDatabase = true than before creating database we delete this database
 		Statement st = con.createStatement();
-		
+		if("true".equals(deleteDatabase)){
+			try {
+				DBCreationManager.getInstance().deleteDatabase(st, databaseName);
+				logger.info("Database - " + databaseName + " was deleted");
+			} catch (SQLException e) {
+				logger.error("Database wasn't deleted", e);
+			}
+		}
+
 		try {
 			DBCreationManager.getInstance().createDatabase(st, databaseName);
 			logger.info("Database - " + databaseName + " was created");
 		} catch (SQLException e) {
 			logger.error("Database didn't create", e);
 		}
+		
 		try {
 			con = DriverManager.getConnection(URL + databaseName, username, password);
 			st = con.createStatement();
