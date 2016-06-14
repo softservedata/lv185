@@ -35,7 +35,9 @@ public class TestDBCreationManager {
 		try {
 			DBCreationManager.getInstance().createDatabase(st, databaseName);
 			logger.info("Database - "+databaseName+" was created");
-		
+			
+			con = DriverManager.getConnection(URL + databaseName, username, password);
+			st = con.createStatement();
 			for (TableQueries query : TableQueries.values()) {
 				logger.info("Creating " + query.name());
 				DBCreationManager.getInstance().createTable(st, query.toString());
