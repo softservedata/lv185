@@ -101,11 +101,11 @@ public class DaoStatementsConstant {
 	}
 	public static enum MetaDataDBQueries {
 		INSERT(DaoQueries.INSERT, "INSERT INTO metadata (last_synch) VALUES (?);"),
-		GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT * FROM metadata WHERE id_group = ?;"),
-		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT * FROM metadata WHERE ? = ?;"),
+		GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT id_metadata, last_synch FROM metadata WHERE id_metadata = ?;"),
+		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_metadata, last_synch FROM metadata WHERE ? = ?;"),
 		GET_ALL(DaoQueries.GET_ALL, "SELECT * FROM metadata;"),
 		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE metadata SET ? = ? WHERE ? = ?;"),
-		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE metadata WHERE id_meta_data = ?;"),
+		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE metadata WHERE id_metadata = ?;"),
 		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE metadata WHERE ? = ?;");
 		
 		private DaoQueries daoQuery;
