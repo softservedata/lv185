@@ -1,5 +1,6 @@
 package edu.softserveinc.healthbody.db;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -109,9 +110,19 @@ public class DBCreationManager {
 
 	public boolean createDatabase(Statement statement, String databaseName) throws SQLException {
 		boolean result = false;
-		if (!(statement.execute("SELECT 1 from pg_database WHERE datname=\'"+databaseName+"\';"))){
-			result = statement.execute("CREATE DATABASE "+databaseName);   
+		String sqlQuery = "select datname from pg_catalog.pg_database where datname = \'" + databaseName + "\';";
+		System.out.println(sqlQuery);
+		result = statement.execute(sqlQuery);
+		ResultSet rs = statement.getResultSet();
+		if (rs.next()){
+			System.out.println("Database exists!!!");
+		} else {
+			System.out.println("Database does not exist");
+			System.out.println("Creating...");
+			result = statement.execute("CREATE DATABASE " + databaseName);
+			System.out.println("Database created.");
 		}
+
 		return result;
 	}
 

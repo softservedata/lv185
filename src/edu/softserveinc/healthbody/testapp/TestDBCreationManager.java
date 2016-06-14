@@ -30,12 +30,16 @@ public class TestDBCreationManager {
 		if (con == null) {
 			System.exit(0);
 		}
+		
 		Statement st = con.createStatement();
-	
+		
 		try {
 			DBCreationManager.getInstance().createDatabase(st, databaseName);
-			logger.info("Database - "+databaseName+" was created");
-			
+			logger.info("Database - " + databaseName + " was created");
+		} catch (SQLException e) {
+			logger.error("Database didn't create", e);
+		}
+		try {
 			con = DriverManager.getConnection(URL + databaseName, username, password);
 			st = con.createStatement();
 			for (TableQueries query : TableQueries.values()) {
@@ -43,7 +47,8 @@ public class TestDBCreationManager {
 				DBCreationManager.getInstance().createTable(st, query.toString());
 			}
 		} catch (SQLException e) {
-			logger.error("Database didn't create", e);
+			logger.error("Error creating database tables.", e);
+
 		}
 
 		if (st != null)
