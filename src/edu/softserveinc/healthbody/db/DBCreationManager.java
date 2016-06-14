@@ -29,7 +29,7 @@ public class DBCreationManager {
 				+ "name varchar(50),"
 				+ "description varchar(50),"
 				+ "status varchar(50))"),
-		COMPETION_TABLE("CREATE TABLE IF NOT EXISTS \"competition\"("
+		COMPETION_TABLE("CREATE TABLE IF NOT EXISTS \"competitions\"("
 				+ "id_competition serial primary key,"
 				+ "name varchar(50),"
 				+ "description varchar(200),"
@@ -51,6 +51,12 @@ public class DBCreationManager {
 				+ "member_group varchar(50),"
 				+ "FOREIGN KEY (id_group)  REFERENCES \"groups\" (id_group),"
 				+ "FOREIGN KEY (id_user) REFERENCES \"users\" (id_user))"),
+		GROUP_COMPETITION_TABLE("CREATE TABLE IF NOT EXISTS \"groupscompetitions\"("
+				+ "id_group_competition serial primary key,"
+				+ "id_group bigint,"
+				+ "id_competition bigint,"
+				+ "FOREIGN KEY (id_group)  REFERENCES \"groups\" (id_group),"
+				+ "FOREIGN KEY (id_competition) REFERENCES \"competitions\" (id_competition))"),
 		USER_COMPETITION_TABLE("CREATE TABLE IF NOT EXISTS \"userscompetitions\"("
 				+ "id_user_competition serial primary key,"
 				+ "id_user bigint,"
