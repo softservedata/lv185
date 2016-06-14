@@ -109,7 +109,7 @@ public class DBCreationManager {
 
 	public boolean createDatabase(Statement statement, String databaseName) throws SQLException {
 		boolean result = false;
-		if (!statement.execute("SELECT 1 from pg_database WHERE datname=\'"+databaseName+"\';")){
+		if (!(statement.execute("SELECT 1 from pg_database WHERE datname=\'"+databaseName+"\';"))){
 			result = statement.execute("CREATE DATABASE "+databaseName);   
 		}
 		return result;
