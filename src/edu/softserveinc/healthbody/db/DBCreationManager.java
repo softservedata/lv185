@@ -20,27 +20,30 @@ public class DBCreationManager {
 				+ "google_field varchar(150),"
 				+ "id_role bigint,"
 				+ "status varchar(50))"),
+		ROLE_TABLE("CREATE TABLE IF NOT EXISTS \"roles\"("
+				+ "id_role serial primary key,"
+				+ "name varchar(50),"
+				+ "description varchar(200))"),
 		GROUPS_TABLE("CREATE TABLE IF NOT EXISTS \"groups\"("
 				+ "id_group serial primary key,"
 				+ "name varchar(50),"
-				+ "description varchar(200),"
+				+ "description varchar(50),"
 				+ "status varchar(50))"),
-		CRITERIAS_TABLE("CREATE TABLE IF NOT EXISTS \"criterias\"("
-				+ "id_criteria serial primary key,"
-				+ "name varchar(50),"
-				+ "metrics double precision,"
-				+ "get_google varchar(200))"),
-		COMPETIONS_TABLE("CREATE TABLE IF NOT EXISTS \"competitions\"("
+		COMPETION_TABLE("CREATE TABLE IF NOT EXISTS \"competition\"("
 				+ "id_competition serial primary key,"
 				+ "name varchar(50),"
 				+ "description varchar(200),"
 				+ "start date,"
 				+ "finish date,"
-				+ "id_criteria bigint,"
-				+ "FOREIGN KEY (id_criteria) REFERENCES \"criterias\" (id_criteria))"),
+				+ "id_criteria bigint)"),
 		AWARD_TABLE("CREATE TABLE IF NOT EXISTS \"awards\"("
 				+ "id_award serial primary key,"
 				+ "name varchar(50))"),
+		CRITERIA_TABLE("CREATE TABLE IF NOT EXISTS \"criteria\"("
+				+ "id_criteria serial primary key,"
+				+ "name varchar(50),"
+				+ "metrics real,"
+				+ "get_google varchar(200))"),
 		USER_GROUP_TABLE("CREATE TABLE IF NOT EXISTS \"usersgroups\"("
 				+ "id_user_group serial primary key,"
 				+ "id_user bigint,"
@@ -51,17 +54,13 @@ public class DBCreationManager {
 		USER_COMPETITION_TABLE("CREATE TABLE IF NOT EXISTS \"userscompetitions\"("
 				+ "id_user_competition serial primary key,"
 				+ "id_user bigint,"
-				+ "id_competition bigint,"
+				+ "id_group bigint,"
 				+ "id_award bigint,"
 				+ "user_scope bigint,"
 				+ "time_received varchar(50),"
 				+ "FOREIGN KEY (id_user) REFERENCES \"users\" (id_user),"
-				+ "FOREIGN KEY (id_competition)  REFERENCES \"competitions\" (id_competition),"
+				+ "FOREIGN KEY (id_group)  REFERENCES \"groups\" (id_group),"
 				+ "FOREIGN KEY (id_award) REFERENCES \"awards\" (id_award))"),
-		ROLE_TABLE("CREATE TABLE IF NOT EXISTS \"roles\"("
-				+ "id_role serial primary key,"
-				+ "name varchar(50),"
-				+ "description varchar(200))"),
 		META_DATA_TABLE("CREATE TABLE IF NOT EXISTS \"metadata\"("
 				+ "id_meta_data serial primary key,"
 				+ "last_synch varchar(50))");
