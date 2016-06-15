@@ -32,7 +32,7 @@ public class TestDBCreationManager {
 			System.exit(0);
 		}
 		
-		// This method check if value deleteDatabase = true than before creating database we delete this database
+		// This method check if value deleteDatabase = true than before creating database we will delete this database
 		Statement st = con.createStatement();
 		if("true".equals(deleteDatabase)){
 			try {
