@@ -13,21 +13,21 @@ import com.softserve.edu.hb.entity.UserDB;
 import com.softserve.edu.hb.entity.UserRoleView;
 import com.softserve.edu.hb.entity.UserRoleView.UserRoleViewFields;
 
-public class UserUIService {
+public class UserIUService {
 	private final static String ROLE_FIELDNAME = "name";
 	protected final static String TRANSACTION_ERROR = "Transaction Error, Rollback";
 	//
-    private static volatile UserUIService instance = null;
+    private static volatile UserIUService instance = null;
     // Singleton testing is Very Difficult !!!
 
-    private UserUIService() {
+    private UserIUService() {
     }
 
-    public static UserUIService get() {
+    public static UserIUService get() {
         if (instance == null) {
-            synchronized (UserUIService.class) {
+            synchronized (UserIUService.class) {
                 if (instance == null) {
-                    instance = new UserUIService();
+                    instance = new UserIUService();
                 }
             }
         }
@@ -42,7 +42,7 @@ public class UserUIService {
 		// TODO Password Default
 		try {
 			result = UserDao.get().insert(new UserDB(0, roles.get(0).getId(),
-					userDTO.getLoginUser(), userDTO.getLoginUser()));
+					userDTO.getLogin(), userDTO.getLogin()));
 		} catch (Exception e) {
 			ConnectionManager.getInstance().rollbackTransaction();
 			throw new RuntimeException(TRANSACTION_ERROR, e);
@@ -57,7 +57,9 @@ public class UserUIService {
     	List<UserDTO> result = new ArrayList<UserDTO>();
     	ConnectionManager.getInstance().beginTransaction();
     	for (UserRoleView userRoleView : UserRoleViewDao.get().getAll()) {
-    		result.add(new UserDTO(userRoleView.getLogin(), userRoleView.getRoleName()));
+    		result.add(new UserDTO("", "", userRoleView.getLogin(),
+    				"", "", "", "", "", "",
+    				userRoleView.getRoleName(), "", "", null));
     	}
 		ConnectionManager.getInstance().commitTransaction();
     	return result;
@@ -67,7 +69,9 @@ public class UserUIService {
     	List<UserDTO> result = new ArrayList<UserDTO>();
     	for (UserRoleView userRoleView : UserRoleViewDao.get()
     			.getByFieldName(UserRoleViewFields.ROLES_NAME.toString(), roleName)  ) {
-    		result.add(new UserDTO(userRoleView.getLogin(), userRoleView.getRoleName()));
+    		result.add(new UserDTO("", "", userRoleView.getLogin(),
+    				"", "", "", "", "", "",
+    				userRoleView.getRoleName(), "", "", null));
     	}
     	return result;
     }

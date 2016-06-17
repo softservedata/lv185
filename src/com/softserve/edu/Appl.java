@@ -3,7 +3,7 @@ package com.softserve.edu;
 import com.softserve.edu.hb.db.ConnectionManager;
 import com.softserve.edu.hb.db.DataSourceRepository;
 import com.softserve.edu.hb.dto.UserDTO;
-import com.softserve.edu.hb.services.UserUIService;
+import com.softserve.edu.hb.services.UserIUService;
 
 public class Appl {
 	
@@ -11,13 +11,15 @@ public class Appl {
 		//ConnectionManager.getInstance(DataSourceRepository.getInstance().getMySqlLocalHost());
 		//ConnectionManager.getInstance(DataSourceRepository.getInstance().getFirstConnectorByCVS());
 		ConnectionManager.getInstance(DataSourceRepository.getInstance().getConnectorByProperties());
-		for (UserDTO userDTO : UserUIService.get().getAllUsers()) {
+		for (UserDTO userDTO : UserIUService.get().getAllUsers()) {
 		//for (UserDTO userDTO : UserUIService.get().getUsersByRole("manager")) {
-			System.out.println("Login = " + userDTO.getLoginUser()
+			System.out.println("Login = " + userDTO.getLogin()
 				+ "\tRole = " + userDTO.getRoleName());	
 		}
 		//new DataSourceUtils().getAllDataSources();
-		UserUIService.get().insertUser(new UserDTO("Tester2", "manager"));
+		UserIUService.get().insertUser(new UserDTO("", "", "Tester2",
+				"", "", "", "", "", "",
+				"manager", "", "", null));
 		ConnectionManager.closeAllConnections();
 	}
 
