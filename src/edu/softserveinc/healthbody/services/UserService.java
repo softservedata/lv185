@@ -40,7 +40,7 @@ public class UserService {
 		ConnectionManager.getInstance().beginTransaction();
 		List<Role> roles = RoleDao.get().getByField("name", userDTO.getRoleName());
 		try {
-		result = UserDao.get().insert(new User(0, userDTO.getLoginUser(), "passwd", "firsName", "lastName", "gender", 80, 25, roles.get(0).getId()));
+		result = UserDao.get().insert(new User(0, userDTO.getLogin(), "passwd", "firsName", "lastName", "gender", 80, 25, roles.get(0).getId()));
 		} catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
 			throw new TransactionException(TRANSACTION_ERROR, e);
