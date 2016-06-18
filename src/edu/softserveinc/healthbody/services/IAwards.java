@@ -4,7 +4,7 @@ import java.util.List;
 
 import edu.softserveinc.healthbody.dto.AwardDTO;
 
-public interface IAward {
+public interface IAwards {
 
 	void insertAward(AwardDTO awardDTO);
 
