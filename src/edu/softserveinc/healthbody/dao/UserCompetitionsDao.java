@@ -52,7 +52,7 @@ public final class UserCompetitionsDao extends AbstractDao<UserCompetitions> {
 		List<String> fields = new ArrayList<>();
 		fields.add(entity.getIdUserCompetition().toString());
 		fields.add(entity.getIdUser().toString());
-		fields.add(entity.getIdGroup().toString());
+		fields.add(entity.getIdCompetition().toString());
 		fields.add(entity.getUserScore().toString());
 		fields.add(entity.getIdAwards().toString());
 		fields.add(entity.getTimeReceived());

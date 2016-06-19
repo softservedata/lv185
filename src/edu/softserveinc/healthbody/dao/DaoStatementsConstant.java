@@ -4,7 +4,7 @@ import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
 
 public class DaoStatementsConstant {
 	public static enum UserDBQueries {
-        INSERT(DaoQueries.INSERT, "INSERT INTO users (id_role, login, passwd, firstname, lastname, age, weight, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"),
+        INSERT(DaoQueries.INSERT, "INSERT INTO users (id_role, login, password, firstname, lastname, age, weight, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"),
         GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT id_role, login, passwd, firstname, lastname, age, weight, gender FROM users WHERE id_user = ?;"),
         GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_role, login, passwd, firstname, lastname, age, weight, gender FROM users WHERE ? = ?;"),
         GET_ALL(DaoQueries.GET_ALL, "SELECT id_role, login, passwd, firstname, lastname, age, weight, gender FROM users;"),
@@ -77,10 +77,10 @@ public class DaoStatementsConstant {
         }
     }
 	public static enum CompetitionDBQueries {
-		INSERT(DaoQueries.INSERT, "INSERT INTO competitions (id_competition, name, description, start, end, id_criteria) VALUES (?, ?, ?, ?, ?, ?);"),
-		GET_BY_ID(DaoQueries.GET_BY_ID,	"SELECT id_competition, name, description, start, end, id_criteria FROM competitions WHERE id_competition = ?;"),
-		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_competition, name, description, start, end, id_criteria FROM competitions WHERE ? = ?;"),
-		GET_ALL(DaoQueries.GET_ALL,	"SELECT id_competition, name, description, start, end, id_criteria FROM competitions;"),
+		INSERT(DaoQueries.INSERT, "INSERT INTO competitions (name, description, start_date, finish_date, id_criteria) VALUES (?, ?, ?, ?, ?);"),
+		GET_BY_ID(DaoQueries.GET_BY_ID,	"SELECT id_competition, name, description, start_date, finish_date, id_criteria FROM competitions WHERE id_competition = ?;"),
+		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_competition, name, description, start_date, finish_date, id_criteria FROM competitions WHERE ? = ?;"),
+		GET_ALL(DaoQueries.GET_ALL,	"SELECT id_competition, name, description, start_date, finish_date, id_criteria FROM competitions;"),
 		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE competitions SET ? = ? WHERE ? = ?;"),
 		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE competitions WHERE id_competition = ?;"),
 		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE competitions WHERE ? = ?;");
@@ -125,8 +125,8 @@ public class DaoStatementsConstant {
 	}
 	public static enum AwardDBQueries {
 		INSERT(DaoQueries.INSERT, "INSERT INTO awards (name) VALUES (?);"),
-		GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT * FROM awards WHERE id_award = ?;"),
-		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT * FROM awards WHERE ? = ?;"),
+		GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT id_award, name FROM awards WHERE id_award = ?;"),
+		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_award, name FROM awards WHERE ? = ?;"),
 		GET_ALL(DaoQueries.GET_ALL, "SELECT id_award, name FROM awards;"),
 		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE awards SET ? = ? WHERE ? = ?;"),
 		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE awards WHERE id_award = ?;"),
@@ -147,13 +147,13 @@ public class DaoStatementsConstant {
 			return query;
 		}
 }	public static enum GroupCompetitionsDBQueries {
-		INSERT(DaoQueries.INSERT, "INSERT INTO GroupCompetitions (id_group_competition,id_group,id_competition) VALUES (?, ?, ?);"),
-		GET_BY_ID(DaoQueries.GET_BY_ID,	"SELECT id_group_competition,id_group,id_competition FROM GroupCompetitions WHERE id_group_competition = ?;"),
-		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_group_competition,id_group,id_competition FROM GroupCompetitions WHERE ? = ?;"),
-		GET_ALL(DaoQueries.GET_ALL,	"SELECT id_group_competition,id_group,id_competition FROM GroupCompetitions;"),
-		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE GroupCompetitions SET ? = ? WHERE ? = ?;"),
-		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE GroupCompetitions WHERE id_group_competition = ?;"),
-		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE GroupCompetitions WHERE ? = ?;");
+		INSERT(DaoQueries.INSERT, "INSERT INTO groupscompetitions (id_group, id_competition) VALUES (?, ?);"),
+		GET_BY_ID(DaoQueries.GET_BY_ID,	"SELECT id_group_competition, id_group, id_competition FROM groupscompetitions WHERE id_group_competition = ?;"),
+		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_group_competition, id_group, id_competition FROM groupscompetitions WHERE ? = ?;"),
+		GET_ALL(DaoQueries.GET_ALL,	"SELECT id_group_competition, id_group, id_competition FROM groupscompetitions;"),
+		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE groupscompetitions SET ? = ? WHERE ? = ?;"),
+		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE groupscompetitions WHERE id_group_competition = ?;"),
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE groupscompetitions WHERE ? = ?;");
 		private DaoQueries daoQuery;
 		private String query;
 
@@ -171,9 +171,9 @@ public class DaoStatementsConstant {
 	}
 	public static enum RoleDBQueries {
 		INSERT(DaoQueries.INSERT, "INSERT INTO roles (name, description) VALUES (?, ?);"),
-		GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT name, description FROM roles WHERE id_role = ?;"),
-		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT name, description FROM roles WHERE ? = ?;"),
-		GET_ALL(DaoQueries.GET_ALL, "SELECT name, description FROM roles;"),
+		GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT id_role, name, description FROM roles WHERE id_role = ?;"),
+		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_role, name, description FROM roles WHERE ? = ?;"),
+		GET_ALL(DaoQueries.GET_ALL, "SELECT id_role, name, description FROM roles;"),
 		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE roles SET ? = ? WHERE ? = ?;"),
 		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE roles WHERE id_role = ?;"),
 		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE roles WHERE ? = ?;");
@@ -216,13 +216,13 @@ public class DaoStatementsConstant {
             return query;
         }
         public static enum UserCompetitionsDBQueries {
-    		INSERT(DaoQueries.INSERT, "INSERT INTO UserCompetitions (id_user, id_competition, user_score, id_awards, time_received) VALUES (?, ?, ?, ?, ?, ?);"),
-    		GET_BY_ID(DaoQueries.GET_BY_ID,	"SELECT id_userCompetitions, id_user, id_competition, user_score, id_awards, time_received FROM UserCompetitions WHERE id_userCompetitions = ?;"),
-    		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_userCompetitions, id_user, id_competition, user_score, id_awards, time_received FROM UserCompetitions WHERE ? = ?;"),
-    		GET_ALL(DaoQueries.GET_ALL,	"SELECT id_userCompetitions, id_user, id_competition, user_score, id_awards, time_received FROM UserCompetitions;"),
-    		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE UserCompetitions SET ? = ? WHERE ? = ?;"),
-    		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE UserCompetitions WHERE id_userCompetitions = ?;"),
-    		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE UserCompetitions WHERE ? = ?;");
+    		INSERT(DaoQueries.INSERT, "INSERT INTO userscompetitions (id_user, id_competition, user_score, id_award, time_received) VALUES (?, ?, ?, ?, ?, ?);"),
+    		GET_BY_ID(DaoQueries.GET_BY_ID,	"SELECT id_user_competition, id_user, id_competition, user_score, id_award, time_received FROM userscompetitions WHERE id_user_competition = ?;"),
+    		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_user_competition, id_user, id_competition, user_score, id_award, time_received FROM userscompetitions WHERE ? = ?;"),
+    		GET_ALL(DaoQueries.GET_ALL,	"SELECT id_user_competition, id_user, id_competition, user_score, id_award, time_received FROM userscompetitions;"),
+    		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE userscompetitions SET ? = ? WHERE ? = ?;"),
+    		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE userscompetitions WHERE id_user_competition = ?;"),
+    		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE userscompetitions WHERE ? = ?;");
     		private DaoQueries daoQuery;
     		private String query;
 
@@ -239,13 +239,13 @@ public class DaoStatementsConstant {
     		}
     	}
         public static enum CriteriaDBQueries {
-    		INSERT(DaoQueries.INSERT, "INSERT INTO criterias (name, metrics, get_google) VALUES (?, ?, ?);"),
-    		GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT name, metrics, get_google FROM criterias WHERE id_criteria = ?;"),
-    		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT name, metrics, get_google FROM criterias WHERE ? = ?;"),
-    		GET_ALL(DaoQueries.GET_ALL, "SELECT name, metrics, get_google FROM criterias;"),
-    		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE criterias SET ? = ? WHERE ? = ?;"),
-    		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE criterias WHERE id_criteria = ?;"),
-    		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE criterias WHERE ? = ?;");
+    		INSERT(DaoQueries.INSERT, "INSERT INTO criteria (name, metrics, get_google) VALUES (?, ?, ?);"),
+    		GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT id_criteria, name, metrics, get_google FROM criteria WHERE id_criteria = ?;"),
+    		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_criteria, name, metrics, get_google FROM criteria WHERE ? = ?;"),
+    		GET_ALL(DaoQueries.GET_ALL, "SELECT id_criteria, name, metrics, get_google FROM criteria;"),
+    		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE criteria SET ? = ? WHERE ? = ?;"),
+    		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE criteria WHERE id_criteria = ?;"),
+    		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE criteria WHERE ? = ?;");
     		
     		private DaoQueries daoQuery;
     		private String query;

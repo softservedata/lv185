@@ -9,8 +9,8 @@ public class DBCreationManager {
 				+ "id_user serial primary key,"
 				+ "login varchar(50),"
 				+ "password varchar(25),"
-				+ "first_name varchar(50),"
-				+ "last_name varchar(50),"
+				+ "firstname varchar(50),"
+				+ "lastname varchar(50),"
 				+ "\"e-mail\" varchar(50),"
 				+ "age bigint,"
 				+ "weight real,"
@@ -60,15 +60,15 @@ public class DBCreationManager {
 		USER_COMPETITION_TABLE("CREATE TABLE IF NOT EXISTS \"userscompetitions\"("
 				+ "id_user_competition serial primary key,"
 				+ "id_user bigint,"
-				+ "id_group bigint,"
+				+ "id_competition bigint,"
 				+ "id_award bigint,"
-				+ "user_scope bigint,"
+				+ "user_score bigint,"
 				+ "time_received varchar(50),"
 				+ "FOREIGN KEY (id_user) REFERENCES \"users\" (id_user),"
-				+ "FOREIGN KEY (id_group)  REFERENCES \"groups\" (id_group),"
+				+ "FOREIGN KEY (id_competition)  REFERENCES \"competitions\" (id_competition),"
 				+ "FOREIGN KEY (id_award) REFERENCES \"awards\" (id_award))"),
 		META_DATA_TABLE("CREATE TABLE IF NOT EXISTS \"metadata\"("
-				+ "id_meta_data serial primary key,"
+				+ "id_metadata serial primary key,"
 				+ "last_synch varchar(50))");
 
 		private String table;

@@ -5,16 +5,16 @@ import java.util.List;
 public class UserCompetitionsDTO {
 	
 	private String login;
-	private List<String> groups;
+	private List<String> competitions;
 	private String userScore;
 	private String awardsName;
 	private String timeReceivedAward;
 	
-	public UserCompetitionsDTO(String login, List<String> groups, String userScore, String awardsName,
+	public UserCompetitionsDTO(String login, List<String> competitions, String userScore, String awardsName,
 			String timeReceivedAward) {
 		
 		this.login = login;
-		this.groups = groups;
+		this.competitions = competitions;
 		this.userScore = userScore;
 		this.awardsName = awardsName;
 		this.timeReceivedAward = timeReceivedAward;
@@ -25,8 +25,8 @@ public class UserCompetitionsDTO {
 		return login;
 	}
 
-	public List<String> getGroups() {
-		return groups;
+	public List<String> getCompetitions() {
+		return competitions;
 	}
 
 	public String getUserScore() {

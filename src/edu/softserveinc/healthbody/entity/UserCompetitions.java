@@ -4,17 +4,17 @@ public class UserCompetitions implements IEntity {
 	
 	private Integer idUserCompetition;
     private Integer idUser;
-	private Integer idGroup;
+	private Integer idCompetition;
 	private Integer userScore;
 	private Integer idAwards;
 	private String timeReceived;
 	
-	public UserCompetitions(Integer idUserCompetition, Integer idUser, Integer idGroup, Integer userScore,
+	public UserCompetitions(Integer idUserCompetition, Integer idUser, Integer idCompetition, Integer userScore,
 			Integer idAwards, String timeReceived) {
 		
 		this.idUserCompetition = idUserCompetition;
 		this.idUser = idUser;
-		this.idGroup = idGroup;
+		this.idCompetition = idCompetition;
 		this.userScore = userScore;
 		this.idAwards = idAwards;
 		this.timeReceived = timeReceived;
@@ -29,8 +29,8 @@ public class UserCompetitions implements IEntity {
 		this.idUser = idUser;
 	}
 
-	public void setIdGroup(Integer idGroup) {
-		this.idGroup = idGroup;
+	public void setIdCompetition(Integer idCompetition) {
+		this.idCompetition = idCompetition;
 	}
 
 	public void setUserScore(Integer userScore) {
@@ -60,8 +60,8 @@ public class UserCompetitions implements IEntity {
 		return idUser;
 	}
 
-	public Integer getIdGroup() {
-		return idGroup;
+	public Integer getIdCompetition() {
+		return idCompetition;
 	}
 
 	public Integer getUserScore() {
