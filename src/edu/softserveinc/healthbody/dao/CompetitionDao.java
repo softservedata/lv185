@@ -63,7 +63,7 @@ public final class CompetitionDao extends AbstractDao<Competition> {
 		return insert(competition);
 	}
 	
-	public boolean editGroup(Competition competition, String idCompetition, String name, String description,
+	public boolean editCompetition(Competition competition, String idCompetition, String name, String description,
 			String start, String finish, String idCriteria) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException{
 		String[] fields = getFields(competition);	
 		boolean result = false;
