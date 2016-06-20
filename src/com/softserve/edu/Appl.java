@@ -11,15 +11,22 @@ public class Appl {
 		//ConnectionManager.getInstance(DataSourceRepository.getInstance().getMySqlLocalHost());
 		//ConnectionManager.getInstance(DataSourceRepository.getInstance().getFirstConnectorByCVS());
 		ConnectionManager.getInstance(DataSourceRepository.getInstance().getConnectorByProperties());
-		for (UserDTO userDTO : UserIUService.get().getAllUsers()) {
-		//for (UserDTO userDTO : UserUIService.get().getUsersByRole("manager")) {
-			System.out.println("Login = " + userDTO.getLogin()
-				+ "\tRole = " + userDTO.getRoleName());	
-		}
+		//
+//		for (UserDTO userDTO : UserIUService.get().getAllUsers()) {
+//		//for (UserDTO userDTO : UserUIService.get().getUsersByRole("manager")) {
+//			System.out.println("Login = " + userDTO.getLogin()
+//				+ "\tRole = " + userDTO.getRoleName());	
+//		}
 		//new DataSourceUtils().getAllDataSources();
-		UserIUService.get().insertUser(new UserDTO("", "", "Tester2",
-				"", "", "", "", "", "",
-				"manager", "", "", null));
+//		UserIUService.get().insertUser(new UserDTO("", "", "Tester2",
+//				"", "", "", "", "", "",
+//				"manager", "", "", null));
+		for (UserDTO userDTO : UserIUService.get().getConcreteUsers(3, 1, "er", "man") ) {
+		//for (UserDTO userDTO : UserUIService.get().getUsersByRole("manager")) {
+			System.out.println("id = " + userDTO.getLastname()
+				+ "\tLogin = " + userDTO.getLogin()
+				+ "\tPassword = " + userDTO.getRoleName());	
+		}
 		ConnectionManager.closeAllConnections();
 	}
 

@@ -1,6 +1,7 @@
 package com.softserve.edu.hb.dao;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IDaoRead<TEntity> {
 
@@ -12,5 +13,7 @@ public interface IDaoRead<TEntity> {
     // TEntity getByFieldName(String fieldName, Integer value);
 
     List<TEntity> getAll();
+
+    List<TEntity> getFilterRange(int partNumber, int partSize, Map<String, String> filters);
 
 }

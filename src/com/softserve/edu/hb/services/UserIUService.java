@@ -1,7 +1,9 @@
 package com.softserve.edu.hb.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.softserve.edu.hb.dao.RoleDao;
 import com.softserve.edu.hb.dao.UserDao;
@@ -60,6 +62,23 @@ public class UserIUService {
     		result.add(new UserDTO("", "", userRoleView.getLogin(),
     				"", "", "", "", "", "",
     				userRoleView.getRoleName(), "", "", null));
+    	}
+		ConnectionManager.getInstance().commitTransaction();
+    	return result;
+    }
+
+    public List<UserDTO> getConcreteUsers(int partNumber, int partSize,
+    			String partialLogin, String partialPassword) {
+    	List<UserDTO> result = new ArrayList<UserDTO>();
+    	ConnectionManager.getInstance().beginTransaction();
+    	Map<String,String> filters = new HashMap<String,String>();
+    	filters.put(UserDB.UserDBFields.LOGIN.toString(), partialLogin);
+    	filters.put(UserDB.UserDBFields.PASSWD.toString(), partialPassword);
+    	for (UserDB userDB : UserDao.get()
+    			.getFilterRange((partNumber-1)*partSize, partSize, filters) ) {
+    		result.add(new UserDTO("", userDB.getId().toString(), userDB.getLogin(),
+    				"", "", "", "", "", "",
+    				userDB.getPasswd(), "", "", null));
     	}
 		ConnectionManager.getInstance().commitTransaction();
     	return result;

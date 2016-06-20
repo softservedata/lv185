@@ -4,10 +4,29 @@ import com.softserve.edu.hb.dao.IDaoCRUD.DaoQueries;
 
 public class UserDB implements IEntity {
 
+	public static enum UserDBFields {
+		IDUSER("idUser"),
+		IDROLE("idRole"),
+		LOGIN("login"),
+		PASSWD("passwd");
+        private String field;
+
+        private UserDBFields(String field) {
+            this.field = field;
+        }
+
+        @Override
+        public String toString() {
+            return field;
+        }
+
+	}
+	
     public static enum UserDBQueries {
         INSERT(DaoQueries.INSERT, "INSERT INTO users (id_role, login, passwd) VALUES (%s, '%s', '%s');"),
         GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT id_user, id_role, login, passwd FROM users WHERE id_user = %s;"),
         GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_user, id_role, login, passwd FROM users WHERE %s = '%s';"),
+        //GET_RANGE(DaoQueries.GET_ALL, "SELECT id_user, id_role, login, passwd FROM users LIMIT %s, %s;"),
         GET_ALL(DaoQueries.GET_ALL, "SELECT id_user, id_role, login, passwd FROM users;"),
         UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE users SET %s = '%s' WHERE %s = '%s';"),
         DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE users WHERE id_user = %s;"),

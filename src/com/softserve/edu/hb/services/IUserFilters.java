@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.softserve.edu.hb.dto.UserDTO;
 
+@Deprecated
 public interface IUserFilters {
 
 	List<UserDTO> getAllUsers(int partSize, int partNumber,
