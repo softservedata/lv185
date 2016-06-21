@@ -9,6 +9,7 @@ public class DaoStatementsConstant {
         GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT id_role, login, passwd, firstname, lastname, age, weight, gender FROM users WHERE id_user = ?;"),
         GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_role, login, passwd, firstname, lastname, age, weight, gender FROM users WHERE ? = ?;"),
         GET_ALL(DaoQueries.GET_ALL, "SELECT id_role, login, passwd, firstname, lastname, age, weight, gender FROM users;"),
+        UPDATE(DaoQueries.UPDATE, "UPATE users SET password = ?, firstname = ?, lastname = ?, age = ?, weight = ?, gender = ? WHERE login = ?"),
         UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE users SET ? = ? WHERE ? = ?;"),
         DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE users WHERE id_user = ?;"),
         DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE users WHERE ? = ?;");

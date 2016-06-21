@@ -3,12 +3,12 @@ package edu.softserveinc.healthbody.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.softserveinc.healthbody.dao.DaoStatementsConstant.GroupDBQueries;
 import edu.softserveinc.healthbody.entity.Group;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
-import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
-import edu.softserveinc.healthbody.dao.DaoStatementsConstant.GroupDBQueries;;
+import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;;
 
 public final class GroupDao extends AbstractDao<Group> {
 	
@@ -78,7 +78,5 @@ public final class GroupDao extends AbstractDao<Group> {
 		public List<Group> view() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException{
 			return getAll();
 		}
-		
-
 
 	}

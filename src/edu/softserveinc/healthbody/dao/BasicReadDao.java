@@ -1,6 +1,7 @@
 package edu.softserveinc.healthbody.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
@@ -14,4 +15,6 @@ public interface BasicReadDao<TEntity> {
 	List<TEntity> getByField(String fieldname, String text) throws JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException;
 
 	List<TEntity> getAll() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException;
+	
+	List<TEntity> getFilterRange(int partNumber, int partSize, Map<String, String> filters) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException;
 }

@@ -76,5 +76,4 @@ public final class UserCompetitionsDao extends AbstractDao<UserCompetitions> {
 		return getAll();
 	}
 
-
 }

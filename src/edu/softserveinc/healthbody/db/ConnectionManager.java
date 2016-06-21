@@ -53,7 +53,7 @@ public class ConnectionManager {
 	}
 
 	private DataSource getDataSource() {
-		return dataSource;
+		return this.dataSource;
 	}
 
 	private void setDataSource(DataSource dataSource) throws JDBCDriverException {
@@ -87,8 +87,8 @@ public class ConnectionManager {
 			try {
 				// about data source
 
-				connection = DriverManager.getConnection(dataSource.getConnectionUrl(), dataSource.getUser(),
-						dataSource.getPasswrd());
+				connection = DriverManager.getConnection(getDataSource().getConnectionUrl(), getDataSource().getUser(),
+						getDataSource().getPasswrd());
 			} catch (SQLException e) {
 				throw new JDBCDriverException(FAILED_REGISTRATE_DRIVER, e);
 			}

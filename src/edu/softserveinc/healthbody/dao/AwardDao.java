@@ -2,6 +2,7 @@ package edu.softserveinc.healthbody.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant.GroupDBQueries;
 import edu.softserveinc.healthbody.entity.Award;
@@ -61,6 +62,12 @@ public final class AwardDao extends AbstractDao<Award> {
 		
 		public List<Award> view() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException{
 			return getAll();
+		}
+
+		@Override
+		public List<Award> getFilterRange(int partNumber, int partSize, Map<String, String> filters) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 		
 

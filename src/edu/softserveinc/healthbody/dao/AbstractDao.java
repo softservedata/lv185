@@ -38,6 +38,7 @@ abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEnt
 	}
 
 	// update
+	
 	@Override
 	public boolean updateByField(String fieldName, String text, String fieldCondition, String textCondition) 
 			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException {

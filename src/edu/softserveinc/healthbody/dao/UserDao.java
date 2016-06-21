@@ -1,10 +1,13 @@
 package edu.softserveinc.healthbody.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.softserveinc.healthbody.entity.User;
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant.UserDBQueries;
+import edu.softserveinc.healthbody.db.ConnectionManager;
+import edu.softserveinc.healthbody.entity.User;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
@@ -74,6 +77,28 @@ public final class UserDao extends AbstractDao<User> {
 	
 	public boolean createUser(User user) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException {
 		return insert(user);
-		
 	}
+	
+	public boolean updateUser(User user) throws DataBaseReadingException, JDBCDriverException, QueryNotFoundException {
+		boolean result = false;
+		String query = sqlQueries.get(DaoQueries.UPDATE).toString();
+		if (query == null) {
+			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.UPDATE.name()));
+		}
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
+			int i = 1;
+			pst.setString(i++, user.getPasswd());
+			pst.setString(i++, user.getFirsName());
+			pst.setString(i++, user.getLastName());
+			pst.setString(i++, user.getAge().toString());
+			pst.setString(i++, user.getWeight().toString());
+			pst.setString(i++, user.getGender());
+			pst.setString(i++, user.getLogin());
+			result = pst.execute();
+		} catch (SQLException e) {
+			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+		}
+		return result;
+	}
+	
 }

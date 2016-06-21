@@ -1,4 +1,4 @@
-package edu.softserveinc.healthbody.services;
+package edu.softserveinc.healthbody.services.oldInterfaces;
 
 public interface ILogin {
 

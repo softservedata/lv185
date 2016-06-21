@@ -64,5 +64,4 @@ public class RoleDao extends AbstractDao<Role>{
 		return getAll();
 	}
 
-
 }

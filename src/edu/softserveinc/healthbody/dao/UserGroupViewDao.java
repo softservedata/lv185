@@ -4,7 +4,6 @@ package edu.softserveinc.healthbody.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import edu.softserveinc.healthbody.entity.Group;
 import edu.softserveinc.healthbody.entity.User;
 import edu.softserveinc.healthbody.entity.UserGroupView;
@@ -74,6 +73,5 @@ public class UserGroupViewDao extends AbstractDao<UserGroupView>{
 		}		
 		return result;
 	}
-	
 
 }
