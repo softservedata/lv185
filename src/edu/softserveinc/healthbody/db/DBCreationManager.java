@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant;
-import edu.softserveinc.healthbody.dao.UserDao;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
@@ -56,7 +55,6 @@ public class DBCreationManager {
 				+ "id_user_group serial primary key,"
 				+ "id_user bigint,"
 				+ "id_group bigint,"
-				+ "member_group varchar(50),"
 				+ "FOREIGN KEY (id_group)  REFERENCES \"groups\" (id_group),"
 				+ "FOREIGN KEY (id_user) REFERENCES \"users\" (id_user))"),
 		GROUP_COMPETITION_TABLE("CREATE TABLE IF NOT EXISTS \"groupscompetitions\"("
@@ -136,75 +134,5 @@ public class DBCreationManager {
 		return result;
 	}
 	
-	
-	public boolean populateUserTable(Connection con) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException{
-		boolean successfulInsert = false;
-		String query = DaoStatementsConstant.UserDBQueries.INSERT.toString();
-		
-		try (PreparedStatement pst = con.prepareStatement(query)) {
-			for (int j = 1; j <= 10; j++){
-				for (int i = 1; i <= 13; i++){
-					pst.setString(1, "Login "+j);	
-					pst.setString(2, "password "+j);
-					pst.setString(3, "Name of "+j+" user");	
-					pst.setString(4, "LastName of "+j+" user");
-					pst.setString(5, "SomeMail"+j+"@gmail.com");	
-					pst.setInt(6, 25+j);
-					pst.setDouble(7, 55.6+j);	
-					pst.setString(8, (j%2 == 0) ? "m":"w") ;
-					pst.setString(9, "health "+j);
-					pst.setString(10, "urlavatar "+j);	
-					pst.setString(11, "googleApi "+j);
-					pst.setInt(12, 3);	
-					pst.setString(13, "active "+j);
-				}
-				successfulInsert = pst.execute();
-			}
-		} catch (SQLException e) {
-			System.out.println("Error populating database tables.");
-		}
-				
-		return successfulInsert;
-	}
-	
-	public boolean populateGroupTable(Connection con) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException{
-		boolean successfulInsert = false;
-		String query = DaoStatementsConstant.GroupDBQueries.INSERT.toString();
-		
-		try (PreparedStatement pst = con.prepareStatement(query)) {
-			for (int j = 1; j <= 3; j++){
-				for (int i = 1; i <= 3; i++){
-					pst.setString(1, "Name group number "+j);	
-					pst.setString(2, "Description of group "+j);
-					pst.setString(3, "active");	
-				}
-				successfulInsert = pst.execute();
-			}
-		} catch (SQLException e) {
-			System.out.println("Error populating database tables.");
-		}
-				
-		return successfulInsert;
-	}
-	
-	public boolean populateUserGroupTable(Connection con) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException{
-		boolean successfulInsert = false;
-		String query = DaoStatementsConstant.UserGroupQueries.INSERT.toString();
-		
-		try (PreparedStatement pst = con.prepareStatement(query)) {
-			for (int j = 1; j <= 30; j++){
-				for (int i = 1; i <= 3; i++){
-					pst.setInt(1, (j%10==0) ? 10 : j%10);	
-					pst.setInt(2, 1 + (int)(Math.random() * 3));
-					pst.setString(3, (j%2 == 0) ? "true":"false");	
-				}
-				successfulInsert = pst.execute();
-			}
-		} catch (SQLException e) {
-			System.out.println("Error populating database tables.");
-		}
-				
-		return successfulInsert;
-	}
 
 }

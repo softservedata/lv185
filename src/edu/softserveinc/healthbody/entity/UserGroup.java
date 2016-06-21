@@ -5,13 +5,11 @@ public class UserGroup implements IEntity{
 	private Integer idUserGroup;
     private Integer idUser;
 	private Integer idGroup;
-	private Boolean memberGgoup;
 	
-	public UserGroup(Integer idUserGroup, Integer idUser, Integer idGroup, Boolean memberGgoup) {
+	public UserGroup(Integer idUserGroup, Integer idUser, Integer idGroup) {
 		this.idUserGroup = idUserGroup;
 		this.idUser = idUser;
 		this.idGroup = idGroup;
-		this.memberGgoup = memberGgoup;
 	}
 
 	// setters
@@ -28,10 +26,6 @@ public class UserGroup implements IEntity{
 		this.idGroup = idGroup;
 	}
 	
-	public void setMemberGgoup(Boolean memberGgoup) {
-		this.memberGgoup = memberGgoup;
-	}
-	
 
 	// getters
 
@@ -46,10 +40,6 @@ public class UserGroup implements IEntity{
 	public Integer getIdGroup() {
 		return idGroup;
 	}
-	public Boolean getMemberGgoup() {
-		return memberGgoup;
-	}
-	
 	
 	@Override
 	public Integer getId() {

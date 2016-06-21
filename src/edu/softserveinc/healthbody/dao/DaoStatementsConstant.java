@@ -54,7 +54,7 @@ public class DaoStatementsConstant {
 		}
 	}
 	public static enum UserGroupQueries {
-		INSERT(DaoQueries.INSERT, "INSERT INTO usersgroups (id_user, id_group, member_group) VALUES (?, ?, ?);"),
+		INSERT(DaoQueries.INSERT, "INSERT INTO usersgroups (id_user, id_group) VALUES (?, ?);"),
         GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT users.id_user, users.login, groups.name FROM users INNER JOIN groups ON users.id_group = groups.id_group WHERE users.id_user = ?;"),
         GET_ID_BY_FIELDS(DaoQueries.GET_ID_BY_FIELDS, "SELECT usersgroups.id_user_group FROM usersgroups WHERE usersgroups.id_user = ? AND usersgroups.id_group = ?;"),		
         GET_ALL(DaoQueries.GET_ALL, "SELECT usersgroups.id_user_group, usersgroups.id_user, usersgroups.id_groups, usersgroups.member_group FROM usersgroups;"),

@@ -2,7 +2,6 @@ package edu.softserveinc.healthbody.testapp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -11,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import edu.softserveinc.healthbody.db.DBCreationManager;
 import edu.softserveinc.healthbody.db.DBCreationManager.TableQueries;
+import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
@@ -69,9 +69,10 @@ public class TestDBCreationManager {
 		
 		try {
 			con = DriverManager.getConnection(URL + databaseName, username, password);				
-			DBCreationManager.getInstance().populateUserTable(con);
-			DBCreationManager.getInstance().populateGroupTable(con);
-			DBCreationManager.getInstance().populateUserGroupTable(con);
+			DBPopulateManager.getInstance().populateUserTable(con);
+			DBPopulateManager.getInstance().populateGroupTable(con);
+			DBPopulateManager.getInstance().populateUserGroupTable(con);
+			DBPopulateManager.getInstance().populateAwordTable(con);
 			logger.info("Populated User table");
 		} catch (JDBCDriverException | QueryNotFoundException | DataBaseReadingException | SQLException e) {
 			logger.error("Error populating database tables.", e);
