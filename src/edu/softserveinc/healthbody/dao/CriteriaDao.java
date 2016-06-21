@@ -37,7 +37,7 @@ public class CriteriaDao extends AbstractDao<Criteria> {
 	}
 
 	@Override
-	protected Criteria createInstance(String[] args) {
+	public Criteria createInstance(String[] args) {
 		return new Criteria(
 				Integer.parseInt(args[0] == null ? "0" : args[0]),
 				args[1] == null ? new String() : args[1],

@@ -57,10 +57,14 @@ public final class UserDao extends AbstractDao<User> {
 
 	@Override
 	protected User createInstance(String[] args) {
-		return new User(Integer.parseInt(args[0] == null ? "0" : args[0]), args[1] == null ? new String() : args[1],
-				args[2] == null ? new String() : args[2], args[3] == null ? new String() : args[3],
-				args[4] == null ? new String() : args[4], args[5] == null ? new String() : args[5],
-				Integer.parseInt(args[6] == null ? "0" : args[6]), Integer.parseInt(args[7] == null ? "0" : args[7]),
+		return new User(Integer.parseInt(args[0] == null ? "0" : args[0]), 
+				args[1] == null ? new String() : args[1],
+				args[2] == null ? new String() : args[2], 
+				args[3] == null ? new String() : args[3],
+				args[4] == null ? new String() : args[4], 
+				args[5] == null ? new String() : args[5],
+				Double.parseDouble(args[6] == null ? "0" : args[6]), 
+				Integer.parseInt(args[7] == null ? "0" : args[7]),
 				Integer.parseInt(args[8] == null ? "0" : args[8]));
 	}
 

@@ -37,7 +37,7 @@ public final class AwardDao extends AbstractDao<Award> {
 		}
 
 		@Override
-		protected Award createInstance(String[] args) {
+		public Award createInstance(String[] args) {
 			return new Award(
 					Integer.parseInt(args[0] == null ? "0" : args[0]),
 					args[1] == null ? new String() : args[1]);

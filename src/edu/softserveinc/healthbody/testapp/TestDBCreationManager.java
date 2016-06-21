@@ -2,14 +2,18 @@ package edu.softserveinc.healthbody.testapp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import edu.softserveinc.healthbody.db.DBCreationManager;
 import edu.softserveinc.healthbody.db.DBCreationManager.TableQueries;
+import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
+import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
+import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 
 public class TestDBCreationManager {
 
@@ -19,7 +23,7 @@ public class TestDBCreationManager {
 	private static String password = "root";
 	private static String URL = "jdbc:postgresql://localhost:5432/";
 	private static String databaseName = "healthbodydb";
-	private static String deleteDatabase = "false";
+	private static String dropDatabase = "true";
 
 	public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		logger.info("TestDBCreationManager starts...");
@@ -32,11 +36,12 @@ public class TestDBCreationManager {
 			System.exit(0);
 		}
 		
-		// This method check if value deleteDatabase = true than before creating database we will delete this database
+		// This method check if value deleteDatabase = true than before creating database we will delete 
+		// this database
 		Statement st = con.createStatement();
-		if("true".equals(deleteDatabase)){
+		if(dropDatabase.equals("true")){
 			try {
-				DBCreationManager.getInstance().deleteDatabase(st, databaseName);
+				DBCreationManager.getInstance().dropDatabase(st, databaseName);
 				logger.info("Database - " + databaseName + " was deleted");
 			} catch (SQLException e) {
 				logger.error("Database wasn't deleted", e);
@@ -57,11 +62,21 @@ public class TestDBCreationManager {
 				logger.info("Creating " + query.name());
 				DBCreationManager.getInstance().createTable(st, query.toString());
 			}
+			
 		} catch (SQLException e) {
 			logger.error("Error creating database tables.", e);
-
 		}
-
+		
+		try {
+			con = DriverManager.getConnection(URL + databaseName, username, password);				
+			DBCreationManager.getInstance().populateUserTable(con);
+			DBCreationManager.getInstance().populateGroupTable(con);
+			logger.info("Populated User table");
+		} catch (JDBCDriverException | QueryNotFoundException | DataBaseReadingException | SQLException e) {
+			logger.error("Error populating database tables.", e);
+		}
+		
+		
 		if (st != null)
 			st.close();
 		if (con != null)

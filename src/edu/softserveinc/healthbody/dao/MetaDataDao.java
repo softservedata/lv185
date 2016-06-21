@@ -43,7 +43,7 @@ public class MetaDataDao extends AbstractDao<MetaData> {
 	}
 
 	@Override
-	protected MetaData createInstance(String[] args) {
+	public MetaData createInstance(String[] args) {
 		return new MetaData(
 				Integer.parseInt(args[0] == null ? "0" : args[0]),
 				args[1] == null ? new String() : args[1]);

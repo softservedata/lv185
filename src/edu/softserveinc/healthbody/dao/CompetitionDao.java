@@ -37,7 +37,7 @@ public final class CompetitionDao extends AbstractDao<Competition> {
 	}
 	
 	@Override
-	protected Competition createInstance(String[] args) {
+	public Competition createInstance(String[] args) {
 		return new Competition(
 			Integer.parseInt(args[0] == null ? "0" : args[0]),
 			args[1] == null ? new String() : args[1],

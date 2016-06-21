@@ -1,7 +1,15 @@
 package edu.softserveinc.healthbody.db;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import edu.softserveinc.healthbody.dao.DaoStatementsConstant;
+import edu.softserveinc.healthbody.dao.UserDao;
+import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
+import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
+import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 
 public class DBCreationManager {
 	public static enum TableQueries {
@@ -15,7 +23,7 @@ public class DBCreationManager {
 				+ "age bigint,"
 				+ "weight real,"
 				+ "gender \"char\","
-				+ "usable varchar(50),"
+				+ "health varchar(50),"
 				+ "avatar varchar(50),"
 				+ "google_field varchar(150),"
 				+ "id_role bigint,"
@@ -99,11 +107,11 @@ public class DBCreationManager {
 		return instance;
 	}
 
-	public boolean deleteDatabase(Statement statement, String databaseName) throws SQLException {
+	public boolean dropDatabase(Statement statement, String databaseName) throws SQLException {
 		boolean result = false;
 		String deleteConnectionsQuery = "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = \'"
 				+ databaseName + "\' AND pid <> pg_backend_pid();";
-		statement.execute(deleteConnectionsQuery + "DROP DATABASE " + databaseName + ";");
+		result = statement.execute(deleteConnectionsQuery + "DROP DATABASE " + databaseName + ";");
 		return result;
 	}
 
@@ -126,6 +134,77 @@ public class DBCreationManager {
 		boolean result = false;
 		result = statement.execute(tableQuery);
 		return result;
+	}
+	
+	
+	public boolean populateUserTable(Connection con) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException{
+		boolean successfulInsert = false;
+		String query = DaoStatementsConstant.UserDBQueries.INSERT.toString();
+		
+		try (PreparedStatement pst = con.prepareStatement(query)) {
+			for (int j = 1; j <= 10; j++){
+				for (int i = 1; i <= 13; i++){
+					pst.setString(1, "Login "+j);	
+					pst.setString(2, "password "+j);
+					pst.setString(3, "Name of "+j+" user");	
+					pst.setString(4, "LastName of "+j+" user");
+					pst.setString(5, "SomeMail"+j+"@gmail.com");	
+					pst.setInt(6, 25+j);
+					pst.setDouble(7, 55.6+j);	
+					pst.setString(8, (j%2 == 0) ? "m":"w") ;
+					pst.setString(9, "health "+j);
+					pst.setString(10, "urlavatar "+j);	
+					pst.setString(11, "googleApi "+j);
+					pst.setInt(12, 3);	
+					pst.setString(13, "active "+j);
+				}
+				successfulInsert = pst.execute();
+			}
+		} catch (SQLException e) {
+			System.out.println("Error populating database tables.");
+		}
+				
+		return successfulInsert;
+	}
+	
+	public boolean populateGroupTable(Connection con) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException{
+		boolean successfulInsert = false;
+		String query = DaoStatementsConstant.GroupDBQueries.INSERT.toString();
+		
+		try (PreparedStatement pst = con.prepareStatement(query)) {
+			for (int j = 1; j <= 3; j++){
+				for (int i = 1; i <= 3; i++){
+					pst.setString(1, "Name group number "+j);	
+					pst.setString(2, "Description of group "+j);
+					pst.setString(3, "active");	
+				}
+				successfulInsert = pst.execute();
+			}
+		} catch (SQLException e) {
+			System.out.println("Error populating database tables.");
+		}
+				
+		return successfulInsert;
+	}
+	
+	public boolean populateUserGroupTable(Connection con) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException{
+		boolean successfulInsert = false;
+		String query = DaoStatementsConstant.UserGroupQueries.INSERT.toString();
+		
+		try (PreparedStatement pst = con.prepareStatement(query)) {
+			for (int j = 1; j <= 30; j++){
+				for (int i = 1; i <= 3; i++){
+					pst.setInt(1, j%10);	
+					pst.setInt(2, 1 + (int)(Math.random() * 3));
+					pst.setString(3, (j%2 == 0) ? "true":"false");	
+				}
+				successfulInsert = pst.execute();
+			}
+		} catch (SQLException e) {
+			System.out.println("Error populating database tables.");
+		}
+				
+		return successfulInsert;
 	}
 
 }

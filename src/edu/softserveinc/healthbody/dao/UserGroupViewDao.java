@@ -47,7 +47,7 @@ public class UserGroupViewDao extends AbstractDao<UserGroupView>{
 	
 
 	@Override
-	protected UserGroupView createInstance(String[] args) {
+	public UserGroupView createInstance(String[] args) {
 		return new UserGroupView(Integer.parseInt(args[0] == null ? "0" : args[0]),
 								   Integer.parseInt(args[1] == null ? "0" : args[1]), 
 								   Integer.parseInt(args[2] == null ? "0" : args[2]),

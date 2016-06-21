@@ -37,7 +37,7 @@ public final class GroupCompetitionsDao extends AbstractDao<GroupCompetitions> {
 	}
 	
 	@Override
-	protected GroupCompetitions createInstance(String[] args) {
+	public GroupCompetitions createInstance(String[] args) {
 		return new GroupCompetitions(
 				Integer.parseInt(args[0] == null ? "0" : args[0]) , 
 				Integer.parseInt(args[1] == null ? "0" : args[1]),

@@ -45,7 +45,7 @@ public class RoleDao extends AbstractDao<Role>{
 	}
 
 	@Override
-	protected Role createInstance(String[] args) {
+	public Role createInstance(String[] args) {
 		return new Role(
 				Integer.parseInt(args[0] == null ? "0" : args[0]),
 				args[1] == null ? new String() : args[1],

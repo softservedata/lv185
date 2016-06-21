@@ -37,7 +37,7 @@ public final class GroupDao extends AbstractDao<Group> {
 		}
 
 		@Override
-		protected Group createInstance(String[] args) {
+		public Group createInstance(String[] args) {
 			return new Group(
 					Integer.parseInt(args[0] == null ? "0" : args[0]),
 					args[1] == null ? new String() : args[1],

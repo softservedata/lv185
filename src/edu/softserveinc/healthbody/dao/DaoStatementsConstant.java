@@ -4,7 +4,8 @@ import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
 
 public class DaoStatementsConstant {
 	public static enum UserDBQueries {
-        INSERT(DaoQueries.INSERT, "INSERT INTO users (id_role, login, password, firstname, lastname, age, weight, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"),
+        INSERT(DaoQueries.INSERT, "INSERT INTO users (login, password, firstname, lastname, \"e-mail\", age, weight, gender,"
+        		+ "health, avatar, google_field, id_role, status ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"),
         GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT id_role, login, passwd, firstname, lastname, age, weight, gender FROM users WHERE id_user = ?;"),
         GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_role, login, passwd, firstname, lastname, age, weight, gender FROM users WHERE ? = ?;"),
         GET_ALL(DaoQueries.GET_ALL, "SELECT id_role, login, passwd, firstname, lastname, age, weight, gender FROM users;"),
