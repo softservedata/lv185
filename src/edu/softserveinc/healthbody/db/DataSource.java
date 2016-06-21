@@ -53,10 +53,12 @@ public final class DataSource {
 	@Override
 	public boolean equals(Object dataSource) {
 		boolean result = false;
-		result  = getJdbcDriver().getClass().getName().equals(((DataSource) dataSource).getJdbcDriver().getClass().getName())
+		if (dataSource instanceof DataSource) {
+			result  = getJdbcDriver().getClass().getName().equals(((DataSource) dataSource).getJdbcDriver().getClass().getName())
 				&& getConnectionUrl().equals(((DataSource) dataSource).getConnectionUrl())
 				&& getUser().equals(((DataSource) dataSource).getUser())
 				&& getPasswrd().equals(((DataSource) dataSource).getPasswrd());
+		}
 		
 		return result;
 	}

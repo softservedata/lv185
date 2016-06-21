@@ -1,4 +1,4 @@
-package edu.softserveinc.healthbody.services;
+package edu.softserveinc.healthbody.services.impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,21 +17,22 @@ import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
+import edu.softserveinc.healthbody.services.BaseService;
 
-public class UserProfileService implements BaseService<UserDTO> {
+public class UserProfileServiceImpl implements BaseService<UserDTO> {
 	
-	private static volatile UserProfileService instance = null;
+	private static volatile UserProfileServiceImpl instance = null;
 	
 	protected final static String TRANSACTION_ERROR = "Transaction Error, Rollback";
 
-	private UserProfileService() {
+	private UserProfileServiceImpl() {
 	}
 	
-	public static UserProfileService getInstance() {
+	public static UserProfileServiceImpl getInstance() {
 		if(instance == null) {
-			synchronized (UserProfileService.class) {
+			synchronized (UserProfileServiceImpl.class) {
 				if (instance == null) {
-					instance = new UserProfileService();
+					instance = new UserProfileServiceImpl();
 				}
 			}
 		}
@@ -45,8 +46,8 @@ public class UserProfileService implements BaseService<UserDTO> {
 		ConnectionManager.getInstance().beginTransaction();
 		List<Role> roles = RoleDao.get().getByField("name", userDTO.getRoleName());
 		try {
-			UserDao.get().createUser(new User(0, userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstname(),userDTO.getLastname(),
-				userDTO.getGender(),Integer.parseInt(userDTO.getWeight()), Integer.parseInt(userDTO.getAge()), roles.get(0).getId()));
+			UserDao.get().createUser(new User(0, userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstname(), userDTO.getLastname(),
+				userDTO.getGender(), Double.parseDouble(userDTO.getWeight()), Integer.parseInt(userDTO.getAge()), roles.get(0).getId()));
 		} catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
 			throw new TransactionException(TRANSACTION_ERROR, e);
@@ -82,7 +83,7 @@ public class UserProfileService implements BaseService<UserDTO> {
 		List<Role> roles = RoleDao.get().getByField("name", userDTO.getRoleName());
 		try {	
 			UserDao.get().updateUser(new User(0,  userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstname(),userDTO.getLastname(),
-					userDTO.getGender(),Integer.parseInt(userDTO.getWeight()), Integer.parseInt(userDTO.getAge()), roles.get(0).getId()));
+					userDTO.getGender(), Double.parseDouble(userDTO.getWeight()), Integer.parseInt(userDTO.getAge()), roles.get(0).getId()));
 		}catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
 			throw new TransactionException(TRANSACTION_ERROR, e);

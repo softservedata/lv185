@@ -72,7 +72,7 @@ public final class UserDao extends AbstractDao<User> {
 	}
 
 	public User getUserByLogin(String login) throws JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException {
-		return getByField("Login", login).get(0);
+		return getByField("login", login).get(0);
 	}
 	
 	public boolean createUser(User user) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException {
