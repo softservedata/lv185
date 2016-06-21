@@ -2,7 +2,6 @@ package edu.softserveinc.healthbody.testapp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -11,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import edu.softserveinc.healthbody.db.DBCreationManager;
 import edu.softserveinc.healthbody.db.DBCreationManager.TableQueries;
+import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
@@ -69,10 +69,17 @@ public class TestDBCreationManager {
 		
 		try {
 			con = DriverManager.getConnection(URL + databaseName, username, password);				
-			DBCreationManager.getInstance().populateUserTable(con);
-			DBCreationManager.getInstance().populateGroupTable(con);
-			DBCreationManager.getInstance().populateUserGroupTable(con);
-			logger.info("Populated User table");
+			DBPopulateManager.getInstance().populateUsersTable(con);
+			DBPopulateManager.getInstance().populateGroupsTable(con);
+			DBPopulateManager.getInstance().populateUsersGroupsTable(con);
+			DBPopulateManager.getInstance().populateAwordsTable(con);
+			DBPopulateManager.getInstance().populateCompetitionsTable(con);
+			DBPopulateManager.getInstance().populateCriteriaTable(con);
+			DBPopulateManager.getInstance().populateGroupsCompetitionsTable(con);
+			DBPopulateManager.getInstance().populateMetaDataTable(con);
+			DBPopulateManager.getInstance().populateRolesTable(con);
+			DBPopulateManager.getInstance().populateUsersCompetitionsTable(con);
+			logger.info("Populated All tables");
 		} catch (JDBCDriverException | QueryNotFoundException | DataBaseReadingException | SQLException e) {
 			logger.error("Error populating database tables.", e);
 		}
