@@ -3,8 +3,8 @@ package edu.softserveinc.healthbody.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.softserveinc.healthbody.entity.User;
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant.UserDBQueries;
+import edu.softserveinc.healthbody.entity.User;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
@@ -72,4 +72,5 @@ public final class UserDao extends AbstractDao<User> {
 		return insert(user);
 		
 	}
+
 }
