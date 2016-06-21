@@ -71,6 +71,7 @@ public class TestDBCreationManager {
 			con = DriverManager.getConnection(URL + databaseName, username, password);				
 			DBCreationManager.getInstance().populateUserTable(con);
 			DBCreationManager.getInstance().populateGroupTable(con);
+			DBCreationManager.getInstance().populateUserGroupTable(con);
 			logger.info("Populated User table");
 		} catch (JDBCDriverException | QueryNotFoundException | DataBaseReadingException | SQLException e) {
 			logger.error("Error populating database tables.", e);

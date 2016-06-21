@@ -194,7 +194,7 @@ public class DBCreationManager {
 		try (PreparedStatement pst = con.prepareStatement(query)) {
 			for (int j = 1; j <= 30; j++){
 				for (int i = 1; i <= 3; i++){
-					pst.setInt(1, j%10);	
+					pst.setInt(1, (j%10==0) ? 10 : j%10);	
 					pst.setInt(2, 1 + (int)(Math.random() * 3));
 					pst.setString(3, (j%2 == 0) ? "true":"false");	
 				}
