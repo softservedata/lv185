@@ -1,4 +1,4 @@
-package edu.softserveinc.healthbody.services;
+package edu.softserveinc.healthbody.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +11,10 @@ import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
+import edu.softserveinc.healthbody.services.CompetitionsService;
+import edu.softserveinc.healthbody.services.KeysForFilters;
 
-public class CompetitionsServiceImpl implements BaseFilterService<CompetitionDTO> {
+public class CompetitionsServiceImpl implements CompetitionsService {
 
 	@Override
 	public List<CompetitionDTO> getAll(int partNumber, int partSize, Map<String, String> filters) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException {
@@ -23,9 +25,34 @@ public class CompetitionsServiceImpl implements BaseFilterService<CompetitionDTO
 			competitionDTOs.add(new CompetitionDTO(competition.getName(), "count", competition.getStart(),
 					competition.getFinish(), null, null));
 		}
+		//
 
 		return competitionDTOs;
 	}
+	@Override
+	public List<CompetitionDTO> getAllActive() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CompetitionDTO> getAllByUser() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CompetitionDTO> getAllActiveByUser() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CompetitionDTO getCompetition() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	@Override
 	public void update(List<CompetitionDTO> competitionDTOs) {
