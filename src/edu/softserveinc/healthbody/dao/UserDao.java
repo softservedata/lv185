@@ -48,14 +48,16 @@ public final class UserDao extends AbstractDao<User> {
 		fields.add(entity.getPasswd());
 		fields.add(entity.getFirsName());
 		fields.add(entity.getLastName());
-		fields.add(entity.getGender());
-		fields.add(entity.getWeight().toString());
+		fields.add(entity.getMail());
 		fields.add(entity.getAge().toString());
-		fields.add(entity.getGoogleApi());
+		fields.add(entity.getWeight().toString());
+		fields.add(entity.getGender());
 		fields.add(entity.getHealth());
 		fields.add(entity.getAvatar());
-		fields.add(entity.getStatus());
+		fields.add(entity.getGoogleApi());
 		fields.add(entity.getIdRole().toString());
+		fields.add(entity.getStatus());
+		fields.add(entity.getScore().toString());
 		return (String[]) fields.toArray();
 	}
 
@@ -67,10 +69,15 @@ public final class UserDao extends AbstractDao<User> {
 				args[3] == null ? new String() : args[3],
 				args[4] == null ? new String() : args[4], 
 				args[5] == null ? new String() : args[5],
-				Double.parseDouble(args[6] == null ? "0" : args[6]), 
-				Integer.parseInt(args[7] == null ? "0" : args[7]),
-				Integer.parseInt(args[8] == null ? "0" : args[8]),
-				args[9] == null ? new String() : args[9]);
+				Integer.parseInt(args[6] == null ? "0" : args[6]), 
+				Double.parseDouble(args[7] == null ? "0" : args[7]),
+				args[8] == null ? new String() : args[8],
+				args[9] == null ? new String() : args[9],
+				args[10] == null ? new String() : args[10],
+				args[11] == null ? new String() : args[11], 
+				Integer.parseInt(args[12] == null ? "0" : args[12]),
+				args[13] == null ? new String() : args[13],
+				Integer.parseInt(args[14] == null ? "0" : args[14]));
 	}
 
 	public User getUserByLogin(String login) throws JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException, CloseStatementException {
