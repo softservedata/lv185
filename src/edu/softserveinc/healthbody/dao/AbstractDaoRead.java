@@ -30,7 +30,6 @@ abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao
 	protected final static String SQL_AND = " and";
 	protected final static String SQL_LIKE = "? like '%%%s%%';";
 	protected final static String SQL_LIMIT = "  offset ? limit ?;";
-	
 
 	protected final HashMap<Enum<?>, Enum<?>> sqlQueries;
 
@@ -49,16 +48,15 @@ abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao
 	// executing query
 
 	// loop
-	private String[] getQueryResultArr(String[] queryResult) throws SQLException {
-		while (resultSet.next()) {
-			for (i = 0; i < queryResult.length; i++) {
-				queryResult[i] = resultSet.getString(i + 1);
-			}
+	protected String[] getQueryResultArr(String[] queryResult) throws SQLException {
+		for (i = 0; i < queryResult.length; i++) {
+			queryResult[i] = resultSet.getString(i + 1);
 		}
 		return queryResult;
 	}
 
-	public TEntity getById(Integer id) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException {
+	public TEntity getById(Integer id)
+			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException {
 		TEntity entity = null;
 		PreparedStatement pst = null;
 		String query = sqlQueries.get(DaoQueries.GET_BY_ID).toString();
@@ -69,13 +67,13 @@ abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao
 			pst = ConnectionManager.getInstance().getConnection().prepareStatement(query);
 			pst.setInt(1, id);
 			resultSet = pst.executeQuery();
-				queryResult = new String[resultSet.getMetaData().getColumnCount()];
+			queryResult = new String[resultSet.getMetaData().getColumnCount()];
+			while (resultSet.next()) {
 				entity = createInstance(getQueryResultArr(queryResult));
 			}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
-		}
-		finally {
+		} finally {
 			CloseHelper.close(resultSet);
 			CloseHelper.close(pst);
 		}
@@ -84,8 +82,8 @@ abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao
 	}
 
 	@Override
-	public List<TEntity> getByField(String fieldname, String text)
-			throws JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException, CloseStatementException {
+	public List<TEntity> getByField(String fieldname, String text) throws JDBCDriverException, DataBaseReadingException,
+			QueryNotFoundException, EmptyResultSetException, CloseStatementException {
 		List<TEntity> all = new ArrayList<>();
 		PreparedStatement pst = null;
 		String query = sqlQueries.get(DaoQueries.GET_BY_FIELD).toString();
@@ -94,21 +92,21 @@ abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao
 		}
 		try {
 			pst = ConnectionManager.getInstance().getConnection().prepareStatement(query);
-		
+
 			pst.setString(1, fieldname);
 			pst.setString(2, text);
 			resultSet = pst.executeQuery();
-				queryResult = new String[resultSet.getMetaData().getColumnCount()];
+			queryResult = new String[resultSet.getMetaData().getColumnCount()];
+			while (resultSet.next()) {
 				all.add(createInstance(getQueryResultArr(queryResult)));
 			}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 
 			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
-		}
-		finally {
+		} finally {
 			CloseHelper.close(resultSet);
 			CloseHelper.close(pst);
-			}
+		}
 		if (all.isEmpty()) {
 			throw new EmptyResultSetException(String.format(EMPTY_RESULTSET, query));
 		}
@@ -116,7 +114,8 @@ abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao
 	}
 
 	@Override
-	public List<TEntity> getAll() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
+	public List<TEntity> getAll()
+			throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
 		List<TEntity> all = new ArrayList<>();
 		PreparedStatement pst = null;
 		String query = sqlQueries.get(DaoQueries.GET_ALL).toString();
@@ -127,11 +126,12 @@ abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao
 			pst = ConnectionManager.getInstance().getConnection().prepareStatement(query);
 			resultSet = pst.executeQuery();
 			queryResult = new String[resultSet.getMetaData().getColumnCount()];
-			all.add(createInstance(getQueryResultArr(queryResult)));
+			while (resultSet.next()) {
+				all.add(createInstance(getQueryResultArr(queryResult)));
+			}
 		} catch (SQLException e) {
 			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
-		}
-		finally {
+		} finally {
 			CloseHelper.close(resultSet);
 			CloseHelper.close(pst);
 		}
@@ -154,13 +154,11 @@ abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao
 			pst.setString(1, idFirstEntity);
 			pst.setString(2, idSecondEntity);
 			resultSet = pst.executeQuery();
-				queryResult = new String[resultSet.getMetaData().getColumnCount()];
-				id = getFields(createInstance(getQueryResultArr(queryResult)))[0];
-			}
-		catch (SQLException e) {
+			queryResult = new String[resultSet.getMetaData().getColumnCount()];
+			id = getFields(createInstance(getQueryResultArr(queryResult)))[0];
+		} catch (SQLException e) {
 			throw new EmptyResultSetException(DATABASE_READING_ERROR, e);
-		}
-		finally {
+		} finally {
 			CloseHelper.close(resultSet);
 			CloseHelper.close(pst);
 		}
@@ -170,7 +168,8 @@ abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao
 
 	@Override
 	public List<TEntity> getFilterRange(int partNumber, int partSize, Map<String, String> filters)
-			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
+			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
+			CloseStatementException {
 		List<TEntity> all = new ArrayList<>();
 		PreparedStatement pst = null;
 		String query = sqlQueries.get(DaoQueries.GET_ALL).toString();
@@ -184,11 +183,12 @@ abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao
 			pst = ConnectionManager.getInstance().getConnection().prepareStatement(query);
 			resultSet = pst.executeQuery();
 			queryResult = new String[resultSet.getMetaData().getColumnCount()];
-			all.add(createInstance(getQueryResultArr(queryResult)));
+			while (resultSet.next()) {
+				all.add(createInstance(getQueryResultArr(queryResult)));
+			}
 		} catch (SQLException e) {
 			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
-		}
-		finally {
+		} finally {
 			CloseHelper.close(resultSet);
 			CloseHelper.close(pst);
 		}

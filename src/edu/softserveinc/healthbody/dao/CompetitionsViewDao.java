@@ -82,10 +82,7 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 				resultSet = pst.executeQuery();
 				String[] queryResult = new String[resultSet.getMetaData().getColumnCount()];
 				while (resultSet.next()) {
-					for (int i = 0; i < queryResult.length; i++) {
-						queryResult[i] = resultSet.getString(i + 1);
-					}
-					result.add(createInstance(queryResult));
+					result.add(createInstance(getQueryResultArr(queryResult)));
 				}
 			} catch (SQLException e) {
 				throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
