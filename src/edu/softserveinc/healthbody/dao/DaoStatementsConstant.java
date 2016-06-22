@@ -278,9 +278,8 @@ public class DaoStatementsConstant {
 		GET_ALL_ACTIVE_BY_USER("SELECT competitions.id_competition, competitions.name, competitions.description, competitions.start, competitions.finish, COUNT(usercompetitions.id_user)"
 				+ " FROM competitions"
 				+ " LEFT OUTER JOIN usercompetitions ON competitions.id_competition = usercompetitions.id_competition"
+				+ " JOIN users ON usercompetitions.id_user = users.id_user"
 				+ " WHERE competitions.finish >= NOW()"
-				+ " AND competitions.finish >= NOW()"
-				+ " GROUP BY competitions.id_competition, competitions.name, competitions.start, competitions.finish"
 				+ ";"),
 		GET_ALL("SELECT id_competition from competitions;");
 		
