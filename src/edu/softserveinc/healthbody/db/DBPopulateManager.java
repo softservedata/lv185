@@ -64,9 +64,11 @@ public class DBPopulateManager {
 		
 		try (PreparedStatement pst = con.prepareStatement(query)) {
 			for (int j = 1; j <= 3; j++){				
-				pst.setString(1, "Name group number "+j);	
-				pst.setString(2, "Description of group "+j);
-				pst.setString(3, "active");	
+				pst.setString(1, "Name group number "+j);
+				pst.setInt(2, 5+j*5);
+				pst.setString(3, "Description of group "+j);
+				pst.setString(4, "1"+j);	
+				pst.setString(5, "active");	
 				successfulInsert = pst.execute();
 			}
 		} catch (SQLException e) {

@@ -18,7 +18,9 @@ import edu.softserveinc.healthbody.services.KeysForFilters;
 public class CompetitionsServiceImpl implements CompetitionsService {
 
 	@Override
-	public List<CompetitionDTO> getAll(int partNumber, int partSize, Map<String, String> filters) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
+	public List<CompetitionDTO> getAll(int partNumber, int partSize, Map<String, String> filters) 
+			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
+		
 		fillFilters(filters);
 		List<CompetitionDTO> competitionDTOs = new ArrayList<CompetitionDTO>();
 		for (Competition competition : CompetitionDao.get().getFilterRange((partNumber - 1) * partSize, partSize,

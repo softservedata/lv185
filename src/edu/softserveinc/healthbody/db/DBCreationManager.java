@@ -34,7 +34,9 @@ public class DBCreationManager {
 		GROUPS_TABLE("CREATE TABLE IF NOT EXISTS \"groups\"("
 				+ "id_group serial primary key,"
 				+ "name varchar(50),"
+				+ "count bigint,"
 				+ "description varchar(50),"
+				+ "scoreGroup varchar(50),"
 				+ "status varchar(50))"),
 		COMPETION_TABLE("CREATE TABLE IF NOT EXISTS \"competitions\"("
 				+ "id_competition serial primary key,"

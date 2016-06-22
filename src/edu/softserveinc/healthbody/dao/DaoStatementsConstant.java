@@ -30,7 +30,7 @@ public class DaoStatementsConstant {
 		}
 	}
 	public static enum GroupDBQueries {
-		INSERT(DaoQueries.INSERT, "INSERT INTO groups (name, description, status) VALUES (?, ?, ?);"),
+		INSERT(DaoQueries.INSERT, "INSERT INTO groups (name, count, description, scoreGroup, status) VALUES (?, ?, ?, ?, ?);"),
 		GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT name, description, status FROM groups WHERE id_group = ?;"),
 		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT name, description, status FROM groups WHERE ? = ?;"),
 		GET_ALL(DaoQueries.GET_ALL, "SELECT name, description, status FROM groups;"),

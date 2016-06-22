@@ -4,31 +4,34 @@ public class GroupDTO {
 
 	private String name;
 	private String count;
-	private String scoreGroup;
 	private String descriptions;
+	private String scoreGroup;
 	// private String status;
 
-	public GroupDTO(String name, String count, String scoreGroup, String descriptions) {
+	
+
+
+	public GroupDTO(String name, String count, String descriptions, String scoreGroup) {
+		super();
 		this.name = name;
 		this.count = count;
-		this.scoreGroup = scoreGroup;
 		this.descriptions = descriptions;
+		this.scoreGroup = scoreGroup;
+		
 	}
 
 	public String getName() {
 		return name;
 	}
-
 	public String getCount() {
 		return count;
 	}
-
-	public String getScoreGroup() {
-		return scoreGroup;
-	}
-
 	public String getDescriptions() {
 		return descriptions;
 	}
+	public String getScoreGroup() {
+		return scoreGroup;
+	}
+	
 
 }
