@@ -285,7 +285,11 @@ public class DaoStatementsConstant {
 				+ " AND users.login = ?"
 				+ " GROUP BY competitions.id_competition, competitions.name, competitions.start, competitions.finish"
 				+ ";"),
-		GET_ALL("SELECT id_competition from competitions;");
+		GET_ALL("SELECT competitions.id_competition, competitions.name, competitions.description, competitions.start, competitions.finish, COUNT(usercompetitions.id_user)"
+				+ " FROM competitions"
+				+ " LEFT OUTER JOIN usercompetitions ON competitions.id_competition = usercompetitions.id_competition"
+				+ " GROUP BY competitions.id_competition, competitions.name, competitions.start, competitions.finish"
+				+ " ;");
 		
 		private String query;
 		

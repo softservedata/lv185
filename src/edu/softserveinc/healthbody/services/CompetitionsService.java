@@ -2,6 +2,7 @@ package edu.softserveinc.healthbody.services;
 
 import java.util.List;
 
+
 import edu.softserveinc.healthbody.dto.CompetitionDTO;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
@@ -14,6 +15,10 @@ public interface CompetitionsService extends BaseFilterService<CompetitionDTO> {
 	// getAll
 
 	// getAll + filters
+
+	 List<CompetitionDTO> getAll(int partNumber, int partSize)
+			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
+			CloseStatementException;
 
 	// getAll + active
 	List<CompetitionDTO> getAllActive(int partNumber, int partSize) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException;

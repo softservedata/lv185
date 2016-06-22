@@ -31,7 +31,8 @@ public class TestAppl {
 		
 		CompetitionsServiceImpl cs = new CompetitionsServiceImpl();
 //		List<CompetitionDTO> ls = cs.getAllActive(1, 20);
-		List<CompetitionDTO> ls = cs.getAllActiveByUser(1, 20, "Login 7");
+//		List<CompetitionDTO> ls = cs.getAllActiveByUser(1, 20, "Login 7");
+		List<CompetitionDTO> ls = cs.getAll(1, 20);
 		System.out.println(Arrays.toString(ls.toArray()));
 		
 		System.out.println("Yyooyoyo");
