@@ -42,7 +42,7 @@ public final class GroupDao extends AbstractDao<Group> {
 			return new Group(
 					Integer.parseInt(args[0] == null ? "0" : args[0]),
 					args[1] == null ? new String() : args[1],
-					Integer.parseInt(args[2] == null ? new String() : args[2]),
+					Integer.parseInt(args[2] == null ? "0" : args[2]),
 					args[3] == null ? new String() : args[3],
 					args[4] == null ? new String() : args[4],
 					args[5] == null ? new String() : args[5]);

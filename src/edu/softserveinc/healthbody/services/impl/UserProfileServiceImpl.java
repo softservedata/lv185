@@ -4,14 +4,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import edu.softserveinc.healthbody.dao.GroupDao;
 import edu.softserveinc.healthbody.dao.RoleDao;
 import edu.softserveinc.healthbody.dao.UserDao;
+import edu.softserveinc.healthbody.dao.UserGroupDao;
 import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.dto.GroupDTO;
 import edu.softserveinc.healthbody.dto.UserDTO;
+import edu.softserveinc.healthbody.entity.Group;
 import edu.softserveinc.healthbody.entity.Role;
 import edu.softserveinc.healthbody.entity.User;
+import edu.softserveinc.healthbody.entity.UserGroup;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
@@ -49,7 +52,7 @@ public class UserProfileServiceImpl implements BaseService<UserDTO> {
 		
 		try {
 			UserDao.get().createUser(new User(0, userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstname(), userDTO.getLastname(),
-				userDTO.getGender(), Double.parseDouble(userDTO.getWeight()), Integer.parseInt(userDTO.getAge()), roles.getIdRole(), userDTO.getEmail()));
+					 userDTO.getEmail(), Integer.parseInt(userDTO.getAge()), Double.parseDouble(userDTO.getWeight()), userDTO.getGender(), userDTO.getHealth(), userDTO.getPhotoURL(), userDTO.getGoogleApi(), roles.getIdRole(), userDTO.getStatus()));
 		} catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
 			throw new TransactionException(TRANSACTION_ERROR, e);
@@ -63,13 +66,19 @@ public class UserProfileServiceImpl implements BaseService<UserDTO> {
 		
 		User user = null;
 		Role role = null;
-		
+		Group group = null;
+		List<UserGroup> ugs = new ArrayList<UserGroup>();
 		List<GroupDTO> groups = new ArrayList<GroupDTO>();
 		
 		ConnectionManager.getInstance().beginTransaction();
 		try {
 			 user = UserDao.get().getUserByLogin(name);
 			 role = RoleDao.get().getRoleById(user.getIdRole());
+			 ugs = UserGroupDao.get().getUGbyId(user.getId());
+			 for( UserGroup ug : ugs ){
+			 group = GroupDao.get().getById(ug.getIdGroup());
+			 groups.add(new GroupDTO(group.getName(), "", "", ""));
+			 }
 			 
 		} catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
@@ -77,19 +86,26 @@ public class UserProfileServiceImpl implements BaseService<UserDTO> {
 		}
 		ConnectionManager.getInstance().commitTransaction();
 		
-		return new UserDTO(user.getFirsName(), user.getLastName(), user.getLogin(), user.getPasswd(), user.getMail(),
-				user.getAge().toString(), user.getWeight().toString(), user.getGender(), "", role.getName(), "", "", groups);
+		return new UserDTO(user.getLogin(), user.getPasswd(), user.getFirsName(), user.getLastName(), user.getMail(),
+				user.getAge().toString(), user.getWeight().toString(), user.getGender(), user.getAvatar(), role.getName(), user.getStatus(), "", groups);
 	}
 	
-	public UserDTO getbyId(Integer id) throws SQLException, JDBCDriverException, TransactionException, CloseStatementException {
+	public UserDTO getbyId(Integer id) throws SQLException, JDBCDriverException, TransactionException, CloseStatementException, EmptyResultSetException {
 		User user = null;
 		Role role = null;
+		Group group = null;
+		List<UserGroup> ugs = new ArrayList<UserGroup>();
 		List<GroupDTO> groups = new ArrayList<GroupDTO>();
 		
 		ConnectionManager.getInstance().beginTransaction();
 		try {
 			 user = UserDao.get().getUserById(id);
 			 role = RoleDao.get().getRoleById(user.getIdRole());
+			 ugs = UserGroupDao.get().getUGbyId(user.getId());
+			 for( UserGroup ug : ugs ){
+			 group = GroupDao.get().getById(ug.getIdGroup());
+			 groups.add(new GroupDTO(group.getName(), "", "", ""));
+			 }
 			 
 		} catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
@@ -97,18 +113,18 @@ public class UserProfileServiceImpl implements BaseService<UserDTO> {
 		}
 		ConnectionManager.getInstance().commitTransaction();
 		
-		return new UserDTO(user.getFirsName(), user.getLastName(), user.getLogin(), user.getPasswd(), user.getMail(),
-				user.getAge().toString(), user.getWeight().toString(), user.getGender(), "", role.getName(), "", "", groups);
+		return new UserDTO(user.getLogin(), user.getPasswd(), user.getFirsName(), user.getLastName(), user.getMail(),
+				user.getAge().toString(), user.getWeight().toString(), user.getGender(), user.getAvatar(), role.getName(), user.getStatus(), "", groups);
 	}
 
 	@Override
 	public void update(UserDTO userDTO) throws SQLException, JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException, TransactionException, CloseStatementException {
 		
 		ConnectionManager.getInstance().beginTransaction();
-		List<Role> roles = RoleDao.get().getByField("name", userDTO.getRoleName());
+		Role role = RoleDao.get().getByFieldName(userDTO.getRoleName());
 		try {	
-			UserDao.get().updateUser(new User(0,  userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstname(),userDTO.getLastname(),
-					userDTO.getGender(), Double.parseDouble(userDTO.getWeight()), Integer.parseInt(userDTO.getAge()), roles.get(0).getId(), userDTO.getEmail()));
+			UserDao.get().updateUser(new User(0, userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstname(), userDTO.getLastname(),
+					 userDTO.getEmail(), Integer.parseInt(userDTO.getAge()), Double.parseDouble(userDTO.getWeight()), userDTO.getGender(), userDTO.getHealth(), userDTO.getPhotoURL(), userDTO.getGoogleApi(), role.getIdRole(), userDTO.getStatus()));
 		}catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
 			throw new TransactionException(TRANSACTION_ERROR, e);

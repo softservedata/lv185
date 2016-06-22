@@ -27,9 +27,8 @@ public class UsersServiceImpl implements UsersService {
 		List<UserDTO> userDTOs = new ArrayList<UserDTO>();
 		for (User user : UserDao.get().getFilterRange((partNumber - 1) * partSize, partSize,
 				filters)) {
-			userDTOs.add(new UserDTO(user.getFirsName(), user.getLastName(), null, null, null, user.getAge(),
-					user.getWeight(), null, user.getAvatar(), null, null, user.getScore(),
-					null));
+			userDTOs.add(new UserDTO(null, null, user.getFirsName(), user.getLastName(), null, user.getAge().toString(), user.getWeight().toString(), null, 
+					user.getAvatar(), null, null, null, null));
 		}
 		return userDTOs;
 	}

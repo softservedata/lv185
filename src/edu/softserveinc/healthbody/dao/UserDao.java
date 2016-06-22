@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
+
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant.UserDBQueries;
 import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.entity.User;
@@ -57,7 +57,6 @@ public final class UserDao extends AbstractDao<User> {
 		fields.add(entity.getGoogleApi());
 		fields.add(entity.getIdRole().toString());
 		fields.add(entity.getStatus());
-		fields.add(entity.getScore().toString());
 		return (String[]) fields.toArray();
 	}
 
@@ -76,12 +75,11 @@ public final class UserDao extends AbstractDao<User> {
 				args[10] == null ? new String() : args[10],
 				args[11] == null ? new String() : args[11], 
 				Integer.parseInt(args[12] == null ? "0" : args[12]),
-				args[13] == null ? new String() : args[13],
-				Integer.parseInt(args[14] == null ? "0" : args[14]));
+				args[13] == null ? new String() : args[13]);
 	}
 
 	public User getUserByLogin(String login) throws JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException, CloseStatementException {
-		return getByField(login, login).get(0);
+		return getByFieldName(login);
 	}
 	
 	public User getUserById(Integer id) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException {

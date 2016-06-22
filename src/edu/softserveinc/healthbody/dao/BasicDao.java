@@ -10,6 +10,7 @@ public interface BasicDao<TEntity> extends BasicReadDao<TEntity> {
 		INSERT,
 		GET_BY_ID,
 		GET_BY_FIELD,
+		GET_BY_FIELD_NAME,
 		GET_ID_BY_FIELDS,
 		GET_ALL,
 		UPDATE,

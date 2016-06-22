@@ -70,7 +70,7 @@ public class RoleDao extends AbstractDao<Role>{
 	}
 	
 	public Role getRoleByName(String name) throws JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException, CloseStatementException {
-		return getByField(name, name).get(0);
+		return getByFieldName(name);
 	}
 
 }
