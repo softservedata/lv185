@@ -11,13 +11,13 @@ public interface UsersService extends BaseFilterService<UserDTO> {
 	//Список користувачів із запрошення у групу
 	//Список користувачів із змагання
 	
-	List<UserDTO> getAllbyAdmin();
+	List<UserDTO> getAll();
 
-	List<UserDTO> getAlltoAddinCompetition();
+	List<UserDTO> getAllnotinCompetition(int competId);
 
-	List<UserDTO> getAllbyGroup(int groupId);
+	List<UserDTO> getAllnotinGroup(int groupId);
 	
-	List<UserDTO> getAllbyCompetition(int competId);
+	List<UserDTO> getAllinCompetition(int competId);
 
 	
 
