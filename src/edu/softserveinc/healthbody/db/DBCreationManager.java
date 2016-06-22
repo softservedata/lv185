@@ -1,14 +1,7 @@
 package edu.softserveinc.healthbody.db;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import edu.softserveinc.healthbody.dao.DaoStatementsConstant;
-import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
-import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
-import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 
 public class DBCreationManager {
 	public static enum TableQueries {
@@ -53,19 +46,19 @@ public class DBCreationManager {
 				+ "name varchar(50),"
 				+ "metrics real,"
 				+ "get_google varchar(200))"),
-		USER_GROUP_TABLE("CREATE TABLE IF NOT EXISTS \"usersgroups\"("
+		USER_GROUP_TABLE("CREATE TABLE IF NOT EXISTS \"usergroups\"("
 				+ "id_user_group serial primary key,"
 				+ "id_user bigint,"
 				+ "id_group bigint,"
 				+ "FOREIGN KEY (id_group)  REFERENCES \"groups\" (id_group),"
 				+ "FOREIGN KEY (id_user) REFERENCES \"users\" (id_user))"),
-		GROUP_COMPETITION_TABLE("CREATE TABLE IF NOT EXISTS \"groupscompetitions\"("
+		GROUP_COMPETITION_TABLE("CREATE TABLE IF NOT EXISTS \"groupcompetitions\"("
 				+ "id_group_competition serial primary key,"
 				+ "id_group bigint,"
 				+ "id_competition bigint,"
 				+ "FOREIGN KEY (id_group)  REFERENCES \"groups\" (id_group),"
 				+ "FOREIGN KEY (id_competition) REFERENCES \"competitions\" (id_competition))"),
-		USER_COMPETITION_TABLE("CREATE TABLE IF NOT EXISTS \"userscompetitions\"("
+		USER_COMPETITION_TABLE("CREATE TABLE IF NOT EXISTS \"usercompetitions\"("
 				+ "id_user_competition serial primary key,"
 				+ "id_user bigint,"
 				+ "id_competition bigint,"
