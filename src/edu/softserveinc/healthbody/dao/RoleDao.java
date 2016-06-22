@@ -5,6 +5,7 @@ import java.util.List;
 
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant.RoleDBQueries;
 import edu.softserveinc.healthbody.entity.Role;
+import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
@@ -60,7 +61,7 @@ public class RoleDao extends AbstractDao<Role>{
 		return delete(role);
 	}
 	
-	public List<Role> view() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException{
+	public List<Role> view() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException{
 		return getAll();
 	}
 

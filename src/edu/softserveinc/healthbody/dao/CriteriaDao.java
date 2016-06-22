@@ -5,6 +5,7 @@ import java.util.List;
 
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant.CriteriaDBQueries;
 import edu.softserveinc.healthbody.entity.Criteria;
+import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
@@ -76,7 +77,7 @@ public class CriteriaDao extends AbstractDao<Criteria> {
 		return delete(criteria);
 	}
 	
-	public List<Criteria> view() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException{
+	public List<Criteria> view() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException{
 		return getAll();
 	}
 	

@@ -8,6 +8,7 @@ import java.util.List;
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant.UserDBQueries;
 import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.entity.User;
+import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
@@ -71,8 +72,12 @@ public final class UserDao extends AbstractDao<User> {
 				Integer.parseInt(args[8] == null ? "0" : args[8]));
 	}
 
-	public User getUserByLogin(String login) throws JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException {
+	public User getUserByLogin(String login) throws JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException, CloseStatementException {
 		return getByField("login", login).get(0);
+	}
+	
+	public User getUserById(Integer id) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException {
+		return getById(id);
 	}
 	
 	public boolean createUser(User user) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException {

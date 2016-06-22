@@ -7,6 +7,7 @@ import java.util.Map;
 import edu.softserveinc.healthbody.dao.CompetitionDao;
 import edu.softserveinc.healthbody.dto.CompetitionDTO;
 import edu.softserveinc.healthbody.entity.Competition;
+import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
@@ -17,7 +18,7 @@ import edu.softserveinc.healthbody.services.KeysForFilters;
 public class CompetitionsServiceImpl implements CompetitionsService {
 
 	@Override
-	public List<CompetitionDTO> getAll(int partNumber, int partSize, Map<String, String> filters) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException {
+	public List<CompetitionDTO> getAll(int partNumber, int partSize, Map<String, String> filters) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
 		fillFilters(filters);
 		List<CompetitionDTO> competitionDTOs = new ArrayList<CompetitionDTO>();
 		for (Competition competition : CompetitionDao.get().getFilterRange((partNumber - 1) * partSize, partSize,

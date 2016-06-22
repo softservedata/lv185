@@ -5,6 +5,7 @@ import java.util.List;
 
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant.GroupDBQueries;
 import edu.softserveinc.healthbody.entity.Group;
+import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
@@ -75,7 +76,7 @@ public final class GroupDao extends AbstractDao<Group> {
 			return delete(group);
 		}
 		
-		public List<Group> view() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException{
+		public List<Group> view() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException{
 			return getAll();
 		}
 

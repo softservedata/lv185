@@ -5,6 +5,7 @@ import java.util.List;
 
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant.UserCompetitionsDBQueries;
 import edu.softserveinc.healthbody.entity.UserCompetitions;
+import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
@@ -71,7 +72,7 @@ public final class UserCompetitionsDao extends AbstractDao<UserCompetitions> {
 		return updateByField(fieldName, text, fieldCondition, textCondition);
 	}
 	
-	public List<UserCompetitions> viewAll() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException {
+	public List<UserCompetitions> viewAll() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
 		
 		return getAll();
 	}
