@@ -71,14 +71,14 @@ public class TestDBCreationManager {
 			con = DriverManager.getConnection(URL + databaseName, username, password);				
 			DBPopulateManager.getInstance().populateUsersTable(con);
 			DBPopulateManager.getInstance().populateGroupsTable(con);
-			DBPopulateManager.getInstance().populateUsersGroupsTable(con);
-			DBPopulateManager.getInstance().populateAwordsTable(con);
+			DBPopulateManager.getInstance().populateUserGroupsTable(con);
+			DBPopulateManager.getInstance().populateAwardsTable(con);
 			DBPopulateManager.getInstance().populateCompetitionsTable(con);
 			DBPopulateManager.getInstance().populateCriteriaTable(con);
-			DBPopulateManager.getInstance().populateGroupsCompetitionsTable(con);
+			DBPopulateManager.getInstance().populateGroupCompetitionsTable(con);
 			DBPopulateManager.getInstance().populateMetaDataTable(con);
 			DBPopulateManager.getInstance().populateRolesTable(con);
-			DBPopulateManager.getInstance().populateUsersCompetitionsTable(con);
+			DBPopulateManager.getInstance().populateUserCompetitionsTable(con);
 			logger.info("Populated All tables");
 		} catch (JDBCDriverException | QueryNotFoundException | DataBaseReadingException | SQLException e) {
 			logger.error("Error populating database tables.", e);
