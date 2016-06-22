@@ -4,12 +4,12 @@ import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
 
 public class DaoStatementsConstant {
 	public static enum UserDBQueries {
-        INSERT(DaoQueries.INSERT, "INSERT INTO users (login, password, firstname, lastname, \"e-mail\", age, weight, gender,"
-        		+ "health, avatar, google_field, id_role, status ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"),
-        GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT id_user, login, password, firstname, lastname, gender, weight, age, id_role  FROM users WHERE id_user = ?;"),
-        GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_user, login, password, firstname, lastname, gender, weight, age, id_role FROM users WHERE ? = ?;"),
-        GET_ALL(DaoQueries.GET_ALL, "SELECT id_user, login, password, firstname, lastname, gender, weight, age, id_role FROM users;"),
-        UPDATE(DaoQueries.UPDATE, "UPATE users SET password = ?, firstname = ?, lastname = ?, age = ?, weight = ?, gender = ? WHERE login = ?"),
+        INSERT(DaoQueries.INSERT, "INSERT INTO users (login, password, firstname, lastname, gender, weight, age, google_field,  "
+        		+ "health, avatar, status, id_role, \"e-mail\") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"),
+        GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT id_user, login, password, firstname, lastname, gender, weight, age, id_role, \"e-mail\"  FROM users WHERE id_user = ?;"),
+        GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_user, login, password, firstname, lastname, gender, weight, age, id_role, \"e-mail\" FROM users WHERE ? = ?;"),
+        GET_ALL(DaoQueries.GET_ALL, "SELECT id_user, login, password, firstname, lastname, gender, weight, age, id_role, \"e-mail\" FROM users;"),
+        UPDATE(DaoQueries.UPDATE, "UPDATE users SET password = ?, firstname = ?, lastname = ?, gender = ?, weight = ?, age = ? WHERE login = ?"),
         UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE users SET ? = ? WHERE ? = ?;"),
         DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE users WHERE id_user = ?;"),
         DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE users WHERE ? = ?;");

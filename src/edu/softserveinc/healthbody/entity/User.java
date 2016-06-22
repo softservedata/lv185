@@ -21,7 +21,7 @@ public class User implements IEntity {
 	
 
 	public User(Integer idUser, String login, String passwd, String firsName, String lastName, String gender,
-			Double weight, Integer age, Integer idRole) {
+			Double weight, Integer age, Integer idRole, String mail) {
 		this.idUser = idUser;
 		this.login = login;
 		this.passwd = passwd;
@@ -31,6 +31,7 @@ public class User implements IEntity {
 		this.weight = weight;
 		this.age = age;
 		this.idRole = idRole;
+		this.mail = mail;
 }
 
 	@Override

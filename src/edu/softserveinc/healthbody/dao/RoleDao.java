@@ -64,5 +64,13 @@ public class RoleDao extends AbstractDao<Role>{
 	public List<Role> view() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException{
 		return getAll();
 	}
+	
+	public Role getRoleById(Integer id) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException {
+		return getById(id);
+	}
+	
+	public Role getRoleByName(String name) throws JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException, CloseStatementException {
+		return getByField(name, name).get(0);
+	}
 
 }
