@@ -14,11 +14,13 @@ public class UserDTO {
 	private String gender;
 	private String photoURL;
 	private String roleName;
+	private String health;
+	private String googleApi;
 	private String status;
 	private String score;
 	private List<GroupDTO> groups;
 
-	public UserDTO(String firstname, String lastname, String login, String password, String email, String age,
+	public UserDTO(String login, String password, String firstname, String lastname, String email, String age,
 			String weight, String gender, String photoURL, String roleName, String status, String score,
 			List<GroupDTO> groups) {
 		super();
@@ -77,6 +79,22 @@ public class UserDTO {
 	public String getRoleName() {
 		return roleName;
 	}
+	public String getStatus() {
+		return status;
+	}
+
+	public String getScore() {
+		return score;
+	}
+
+	public List<GroupDTO> getGroups() {
+		return groups;
+	}
+
+	public String getHealth() {
+		return health;
+	}
+
 	
 	//setters
 	public void setFirstname(String firstname) {
@@ -130,17 +148,17 @@ public class UserDTO {
 	public void setGroups(List<GroupDTO> groups) {
 		this.groups = groups;
 	}
-
-	public String getStatus() {
-		return status;
+	
+	public void setHealth(String health) {
+		this.health = health;
 	}
 
-	public String getScore() {
-		return score;
+	public String getGoogleApi() {
+		return googleApi;
 	}
 
-	public List<GroupDTO> getGroups() {
-		return groups;
+	public void setGoogleApi(String googleApi) {
+		this.googleApi = googleApi;
 	}
 
 }
