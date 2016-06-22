@@ -16,7 +16,6 @@ import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 
 public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
-	protected final static String SQL_AND_GROUP_BY = " AND users.login = ? GROUP BY competitions.id_competition, competitions.name, competitions.start, competitions.finish ;";
 
 	private static volatile CompetitionsViewDao instance = null;
 
@@ -101,8 +100,6 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 			throw new QueryNotFoundException(
 					String.format(QUERY_NOT_FOUND, CompetitionsViewQueries.GET_ALL_ACTIVE_BY_USER.name()));
 		}
-		query = query.substring(0, query.lastIndexOf(";"))
-				+ SQL_AND_GROUP_BY;
 		if ((partNumber >= 0) && (partSize > 0)) {
 
 			query = query.substring(0, query.lastIndexOf(";")) + SQL_LIMIT;

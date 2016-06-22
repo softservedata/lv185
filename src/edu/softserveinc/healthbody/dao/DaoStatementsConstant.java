@@ -282,6 +282,8 @@ public class DaoStatementsConstant {
 				+ " LEFT OUTER JOIN usercompetitions ON competitions.id_competition = usercompetitions.id_competition"
 				+ " JOIN users ON usercompetitions.id_user = users.id_user"
 				+ " WHERE competitions.finish >= NOW()"
+				+ " AND users.login = ?"
+				+ " GROUP BY competitions.id_competition, competitions.name, competitions.start, competitions.finish"
 				+ ";"),
 		GET_ALL("SELECT id_competition from competitions;");
 		
