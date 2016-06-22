@@ -17,11 +17,11 @@ public class User implements IEntity {
 	private String googleApi;
 	private Integer idRole;
 	private String status;
-	private String score;
+	private Integer score;
 	
 	public User(Integer idUser, String login, String passwd, String firsName, String lastName, String mail, Integer age,
 			Double weight, String gender, String health, String avatar, String googleApi, Integer idRole, String status,
-			String score) {
+			Integer score) {
 
 		this.idUser = idUser;
 		this.login = login;
@@ -104,7 +104,7 @@ public class User implements IEntity {
 		this.idRole = idRole;
 	}
 	
-	public void setScore(String score) {
+	public void setScore(Integer score) {
 		this.score = score;
 	}
 
@@ -165,7 +165,7 @@ public class User implements IEntity {
 		return idRole;
 	}
 
-	public String getScore() {
+	public Integer getScore() {
 		return score;
 	}	
 
