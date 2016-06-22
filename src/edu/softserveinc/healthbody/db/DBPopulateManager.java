@@ -14,6 +14,9 @@ import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 public class DBPopulateManager {
 
 	private static volatile DBPopulateManager instance = null;
+	private static int users = 10;
+	private static int competitions = 20;
+	
 
 	private DBPopulateManager() {
 	}
@@ -35,7 +38,7 @@ public class DBPopulateManager {
 		String query = DaoStatementsConstant.UserDBQueries.INSERT.toString();
 
 		try (PreparedStatement pst = con.prepareStatement(query)) {
-			for (int j = 1; j <= 10; j++) {
+			for (int j = 1; j <= users; j++) {
 				pst.setString(1, "Login " + j);
 				pst.setString(2, "password " + j);
 				pst.setString(3, "Name of " + j + " user");
@@ -120,7 +123,7 @@ public class DBPopulateManager {
 		String query = DaoStatementsConstant.CompetitionDBQueries.INSERT.toString();
 
 		try (PreparedStatement pst = con.prepareStatement(query)) {
-			for (int j = 1; j <= 3; j++) {
+			for (int j = 1; j <= competitions; j++) {
 				pst.setString(1, "Name competition " + j);
 				pst.setString(2, "Description of competition " + j);
 				pst.setDate(3,
@@ -215,9 +218,9 @@ public class DBPopulateManager {
 		String query = DaoStatementsConstant.UserCompetitionsDBQueries.INSERT.toString();
 
 		try (PreparedStatement pst = con.prepareStatement(query)) {
-			for (int j = 1; j <= 20; j++) {
-				pst.setInt(1, (j % 10 == 0) ? 10 : j % 10);
-				pst.setInt(2, (j % 3 == 0) ? 2 : (j % 2 == 0 ? 1 : 3));
+			for (int j = 1; j <= 50; j++) {
+				pst.setInt(1, new Random().nextInt(users) + 1);
+				pst.setInt(2, new Random().nextInt(competitions) + 1);
 				pst.setInt(3, (j % 4 == 0) ? 4 : (j % 2 == 0 ? 3 : (j % 3 == 0 ? 1 : 3)));
 				pst.setInt(4, (int) (Math.random() * 10 + 1));
 				pst.setString(5, "time " + j);
@@ -225,6 +228,7 @@ public class DBPopulateManager {
 			}
 		} catch (SQLException e) {
 			System.out.println("Error populating usercompetitions table.");
+			e.printStackTrace();
 		}
 
 		return successfulInsert;
