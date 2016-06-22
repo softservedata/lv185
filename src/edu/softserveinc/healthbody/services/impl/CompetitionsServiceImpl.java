@@ -50,10 +50,17 @@ public class CompetitionsServiceImpl implements CompetitionsService {
 		return null;
 	}
 
-	@Override
-	public List<CompetitionDTO> getAllActiveByUser() {
 
-		return null;
+	@Override
+	public List<CompetitionDTO> getAllActiveByUser(int partNumber, int partSize, String login) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
+		List<CompetitionDTO> competitionDTO = new ArrayList<>();
+		for (CompetitionsView competitionsView : CompetitionsViewDao.get()
+				.getActiveCompetitionsByUserView(partNumber, partSize, login)) {
+			competitionDTO.add(new CompetitionDTO(competitionsView.getName(),
+					competitionsView.getUsersCount().toString(), competitionsView.getStart(),
+					competitionsView.getFinish(), new ArrayList<String>(), new ArrayList<String>()));
+		}
+		return competitionDTO;
 	}
 
 	@Override

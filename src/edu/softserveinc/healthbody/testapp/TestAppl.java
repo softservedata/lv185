@@ -30,7 +30,7 @@ public class TestAppl {
 	public static void main(String[] args) throws SQLException, ClassNotFoundException, QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
 		
 		CompetitionsServiceImpl cs = new CompetitionsServiceImpl();
-		List<CompetitionDTO> ls = cs.getAllActive(1,1);
+		List<CompetitionDTO> ls = cs.getAllActive(2, 3);
 		System.out.println(Arrays.toString(ls.toArray()));
 		
 		System.out.println("Yyooyoyo");

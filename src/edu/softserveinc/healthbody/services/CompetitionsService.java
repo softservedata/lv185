@@ -20,7 +20,7 @@ public interface CompetitionsService extends BaseFilterService<CompetitionDTO> {
 
 	List<CompetitionDTO> getAllByUser();
 
-	List<CompetitionDTO> getAllActiveByUser();
+	List<CompetitionDTO> getAllActiveByUser(int partNumber, int partSize, String login) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException;
 
 	CompetitionDTO getCompetition();
 
