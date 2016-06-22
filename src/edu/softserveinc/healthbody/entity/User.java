@@ -19,10 +19,10 @@ public class User implements IEntity {
 	private String status;
 	private String score;
 	
-
-		public User(Integer idUser, String login, String passwd, String firsName, String lastName, String mail, Integer age,
+	public User(Integer idUser, String login, String passwd, String firsName, String lastName, String mail, Integer age,
 			Double weight, String gender, String health, String avatar, String googleApi, Integer idRole, String status,
 			String score) {
+
 		this.idUser = idUser;
 		this.login = login;
 		this.passwd = passwd;
@@ -39,6 +39,7 @@ public class User implements IEntity {
 		this.status = status;
 		this.score = score;
 	}
+
 
 	@Override
 	public Integer getId() {

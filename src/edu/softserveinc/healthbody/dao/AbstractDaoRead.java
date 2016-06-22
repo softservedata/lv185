@@ -97,6 +97,7 @@ abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao
 			pst.setString(1, fieldname);
 			pst.setString(2, text);
 			resultSet = pst.executeQuery();
+			
 				queryResult = new String[resultSet.getMetaData().getColumnCount()];
 				all.add(createInstance(getQueryResultArr(queryResult)));
 			}
@@ -154,7 +155,7 @@ abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao
 			pst.setString(2, idSecondEntity);
 			resultSet = pst.executeQuery();
 				queryResult = new String[resultSet.getMetaData().getColumnCount()];
-				id = getFields(createInstance(getQueryResultArr(queryResult)))[0];
+				id = (String)getFields(createInstance(getQueryResultArr(queryResult)))[0];
 			}
 		catch (SQLException e) {
 			throw new EmptyResultSetException(DATABASE_READING_ERROR, e);
