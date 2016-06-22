@@ -1,0 +1,2 @@
+jdbcDriverName,connectionUrl,username,password
+MySQL,jdbc:mysql://localhost:3306/lv185,root,root
