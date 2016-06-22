@@ -33,9 +33,9 @@ public class CompetitionsServiceImpl implements CompetitionsService {
 		return competitionDTOs;
 	}
 	@Override
-	public List<CompetitionDTO> getAllActive() throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
+	public List<CompetitionDTO> getAllActive(int partNumber, int partSize) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
 		List<CompetitionDTO> competitionDTO = new ArrayList<>();
-		for (CompetitionsView competitionsView:CompetitionsViewDao.get().getActiveCompetitionsView()){
+		for (CompetitionsView competitionsView:CompetitionsViewDao.get().getActiveCompetitionsView(partNumber,partSize)){
 			competitionDTO.add(new CompetitionDTO(competitionsView.getName(), competitionsView.getUsersCount().toString(), competitionsView.getStart(),
 					competitionsView.getFinish(), new ArrayList<String>(), new ArrayList<String>()));
 		}

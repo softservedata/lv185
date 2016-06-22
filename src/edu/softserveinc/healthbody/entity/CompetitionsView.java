@@ -8,17 +8,15 @@ public class CompetitionsView implements IEntity {
 	private String description;
 	private String start;
 	private String finish;
-	private Integer idCriteria;
 	private Integer usersCount;
 
 	public CompetitionsView(Integer idCompetition, String name, String description,
-			String start, String finish, Integer idCriteria, Integer usersCount) {
+			String start, String finish, Integer usersCount) {
 		this.idCompetition = idCompetition;
 		this.name = name;
 		this.description = description;
 		this.start = start;
 		this.finish = finish;
-		this.idCriteria = idCriteria;
 		this.usersCount = usersCount;
 	}
 	
@@ -44,9 +42,6 @@ public class CompetitionsView implements IEntity {
 		this.finish = finish;
 	}
 
-	public void setIdCriteria(Integer idCriteria) {
-		this.idCriteria = idCriteria;
-	}
 	
 	public void setUsersCount(Integer usersCount) {
 		this.usersCount = usersCount;
@@ -77,10 +72,6 @@ public class CompetitionsView implements IEntity {
 
 	public String getFinish() {
 		return finish;
-	}
-
-	public Integer getIdCriteria() {
-		return idCriteria;
 	}
 
 	public Integer getUsersCount() {

@@ -2,7 +2,6 @@ package edu.softserveinc.healthbody.testapp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
@@ -11,8 +10,6 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import edu.softserveinc.healthbody.db.DBCreationManager;
-import edu.softserveinc.healthbody.db.DBCreationManager.TableQueries;
 import edu.softserveinc.healthbody.dto.CompetitionDTO;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
@@ -33,7 +30,7 @@ public class TestAppl {
 	public static void main(String[] args) throws SQLException, ClassNotFoundException, QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
 		
 		CompetitionsServiceImpl cs = new CompetitionsServiceImpl();
-		List<CompetitionDTO> ls = cs.getAllActive();
+		List<CompetitionDTO> ls = cs.getAllActive(1,1);
 		System.out.println(Arrays.toString(ls.toArray()));
 		
 		System.out.println("Yyooyoyo");
@@ -55,14 +52,7 @@ public class TestAppl {
 		logger.info("Using database...");
 //		createTables(st, databaseName);
 		st = con.createStatement();
-		String query = "select * from competitions;";
-		st.execute(query);
-		ResultSet rs = st.getResultSet();
-		while (rs.next()){
-			for (int i =0; i<rs.getMetaData().getColumnCount();i++){
-//				t
-			}
-		}
+
 		
 		
 		if (st != null) {
@@ -71,29 +61,5 @@ public class TestAppl {
 		if (con != null) {
 			con.close();
 		}
-	}
-
-	private static void createDatabase(Statement st, String databaseName) {
-		try {
-			DBCreationManager.getInstance().createDatabase(st, databaseName);
-			logger.info("Database created...");
-		} catch (SQLException e) {
-			if (e.getErrorCode() == 0) { // Database exists
-				logger.info("Database exists...");
-			} else { // Something else happened
-				logger.error("Database didn't create", e);
-			}
-		}
-
-	}
-	
-	private static void createTables(Statement st, String databaseName) throws SQLException{
-		for (TableQueries query : TableQueries.values()) {
-			// And here we crush.....
-			// TODO Check correctness of SQL Queries in DBCreationManager
-			DBCreationManager.getInstance().createTable(st, query.toString());
-		}
-		logger.info("Tables created in database...");
-		
 	}
 }

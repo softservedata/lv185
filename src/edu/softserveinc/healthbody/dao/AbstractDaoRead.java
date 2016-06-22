@@ -28,8 +28,9 @@ abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao
 
 	protected final static String SQL_WHERE = " where";
 	protected final static String SQL_AND = " and";
-	protected final static String SQL_LIKE = " %s like '%%%s%%';";
-	protected final static String SQL_LIMIT = " limit %s, %s;";
+	protected final static String SQL_LIKE = "? like '%%%s%%';";
+	protected final static String SQL_LIMIT = "  offset ? limit ?;";
+	
 
 	protected final HashMap<Enum<?>, Enum<?>> sqlQueries;
 
