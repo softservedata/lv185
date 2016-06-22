@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import edu.softserveinc.healthbody.dao.CompetitionDao;
 import edu.softserveinc.healthbody.dao.UserDao;
+import edu.softserveinc.healthbody.dto.CompetitionDTO;
+import edu.softserveinc.healthbody.dto.GroupDTO;
 import edu.softserveinc.healthbody.dto.UserDTO;
+import edu.softserveinc.healthbody.entity.Competition;
 import edu.softserveinc.healthbody.entity.User;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
@@ -23,11 +27,10 @@ public class UsersServiceImpl implements UsersService {
 		List<UserDTO> userDTOs = new ArrayList<UserDTO>();
 		for (User user : UserDao.get().getFilterRange((partNumber - 1) * partSize, partSize,
 				filters)) {
-			userDTOs.add(new UserDTO(user.getAvatar(), user.getFirsName(), user.getLastName(),
-					user.getAge(), user.getWeight(), user.getScore(), null, null));
+			userDTOs.add(new UserDTO(user.getFirsName(), user.getLastName(), null, null, null, user.getAge(),
+					user.getWeight(), null, user.getAvatar(), null, null, user.getScore(),
+					null));
 		}
-		//
-
 		return userDTOs;
 	}
 	
