@@ -11,6 +11,7 @@ import java.util.Map;
 import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
 import edu.softserveinc.healthbody.db.CloseHelper;
 import edu.softserveinc.healthbody.db.ConnectionManager;
+import edu.softserveinc.healthbody.entity.UserGroup;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
@@ -167,6 +168,35 @@ abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao
 
 		return id;
 	}
+	
+	public List<TEntity> getAllbyId(Integer id) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException, EmptyResultSetException {
+		
+		PreparedStatement pst = null;
+		List<TEntity> all = new ArrayList<>();
+		String query = sqlQueries.get(DaoQueries.GET_BY_ID).toString();
+		if (query == null) {
+			throw new RuntimeException(String.format(QUERY_NOT_FOUND, DaoQueries.GET_BY_ID.name()));
+		}
+		try {
+			pst = ConnectionManager.getInstance().getConnection().prepareStatement(query);
+			pst.setInt(1, id);
+			resultSet = pst.executeQuery();
+			queryResult = new String[resultSet.getMetaData().getColumnCount()];
+			all.add(createInstance(getQueryResultArr(queryResult)));
+		} catch (SQLException e) {
+			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+		}
+		finally {
+			CloseHelper.close(resultSet);
+			CloseHelper.close(pst);
+		}
+		if (all.isEmpty()) {
+			throw new EmptyResultSetException(String.format(EMPTY_RESULTSET, query));
+		}
+		return all;
+		
+	}
+
 
 	@Override
 	public List<TEntity> getFilterRange(int partNumber, int partSize, Map<String, String> filters)

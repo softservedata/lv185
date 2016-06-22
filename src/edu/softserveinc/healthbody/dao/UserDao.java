@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
+
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant.UserDBQueries;
 import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.entity.User;

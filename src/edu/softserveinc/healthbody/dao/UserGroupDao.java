@@ -3,10 +3,11 @@ package edu.softserveinc.healthbody.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.softserveinc.healthbody.dao.DaoStatementsConstant.UserGroupViewQueries;
+import edu.softserveinc.healthbody.dao.DaoStatementsConstant.UserGroupQueries;
 import edu.softserveinc.healthbody.entity.Group;
 import edu.softserveinc.healthbody.entity.User;
 import edu.softserveinc.healthbody.entity.UserGroup;
+import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
@@ -35,7 +36,7 @@ public class UserGroupDao extends AbstractDao<UserGroup>{
 	}
 
 	protected void init() {
-		for(UserGroupViewQueries userGroupViewQueries:UserGroupViewQueries.values()){
+		for(UserGroupQueries userGroupViewQueries:UserGroupQueries.values()){
 			sqlQueries.put(userGroupViewQueries.getDaoQuery(),userGroupViewQueries);
 		}
 		
@@ -67,4 +68,8 @@ public class UserGroupDao extends AbstractDao<UserGroup>{
 		return result;
 	}
 	
+	public List<UserGroup> getUGbyId(Integer id) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException, EmptyResultSetException {
+		
+		return getAllbyId(id);
+	}
 }
