@@ -46,4 +46,12 @@ public class CompetitionDTO {
 		return logins;
 	}
 
+	@Override
+	public String toString() {
+		return "CompetitionDTO [name=" + name + ", count=" + count + ", startDate=" + startDate + ", finishDate="
+				+ finishDate + ", groups=" + groups + ", logins=" + logins + "]" + System.lineSeparator();
+	}
+	
+	
+
 }

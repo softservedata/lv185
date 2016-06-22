@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import edu.softserveinc.healthbody.dao.CompetitionDao;
+import edu.softserveinc.healthbody.dao.CompetitionsViewDao;
 import edu.softserveinc.healthbody.dto.CompetitionDTO;
 import edu.softserveinc.healthbody.entity.Competition;
+import edu.softserveinc.healthbody.entity.CompetitionsView;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
@@ -18,7 +20,9 @@ import edu.softserveinc.healthbody.services.KeysForFilters;
 public class CompetitionsServiceImpl implements CompetitionsService {
 
 	@Override
-	public List<CompetitionDTO> getAll(int partNumber, int partSize, Map<String, String> filters) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
+	public List<CompetitionDTO> getAll(int partNumber, int partSize, Map<String, String> filters) 
+			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
+		
 		fillFilters(filters);
 		List<CompetitionDTO> competitionDTOs = new ArrayList<CompetitionDTO>();
 		for (Competition competition : CompetitionDao.get().getFilterRange((partNumber - 1) * partSize, partSize,
@@ -31,9 +35,13 @@ public class CompetitionsServiceImpl implements CompetitionsService {
 		return competitionDTOs;
 	}
 	@Override
-	public List<CompetitionDTO> getAllActive() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CompetitionDTO> getAllActive() throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
+		List<CompetitionDTO> competitionDTO = new ArrayList<>();
+		for (CompetitionsView competitionsView:CompetitionsViewDao.get().getActiveCompetitionsView()){
+			competitionDTO.add(new CompetitionDTO(competitionsView.getName(), competitionsView.getUsersCount().toString(), competitionsView.getStart(),
+					competitionsView.getFinish(), new ArrayList<String>(), new ArrayList<String>()));
+		}
+		return competitionDTO;
 	}
 
 	@Override

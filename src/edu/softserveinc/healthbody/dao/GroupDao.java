@@ -42,8 +42,10 @@ public final class GroupDao extends AbstractDao<Group> {
 			return new Group(
 					Integer.parseInt(args[0] == null ? "0" : args[0]),
 					args[1] == null ? new String() : args[1],
-					args[2] == null ? new String() : args[2],
-					args[3] == null ? new String() : args[3]);
+					Integer.parseInt(args[2] == null ? new String() : args[2]),
+					args[3] == null ? new String() : args[3],
+					args[4] == null ? new String() : args[4],
+					args[5] == null ? new String() : args[5]);
 		}
 
 		@Override
@@ -51,7 +53,9 @@ public final class GroupDao extends AbstractDao<Group> {
 			List<String> fields = new ArrayList<>();
 			fields.add(entity.getIdGroup().toString());
 			fields.add(entity.getName());
+			fields.add(entity.getCount().toString());
 			fields.add(entity.getDescription());
+			fields.add(entity.getScoreGroup());
 			fields.add(entity.getStatus());
 			return (String[]) fields.toArray();
 		}
@@ -60,13 +64,14 @@ public final class GroupDao extends AbstractDao<Group> {
 			return insert(group);
 		}
 		
-		public boolean editGroup(Group group, String id, String name, String description, String status) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException{
+		public boolean editGroup(Group group, String count, String description, String scoreGroup) 
+										throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException{
 			String[] fields = getFields(group);	
 			boolean result = false;
-			updateByField(fields[0], id, fields[1]	, name);
-			updateByField(fields[0], id, fields[2]	, description);
-			updateByField(fields[0], id, fields[3]	, status);
-			if (fields[1] == name && fields[2] == description && fields[3] == status){
+			updateByField(fields[1], group.getName(), fields[2]	, count);
+			updateByField(fields[1], group.getName(), fields[3]	, description);
+			updateByField(fields[1], group.getName(), fields[4]	, scoreGroup);
+			if (fields[2] == count && fields[3] == description && fields[4] == scoreGroup){
 				result = true;			
 			}
 			return result;
