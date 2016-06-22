@@ -26,7 +26,7 @@ public class ApplJDBC2 {
         Statement st = con.createStatement();
         ////st.execute("CREATE SCHEMA `proba`");
         // Add
-        st.execute("INSERT INTO users (id_role, login, passwd) VALUES (1,'ivan3','1234');");
+        st.execute("INSERT INTO users (id_role, login, passwd) VALUES (1,'ivan4','1234');");
         //st.execute("INSERT INTO users (id_role, login, passwd) VALUES (1,'ivan2','12346');");
         //
         System.out.println();
