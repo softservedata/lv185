@@ -267,5 +267,32 @@ public class DaoStatementsConstant {
         }
 	}
     
+    public static enum CompetitionsViewQueries {
+		GET_ALL_ACTIVE("SELECT competitions.id_competition, competitions.name, competitions.start, competitions.finish, competitions.id_criteria, COUNT(usercompetitions.id_user)"
+				+ " FROM competitions"
+				+ " JOIN usercompetitions ON competitions.id_competition = usercompetitions.id_competition"
+				+ " WHERE competitions.finish >= NOW()"
+				+ " GROUP BY competitions.id_competition, competitions.name, competitions.start, competitions.finish, competitions.id_criteria"
+				+ ";"),
+		GET_ALL_BY_USER("SELECT id_competition from competitions;"),
+		GET_ALL_ACTIVE_BY_USER("SELECT id_competition from competitions;"),
+		GET_ALL("SELECT id_competition from competitions;");
+		
+		private String query;
+		
+		private CompetitionsViewQueries(String query) {
+			this.query = query;
+		}
+
+		public CompetitionsViewQueries getDaoQuery() {
+            return this;
+        }
+		
+		public String toString() {
+			return query;
+		}
+	}
+    
+    
 }
  
