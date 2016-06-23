@@ -28,14 +28,18 @@ public class TestAppl {
 	private static String databaseName = "healthbodydb";
 
 	public static void main(String[] args) throws SQLException, ClassNotFoundException, QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
+	
 		
 		CompetitionsServiceImpl cs = new CompetitionsServiceImpl();
-//		List<CompetitionDTO> ls = cs.getAllActive(1, 20);
-		List<CompetitionDTO> ls = cs.getAllActiveByUser(1, 20, "Login 7");
-//		List<CompetitionDTO> ls = cs.getAll(1, 20);
-		System.out.println(Arrays.toString(ls.toArray()));
+		List<CompetitionDTO> ls1 = cs.getAllActive(1, 20);
+		List<CompetitionDTO> ls2 = cs.getAllActiveByUser(1, 20, "Login 7");
+		List<CompetitionDTO> ls3 = cs.getAllByUser(1, 20, "Login 7");
+		List<CompetitionDTO> ls4 = cs.getAll(1, 20);
+		System.out.println("In getAllActive: " + Arrays.toString(ls1.toArray()));
+		System.out.println("In getAllActiveByUser: " + Arrays.toString(ls2.toArray()));
+		System.out.println("In getAllByUser: " + Arrays.toString(ls3.toArray()));
+		System.out.println("In getAll: " + Arrays.toString(ls4.toArray()));
 		
-		System.out.println("Yyooyoyo");
 
 		logger.info("TestAppl starts...");
 		DriverManager.registerDriver(new org.postgresql.Driver());
