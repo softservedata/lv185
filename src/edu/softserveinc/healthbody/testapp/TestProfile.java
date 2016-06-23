@@ -1,6 +1,8 @@
 package edu.softserveinc.healthbody.testapp;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.softserveinc.healthbody.dto.UserDTO;
 import edu.softserveinc.healthbody.dto.GroupDTO;
@@ -22,7 +24,7 @@ public class TestProfile {
 				"\nWeight: " + userDTO1.getWeight() + "\nAge: " + userDTO1.getAge() + "\nGender: " + userDTO1.getGender() + "\nUserRole: " + userDTO1.getRoleName());
 		System.out.print("User's groups:  ");
 		for (GroupDTO group : userDTO1.getGroups()){
-			System.out.print(group.getName() + ",  ");
+			System.out.print(group.getName() + "    ");
 		}
 		
 		UserDTO userDTO = UserProfileServiceImpl.getInstance().getbyId(10);
@@ -32,7 +34,7 @@ public class TestProfile {
 				"\nWeight: " + userDTO.getWeight() + " \nAge: " + userDTO.getAge() + "\nGender: " + userDTO.getGender() + "\nUserRole: " + userDTO.getRoleName());
 		System.out.print("User's groups:  ");
 		for (GroupDTO group : userDTO.getGroups()){
-			System.out.print(group.getName() + ",  ");
+			System.out.print(group.getName() + "    ");
 		}
 		
 		
@@ -44,10 +46,12 @@ public class TestProfile {
 				"\nWeight: " + userDTO.getWeight() +" \nAge: " + userDTO.getAge() + "\nGender: " + userDTO.getGender() + "\nUserRole: " + userDTO.getRoleName());
 		System.out.print("User's groups:  ");
 		for (GroupDTO group : userDTO.getGroups()){
-			System.out.print(group.getName() + ",  ");
+			System.out.print(group.getName() + "    ");
 		}
 		
-		UserDTO userDTO2 = new UserDTO("Bill", "Klinton", "President", "password", "SomeMail75@gmail.com", "67", "80.5","m", "photourl", "user", "active", "1000", null);
+		List<GroupDTO> groups = new ArrayList<GroupDTO>();
+		groups.add(new GroupDTO("Name group number 1", "10", "Description of group 1", "11"));
+		UserDTO userDTO2 = new UserDTO("Bill", "Klinton", "President", "password", "SomeMail75@gmail.com", "67", "80.5","m", "photourl", "user", "active", "1000", groups);
 	//	UserProfileServiceImpl.getInstance().insert(userDTO2);
 	}
 

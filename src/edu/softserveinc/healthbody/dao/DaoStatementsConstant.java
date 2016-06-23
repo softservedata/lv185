@@ -34,6 +34,7 @@ public class DaoStatementsConstant {
 		INSERT(DaoQueries.INSERT, "INSERT INTO groups (name, count, description, scoreGroup, status) VALUES (?, ?, ?, ?, ?);"),
 		GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT id_group, name, count, description, scoreGroup, status FROM groups WHERE id_group = ?;"),
 		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_group, name, count, description, scoreGroup, status FROM groups WHERE ? = ?;"),
+		GET_BY_FIELD_NAME(DaoQueries.GET_BY_FIELD_NAME, "SELECT id_group, name, count, description, scoreGroup, status FROM groups WHERE name = ?;"),
 		GET_ALL(DaoQueries.GET_ALL, "SELECT id_group, name, count, description, scoreGroup, status FROM groups;"),
 		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE groups SET ? = ? WHERE ? = ?;"),
 		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE groups WHERE id_group = ?;"),
