@@ -21,37 +21,10 @@ public class KeysForFilters {
 		public String toString() {
 			return keys;
 		}
-
+		
 	}
+	}
+
 	
-	public enum UsersServiceKeys {
-
-		FIRST_NAME("firstname"),
-		LAST_NAME("lastname"),
-		LOGIN("login"),
-		PASSWORD("password"),
-		EMAIL ("email"),
-		AGE ("age"),
-		WEIGHT ("weight"),
-		GENDER ("gender"),
-		PHOTO_URL ("photoURL"),
-		ROLE_NAME ("roleName"),
-		STATUS ("status"),
-		SCORE ("score"),
-		GROUPS ("groups");
-
-		private String keys;
-
-		private UsersServiceKeys(String keys) {
-			this.keys = keys;
-		}
-
-		@Override
-		public String toString() {
-			return keys;
-		}
-
-	}
-
-
-}
+	
+	
