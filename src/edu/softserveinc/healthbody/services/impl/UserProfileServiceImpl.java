@@ -53,6 +53,9 @@ public class UserProfileServiceImpl implements BaseService<UserDTO> {
 		try {
 			UserDao.get().createUser(new User(0, userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstname(), userDTO.getLastname(),
 					 userDTO.getEmail(), Integer.parseInt(userDTO.getAge()), Double.parseDouble(userDTO.getWeight()), userDTO.getGender(), userDTO.getHealth(), userDTO.getPhotoURL(), userDTO.getGoogleApi(), roles.getIdRole(), userDTO.getStatus()));
+			User user = UserDao.get().getUserByLogin(userDTO.getLogin());
+			Group group = GroupDao.get().getGroupByName(userDTO.getGroups().get(0).getName());
+			UserGroupDao.get().createUserGroup(user, group);
 		} catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
 			throw new TransactionException(TRANSACTION_ERROR, e);
@@ -72,7 +75,7 @@ public class UserProfileServiceImpl implements BaseService<UserDTO> {
 		
 		ConnectionManager.getInstance().beginTransaction();
 		try {
-			 user = UserDao.get().getUserByLogin(name);
+			 user = UserDao.get().getUserByLoginName(name);
 			 role = RoleDao.get().getRoleById(user.getIdRole());
 			 ugs = UserGroupDao.get().getUGbyId(user.getId());
 			 for( UserGroup ug : ugs ){

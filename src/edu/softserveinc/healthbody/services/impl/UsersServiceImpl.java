@@ -1,65 +1,115 @@
 package edu.softserveinc.healthbody.services.impl;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import edu.softserveinc.healthbody.dao.CompetitionDao;
+import edu.softserveinc.healthbody.dao.GroupDao;
+import edu.softserveinc.healthbody.dao.RoleDao;
+import edu.softserveinc.healthbody.dao.UserCompetitionsDao;
 import edu.softserveinc.healthbody.dao.UserDao;
-import edu.softserveinc.healthbody.dto.CompetitionDTO;
+import edu.softserveinc.healthbody.dao.UserGroupDao;
+import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.dto.GroupDTO;
 import edu.softserveinc.healthbody.dto.UserDTO;
-import edu.softserveinc.healthbody.entity.Competition;
+import edu.softserveinc.healthbody.entity.Group;
+import edu.softserveinc.healthbody.entity.Role;
 import edu.softserveinc.healthbody.entity.User;
+import edu.softserveinc.healthbody.entity.UserCompetitions;
+import edu.softserveinc.healthbody.entity.UserGroup;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
+import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.KeysForFilters;
 import edu.softserveinc.healthbody.services.UsersService;
 
 public class UsersServiceImpl implements UsersService {
+	protected final static String TRANSACTION_ERROR = "Transaction Error, Rollback";
 
 	@Override
-	public List<UserDTO> getAll(int partNumber, int partSize, Map<String, String> filters) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
+	public List<UserDTO> getAll(int partNumber, int partSize, Map<String, String> filters)
+			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
+			CloseStatementException, SQLException, TransactionException {
 		fillFilters(filters);
+		
+		Role role = null;
+		Integer sc = 0;
+		Group gg = null;
+		List<GroupDTO> groups = new ArrayList<GroupDTO>();
+		List<UserGroup> ugs = new ArrayList<UserGroup>();
+		List<UserCompetitions> ucs = new ArrayList<UserCompetitions>();
 		List<UserDTO> userDTOs = new ArrayList<UserDTO>();
-		for (User user : UserDao.get().getFilterRange((partNumber - 1) * partSize, partSize,
-				filters)) {
-			userDTOs.add(new UserDTO(null, null, user.getFirsName(), user.getLastName(), null, user.getAge().toString(), user.getWeight().toString(), null, 
-					user.getAvatar(), null, null, null, null));
+
+		ConnectionManager.getInstance().beginTransaction();
+		try {
+			for (User user : UserDao.get().getFilterRange((partNumber - 1) * partSize, partSize, filters)) {
+
+				role = RoleDao.get().getRoleById(user.getIdRole());
+				ugs = UserGroupDao.get().getUGbyId(user.getId());
+				for (UserGroup ugr : ugs) {
+					gg = GroupDao.get().getById(ugr.getIdGroup());
+					groups.add(new GroupDTO(gg.getName(), "", "", ""));
+				}
+
+				ucs = UserCompetitionsDao.get().getUCbyId(user.getId());
+				for (UserCompetitions ucm : ucs) {
+					sc = sc + ucm.getUserScore();
+				}
+
+				userDTOs.add(new UserDTO(user.getLogin(), user.getPasswd(), user.getFirsName(), user.getLastName(),
+						user.getMail(), user.getAge().toString(), user.getWeight().toString(), user.getGender(),
+						user.getAvatar(), role.getName(), user.getStatus(), sc.toString(), groups));
+			}
+
+		} catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
+			ConnectionManager.getInstance().rollbackTransaction();
+			throw new TransactionException(TRANSACTION_ERROR, e);
 		}
+		ConnectionManager.getInstance().commitTransaction();
+
 		return userDTOs;
 	}
-	
+
 	@Override
-	public List<UserDTO> getAll() {
+	public List<UserDTO> getAllbyAdmin(int partNumber, int partSize, Map<String, String> filters)
+			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
+			CloseStatementException, SQLException, TransactionException {
+			return getAll(partNumber, partSize, filters);
+	}
+
+	@Override
+	public List<UserDTO> getAlltoAddInCompetition(int partNumber, int partSize, Map<String, String> filters)
+			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
+			CloseStatementException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
-	public List<UserDTO> getAllnotinCompetition(int competId) {
+	public List<UserDTO> getAllinGroup(int partNumber, int partSize, Map<String, String> filters)
+			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
+			CloseStatementException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
-	public List<UserDTO> getAllnotinGroup(int groupId) {
+	public List<UserDTO> getAllinCompetition(int partNumber, int partSize, Map<String, String> filters)
+			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
+			CloseStatementException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
-	public List<UserDTO> getAllinCompetition(int competId) {
-		// TODO Auto-generated method stub
-		return null;
+	public void update(List<UserDTO> userDTOs) {
+		userDTOs.add(new UserDTO(null, null, null, null, null, null, null, null, null, null, null, null, null));
 	}
-	
-	@Override
-	public void update(List<UserDTO> baseDTOs) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+
 	private void fillFilters(Map<String, String> filters) {
 		filters.put(KeysForFilters.UsersServiceKeys.FIRST_NAME.toString(), "firstname");
 		filters.put(KeysForFilters.UsersServiceKeys.LAST_NAME.toString(), "lastname");

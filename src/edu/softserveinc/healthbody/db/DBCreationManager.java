@@ -3,6 +3,9 @@ package edu.softserveinc.healthbody.db;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class DBCreationManager {
 	public static enum TableQueries {
 		USERS_TABLE("CREATE TABLE IF NOT EXISTS \"users\"("
@@ -85,6 +88,7 @@ public class DBCreationManager {
 	}
 
 	private static volatile DBCreationManager instance = null;
+	private static Logger logger = LogManager.getLogger(DBCreationManager.class.getName());
 
 	private DBCreationManager() {
 	}
@@ -114,10 +118,9 @@ public class DBCreationManager {
 		if (statement.getResultSet().next()){
 			System.out.println("Database exists!!!");
 		} else {
-			System.out.println("Database does not exist");
-			System.out.println("Creating...");
+			logger.info("Creating database " + databaseName);
 			result = statement.execute("CREATE DATABASE " + databaseName);
-			System.out.println("Database created.");
+			logger.info("Database " + databaseName + " created.");
 		}
 
 		return result;
