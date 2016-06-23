@@ -31,6 +31,7 @@ public class TestAppl {
 	
 		
 		CompetitionsServiceImpl cs = new CompetitionsServiceImpl();
+
 		List<CompetitionDTO> ls1 = cs.getAllActive(1, 20);
 		List<CompetitionDTO> ls2 = cs.getAllActiveByUser(1, 20, "Login 7");
 		List<CompetitionDTO> ls3 = cs.getAllByUser(1, 20, "Login 7");
@@ -39,7 +40,6 @@ public class TestAppl {
 		System.out.println("In getAllActiveByUser: " + Arrays.toString(ls2.toArray()));
 		System.out.println("In getAllByUser: " + Arrays.toString(ls3.toArray()));
 		System.out.println("In getAll: " + Arrays.toString(ls4.toArray()));
-		
 
 		logger.info("TestAppl starts...");
 		DriverManager.registerDriver(new org.postgresql.Driver());
