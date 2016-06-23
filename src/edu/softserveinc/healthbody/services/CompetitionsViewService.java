@@ -10,7 +10,7 @@ import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 
-public interface CompetitionsService extends BaseFilterService<CompetitionDTO> {
+public interface CompetitionsViewService extends BaseFilterService<CompetitionDTO> {
 
 	// getAll
 

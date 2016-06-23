@@ -12,9 +12,9 @@ import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
-import edu.softserveinc.healthbody.services.CompetitionsService;
+import edu.softserveinc.healthbody.services.CompetitionsViewService;
 
-public class CompetitionsServiceImpl implements CompetitionsService {
+public class CompetitionsViewServiceImpl implements CompetitionsViewService {
 
 	@Override
 	public List<CompetitionDTO> getAll(int partNumber, int partSize)

@@ -18,7 +18,7 @@ import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
-import edu.softserveinc.healthbody.services.impl.CompetitionsServiceImpl;
+import edu.softserveinc.healthbody.services.impl.CompetitionsViewServiceImpl;
 
 public class TestAppl {
 	// TODO
@@ -34,7 +34,7 @@ public class TestAppl {
 		
 		logger.info("TestAppl starts...");
 
-		CompetitionsServiceImpl cs = new CompetitionsServiceImpl();
+		CompetitionsViewServiceImpl cs = new CompetitionsViewServiceImpl();
 		List<CompetitionDTO> ls1 = cs.getAllActive(1, 20);
 		List<CompetitionDTO> ls2 = cs.getAllActiveByUser(1, 20, "Login 7");
 		List<CompetitionDTO> ls3 = cs.getAllByUser(1, 20, "Login 7");
