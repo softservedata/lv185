@@ -3,7 +3,6 @@ package edu.softserveinc.healthbody.dao;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant.CompetitionDBQueries;
