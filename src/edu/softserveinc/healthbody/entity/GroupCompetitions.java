@@ -42,6 +42,6 @@ public class GroupCompetitions implements IEntity{
 	public void setIdCompetition(Integer idCompetition) {
 		this.idCompetition = idCompetition;
 	}
-	
 		
 }
+

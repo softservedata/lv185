@@ -55,5 +55,5 @@ public class Criteria implements IEntity {
 		return getGoogle;
 	}
 	  
-
 }
+

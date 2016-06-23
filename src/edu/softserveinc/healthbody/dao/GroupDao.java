@@ -89,4 +89,5 @@ public final class GroupDao extends AbstractDao<Group> {
 			return getByFieldName(name);
 		}
 
-	}
+ }
+

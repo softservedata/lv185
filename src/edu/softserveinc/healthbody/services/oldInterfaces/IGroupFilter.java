@@ -9,3 +9,4 @@ public interface IGroupFilter {
 	List<GroupDTO> Group(int partSize, int partNumber, String name);
 
 }
+

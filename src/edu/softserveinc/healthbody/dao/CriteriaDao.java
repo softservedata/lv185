@@ -80,6 +80,5 @@ public class CriteriaDao extends AbstractDao<Criteria> {
 	public List<Criteria> view() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException{
 		return getAll();
 	}
-	
-
 }
+

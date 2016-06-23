@@ -2,7 +2,6 @@ package edu.softserveinc.healthbody.testapp;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import edu.softserveinc.healthbody.dto.UserDTO;
@@ -24,19 +23,18 @@ public class TestProfile {
 				"\nLogin: " + userDTO1.getLogin() + "\nPassword: " + userDTO1.getPassword() + "\nE-mail: " + userDTO1.getEmail() +
 				"\nWeight: " + userDTO1.getWeight() + "\nAge: " + userDTO1.getAge() + "\nGender: " + userDTO1.getGender() + "\nUserRole: " + userDTO1.getRoleName());
 		System.out.print("User's groups:  ");
-		for (GroupDTO group : userDTO1.getGroups()) {
-			System.out.print(group.getName() + "     ");
+		for (GroupDTO group : userDTO1.getGroups()){
+			System.out.print(group.getName() + "    ");
 		}
 		
-		
-		UserDTO userDTO = UserProfileServiceImpl.getInstance().getbyId(5);
+		UserDTO userDTO = UserProfileServiceImpl.getInstance().getbyId(10);
 	
 		System.out.println("\n\nFirstname: "+ userDTO.getFirstname() + "\nLastname: " +userDTO.getLastname() +
 				"\nLogin: " + userDTO.getLogin() + "\nPassword: " + userDTO.getPassword() + "\nE-mail: " + userDTO.getEmail() +
 				"\nWeight: " + userDTO.getWeight() + " \nAge: " + userDTO.getAge() + "\nGender: " + userDTO.getGender() + "\nUserRole: " + userDTO.getRoleName());
 		System.out.print("User's groups:  ");
-		for (GroupDTO group : userDTO.getGroups()) {
-			System.out.print(group.getName() + "     ");
+		for (GroupDTO group : userDTO.getGroups()){
+			System.out.print(group.getName() + "    ");
 		}
 		
 		
@@ -47,14 +45,15 @@ public class TestProfile {
 				"\nLogin: " + userDTO.getLogin() + "\nPassword: " + userDTO.getPassword() + "\nE-mail: " + userDTO.getEmail() +
 				"\nWeight: " + userDTO.getWeight() +" \nAge: " + userDTO.getAge() + "\nGender: " + userDTO.getGender() + "\nUserRole: " + userDTO.getRoleName());
 		System.out.print("User's groups:  ");
-		for (GroupDTO group : userDTO.getGroups()) {
-			System.out.print(group.getName() + "     ");
+		for (GroupDTO group : userDTO.getGroups()){
+			System.out.print(group.getName() + "    ");
 		}
 		
 		List<GroupDTO> groups = new ArrayList<GroupDTO>();
 		groups.add(new GroupDTO("Name group number 1", "10", "Description of group 1", "11"));
-		UserDTO userDTO2 = new UserDTO( "President", "password", "Bill", "Klinton","SomeMail75@gmail.com", "67", "80.5","m", "photourl", "user", "active", "1000", groups);
+		UserDTO userDTO2 = new UserDTO("Bill", "Klinton", "President", "password", "SomeMail75@gmail.com", "67", "80.5","m", "photourl", "user", "active", "1000", groups);
 	//	UserProfileServiceImpl.getInstance().insert(userDTO2);
 	}
 
 }
+

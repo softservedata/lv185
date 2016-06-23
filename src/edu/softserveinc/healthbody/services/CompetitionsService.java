@@ -15,12 +15,16 @@ public interface CompetitionsService extends BaseFilterService<CompetitionDTO> {
 
 	// getAll + filters
 
+	 List<CompetitionDTO> getAll(int partNumber, int partSize)
+			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
+			CloseStatementException;
+
 	// getAll + active
 	List<CompetitionDTO> getAllActive(int partNumber, int partSize) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException;
 
-	List<CompetitionDTO> getAllByUser();
+	List<CompetitionDTO> getAllByUser(int partNumber, int partSize, String login) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException;
 
-	List<CompetitionDTO> getAllActiveByUser();
+	List<CompetitionDTO> getAllActiveByUser(int partNumber, int partSize, String login) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException;
 
 	CompetitionDTO getCompetition();
 

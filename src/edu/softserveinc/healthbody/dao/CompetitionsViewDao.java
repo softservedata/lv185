@@ -73,8 +73,10 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 		}
 		try {
 			PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query);
-			pst.setInt(1, (partNumber - 1) * partSize + 1);
-			pst.setInt(2, partSize);
+			if ((partNumber >= 0) && (partSize > 0)) {
+				pst.setInt(1, (partNumber - 1) * partSize);
+				pst.setInt(2, partSize);
+			}
 			ResultSet resultSet = pst.executeQuery();
 			String[] queryResult = new String[resultSet.getMetaData().getColumnCount()];
 			while (resultSet.next()) {
@@ -89,4 +91,101 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 		return result;
 	}
 
+	public List<CompetitionsView> getActiveCompetitionsByUserView(int partNumber, int partSize, String login)
+			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
+			CloseStatementException {
+		List<CompetitionsView> result = new ArrayList<>();
+		String query = sqlQueries.get(CompetitionsViewQueries.GET_ALL_ACTIVE_BY_USER).toString();
+		if (query == null) {
+			throw new QueryNotFoundException(
+					String.format(QUERY_NOT_FOUND, CompetitionsViewQueries.GET_ALL_ACTIVE_BY_USER.name()));
+		}
+		if ((partNumber >= 0) && (partSize > 0)) {
+
+			query = query.substring(0, query.lastIndexOf(";")) + SQL_LIMIT;
+		}
+		try {
+			PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query);
+				pst.setString(1, login);
+			if ((partNumber >= 0) && (partSize > 0)) {
+				pst.setInt(2, (partNumber - 1) * partSize);
+				pst.setInt(3, partSize);
+			}
+			ResultSet resultSet = pst.executeQuery();
+			String[] queryResult = new String[resultSet.getMetaData().getColumnCount()];
+			while (resultSet.next()) {
+				result.add(createInstance(getQueryResultArr(queryResult, resultSet)));
+			}
+		} catch (SQLException e) {
+			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+		}
+		if (result.isEmpty()) {
+			throw new EmptyResultSetException(String.format(EMPTY_RESULTSET, query));
+		}
+		return result;
+	}
+
+	public List<CompetitionsView> getAllCompetitionsView(int partNumber, int partSize) throws QueryNotFoundException,
+			JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
+		List<CompetitionsView> result = new ArrayList<>();
+		String query = sqlQueries.get(CompetitionsViewQueries.GET_ALL).toString();
+		if (query == null) {
+			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, CompetitionsViewQueries.GET_ALL.name()));
+		}
+		if ((partNumber >= 0) && (partSize > 0)) {
+			query = query.substring(0, query.lastIndexOf(";")) + SQL_LIMIT;
+		}
+		try {
+			PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query);
+			if ((partNumber >= 0) && (partSize > 0)) {
+				pst.setInt(1, (partNumber - 1) * partSize);
+				pst.setInt(2, partSize);
+			}
+			ResultSet resultSet = pst.executeQuery();
+			String[] queryResult = new String[resultSet.getMetaData().getColumnCount()];
+			while (resultSet.next()) {
+				result.add(createInstance(getQueryResultArr(queryResult, resultSet)));
+			}
+		} catch (SQLException e) {
+			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+		}
+		if (result.isEmpty()) {
+			throw new EmptyResultSetException(String.format(EMPTY_RESULTSET, query));
+		}
+		return result;
+	}
+	
+	public List<CompetitionsView> getCompetitionsByUserView(int partNumber, int partSize, String login)
+			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
+			CloseStatementException {
+		List<CompetitionsView> result = new ArrayList<>();
+		String query = sqlQueries.get(CompetitionsViewQueries.GET_ALL_BY_USER).toString();
+		if (query == null) {
+			throw new QueryNotFoundException(
+					String.format(QUERY_NOT_FOUND, CompetitionsViewQueries.GET_ALL_BY_USER.name()));
+		}
+		if ((partNumber >= 0) && (partSize > 0)) {
+
+			query = query.substring(0, query.lastIndexOf(";")) + SQL_LIMIT;
+		}
+		try {
+			PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query);
+				pst.setString(1, login);
+			if ((partNumber >= 0) && (partSize > 0)) {
+				pst.setInt(2, (partNumber - 1) * partSize);
+				pst.setInt(3, partSize);
+			}
+			ResultSet resultSet = pst.executeQuery();
+			String[] queryResult = new String[resultSet.getMetaData().getColumnCount()];
+			while (resultSet.next()) {
+				result.add(createInstance(getQueryResultArr(queryResult, resultSet)));
+			}
+		} catch (SQLException e) {
+			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+		}
+		if (result.isEmpty()) {
+			throw new EmptyResultSetException(String.format(EMPTY_RESULTSET, query));
+		}
+		return result;
+	}
 }
