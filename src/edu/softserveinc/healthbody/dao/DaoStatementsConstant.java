@@ -280,7 +280,7 @@ public class DaoStatementsConstant {
 		GET_ALL_ACTIVE_BY_USER("SELECT DISTINCT competitions.id_competition, competitions.name, competitions.description,"
 				+ " competitions.start, competitions.finish, user_competition_count"
 				+ " FROM competitions"
-				+ " LEFT OUTER JOIN usercompetitions ON competitions.id_competition = usercompetitions.id_competition"
+				+ " JOIN usercompetitions ON competitions.id_competition = usercompetitions.id_competition"
 				+ " JOIN users ON usercompetitions.id_user = users.id_user"
 				+ " JOIN" 
 					+ " (SELECT id_competition, COUNT(usercompetitions.id_user_competition) AS user_competition_count"
