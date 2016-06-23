@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import edu.softserveinc.healthbody.dao.CompetitionDao;
 import edu.softserveinc.healthbody.dao.UserDao;
-import edu.softserveinc.healthbody.dto.CompetitionDTO;
-import edu.softserveinc.healthbody.dto.GroupDTO;
 import edu.softserveinc.healthbody.dto.UserDTO;
-import edu.softserveinc.healthbody.entity.Competition;
 import edu.softserveinc.healthbody.entity.User;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
@@ -32,24 +28,33 @@ public class UsersServiceImpl implements UsersService {
 		}
 		return userDTOs;
 	}
-	
+
 	@Override
 	public List<UserDTO> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
-	public List<UserDTO> getAllnotinCompetition(int competId) {
+	public List<UserDTO> getAllbyAdmin() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
-	public List<UserDTO> getAllnotinGroup(int groupId) {
+	public List<UserDTO> getAlltoAddInCompetition() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
-	public List<UserDTO> getAllinCompetition(int competId) {
+	public List<UserDTO> getAllinGroup() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<UserDTO> getAllinCompetition() {
 		// TODO Auto-generated method stub
 		return null;
 	}
