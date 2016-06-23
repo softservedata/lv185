@@ -1,4 +1,4 @@
-package edu.softserveinc.healthbody.services;
+package edu.softserveinc.healthbody.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
+import edu.softserveinc.healthbody.services.GroupService;
 
 public class GroupServiceImpl implements GroupService{
 	
