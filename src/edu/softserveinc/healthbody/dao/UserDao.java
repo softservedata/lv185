@@ -136,4 +136,8 @@ public final class UserDao extends AbstractDao<User> {
 		return result;
 	}
 	
+	public User getUserByLoginName(String login) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException {
+		return getByFieldName(login);
+	}
+	
 }

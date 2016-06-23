@@ -72,7 +72,7 @@ public class UserProfileServiceImpl implements BaseService<UserDTO> {
 		
 		ConnectionManager.getInstance().beginTransaction();
 		try {
-			 user = UserDao.get().getUserByLogin(name);
+			 user = UserDao.get().getUserByLoginName(name);
 			 role = RoleDao.get().getRoleById(user.getIdRole());
 			 ugs = UserGroupDao.get().getUGbyId(user.getId());
 			 for( UserGroup ug : ugs ){
