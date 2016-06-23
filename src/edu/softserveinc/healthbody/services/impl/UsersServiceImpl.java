@@ -35,7 +35,6 @@ public class UsersServiceImpl implements UsersService {
 			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
 			CloseStatementException, SQLException, TransactionException {
 		fillFilters(filters);
-		
 		Role role = null;
 		Integer sc = 0;
 		Group gg = null;
@@ -47,30 +46,25 @@ public class UsersServiceImpl implements UsersService {
 		ConnectionManager.getInstance().beginTransaction();
 		try {
 			for (User user : UserDao.get().getFilterRange((partNumber - 1) * partSize, partSize, filters)) {
-
 				role = RoleDao.get().getRoleById(user.getIdRole());
 				ugs = UserGroupDao.get().getUGbyId(user.getId());
 				for (UserGroup ugr : ugs) {
 					gg = GroupDao.get().getById(ugr.getIdGroup());
 					groups.add(new GroupDTO(gg.getName(), "", "", ""));
 				}
-
 				ucs = UserCompetitionsDao.get().getUCbyId(user.getId());
 				for (UserCompetitions ucm : ucs) {
 					sc = sc + ucm.getUserScore();
 				}
-
 				userDTOs.add(new UserDTO(user.getLogin(), user.getPasswd(), user.getFirsName(), user.getLastName(),
 						user.getMail(), user.getAge().toString(), user.getWeight().toString(), user.getGender(),
 						user.getAvatar(), role.getName(), user.getStatus(), sc.toString(), groups));
 			}
-
 		} catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
 			throw new TransactionException(TRANSACTION_ERROR, e);
 		}
 		ConnectionManager.getInstance().commitTransaction();
-
 		return userDTOs;
 	}
 
@@ -84,25 +78,72 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public List<UserDTO> getAlltoAddInCompetition(int partNumber, int partSize, Map<String, String> filters)
 			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
-			CloseStatementException {
-		// TODO Auto-generated method stub
-		return null;
+			CloseStatementException, SQLException, TransactionException {
+		fillFilters(filters);
+		Integer sc = 0;
+		Group gg = null;
+		List<GroupDTO> groups = new ArrayList<GroupDTO>();
+		List<UserGroup> ugs = new ArrayList<UserGroup>();
+		List<UserCompetitions> ucs = new ArrayList<UserCompetitions>();
+		List<UserDTO> userDTOs = new ArrayList<UserDTO>();
+
+		ConnectionManager.getInstance().beginTransaction();
+		try {
+			for (User user : UserDao.get().getFilterRange((partNumber - 1) * partSize, partSize, filters)) {
+				ugs = UserGroupDao.get().getUGbyId(user.getId());
+				for (UserGroup ugr : ugs) {
+					gg = GroupDao.get().getById(ugr.getIdGroup());
+					groups.add(new GroupDTO(gg.getName(), "", "", ""));
+				}
+				ucs = UserCompetitionsDao.get().getUCbyId(user.getId());
+				for (UserCompetitions ucm : ucs) {
+					sc = sc + ucm.getUserScore();
+				}
+				userDTOs.add(new UserDTO(null, null, user.getFirsName(), user.getLastName(),
+						null, user.getAge().toString(), user.getWeight().toString(), null,
+						user.getAvatar(), null, null, sc.toString(), groups));
+			}
+		} catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
+			ConnectionManager.getInstance().rollbackTransaction();
+			throw new TransactionException(TRANSACTION_ERROR, e);
+		}
+		ConnectionManager.getInstance().commitTransaction();
+		return userDTOs;	
 	}
 
 	@Override
 	public List<UserDTO> getAllinGroup(int partNumber, int partSize, Map<String, String> filters)
 			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
-			CloseStatementException {
-		// TODO Auto-generated method stub
-		return null;
+			CloseStatementException, SQLException, TransactionException {
+			return getAlltoAddInCompetition(partNumber, partSize, filters);
 	}
 
 	@Override
 	public List<UserDTO> getAllinCompetition(int partNumber, int partSize, Map<String, String> filters)
 			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
-			CloseStatementException {
-		// TODO Auto-generated method stub
-		return null;
+			CloseStatementException, SQLException, TransactionException {
+		fillFilters(filters);
+		Integer sc = 0;
+		List<UserCompetitions> ucs = new ArrayList<UserCompetitions>();
+		List<UserDTO> userDTOs = new ArrayList<UserDTO>();
+
+		ConnectionManager.getInstance().beginTransaction();
+		try {
+			for (User user : UserDao.get().getFilterRange((partNumber - 1) * partSize, partSize, filters)) {
+				ucs = UserCompetitionsDao.get().getUCbyId(user.getId());
+				for (UserCompetitions ucm : ucs) {
+					sc = sc + ucm.getUserScore();
+				}
+				userDTOs.add(new UserDTO(null, null, user.getFirsName(), user.getLastName(),
+						null, user.getAge().toString(), user.getWeight().toString(), null,
+						user.getAvatar(), null, null, sc.toString(), null));
+			}
+		} catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
+			ConnectionManager.getInstance().rollbackTransaction();
+			throw new TransactionException(TRANSACTION_ERROR, e);
+		}
+		ConnectionManager.getInstance().commitTransaction();
+		return userDTOs;
 	}
 
 	@Override
