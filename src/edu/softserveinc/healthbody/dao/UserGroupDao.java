@@ -1,9 +1,13 @@
 package edu.softserveinc.healthbody.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant.UserGroupQueries;
+import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.entity.Group;
 import edu.softserveinc.healthbody.entity.User;
 import edu.softserveinc.healthbody.entity.UserGroup;
@@ -71,5 +75,23 @@ public class UserGroupDao extends AbstractDao<UserGroup>{
 	public List<UserGroup> getUGbyId(Integer id) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException, EmptyResultSetException {
 		
 		return getAllbyId(id);
+	}
+	public boolean createUserGroup (User user, Group group) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException {
+		boolean result = false;
+		String query = sqlQueries.get(DaoQueries.INSERT).toString();
+		if (query == null) {
+			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.INSERT.name()));
+		}
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
+			int i = 1;
+			pst.setInt(i++, user.getId());
+			pst.setInt(i++, group.getIdGroup());
+			
+			result = pst.execute();
+		} catch (SQLException e) {
+			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+		}
+		return result;
+			
 	}
 }

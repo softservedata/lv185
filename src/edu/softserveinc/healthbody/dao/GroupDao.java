@@ -84,5 +84,9 @@ public final class GroupDao extends AbstractDao<Group> {
 		public List<Group> view() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException{
 			return getAll();
 		}
+		
+		public Group getGroupByName(String name) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException {
+			return getByFieldName(name);
+		}
 
 	}
