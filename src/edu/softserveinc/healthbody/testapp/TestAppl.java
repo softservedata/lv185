@@ -18,6 +18,8 @@ import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
+import edu.softserveinc.healthbody.exceptions.TransactionException;
+import edu.softserveinc.healthbody.services.impl.CompetitionsServiceImpl;
 import edu.softserveinc.healthbody.services.impl.CompetitionsViewServiceImpl;
 
 public class TestAppl {
@@ -38,7 +40,18 @@ public class TestAppl {
 		List<CompetitionDTO> ls1 = cs.getAllActive(1, 20);
 		List<CompetitionDTO> ls2 = cs.getAllActiveByUser(1, 20, "Login 7");
 		List<CompetitionDTO> ls3 = cs.getAllByUser(1, 20, "Login 7");
-		List<CompetitionDTO> ls4 = cs.getAll(1, 20);
+
+		
+		CompetitionsServiceImpl competitionsServiceImpl = new CompetitionsServiceImpl();
+		
+		List<CompetitionDTO> ls4 = cs.getAll(1, 30);
+		try {
+			competitionsServiceImpl.insert(new CompetitionDTO("we are the champions"," " ,"2016-06-23" , "2016-07-23", "nice", "Name criteria 1", null, null));
+		} catch (TransactionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		System.out.println("In getAllActive: " + Arrays.toString(ls1.toArray()));
 		System.out.println("In getAllActiveByUser: " + Arrays.toString(ls2.toArray()));
 		System.out.println("In getAllByUser: " + Arrays.toString(ls3.toArray()));
