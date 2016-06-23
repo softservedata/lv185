@@ -25,7 +25,7 @@ public class CompetitionsServiceImpl implements CompetitionsService {
 				partSize)) {
 			competitionDTO.add(new CompetitionDTO(competitionsView.getName(),
 					competitionsView.getUsersCount().toString(), competitionsView.getStart(),
-					competitionsView.getFinish(), new ArrayList<String>(), new ArrayList<String>()));
+					competitionsView.getFinish(), competitionsView.getDescription(), null, new ArrayList<String>(), new ArrayList<String>()));
 		}
 		return competitionDTO;
 	}
@@ -38,7 +38,7 @@ public class CompetitionsServiceImpl implements CompetitionsService {
 				partSize)) {
 			competitionDTO.add(new CompetitionDTO(competitionsView.getName(),
 					competitionsView.getUsersCount().toString(), competitionsView.getStart(),
-					competitionsView.getFinish(), new ArrayList<String>(), new ArrayList<String>()));
+					competitionsView.getFinish(), competitionsView.getDescription(), null, new ArrayList<String>(), new ArrayList<String>()));
 		}
 		return competitionDTO;
 	}
@@ -50,7 +50,7 @@ public class CompetitionsServiceImpl implements CompetitionsService {
 				.getCompetitionsByUserView(partNumber, partSize, login)) {
 			competitionDTO.add(new CompetitionDTO(competitionsView.getName(),
 					competitionsView.getUsersCount().toString(), competitionsView.getStart(),
-					competitionsView.getFinish(), new ArrayList<String>(), new ArrayList<String>()));
+					competitionsView.getFinish(), competitionsView.getDescription(), null, new ArrayList<String>(), new ArrayList<String>()));
 		}
 		return competitionDTO;
 	}
@@ -63,20 +63,14 @@ public class CompetitionsServiceImpl implements CompetitionsService {
 				.getActiveCompetitionsByUserView(partNumber, partSize, login)) {
 			competitionDTO.add(new CompetitionDTO(competitionsView.getName(),
 					competitionsView.getUsersCount().toString(), competitionsView.getStart(),
-					competitionsView.getFinish(), new ArrayList<String>(), new ArrayList<String>()));
+					competitionsView.getFinish(), competitionsView.getDescription(), null, new ArrayList<String>(), new ArrayList<String>()));
 		}
 		return competitionDTO;
 	}
 
 	@Override
-	public CompetitionDTO getCompetition() {
-
-		return null;
-	}
-
-	@Override
 	public void update(List<CompetitionDTO> competitionDTOs) {
-		competitionDTOs.add(new CompetitionDTO(null, null, null, null, null, null));
+		competitionDTOs.add(new CompetitionDTO(null, null, null, null, null, null, null, null));
 	}
 
 	@Override
