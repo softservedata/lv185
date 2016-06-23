@@ -77,9 +77,8 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public List<UserDTO> getAllbyAdmin(int partNumber, int partSize, Map<String, String> filters)
 			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
-			CloseStatementException {
-		// TODO Auto-generated method stub
-		return null;
+			CloseStatementException, SQLException, TransactionException {
+			return getAll(partNumber, partSize, filters);
 	}
 
 	@Override
