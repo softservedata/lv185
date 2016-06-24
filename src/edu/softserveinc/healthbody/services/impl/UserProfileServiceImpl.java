@@ -43,7 +43,6 @@ public class UserProfileServiceImpl implements BaseService<UserDTO> {
 		return instance;
 	}
 	
-	//TODO add scores, groups, competitions
 	public void insert(UserDTO userDTO) throws SQLException, JDBCDriverException, DataBaseReadingException,
 							QueryNotFoundException, EmptyResultSetException, TransactionException, CloseStatementException {
 		
