@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public class TestUsersService {
 	
 	private static Logger logger = LogManager.getLogger(TestUsersService.class.getName());
 	private static Connection con = null;
-	static Map<String, String> filters = null;
+	static Map<String, String> filters = new HashMap<String, String>();
 
 	public static void main(String[] args) throws SQLException, ClassNotFoundException, QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException, TransactionException {
 			

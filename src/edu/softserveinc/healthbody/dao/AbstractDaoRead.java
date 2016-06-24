@@ -27,7 +27,7 @@ abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao
 
 	protected final static String SQL_WHERE = " where";
 	protected final static String SQL_AND = " and";
-	protected final static String SQL_LIKE = "? like '%%%s%%';";
+	protected final static String SQL_LIKE = " ? like ?;";
 	protected final static String SQL_LIMIT = "  offset ? limit ?;";
 
 	protected final HashMap<Enum<?>, Enum<?>> sqlQueries;
@@ -207,7 +207,7 @@ abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao
 		}
 
 		query = makeQuery(partNumber, partSize, query, filters);
-
+		System.out.println(query);
 		try {
 			PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query);
 			ResultSet resultSet = pst.executeQuery();
