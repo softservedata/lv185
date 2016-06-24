@@ -1,7 +1,8 @@
-package tests.com.softserveinc.healthbody;
+package com.softserveinc.healthbody;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import edu.softserveinc.healthbody.dto.GroupDTO;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
