@@ -50,6 +50,12 @@ public class GroupServiceImpl implements GroupService{
 		return groupDTOs;	
 	}
 	
+	@Override
+	public GroupDTO getGroup(String name) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException{
+		 Group group = GroupDao.get().getGroupByName(name);
+		 return new GroupDTO(group.getName(), String.valueOf(group.getCount()), group.getDescription(), group.getScoreGroup());
+	}
+	
 	
 	@Override
 	public String getDescriptionOfGroup(GroupDTO groupDTO) {
