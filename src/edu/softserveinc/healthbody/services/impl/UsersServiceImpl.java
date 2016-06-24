@@ -34,7 +34,6 @@ public class UsersServiceImpl implements UsersService {
 	public List<UserDTO> getAll(int partNumber, int partSize, Map<String, String> filters)
 			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
 			CloseStatementException, SQLException, TransactionException {
-		fillFilters(filters);
 		Role role = null;
 		Integer sc = 0;
 		Group gg = null;
@@ -45,7 +44,7 @@ public class UsersServiceImpl implements UsersService {
 
 		ConnectionManager.getInstance().beginTransaction();
 		try {
-			for (User user : UserDao.get().getFilterRange((partNumber - 1) * partSize, partSize, filters)) {
+			for (User user : UserDao.get().getFilterRange((partNumber - 1) * partSize, partSize, fillFilters(filters))) {
 				role = RoleDao.get().getRoleById(user.getIdRole());
 				ugs = UserGroupDao.get().getUGbyId(user.getId());
 				for (UserGroup ugr : ugs) {
@@ -79,7 +78,6 @@ public class UsersServiceImpl implements UsersService {
 	public List<UserDTO> getAlltoAddInCompetition(int partNumber, int partSize, Map<String, String> filters)
 			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
 			CloseStatementException, SQLException, TransactionException {
-		fillFilters(filters);
 		Integer sc = 0;
 		Group gg = null;
 		List<GroupDTO> groups = new ArrayList<GroupDTO>();
@@ -89,7 +87,7 @@ public class UsersServiceImpl implements UsersService {
 
 		ConnectionManager.getInstance().beginTransaction();
 		try {
-			for (User user : UserDao.get().getFilterRange((partNumber - 1) * partSize, partSize, filters)) {
+			for (User user : UserDao.get().getFilterRange((partNumber - 1) * partSize, partSize, fillFilters(filters))) {
 				ugs = UserGroupDao.get().getUGbyId(user.getId());
 				for (UserGroup ugr : ugs) {
 					gg = GroupDao.get().getById(ugr.getIdGroup());
@@ -122,14 +120,13 @@ public class UsersServiceImpl implements UsersService {
 	public List<UserDTO> getAllinCompetition(int partNumber, int partSize, Map<String, String> filters)
 			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
 			CloseStatementException, SQLException, TransactionException {
-		fillFilters(filters);
 		Integer sc = 0;
 		List<UserCompetitions> ucs = new ArrayList<UserCompetitions>();
 		List<UserDTO> userDTOs = new ArrayList<UserDTO>();
 
 		ConnectionManager.getInstance().beginTransaction();
 		try {
-			for (User user : UserDao.get().getFilterRange((partNumber - 1) * partSize, partSize, filters)) {
+			for (User user : UserDao.get().getFilterRange((partNumber - 1) * partSize, partSize, fillFilters(filters))) {
 				ucs = UserCompetitionsDao.get().getUCbyId(user.getId());
 				for (UserCompetitions ucm : ucs) {
 					sc = sc + ucm.getUserScore();
@@ -151,7 +148,7 @@ public class UsersServiceImpl implements UsersService {
 		userDTOs.add(new UserDTO(null, null, null, null, null, null, null, null, null, null, null, null, null));
 	}
 
-	private void fillFilters(Map<String, String> filters) {
+	private Map<String, String> fillFilters(Map<String, String> filters) {
 		filters.put(KeysForFilters.UsersServiceKeys.FIRST_NAME.toString(), "firstname");
 		filters.put(KeysForFilters.UsersServiceKeys.LAST_NAME.toString(), "lastname");
 		filters.put(KeysForFilters.UsersServiceKeys.LOGIN.toString(), "login");
@@ -165,6 +162,7 @@ public class UsersServiceImpl implements UsersService {
 		filters.put(KeysForFilters.UsersServiceKeys.STATUS.toString(), "status");
 		filters.put(KeysForFilters.UsersServiceKeys.SCORE.toString(), "score");
 		filters.put(KeysForFilters.UsersServiceKeys.GROUPS.toString(), "groups");
+		return filters;
 	}
 
 }
