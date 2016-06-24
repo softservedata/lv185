@@ -1,17 +1,18 @@
 package edu.softserveinc.healthbody.entity;
 
+import java.sql.Date;
 
 public class Competition implements IEntity {
 
 	private Integer idCompetition;
 	private String name;
 	private String description;
-	private String start;
-	private String finish;
+	private Date start;
+	private Date finish;
 	private Integer idCriteria;
 
 	public Competition(Integer idCompetition, String name, String description,
-			String start, String finish, Integer idCriteria) {
+			Date start, Date finish, Integer idCriteria) {
 		this.idCompetition = idCompetition;
 		this.name = name;
 		this.description = description;
@@ -34,11 +35,11 @@ public class Competition implements IEntity {
 		this.description = description;
 	}
 
-	public void setStart(String start) {
+	public void setStart(Date start) {
 		this.start = start;
 	}
 
-	public void setFinish(String finish) {
+	public void setFinish(Date finish) {
 		this.finish = finish;
 	}
 
@@ -64,11 +65,11 @@ public class Competition implements IEntity {
 		return description;
 	}
 
-	public String getStart() {
+	public Date getStart() {
 		return start;
 	}
 
-	public String getFinish() {
+	public Date getFinish() {
 		return finish;
 	}
 

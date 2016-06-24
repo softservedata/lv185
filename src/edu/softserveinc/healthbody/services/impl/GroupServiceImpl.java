@@ -19,8 +19,8 @@ public class GroupServiceImpl implements GroupService{
 	private enum GroupServiceKeys {
 		NAME("name"),
 		COUNT("count"),
-		SCORE_GROUP("scoreGroup"),
-		DESCRIPTION("description");
+		DESCRIPTION("description"),
+		SCORE_GROUP("scoreGroup");
 
 		private String keys;
 
@@ -37,6 +37,22 @@ public class GroupServiceImpl implements GroupService{
 	
 	private static final String GROUP_NAME = "name";
 	
+	private static volatile GroupServiceImpl instance = null;
+	
+	private GroupServiceImpl() {
+	}
+	
+	public static GroupServiceImpl getInstance() {
+		if(instance == null) {
+			synchronized (GroupServiceImpl.class) {
+				if (instance == null) {
+					instance = new GroupServiceImpl();
+				}
+			}
+		}
+		return instance;
+	}
+	
 
 	@Override
 	public List<GroupDTO> getAll(int partNumber, int partSize, Map<String, String> filters) throws QueryNotFoundException, 
@@ -45,10 +61,16 @@ public class GroupServiceImpl implements GroupService{
 		fillFilters(filters);
 		List<GroupDTO> groupDTOs = new ArrayList<GroupDTO>();
 		for (Group group : GroupDao.get().getFilterRange((partNumber - 1) * partSize, partSize, filters)) {
-			groupDTOs.add(new GroupDTO(group.getName(), String.valueOf(group.getCount()), group.getScoreGroup(), group.getDescription()));
+			groupDTOs.add(new GroupDTO(group.getName(), String.valueOf(group.getCount()), group.getDescription(), group.getScoreGroup()));
 		}
 		
 		return groupDTOs;	
+	}
+	
+	@Override
+	public GroupDTO getGroup(String name) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException{
+		 Group group = GroupDao.get().getGroupByName(name);
+		 return new GroupDTO(group.getName(), String.valueOf(group.getCount()), group.getDescription(), group.getScoreGroup());
 	}
 	
 	
@@ -66,8 +88,8 @@ public class GroupServiceImpl implements GroupService{
 	private void fillFilters(Map<String, String> filters) {
 		filters.put(GroupServiceKeys.NAME.toString(), "name");
 		filters.put(GroupServiceKeys.COUNT.toString(), "count");
-		filters.put(GroupServiceKeys.SCORE_GROUP.toString(), "scoreGroup");
 		filters.put(GroupServiceKeys.DESCRIPTION.toString(), "description");
+		filters.put(GroupServiceKeys.SCORE_GROUP.toString(), "scoreGroup");
 	}
 
 

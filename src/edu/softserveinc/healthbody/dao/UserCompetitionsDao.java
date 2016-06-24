@@ -5,7 +5,6 @@ import java.util.List;
 
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant.UserCompetitionsDBQueries;
 import edu.softserveinc.healthbody.entity.UserCompetitions;
-import edu.softserveinc.healthbody.entity.UserGroup;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;

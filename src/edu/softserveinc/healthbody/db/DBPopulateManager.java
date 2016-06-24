@@ -126,10 +126,11 @@ public class DBPopulateManager {
 			for (int j = 1; j <= competitions; j++) {
 				pst.setString(1, "Name competition " + j);
 				pst.setString(2, "Description of competition " + j);
-				pst.setDate(3,
-						new Date(System.currentTimeMillis() + (long) new Random().nextInt(7) * 24 * 60 * 60 * 1000));
-				pst.setDate(4, new Date(
-						System.currentTimeMillis() + (long) (7 + new Random().nextInt(20)) * 24 * 60 * 60 * 1000));
+				Date startDate = new Date(System.currentTimeMillis() + 
+						(long)(System.currentTimeMillis()/2 == 0 ? 1 : -1) * new Random().nextInt(10) * 24 * 60 * 60 * 1000);
+				pst.setDate(3, startDate);
+				Date endDate = new Date(startDate.getTime() + (long)(new Random().nextInt(20)) * 24 * 60 * 60 * 1000);
+				pst.setDate(4, endDate);
 				pst.setInt(5, (int) (Math.random() * 2 + 1));
 				successfulInsert = pst.execute();
 			}

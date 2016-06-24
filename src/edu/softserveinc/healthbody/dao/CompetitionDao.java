@@ -1,9 +1,12 @@
 package edu.softserveinc.healthbody.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant.CompetitionDBQueries;
+import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.entity.Competition;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
@@ -39,13 +42,14 @@ public final class CompetitionDao extends AbstractDao<Competition> {
 	
 	@Override
 	public Competition createInstance(String[] args) {
-		return new Competition(
-			Integer.parseInt(args[0] == null ? "0" : args[0]),
-			args[1] == null ? new String() : args[1],
-			args[2] == null ? new String() : args[2],
-			args[3] == null ? new String() : args[3],
-			args[4] == null ? new String() : args[4],
-			Integer.parseInt(args[5] == null ? "0" : args[5]));
+		return null;
+//				new Competition(
+//			Integer.parseInt(args[0] == null ? "0" : args[0]),
+//			args[1] == null ? new String() : args[1],
+//			args[2] == null ? new String() : args[2],
+//			args[3] == null ? new String() : args[3],
+//			args[4] == null ? new String() :  args[4],
+//			Integer.parseInt(args[5] == null ? "0" : args[5]));
 	}
 	
 	@Override
@@ -59,9 +63,29 @@ public final class CompetitionDao extends AbstractDao<Competition> {
 		fields.add(entity.getIdCriteria().toString());
 		return (String[]) fields.toArray();
 	}
-
-	public boolean createCompetition(Competition competition) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException{
-		return insert(competition);
+	
+	public boolean createCompetition(Competition competition) throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException {
+		boolean result = false;
+		String query = sqlQueries.get(DaoQueries.INSERT).toString();
+		if (query == null) {
+			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.INSERT.name()));
+		}
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
+			int i = 1;
+			pst.setString(i++, competition.getName());
+			pst.setString(i++, competition.getDescription());
+//			pst.setString(i++, competition.getStart());
+			pst.setDate(i++, competition.getStart());
+			pst.setDate(i++, competition.getFinish());
+//			pst.setString(i++, competition.getFinish());
+			pst.setInt(i++, competition.getIdCriteria());
+		
+		
+			result = pst.execute();
+		} catch (SQLException e) {
+			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+		}
+		return result;
 	}
 	
 	public boolean editCompetition(Competition competition, String idCompetition, String name, String description,

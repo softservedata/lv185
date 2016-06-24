@@ -226,6 +226,7 @@ public class DaoStatementsConstant {
 		INSERT(DaoQueries.INSERT, "INSERT INTO criteria (name, metrics, get_google) VALUES (?, ?, ?);"),
 		GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT id_criteria, name, metrics, get_google FROM criteria WHERE id_criteria = ?;"),
 		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_criteria, name, metrics, get_google FROM criteria WHERE ? = ?;"),
+		GET_BY_FIELD_NAME(DaoQueries.GET_BY_FIELD_NAME, "SELECT id_criteria, name, metrics, get_google FROM criteria WHERE name = ?;"),
 		GET_ALL(DaoQueries.GET_ALL, "SELECT id_criteria, name, metrics, get_google FROM criteria;"),
 		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE criteria SET ? = ? WHERE ? = ?;"),
 		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE criteria WHERE id_criteria = ?;"),
@@ -281,9 +282,12 @@ public class DaoStatementsConstant {
 				+ " FROM competitions"
 				+ " LEFT OUTER JOIN usercompetitions ON competitions.id_competition = usercompetitions.id_competition" 
 				+ " JOIN users ON usercompetitions.id_user = users.id_user" 
-				+ " JOIN (SELECT id_competition, COUNT(usercompetitions.id_user_competition) AS user_competition_count" 
-				+ " FROM usercompetitions JOIN users ON usercompetitions.id_user = users.id_user GROUP BY id_competition) AS countselect" 
-				+ " ON usercompetitions.id_competition = countselect.id_competition WHERE users.login = ?"
+				+ " JOIN"
+					+ " (SELECT id_competition, COUNT(usercompetitions.id_user_competition) AS user_competition_count" 
+					+ " FROM usercompetitions JOIN users ON usercompetitions.id_user = users.id_user"
+					+ " GROUP BY id_competition) AS countselect" 
+				+ " ON usercompetitions.id_competition = countselect.id_competition"
+				+ " WHERE users.login = ?"
 				+ " ;"),
 		GET_ALL_ACTIVE_BY_USER("SELECT DISTINCT competitions.id_competition, competitions.name, competitions.description,"
 				+ " competitions.start, competitions.finish, user_competition_count"

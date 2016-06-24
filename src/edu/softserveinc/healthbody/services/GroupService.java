@@ -18,4 +18,5 @@ public interface GroupService extends BaseFilterService<GroupDTO>{
 	
 	void update(GroupDTO groupDTO, String count, String description, String scoreGroup)throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException;
 
+	GroupDTO getGroup(String name) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException;
 }
