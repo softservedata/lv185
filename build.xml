@@ -10,7 +10,7 @@
 		        <fileset dir="${lib.dir}" includes="**/*.jar"/>
 	</path>
     
-	<path id="lv185.classpath">
+	<path id="build.classpath">
 		<pathelement location="${src.dir}"/>
         <path refid="external.jars" />
 		<fileset dir="${lib.dir}">
@@ -19,6 +19,12 @@
 		</fileset>
     </path>
 	
+    <target name="clean">
+    	<delete dir="${build.dir}"/>
+    	<delete dir="${classpath.dir}"/>
+    </target>
+	
+	
     <target depends="clean" name="init">
         <mkdir dir="${build.dir}"/>
     	<mkdir dir="${lib.dir}"/>
@@ -26,32 +32,29 @@
             <fileset dir="${src.dir}">
                 <exclude name="**/*.java"/>
             </fileset>
-        </copy>
-    	
+        </copy>    	
     </target>
 	
-    <target name="clean">
-    	<delete dir="${build.dir}"/>
-    	<delete dir="${classpath.dir}"/>
-    </target>
     
     <target depends="init" name="build">
         <echo message="${ant.project.name}: ${ant.file}"/>
         <javac debug="true" debuglevel="${debuglevel}" destdir="${build.dir}" includeantruntime="false" source="${source}" target="${target}">
             <src path="${src.dir}"/>
-            <classpath refid="lv185.classpath"/>
+            <classpath refid="build.classpath"/>
         </javac>
+    	<copy todir="${build.dir}">
+    	</copy>
     </target>
    
     <target name="TestProfile">
         <java classname="edu.softserveinc.healthbody.testapp.TestProfile" failonerror="true" fork="yes">
-            <classpath refid="lv185.classpath"/>
+            <classpath refid="build.classpath"/>
         </java>
     </target>
 	
     <target name="TestDBCreationManager">
         <java classname="edu.softserveinc.healthbody.testapp.TestDBCreationManager" failonerror="false" fork="yes">
-            <classpath refid="lv185.classpath"/>
+            <classpath refid="build.classpath"/>
         </java>
     </target>
 	

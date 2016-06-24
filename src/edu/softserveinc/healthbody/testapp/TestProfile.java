@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.softserveinc.healthbody.dto.UserDTO;
 import edu.softserveinc.healthbody.dto.GroupDTO;
+import edu.softserveinc.healthbody.dto.UserDTO;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
