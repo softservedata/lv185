@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import edu.softserveinc.healthbody.dto.UserDTO;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
@@ -23,7 +23,7 @@ import edu.softserveinc.healthbody.services.impl.UsersServiceImpl;
 
 public class TestUsersService {
 	
-	private static Logger logger = LogManager.getLogger(TestUsersService.class.getName());
+	private static Logger logger = LoggerFactory.getLogger(TestUsersService.class.getName());
 	private static Connection con = null;
 	static Map<String, String> filters = new HashMap<String, String>();
 

@@ -3,8 +3,8 @@ package edu.softserveinc.healthbody.db;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 public class DBCreationManager {
 	public static enum TableQueries {
@@ -88,7 +88,7 @@ public class DBCreationManager {
 	}
 
 	private static volatile DBCreationManager instance = null;
-	private static Logger logger = LogManager.getLogger(DBCreationManager.class.getName());
+	private static Logger logger = LoggerFactory.getLogger(DBCreationManager.class.getName());
 
 	private DBCreationManager() {
 	}

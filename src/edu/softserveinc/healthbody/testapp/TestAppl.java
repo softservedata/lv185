@@ -7,8 +7,8 @@ import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 
 import edu.softserveinc.healthbody.dto.CompetitionDTO;
@@ -23,7 +23,7 @@ import edu.softserveinc.healthbody.services.impl.CompetitionsViewServiceImpl;
 
 public class TestAppl {
 	// TODO
-	private static Logger logger = LogManager.getLogger(TestAppl.class.getName());
+	private static Logger logger = LoggerFactory.getLogger(TestAppl.class.getName());
 	private static Connection con = null;
 //	private static String username = "postgres";
 //	private static String password = "root";
