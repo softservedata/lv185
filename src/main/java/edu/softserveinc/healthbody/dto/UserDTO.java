@@ -160,5 +160,13 @@ public class UserDTO {
 	public void setGoogleApi(String googleApi) {
 		this.googleApi = googleApi;
 	}
+	
+	@Override
+	public String toString() {
+		return "UserDTO [firstname=" + firstname + ", lastname=" + lastname + ", login=" + login + ", password="
+				+ password + ", email=" + email + ", age=" + age + ", weight=" + weight + ", gender=" + gender
+				+ ", photoURL=" + photoURL + ", roleName=" + roleName + ", health=" + health + ", googleApi="
+				+ googleApi + ", status=" + status + ", score=" + score + ", groups=" + groups + "]" + System.lineSeparator();
+	}
 
 }
