@@ -324,11 +324,11 @@ public class DaoStatementsConstant {
 	}
     
     public static enum UsersViewQueries {
- 		GET_ALL("SELECT users.id_user, users.login, users.password, users.firstname, users.lastname, users.e-mail, users.age, users.weight, users.gender, users.health, users.avatar, users.google_field, roles.name, users.status, SUM(usercompetitions.user_score)"
+ 		GET_ALL("SELECT users.id_user, users.login, users.password, users.firstname, users.lastname, users.\"e-mail\", users.age, users.weight, users.gender, users.health, users.avatar, users.google_field, roles.name, users.status, SUM(usercompetitions.user_score)"
  				+ " FROM users"
  				+ " JOIN roles ON users.id_role = roles.id_role"
  				+ " LEFT OUTER JOIN usercompetitions ON users.id_user = usercompetitions.id_user"
- 				+ " GROUP BY users.firstname, users.lastname, users.login"
+ 				+ " GROUP BY users.id_user, users.firstname, users.lastname, users.login, roles.name"
  				+ " ;");
  		
  		private String query;
