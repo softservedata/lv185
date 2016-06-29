@@ -323,6 +323,29 @@ public class DaoStatementsConstant {
 		}
 	}
     
+    public static enum UsersViewQueries {
+ 		GET_ALL("SELECT users.id_user, users.login, users.password, users.firstname, users.lastname, users.e-mail, users.age, users.weight, users.gender, users.health, users.avatar, users.google_field, roles.name, users.status, SUM(usercompetitions.user_score)"
+ 				+ " FROM users"
+ 				+ " JOIN roles ON users.id_role = roles.id_role"
+ 				+ " LEFT OUTER JOIN usercompetitions ON users.id_user = usercompetitions.id_user"
+ 				+ " GROUP BY users.firstname, users.lastname, users.login"
+ 				+ " ;");
+ 		
+ 		private String query;
+ 		
+ 		private UsersViewQueries(String query) {
+ 			this.query = query;
+ 		}
+
+ 		public UsersViewQueries getDaoQuery() {
+             return this;
+         }
+ 		
+ 		public String toString() {
+ 			return query;
+ 		}
+ 	}
+    
     
 }
  

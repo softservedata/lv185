@@ -5,12 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.softserveinc.healthbody.dto.UserDTO;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
@@ -19,25 +17,24 @@ import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
-import edu.softserveinc.healthbody.services.impl.UsersServiceImpl;
+import edu.softserveinc.healthbody.services.impl.UsersViewServiceImpl;
 
 public class TestUsersService {
 	
 	private static Logger logger = LoggerFactory.getLogger(TestUsersService.class.getName());
 	private static Connection con = null;
-	static Map<String, String> filters = new HashMap<String, String>();
 
 	public static void main(String[] args) throws SQLException, ClassNotFoundException, QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException, TransactionException {
 			
 		logger.info("TestUsersService starts");
 
-		UsersServiceImpl us = new UsersServiceImpl();
+		UsersViewServiceImpl uvs = new UsersViewServiceImpl();
 		
-		List<UserDTO> ud1 = us.getAll(1, 5, filters);
-		List<UserDTO> ud2 = us.getAllbyAdmin(1, 5, filters);
-		List<UserDTO> ud3 = us.getAllinCompetition(1, 5, filters);
-		List<UserDTO> ud4 = us.getAllinGroup(1, 5, filters);
-		List<UserDTO> ud5 = us.getAlltoAddInCompetition(1, 5, filters);
+		List<UserDTO> ud1 = uvs.getAll(1, 5);
+		List<UserDTO> ud2 = uvs.getAllbyAdmin(1, 5);
+		List<UserDTO> ud3 = uvs.getAllinCompetition(1, 5);
+		List<UserDTO> ud4 = uvs.getAllinGroup(1, 5);
+		List<UserDTO> ud5 = uvs.getAlltoAddInCompetition(1, 5);
 		
 		System.out.println("In getAll: " + Arrays.toString(ud1.toArray()));
 		System.out.println("In getAllbyAdmin: " + Arrays.toString(ud2.toArray()));
