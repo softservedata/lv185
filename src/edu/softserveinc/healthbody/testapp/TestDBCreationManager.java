@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import edu.softserveinc.healthbody.db.DBCreationManager;
 import edu.softserveinc.healthbody.db.DBCreationManager.TableQueries;
@@ -17,7 +17,7 @@ import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 
 public class TestDBCreationManager {
 
-	private static Logger logger = LogManager.getLogger(TestDBCreationManager.class.getName());
+	private static Logger logger = LoggerFactory.getLogger(TestDBCreationManager.class.getName());
 	private static Connection con = null;
 	private static String username = "postgres";
 	private static String password = "root";
