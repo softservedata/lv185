@@ -43,6 +43,7 @@ public class UserProfileServiceImpl implements BaseService<UserDTO> {
 		return instance;
 	}
 	
+	@Override
 	public void insert(UserDTO userDTO) throws SQLException, JDBCDriverException, DataBaseReadingException,
 							QueryNotFoundException, EmptyResultSetException, TransactionException, CloseStatementException {
 		
