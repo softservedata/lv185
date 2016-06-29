@@ -6,7 +6,7 @@
   <parameter name="password" value="rootpassword" /> 
   <test name="Profile Test">
     <classes>
-      <class name="com.softserveinc.healthbody.ProfileTest"/>
+      <class name="edu.softserveinc.healthbody.ProfileTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

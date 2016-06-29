@@ -1,4 +1,4 @@
-package com.softserveinc.healthbody;
+package edu.softserveinc.healthbody;
 
 
 import org.testng.Assert;

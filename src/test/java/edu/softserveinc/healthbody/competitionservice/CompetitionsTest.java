@@ -1,4 +1,4 @@
-package com.softserveinc.healthbody.competitionservice;
+package edu.softserveinc.healthbody.competitionservice;
 
 import java.sql.SQLException;
 import java.util.Arrays;

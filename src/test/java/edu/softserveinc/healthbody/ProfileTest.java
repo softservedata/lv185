@@ -1,4 +1,4 @@
-package com.softserveinc.healthbody;
+package edu.softserveinc.healthbody;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
