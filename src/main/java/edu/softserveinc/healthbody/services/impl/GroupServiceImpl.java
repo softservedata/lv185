@@ -1,6 +1,8 @@
 package edu.softserveinc.healthbody.services.impl;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +14,7 @@ import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
+import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.GroupService;
 
 public class GroupServiceImpl implements GroupService{
@@ -51,28 +54,24 @@ public class GroupServiceImpl implements GroupService{
 			}
 		}
 		return instance;
-	}
-	
+	}	
 
 	@Override
-	public List<GroupDTO> getAll(int partNumber, int partSize, Map<String, String> filters) throws QueryNotFoundException, 
+	public List<GroupDTO> getAll(int partNumber, int partSize, List<String> filters) throws QueryNotFoundException, 
 					JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
-		
-		fillFilters(filters);
-		List<GroupDTO> groupDTOs = new ArrayList<GroupDTO>();
-		for (Group group : GroupDao.get().getFilterRange((partNumber - 1) * partSize, partSize, filters)) {
-			groupDTOs.add(new GroupDTO(group.getName(), String.valueOf(group.getCount()), group.getDescription(), group.getScoreGroup()));
-		}
-		
-		return groupDTOs;	
+		Map<String, String> mapFilters = fillFilters(filters);
+		List<GroupDTO> resultGroup = new ArrayList<GroupDTO>();
+		for (Group group : GroupDao.get().getFilterRange((partNumber - 1) * partSize, partSize, mapFilters)) {
+			resultGroup.add(new GroupDTO(group.getName(), String.valueOf(group.getCount()), group.getDescription(), group.getScoreGroup()));
+		}		
+		return resultGroup;	
 	}
 	
 	@Override
 	public GroupDTO getGroup(String name) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException{
 		 Group group = GroupDao.get().getGroupByName(name);
 		 return new GroupDTO(group.getName(), String.valueOf(group.getCount()), group.getDescription(), group.getScoreGroup());
-	}
-	
+	}	
 	
 	@Override
 	public String getDescriptionOfGroup(GroupDTO groupDTO) {
@@ -85,13 +84,14 @@ public class GroupServiceImpl implements GroupService{
 	}
 	
 
-	private void fillFilters(Map<String, String> filters) {
-		filters.put(GroupServiceKeys.NAME.toString(), "name");
-		filters.put(GroupServiceKeys.COUNT.toString(), "count");
-		filters.put(GroupServiceKeys.DESCRIPTION.toString(), "description");
-		filters.put(GroupServiceKeys.SCORE_GROUP.toString(), "scoreGroup");
+	private Map<String, String> fillFilters(List<String> filters) {
+		Map<String, String> map = new HashMap<>();
+		map.put(GroupServiceKeys.NAME.toString(), filters.get(0));
+		map.put(GroupServiceKeys.COUNT.toString(), filters.get(1));
+		map.put(GroupServiceKeys.DESCRIPTION.toString(), filters.get(2));
+		map.put(GroupServiceKeys.SCORE_GROUP.toString(), filters.get(3));
+		return map;
 	}
-
 
 	@Override
 	public void update(List<GroupDTO> baseDTOs) {
@@ -99,7 +99,12 @@ public class GroupServiceImpl implements GroupService{
 		
 	}
 
-
-
+	@Override
+	public List<GroupDTO> getAll(int partNumber, int partSize, Map<String, String> filters)
+			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
+			CloseStatementException, SQLException, TransactionException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
