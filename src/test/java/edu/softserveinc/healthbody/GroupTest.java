@@ -1,7 +1,8 @@
 package edu.softserveinc.healthbody;
 
-
 import java.sql.SQLException;
+import java.util.List;
+
 import org.testng.annotations.Test;
 
 import static org.testng.AssertJUnit.assertEquals;
@@ -17,29 +18,37 @@ import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.impl.GroupServiceImpl;
 
 public class GroupTest {
-	
-//	@Test
-//	public void testGetAll() throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException{
-//		List<String> filters = new ArrayList<>();
-//		filters.add("Name group number");
-//		filters.add("");
-//		filters.add("");
-//		filters.add("");
-//		GroupServiceImpl groupService = GroupServiceImpl.getInstance();
-//		System.out.println("All Group with name like \"Name group number\": " + Arrays.toString(groupService.getAll(0, 3, filters).toArray()));
-//	}
-//
-//	@Test
-//	public void testGetDescriptionOfGroup() throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException {		
-//		GroupDTO groupDTO = GroupServiceImpl.getInstance().getGroup("Name group number 3");		
-//		String actual = groupDTO.getDescriptions();
-//		String expected = "Description of group 3";
-//		Assert.assertEquals(expected, actual);
-//	}
 
 	@Test
-	public void testUpdateGroupDTOStringStringString() throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException, EmptyResultSetException, SQLException, TransactionException {
-		GroupDTO groupDTO = GroupServiceImpl.getInstance().getGroup("Name group number 3");	
+	public void testGetAll() throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException,
+			EmptyResultSetException, CloseStatementException {
+		GroupServiceImpl groupService = GroupServiceImpl.getInstance();
+		int partNumber = 1;
+		int partSize = 2;
+		List<GroupDTO> groupAll = groupService.getAll(partNumber, partSize);
+		System.out.println("Printing all range of GroupDTO from " + partNumber + " to " + partSize);
+		System.out.println("[");
+		for (GroupDTO group:groupAll){
+			System.out.println("  "+group.getName()+"   "+group.getCount()+"   "+group.getDescriptions()+"   "
+					+group.getScoreGroup()+",");
+		}
+		System.out.println("]");
+	}
+
+	 @Test
+	 public void testGetDescriptionOfGroup() throws QueryNotFoundException,
+	 JDBCDriverException, DataBaseReadingException, CloseStatementException {
+	 GroupDTO groupDTO = GroupServiceImpl.getInstance().getGroup("Name group number 3");
+	 String actual = groupDTO.getDescriptions();
+	 String expected = "New description";
+	 assertEquals(expected, actual);
+	 }
+
+	@Test
+	public void testUpdateGroupDTOStringStringString()
+			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException,
+			EmptyResultSetException, SQLException, TransactionException {
+		GroupDTO groupDTO = GroupServiceImpl.getInstance().getGroup("Name group number 3");
 		groupDTO.setCount("44");
 		groupDTO.setDescriptions("New description");
 		groupDTO.setScoreGroup("50");

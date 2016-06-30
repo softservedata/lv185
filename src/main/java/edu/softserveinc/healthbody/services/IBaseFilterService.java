@@ -14,7 +14,5 @@ import edu.softserveinc.healthbody.exceptions.TransactionException;
 public interface IBaseFilterService<TBaseDTO> {
 	
 	List<TBaseDTO> getAll(int partNumber, int partSize, Map<String, String> filters) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException, SQLException, TransactionException;
-	
-
 
 }

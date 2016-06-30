@@ -15,7 +15,7 @@ public interface IUsersViewService {
 
 	
 	List<UserDTO> getAll (int partNumber, int partSize) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
-	CloseStatementException;;
+	CloseStatementException;
 	
 	List<UserDTO> getAllbyAdmin (int partNumber, int partSize) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException, SQLException, TransactionException;
 
