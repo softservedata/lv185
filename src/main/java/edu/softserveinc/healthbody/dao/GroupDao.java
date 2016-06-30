@@ -1,9 +1,13 @@
 package edu.softserveinc.healthbody.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant.GroupDBQueries;
+import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.entity.Group;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
@@ -20,7 +24,7 @@ public final class GroupDao extends AbstractDao<Group> {
 			init();
 		}
 
-		public static GroupDao get() {
+		public static GroupDao getInstance() {
 			if (instance == null) {
 				synchronized (GroupDao.class) {
 					if (instance == null) {
@@ -64,15 +68,21 @@ public final class GroupDao extends AbstractDao<Group> {
 			return insert(group);
 		}
 		
-		public boolean editGroup(Group group, String count, String description, String scoreGroup) 
-										throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException{
-			String[] fields = getFields(group);	
+		public boolean editGroup(Group group) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException{
 			boolean result = false;
-			updateByField(fields[1], group.getName(), fields[2]	, count);
-			updateByField(fields[1], group.getName(), fields[3]	, description);
-			updateByField(fields[1], group.getName(), fields[4]	, scoreGroup);
-			if (fields[2] == count && fields[3] == description && fields[4] == scoreGroup){
-				result = true;			
+			String query = sqlQueries.get(DaoQueries.UPDATE).toString();
+			if (query == null) {
+				throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.UPDATE.name()));
+			}
+			try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
+				int i = 1;
+				pst.setInt(i++, group.getCount());
+				pst.setString(i++, group.getDescription());
+				pst.setString(i++, group.getScoreGroup());				
+				pst.setString(i++, group.getName());
+				result = pst.execute();
+			} catch (SQLException e) {
+				throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
 			}
 			return result;
 		}

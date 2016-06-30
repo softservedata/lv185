@@ -7,8 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 import edu.softserveinc.healthbody.dao.GroupDao;
+import edu.softserveinc.healthbody.dao.UserDao;
+import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.dto.GroupDTO;
 import edu.softserveinc.healthbody.entity.Group;
+import edu.softserveinc.healthbody.entity.User;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
@@ -38,6 +41,7 @@ public class GroupServiceImpl implements GroupService{
 
 	}
 	
+	private static final String TRANSACTION_ERROR = "Transaction Error, Rollback";
 	private static final String GROUP_NAME = "name";
 	
 	private static volatile GroupServiceImpl instance = null;
@@ -61,7 +65,7 @@ public class GroupServiceImpl implements GroupService{
 					JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
 		Map<String, String> mapFilters = fillFilters(filters);
 		List<GroupDTO> resultGroup = new ArrayList<GroupDTO>();
-		for (Group group : GroupDao.get().getFilterRange((partNumber - 1) * partSize, partSize, mapFilters)) {
+		for (Group group : GroupDao.getInstance().getFilterRange((partNumber - 1) * partSize, partSize, mapFilters)) {
 			resultGroup.add(new GroupDTO(group.getName(), String.valueOf(group.getCount()), group.getDescription(), group.getScoreGroup()));
 		}		
 		return resultGroup;	
@@ -69,7 +73,7 @@ public class GroupServiceImpl implements GroupService{
 	
 	@Override
 	public GroupDTO getGroup(String name) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException{
-		 Group group = GroupDao.get().getGroupByName(name);
+		 Group group = GroupDao.getInstance().getGroupByName(name);
 		 return new GroupDTO(group.getName(), String.valueOf(group.getCount()), group.getDescription(), group.getScoreGroup());
 	}	
 	
@@ -79,8 +83,17 @@ public class GroupServiceImpl implements GroupService{
 	}
 	
 	@Override
-	public void update(GroupDTO groupDTO, String count, String description, String scoreGroup) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException {
-		GroupDao.get().editGroup(GroupDao.get().getByField(GROUP_NAME, groupDTO.getName()).get(0), count, description, scoreGroup);
+	public void update(GroupDTO groupDTO) throws SQLException, JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException, TransactionException, CloseStatementException {
+		ConnectionManager.getInstance().beginTransaction();
+		Group group = GroupDao.getInstance().getByFieldName(groupDTO.getName());
+		try {	
+			GroupDao.getInstance().editGroup(new Group(0, groupDTO.getName(), Integer.parseInt(groupDTO.getCount()), 
+					groupDTO.getDescriptions(), groupDTO.getScoreGroup(), group.getStatus()));
+		}catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
+			ConnectionManager.getInstance().rollbackTransaction();
+			throw new TransactionException(TRANSACTION_ERROR, e);			
+		}
+		ConnectionManager.getInstance().commitTransaction();
 	}
 	
 

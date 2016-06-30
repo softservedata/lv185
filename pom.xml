@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>edu.softserveinc.healthbody</groupId>
-  <artifactId>lv185</artifactId>
-  <packaging>jar</packaging>
-  <version>1.0</version>
-  <name>lv185</name>
-  <url>http://maven.apache.org</url>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>edu.softserveinc.healthbody</groupId>
+	<artifactId>lv185</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0</version>
+	<name>lv185</name>
+	<url>http://maven.apache.org</url>
 	<properties>
 		<!-- - - - - - Encoding - - - - - -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,6 +23,7 @@
 		<postgresql.connector.version>9.4-1200-jdbc41</postgresql.connector.version>
 		<!-- - - - - - Logger - - - - - -->
 		<org.slf4j.version>1.7.21</org.slf4j.version>
+		<org.log4j.version>1.2.17</org.log4j.version>
 		<!-- - - - - - Test - - - - - -->
 		<org.testng.version>6.9.10</org.testng.version>
 		<testng.reports.directory>./target/surefire-reports/test-output</testng.reports.directory>
@@ -60,16 +61,22 @@
 
 		<!-- - - - Logger - - - -->
 		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-api</artifactId>
-		    <version>${org.slf4j.version}</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j.version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-log4j12</artifactId>
-		    <version>${org.slf4j.version}</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${org.slf4j.version}</version>
 		</dependency>
-		
+		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${org.log4j.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-server</artifactId>
@@ -92,18 +99,10 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
-			<!--
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>${maven.war.plugin.version}</version>
-				<configuration>
-					<warSourceDirectory>WebContent</warSourceDirectory>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<warName>resources</warName>
-				</configuration>
-			</plugin>
- 			-->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-war-plugin</artifactId> 
+				<version>${maven.war.plugin.version}</version> <configuration> <warSourceDirectory>WebContent</warSourceDirectory> 
+				<failOnMissingWebXml>false</failOnMissingWebXml> <warName>resources</warName> 
+				</configuration> </plugin> -->
 		</plugins>
 	</build>
 	<profiles>
@@ -139,7 +138,8 @@
 									${testng.reports.directory}
 								</surefire.reports.directory>
 								<surefire.reports.profile>
-									${my.text} profile id =${project.activeProfiles[0].id}
+									${my.text} profile id
+									=${project.activeProfiles[0].id}
 								</surefire.reports.profile>
 							</systemPropertyVariables>
 							<suiteXmlFiles>
@@ -151,7 +151,7 @@
 							<reportsDirectory>${testng.reports.directory}</reportsDirectory>
 						</configuration>
 					</plugin>
-					
+
 					<plugin>
 						<groupId>com.google.code.echo-maven-plugin</groupId>
 						<artifactId>echo-maven-plugin</artifactId>
@@ -170,7 +170,7 @@
 							</execution>
 						</executions>
 					</plugin>
-					
+
 				</plugins>
 			</build>
 		</profile>
@@ -204,7 +204,8 @@
 									${testng.reports.directory}
 								</surefire.reports.directory>
 								<surefire.reports.profile>
-									${my.text} profile id =${project.activeProfiles[0].id}
+									${my.text} profile id
+									=${project.activeProfiles[0].id}
 								</surefire.reports.profile>
 							</systemPropertyVariables>
 							<suiteXmlFiles>
@@ -215,7 +216,7 @@
 							<reportsDirectory>${testng.reports.directory}</reportsDirectory>
 						</configuration>
 					</plugin>
-					
+
 				</plugins>
 			</build>
 		</profile>

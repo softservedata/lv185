@@ -32,8 +32,7 @@ public class DBPopulateManager {
 		return instance;
 	}
 
-	public boolean populateUsersTable(Connection con)
-			throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
+	public boolean populateUsersTable(Connection con) {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.UserDBQueries.INSERT.toString();
 
@@ -82,8 +81,7 @@ public class DBPopulateManager {
 		return successfulInsert;
 	}
 
-	public boolean populateUserGroupsTable(Connection con)
-			throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
+	public boolean populateUserGroupsTable(Connection con) {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.UserGroupQueries.INSERT.toString();
 
@@ -160,8 +158,7 @@ public class DBPopulateManager {
 		return successfulInsert;
 	}
 
-	public boolean populateGroupCompetitionsTable(Connection con)
-			throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
+	public boolean populateGroupCompetitionsTable(Connection con){
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.GroupCompetitionsDBQueries.INSERT.toString();
 

@@ -8,9 +8,6 @@ public class GroupDTO {
 	private String scoreGroup;
 	// private String status;
 
-	
-
-
 	public GroupDTO(String name, String count, String descriptions, String scoreGroup) {
 		super();
 		this.name = name;
@@ -20,6 +17,7 @@ public class GroupDTO {
 		
 	}
 
+	// getters
 	public String getName() {
 		return name;
 	}
@@ -31,6 +29,23 @@ public class GroupDTO {
 	}
 	public String getScoreGroup() {
 		return scoreGroup;
+	}
+
+	// setters
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setCount(String count) {
+		this.count = count;
+	}
+
+	public void setDescriptions(String descriptions) {
+		this.descriptions = descriptions;
+	}
+
+	public void setScoreGroup(String scoreGroup) {
+		this.scoreGroup = scoreGroup;
 	}
 	
 
