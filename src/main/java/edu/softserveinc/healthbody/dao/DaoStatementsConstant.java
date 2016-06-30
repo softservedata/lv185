@@ -1,6 +1,6 @@
 package edu.softserveinc.healthbody.dao;
 
-import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
+import edu.softserveinc.healthbody.dao.IBasicDao.DaoQueries;
 
 public class DaoStatementsConstant {
 	public static enum UserDBQueries {

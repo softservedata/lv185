@@ -11,8 +11,9 @@ import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
 
-public interface UsersViewService extends BaseFilterService<UserDTO> {
+public interface IUsersViewService {
 
+	
 	List<UserDTO> getAll (int partNumber, int partSize) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
 	CloseStatementException;;
 	

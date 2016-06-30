@@ -2,7 +2,6 @@ package edu.softserveinc.healthbody.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import edu.softserveinc.healthbody.dao.CompetitionsViewDao;
 import edu.softserveinc.healthbody.dto.CompetitionDTO;
@@ -12,9 +11,9 @@ import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
-import edu.softserveinc.healthbody.services.CompetitionsViewService;
+import edu.softserveinc.healthbody.services.ICompetitionsViewService;
 
-public class CompetitionsViewServiceImpl implements CompetitionsViewService {
+public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 
 	@Override
 	public List<CompetitionDTO> getAll(int partNumber, int partSize)
@@ -66,18 +65,6 @@ public class CompetitionsViewServiceImpl implements CompetitionsViewService {
 					competitionsView.getFinish(), competitionsView.getDescription(), null, new ArrayList<String>(), new ArrayList<String>()));
 		}
 		return competitionDTO;
-	}
-
-	@Override
-	public void update(List<CompetitionDTO> competitionDTOs) {
-		competitionDTOs.add(new CompetitionDTO(null, null, null, null, null, null, null, null));
-	}
-
-	@Override
-	public List<CompetitionDTO> getAll(int partNumber, int partSize, Map<String, String> filters)
-			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
-			CloseStatementException {
-		return getAll(partNumber, partSize);
 	}
 
 }

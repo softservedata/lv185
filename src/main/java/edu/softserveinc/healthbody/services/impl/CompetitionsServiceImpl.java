@@ -13,9 +13,9 @@ import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
-import edu.softserveinc.healthbody.services.CompetitionsService;
+import edu.softserveinc.healthbody.services.ICompetitionsService;
 
-public class CompetitionsServiceImpl implements CompetitionsService {
+public class CompetitionsServiceImpl implements ICompetitionsService {
 
 	@Override
 	public void insert(CompetitionDTO competitionDTO)

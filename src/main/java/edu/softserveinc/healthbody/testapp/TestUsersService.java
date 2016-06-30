@@ -36,11 +36,11 @@ public class TestUsersService {
 		List<UserDTO> ud4 = uvs.getAllinGroup(1, 5);
 		List<UserDTO> ud5 = uvs.getAlltoAddInCompetition(1, 5);
 		
-		System.out.println("In getAll: " + Arrays.toString(ud1.toArray()));
-		System.out.println("In getAllbyAdmin: " + Arrays.toString(ud2.toArray()));
-		System.out.println("In getAllinCompetition: " + Arrays.toString(ud3.toArray()));
-		System.out.println("In getAllinGroup: " + Arrays.toString(ud4.toArray()));
-		System.out.println("In getAllinGroup: " + Arrays.toString(ud5.toArray()));
+		logger.info("In getAll: " + Arrays.toString(ud1.toArray()));
+		logger.info("In getAllbyAdmin: " + Arrays.toString(ud2.toArray()));
+		logger.info("In getAllinCompetition: " + Arrays.toString(ud3.toArray()));
+		logger.info("In getAllinGroup: " + Arrays.toString(ud4.toArray()));
+		logger.info("In getAllinGroup: " + Arrays.toString(ud5.toArray()));
 
 		DriverManager.registerDriver(new org.postgresql.Driver());
 		if (con != null) {

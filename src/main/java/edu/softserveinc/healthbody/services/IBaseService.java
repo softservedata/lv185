@@ -10,7 +10,7 @@ import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
 
-public interface BaseService<TBaseDTO> {
+public interface IBaseService<TBaseDTO> {
 	
 	void insert(TBaseDTO baseDTO) throws SQLException, JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException, TransactionException, CloseStatementException;
 	

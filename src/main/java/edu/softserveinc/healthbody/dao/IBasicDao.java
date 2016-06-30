@@ -4,7 +4,7 @@ import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 
-public interface BasicDao<TEntity> extends BasicReadDao<TEntity> {
+public interface IBasicDao<TEntity> extends IBasicReadDao<TEntity> {
 	
 	public static enum DaoQueries {
 		INSERT,

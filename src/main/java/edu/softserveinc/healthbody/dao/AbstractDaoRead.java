@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.softserveinc.healthbody.dao.BasicDao.DaoQueries;
+import edu.softserveinc.healthbody.dao.IBasicDao.DaoQueries;
 import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
@@ -20,7 +20,7 @@ abstract class ADaoInit {
 	protected abstract void init();
 }
 
-abstract class AbstractDaoRead<TEntity> extends ADaoInit implements BasicReadDao<TEntity> {
+abstract class AbstractDaoRead<TEntity> extends ADaoInit implements IBasicReadDao<TEntity> {
 	protected final static String QUERY_NOT_FOUND = "Query not found %s";
 	protected final static String EMPTY_RESULTSET = "Empty ResultSet by Query %s";
 	protected final static String DATABASE_READING_ERROR = "Database Reading Error";

@@ -10,7 +10,7 @@ import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
 
-public interface GroupService extends BaseFilterService<GroupDTO>{
+public interface IGroupService extends IBaseFilterService<GroupDTO>{
 	
 	String getDescriptionOfGroup(GroupDTO groupDTO);
 

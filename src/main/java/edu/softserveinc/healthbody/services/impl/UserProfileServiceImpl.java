@@ -21,9 +21,9 @@ import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
-import edu.softserveinc.healthbody.services.BaseService;
+import edu.softserveinc.healthbody.services.IBaseService;
 
-public class UserProfileServiceImpl implements BaseService<UserDTO> {
+public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 	
 	private static volatile UserProfileServiceImpl instance = null;
 	
