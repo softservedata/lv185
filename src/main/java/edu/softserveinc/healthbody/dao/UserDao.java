@@ -142,4 +142,20 @@ public final class UserDao extends AbstractDao<User> {
 		return getByFieldName(login);
 	}
 	
+	public boolean lockUser(boolean isDisabled, String login) throws QueryNotFoundException, SQLException, JDBCDriverException, DataBaseReadingException {
+		boolean result = false;
+		String query = sqlQueries.get(DaoQueries.ISDISABLED).toString();
+		if (query == null) {
+			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.ISDISABLED.name())); 
+		}
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
+			pst.setBoolean(1, isDisabled);
+			pst.setString(2, login);
+			result = pst.execute();
+		} catch (SQLException e) {
+			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+		}
+		return result;
+	}
+	
 }

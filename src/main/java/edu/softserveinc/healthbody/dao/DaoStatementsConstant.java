@@ -14,7 +14,7 @@ public class DaoStatementsConstant {
         UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE users SET ? = ? WHERE ? = ?;"),
         ISDISABLED(DaoQueries.ISDISABLED, "UPDATE users SET isDisabled = ? WHERE login = ?"),
         DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE users WHERE id_user = ?;"),
-        DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE users WHERE ? = ?;");
+        DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE users WHERE login = ?;");
 		private DaoQueries daoQuery;
 		private String query;
 		
@@ -40,8 +40,7 @@ public class DaoStatementsConstant {
 		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE groups SET ? = ? WHERE ? = ?;"),
 		UPDATE(DaoQueries.UPDATE, "UPDATE groups SET count = ?, description = ?, scoreGroup = ? WHERE name = ?"),
 		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE groups WHERE id_group = ?;"),
-		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE groups WHERE ? = ?;");
-		
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE groups WHERE name = ?;");
 		private DaoQueries daoQuery;
 		private String query;
 		
@@ -63,9 +62,8 @@ public class DaoStatementsConstant {
         GET_ID_BY_FIELDS(DaoQueries.GET_ID_BY_FIELDS, "SELECT usergroups.id_user_group FROM usergroups WHERE usergroups.id_user = ? AND usergroups.id_group = ?;"),		
         GET_ALL(DaoQueries.GET_ALL, "SELECT usergroups.id_user_group, usergroups.id_user, usergroups.id_groups, usergroups.member_group FROM usergroups;"),
         UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE usergroups SET ? = ? WHERE ? = ?;"),
-        DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE usergroups WHERE id_group = ?;"),
-		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE usergroups WHERE ? = ?;");
-        private DaoQueries daoQuery;
+        DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE usergroups WHERE id_group = ?;");
+		private DaoQueries daoQuery;
         private String query;
 
         private UserGroupQueries(DaoQueries daoQuery, String query) {
@@ -89,7 +87,7 @@ public class DaoStatementsConstant {
 		GET_ALL(DaoQueries.GET_ALL,	"SELECT id_competition, name, description, start_date, finish_date, id_criteria FROM competitions;"),
 		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE competitions SET ? = ? WHERE ? = ?;"),
 		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE competitions WHERE id_competition = ?;"),
-		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE competitions WHERE ? = ?;");
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE competitions WHERE name = ?;");
 		private DaoQueries daoQuery;
 		private String query;
 
@@ -112,8 +110,7 @@ public class DaoStatementsConstant {
 		GET_ALL(DaoQueries.GET_ALL, "SELECT * FROM metadata;"),
 		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE metadata SET ? = ? WHERE ? = ?;"),
 		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE metadata WHERE id_metadata = ?;"),
-		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE metadata WHERE ? = ?;");
-		
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE metadata WHERE last_synch = ?;");
 		private DaoQueries daoQuery;
 		private String query;
 		
@@ -136,8 +133,7 @@ public class DaoStatementsConstant {
 		GET_ALL(DaoQueries.GET_ALL, "SELECT id_award, name FROM awards;"),
 		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE awards SET ? = ? WHERE ? = ?;"),
 		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE awards WHERE id_award = ?;"),
-		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE awards WHERE ? = ?;");
-		
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE awards WHERE name = ?;");
 		private DaoQueries daoQuery;
 		private String query;
 		
@@ -158,8 +154,7 @@ public class DaoStatementsConstant {
 		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_group_competition, id_group, id_competition FROM groupcompetitions WHERE ? = ?;"),
 		GET_ALL(DaoQueries.GET_ALL,	"SELECT id_group_competition, id_group, id_competition FROM groupcompetitions;"),
 		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE groupcompetitions SET ? = ? WHERE ? = ?;"),
-		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE groupcompetitions WHERE id_group_competition = ?;"),
-		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE groupcompetitions WHERE ? = ?;");
+		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE groupcompetitions WHERE id_group_competition = ?;");
 		private DaoQueries daoQuery;
 		private String query;
 
@@ -183,8 +178,7 @@ public class DaoStatementsConstant {
 		GET_ALL(DaoQueries.GET_ALL, "SELECT id_role, name, description FROM roles;"),
 		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE roles SET ? = ? WHERE ? = ?;"),
 		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE roles WHERE id_role = ?;"),
-		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE roles WHERE ? = ?;");
-		
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE roles WHERE name = ?;");
 		private DaoQueries daoQuery;
 		private String query;
 		
@@ -207,8 +201,7 @@ public class DaoStatementsConstant {
 		GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_user_competition, id_user, id_competition, user_score, id_award, time_received FROM usercompetitions WHERE ? = ?;"),
 		GET_ALL(DaoQueries.GET_ALL,	"SELECT id_user_competition, id_user, id_competition, user_score, id_award, time_received FROM usercompetitions;"),
 		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD,	"UPDATE usercompetitions SET ? = ? WHERE ? = ?;"),
-		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE usercompetitions WHERE id_user_competition = ?;"),
-		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE usercompetitions WHERE ? = ?;");
+		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE usercompetitions WHERE id_user_competition = ?;");
 		private DaoQueries daoQuery;
 		private String query;
 
@@ -232,8 +225,7 @@ public class DaoStatementsConstant {
 		GET_ALL(DaoQueries.GET_ALL, "SELECT id_criteria, name, metrics, get_google FROM criteria;"),
 		UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE criteria SET ? = ? WHERE ? = ?;"),
 		DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE criteria WHERE id_criteria = ?;"),
-		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE criteria WHERE ? = ?;");
-		
+		DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE criteria WHERE name = ?;");
 		private DaoQueries daoQuery;
 		private String query;
 		

@@ -43,8 +43,8 @@ public class TestProfile {
 		}
 		
 		
-		userDTO.setFirstname("Ira");
-		userDTO.setPassword("fldhglr");
+		//userDTO.setFirstname("Ira");
+		//userDTO.setPassword("fldhglr");
 		UserProfileServiceImpl.getInstance().update(userDTO);
 		logger.info("\n\nFirstname: "+ userDTO.getFirstname() + "\nLastname: " +userDTO.getLastname() +
 				"\nLogin: " + userDTO.getLogin() + "\nPassword: " + userDTO.getPassword() + "\nE-mail: " + userDTO.getEmail() +
@@ -54,10 +54,10 @@ public class TestProfile {
 			logger.info(group.getName() + "    ");
 		}
 		
-		List<GroupDTO> groups = new ArrayList<GroupDTO>();
-		groups.add(new GroupDTO("Name group number 1", "10", "Description of group 1", "11"));
-		UserDTO userDTO2 = new UserDTO("Bill", "Klinton", "President", "password", "SomeMail75@gmail.com", "67", "80.5","m", "photourl", "user", "active", "1000", groups);
-		UserProfileServiceImpl.getInstance().insert(userDTO2);
+	//	List<GroupDTO> groups = new ArrayList<GroupDTO>();
+	//	groups.add(new GroupDTO("Name group number 1", "10", "Description of group 1", "11"));
+	//	UserDTO userDTO2 = new UserDTO("Bill", "Klinton", "President", "password", "SomeMail75@gmail.com", "67", "80.5","m", "photourl", "user", "active", "1000", groups);
+		//UserProfileServiceImpl.getInstance().insert(userDTO2);
 	}
 
 }

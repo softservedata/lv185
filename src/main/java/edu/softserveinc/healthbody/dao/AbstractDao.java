@@ -77,7 +77,7 @@ abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEnt
 	}
 
 	@Override
-	public boolean deleteByField(String fieldCondition, String textCondition)
+	public boolean deleteByField(String textCondition)
 			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException {
 		boolean result = false;
 		String query = sqlQueries.get(DaoQueries.DELETE_BY_FIELD).toString();
@@ -85,8 +85,7 @@ abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEnt
 			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.DELETE_BY_FIELD.name()));
 		}
 		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
-			pst.setString(1, fieldCondition);
-			pst.setString(2, textCondition);
+			pst.setString(1, textCondition);
 			result = pst.execute();
 		} catch (SQLException e) {
 			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
