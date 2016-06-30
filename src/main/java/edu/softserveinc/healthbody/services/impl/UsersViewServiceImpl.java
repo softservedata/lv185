@@ -3,7 +3,6 @@ package edu.softserveinc.healthbody.services.impl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import edu.softserveinc.healthbody.dao.UsersViewDao;
 import edu.softserveinc.healthbody.dto.UserDTO;
@@ -14,9 +13,9 @@ import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
-import edu.softserveinc.healthbody.services.UsersViewService;
+import edu.softserveinc.healthbody.services.IUsersViewService;
 
-public class UsersViewServiceImpl implements UsersViewService {
+public class UsersViewServiceImpl implements IUsersViewService {
 
 	@Override
 	public List<UserDTO> getAll(int partNumber, int partSize)
@@ -73,18 +72,6 @@ public class UsersViewServiceImpl implements UsersViewService {
 					usersView.getAvatar(), null, null, usersView.getScore().toString(), null));
 		}
 		return userDTO;
-	}
-
-	@Override
-	public void update(List<UserDTO> userDTOs) {
-		userDTOs.add(new UserDTO(null, null, null, null, null, null, null, null, null, null, null, null, null));
-	}
-
-	@Override
-	public List<UserDTO> getAll(int partNumber, int partSize, Map<String, String> filters)
-			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
-			CloseStatementException {
-		return getAll(partNumber, partSize);
 	}
 
 }

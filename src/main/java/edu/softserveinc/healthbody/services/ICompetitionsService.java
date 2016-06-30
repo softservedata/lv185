@@ -10,7 +10,7 @@ import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
 
-public interface CompetitionsService extends BaseService<CompetitionDTO> {
+public interface ICompetitionsService extends IBaseService<CompetitionDTO> {
 
 	void insert(CompetitionDTO competitionDTO) throws SQLException, JDBCDriverException, DataBaseReadingException,
 			QueryNotFoundException, EmptyResultSetException, TransactionException, CloseStatementException;

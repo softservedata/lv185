@@ -15,9 +15,9 @@ import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
-import edu.softserveinc.healthbody.services.GroupService;
+import edu.softserveinc.healthbody.services.IGroupService;
 
-public class GroupServiceImpl implements GroupService{
+public class GroupServiceImpl implements IGroupService{
 	
 	private enum GroupServiceKeys {
 		NAME("name"),
@@ -91,12 +91,6 @@ public class GroupServiceImpl implements GroupService{
 		map.put(GroupServiceKeys.DESCRIPTION.toString(), filters.get(2));
 		map.put(GroupServiceKeys.SCORE_GROUP.toString(), filters.get(3));
 		return map;
-	}
-
-	@Override
-	public void update(List<GroupDTO> baseDTOs) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

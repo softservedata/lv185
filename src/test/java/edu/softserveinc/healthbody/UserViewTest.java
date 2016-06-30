@@ -19,20 +19,33 @@ public class UserViewTest {
 	@Test
 	public void testUserView() {
 
+		///before
+		
+		
 		UsersViewServiceImpl uvs = new UsersViewServiceImpl();
 
 		try {
 			List<UserDTO> ud1 = uvs.getAll(1, 5);
-			List<UserDTO> ud2 = uvs.getAllbyAdmin(1, 5);
+			//ud1.size();
+			
+			
+			
+			
+			List<UserDTO> ud2 = uvs.getAll(5, 1);
+			
+			
+			
+//			
+//			List<UserDTO> ud2 = uvs.getAllbyAdmin(1, 5);
 			List<UserDTO> ud3 = uvs.getAllinCompetition(1, 5);
-			List<UserDTO> ud4 = uvs.getAllinGroup(1, 5);
-			List<UserDTO> ud5 = uvs.getAlltoAddInCompetition(1, 5);
-
-			System.out.println("In getAll: " + Arrays.toString(ud1.toArray()));
-			System.out.println("In getAllbyAdmin: " + Arrays.toString(ud2.toArray()));
-			System.out.println("In getAllinCompetition: " + Arrays.toString(ud3.toArray()));
-			System.out.println("In getAllinGroup: " + Arrays.toString(ud4.toArray()));
-			System.out.println("In getAllinGroup: " + Arrays.toString(ud5.toArray()));
+//			List<UserDTO> ud4 = uvs.getAllinGroup(1, 5);
+//			List<UserDTO> ud5 = uvs.getAlltoAddInCompetition(1, 5);
+//
+//			System.out.println("In getAll: " + Arrays.toString(ud1.toArray()));
+//			System.out.println("In getAllbyAdmin: " + Arrays.toString(ud2.toArray()));
+//			System.out.println("In getAllinCompetition: " + Arrays.toString(ud3.toArray()));
+//			System.out.println("In getAllinGroup: " + Arrays.toString(ud4.toArray()));
+//			System.out.println("In getAllinGroup: " + Arrays.toString(ud5.toArray()));
 		} catch (QueryNotFoundException | JDBCDriverException | DataBaseReadingException | EmptyResultSetException
 				| CloseStatementException | SQLException | TransactionException e) {
 			// TODO Auto-generated catch block
