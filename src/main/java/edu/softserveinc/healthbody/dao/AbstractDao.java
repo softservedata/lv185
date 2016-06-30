@@ -9,7 +9,7 @@ import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 
-abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEntity> implements BasicDao<TEntity> {
+abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEntity> implements IBasicDao<TEntity> {
 
 	protected AbstractDao() {
 		super();

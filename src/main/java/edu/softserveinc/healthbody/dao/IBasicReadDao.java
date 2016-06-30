@@ -9,7 +9,7 @@ import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 
-public interface BasicReadDao<TEntity> {
+public interface IBasicReadDao<TEntity> {
 	
 	TEntity getById(Integer id) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException;
 

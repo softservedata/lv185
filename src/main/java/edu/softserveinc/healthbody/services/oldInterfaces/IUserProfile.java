@@ -2,7 +2,7 @@ package edu.softserveinc.healthbody.services.oldInterfaces;
 
 import edu.softserveinc.healthbody.dto.UserDTO;
 
-public interface UserProfile {
+public interface IUserProfile {
 
 	void insertUser(UserDTO userDTO);
 
