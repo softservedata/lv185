@@ -17,9 +17,11 @@ public class User implements IEntity {
 	private String googleApi;
 	private Integer idRole;
 	private String status;
+	private boolean isDisabled;
 	
 	public User(Integer idUser, String login, String passwd, String firsName, String lastName, String mail, Integer age,
-			Double weight, String gender, String health, String avatar, String googleApi, Integer idRole, String status) {
+			Double weight, String gender, String health, String avatar, String googleApi, Integer idRole, String status,
+			boolean isDisabled) {
 
 		this.idUser = idUser;
 		this.login = login;
@@ -35,6 +37,7 @@ public class User implements IEntity {
 		this.googleApi = googleApi;
 		this.idRole = idRole;
 		this.status = status;
+		this.isDisabled = isDisabled;
 		
 	}
 
@@ -102,6 +105,10 @@ public class User implements IEntity {
 		this.idRole = idRole;
 	}
 	
+	public void setIsDisabled(boolean isDisabled) {
+		this.isDisabled = isDisabled;
+	}
+	
 	// getters
 	public Integer getIdUser() {
 		return getId();
@@ -159,4 +166,7 @@ public class User implements IEntity {
 		return idRole;
 	}
 
+	public boolean getIsDisabled() {
+		return isDisabled;
+	}
 }

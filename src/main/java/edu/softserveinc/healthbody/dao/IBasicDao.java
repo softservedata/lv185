@@ -15,6 +15,7 @@ public interface IBasicDao<TEntity> extends IBasicReadDao<TEntity> {
 		GET_ALL,
 		UPDATE,
 		UPDATE_BY_FIELD,
+		ISDISABLED,
 		DELETE_BY_ID,
 		DELETE_BY_FIELD;
 	}

@@ -74,7 +74,8 @@ public final class UserDao extends AbstractDao<User> {
 				args[10] == null ? new String() : args[10],
 				args[11] == null ? new String() : args[11], 
 				Integer.parseInt(args[12] == null ? "0" : args[12]),
-				args[13] == null ? "0" : args[13]);
+				args[13] == null ? "0" : args[13],
+				Boolean.parseBoolean(args[14] == null ? "false" : args[14]));
 	}
 
 	public User getUserByLogin(String login) throws JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException, CloseStatementException {
@@ -106,6 +107,7 @@ public final class UserDao extends AbstractDao<User> {
 			pst.setString(i++, user.getGoogleApi());
 			pst.setInt(i++, user.getIdRole());
 			pst.setString(i++, user.getStatus());
+			pst.setBoolean(i++, user.getIsDisabled());
 		
 			result = pst.execute();
 		} catch (SQLException e) {

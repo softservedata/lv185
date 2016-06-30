@@ -47,7 +47,6 @@ public class TestDBCreationManager {
 				logger.error("Database wasn't deleted", e);
 			}
 		}
-
 		try {
 			DBCreationManager.getInstance().createDatabase(st, databaseName);
 			logger.info("Database - " + databaseName + " was created");

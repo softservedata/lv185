@@ -5,13 +5,14 @@ import edu.softserveinc.healthbody.dao.IBasicDao.DaoQueries;
 public class DaoStatementsConstant {
 	public static enum UserDBQueries {
         INSERT(DaoQueries.INSERT, "INSERT INTO users (login, password, firstname, lastname, \"e-mail\", age, weight, gender, health, avatar, "
-        		+ "google_field, id_role, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"),
-        GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT id_user, login, password, firstname, lastname, \"e-mail\", age, weight, gender, health, avatar, google_field, id_role, status FROM users WHERE id_user = ?;"),
-        GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_user, login, password, firstname, lastname, \"e-mail\", age, weight, gender, health, avatar, google_field, id_role, status FROM users WHERE ? = ?;"),
-        GET_BY_FIELD_NAME(DaoQueries.GET_BY_FIELD_NAME, "SELECT id_user, login, password, firstname, lastname, \"e-mail\", age, weight, gender, health, avatar, google_field, id_role, status FROM users WHERE login = ?;"),
-        GET_ALL(DaoQueries.GET_ALL, "SELECT id_user, login, password, firstname, lastname, \"e-mail\", age, weight, gender, health, avatar, google_field, id_role, status FROM users;"),
+        		+ "google_field, id_role, status, isDisabled) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"),
+        GET_BY_ID(DaoQueries.GET_BY_ID, "SELECT id_user, login, password, firstname, lastname, \"e-mail\", age, weight, gender, health, avatar, google_field, id_role, status, isDisabled FROM users WHERE id_user = ?;"),
+        GET_BY_FIELD(DaoQueries.GET_BY_FIELD, "SELECT id_user, login, password, firstname, lastname, \"e-mail\", age, weight, gender, health, avatar, google_field, id_role, status, isDisabled FROM users WHERE ? = ?;"),
+        GET_BY_FIELD_NAME(DaoQueries.GET_BY_FIELD_NAME, "SELECT id_user, login, password, firstname, lastname, \"e-mail\", age, weight, gender, health, avatar, google_field, id_role, status, isDisabled FROM users WHERE login = ?;"),
+        GET_ALL(DaoQueries.GET_ALL, "SELECT id_user, login, password, firstname, lastname, \"e-mail\", age, weight, gender, health, avatar, google_field, id_role, status FROM users WHERE isDisabled = 'false';"),
         UPDATE(DaoQueries.UPDATE, "UPDATE users SET password = ?, firstname = ?, lastname = ?, gender = ?, weight = ?, age = ? WHERE login = ?"),
         UPDATE_BY_FIELD(DaoQueries.UPDATE_BY_FIELD, "UPDATE users SET ? = ? WHERE ? = ?;"),
+        ISDISABLED(DaoQueries.ISDISABLED, "UPDATE users SET isDisabled = ? WHERE login = ?"),
         DELETE_BY_ID(DaoQueries.DELETE_BY_ID, "DELETE users WHERE id_user = ?;"),
         DELETE_BY_FIELD(DaoQueries.DELETE_BY_FIELD, "DELETE users WHERE ? = ?;");
 		private DaoQueries daoQuery;

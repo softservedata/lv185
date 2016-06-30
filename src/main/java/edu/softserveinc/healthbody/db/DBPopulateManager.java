@@ -50,6 +50,7 @@ public class DBPopulateManager {
 				pst.setString(11, "googleApi " + j);
 				pst.setInt(12, 3);
 				pst.setString(13, "active " + j);
+				pst.setBoolean(14, false);
 				successfulInsert = pst.execute();
 			}
 		} catch (SQLException e) {

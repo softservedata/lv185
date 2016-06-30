@@ -22,7 +22,8 @@ public class DBCreationManager {
 				+ "avatar varchar(50),"
 				+ "google_field varchar(150),"
 				+ "id_role bigint,"
-				+ "status varchar(50))"),
+				+ "status varchar(50),"
+				+ "isDisabled boolean)"),
 		ROLE_TABLE("CREATE TABLE IF NOT EXISTS \"roles\"("
 				+ "id_role serial primary key,"
 				+ "name varchar(50),"
