@@ -67,18 +67,17 @@ public class TestDBCreationManager {
 			logger.error("Error creating database tables.", e);
 		}
 		
-		try {
-			con = DriverManager.getConnection(URL + databaseName, username, password);				
-			DBPopulateManager.getInstance().populateUsersTable(con);
-			DBPopulateManager.getInstance().populateGroupsTable(con);
-			DBPopulateManager.getInstance().populateUserGroupsTable(con);
-			DBPopulateManager.getInstance().populateAwardsTable(con);
-			DBPopulateManager.getInstance().populateCompetitionsTable(con);
-			DBPopulateManager.getInstance().populateCriteriaTable(con);
-			DBPopulateManager.getInstance().populateGroupCompetitionsTable(con);
-			DBPopulateManager.getInstance().populateMetaDataTable(con);
-			DBPopulateManager.getInstance().populateRolesTable(con);
-			DBPopulateManager.getInstance().populateUserCompetitionsTable(con);
+		try {				
+			DBPopulateManager.getInstance().populateUsersTable();
+			DBPopulateManager.getInstance().populateGroupsTable();
+			DBPopulateManager.getInstance().populateUserGroupsTable();
+			DBPopulateManager.getInstance().populateAwardsTable();
+			DBPopulateManager.getInstance().populateCompetitionsTable();
+			DBPopulateManager.getInstance().populateCriteriaTable();
+			DBPopulateManager.getInstance().populateGroupCompetitionsTable();
+			DBPopulateManager.getInstance().populateMetaDataTable();
+			DBPopulateManager.getInstance().populateRolesTable();
+			DBPopulateManager.getInstance().populateUserCompetitionsTable();
 			logger.info("Populated All tables");
 		} catch (JDBCDriverException | QueryNotFoundException | DataBaseReadingException | SQLException e) {
 			logger.error("Error populating database tables.", e);

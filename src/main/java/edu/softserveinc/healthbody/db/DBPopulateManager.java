@@ -1,6 +1,5 @@
 package edu.softserveinc.healthbody.db;
 
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -32,11 +31,11 @@ public class DBPopulateManager {
 		return instance;
 	}
 
-	public boolean populateUsersTable(Connection con) {
+	public boolean populateUsersTable() throws JDBCDriverException {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.UserDBQueries.INSERT.toString();
 
-		try (PreparedStatement pst = con.prepareStatement(query)) {
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 			for (int j = 1; j <= users; j++) {
 				pst.setString(1, "Login " + j);
 				pst.setString(2, "password " + j);
@@ -60,12 +59,12 @@ public class DBPopulateManager {
 		return successfulInsert;
 	}
 
-	public boolean populateGroupsTable(Connection con)
+	public boolean populateGroupsTable()
 			throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.GroupDBQueries.INSERT.toString();
 
-		try (PreparedStatement pst = con.prepareStatement(query)) {
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 			for (int j = 1; j <= 3; j++){				
 				pst.setString(1, "Name group number "+j);
 				pst.setInt(2, 5+j*5);
@@ -81,11 +80,11 @@ public class DBPopulateManager {
 		return successfulInsert;
 	}
 
-	public boolean populateUserGroupsTable(Connection con) {
+	public boolean populateUserGroupsTable() throws JDBCDriverException {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.UserGroupQueries.INSERT.toString();
 
-		try (PreparedStatement pst = con.prepareStatement(query)) {
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 			for (int j = 1; j <= 15; j++) {
 				pst.setInt(1, (j % 10 == 0) ? 10 : j % 10);
 				pst.setInt(2, (j <= 8) ? 1 : (j <= 12 ? 3 : 2));
@@ -98,12 +97,12 @@ public class DBPopulateManager {
 		return successfulInsert;
 	}
 
-	public boolean populateAwardsTable(Connection con)
+	public boolean populateAwardsTable()
 			throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.AwardDBQueries.INSERT.toString();
 
-		try (PreparedStatement pst = con.prepareStatement(query)) {
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 			for (int j = 1; j <= 4; j++) {
 				pst.setString(1, "Name award " + j);
 				successfulInsert = pst.execute();
@@ -115,12 +114,12 @@ public class DBPopulateManager {
 		return successfulInsert;
 	}
 
-	public boolean populateCompetitionsTable(Connection con)
+	public boolean populateCompetitionsTable()
 			throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.CompetitionDBQueries.INSERT.toString();
 
-		try (PreparedStatement pst = con.prepareStatement(query)) {
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 			for (int j = 1; j <= competitions; j++) {
 				pst.setString(1, "Name competition " + j);
 				pst.setString(2, "Description of competition " + j);
@@ -139,12 +138,12 @@ public class DBPopulateManager {
 		return successfulInsert;
 	}
 
-	public boolean populateCriteriaTable(Connection con)
+	public boolean populateCriteriaTable()
 			throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.CriteriaDBQueries.INSERT.toString();
 
-		try (PreparedStatement pst = con.prepareStatement(query)) {
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 			for (int j = 1; j <= 4; j++) {
 				pst.setString(1, "Name criteria " + j);
 				pst.setDouble(2, 4.5 + j);
@@ -158,11 +157,11 @@ public class DBPopulateManager {
 		return successfulInsert;
 	}
 
-	public boolean populateGroupCompetitionsTable(Connection con){
+	public boolean populateGroupCompetitionsTable() throws JDBCDriverException{
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.GroupCompetitionsDBQueries.INSERT.toString();
 
-		try (PreparedStatement pst = con.prepareStatement(query)) {
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 			for (int j = 1; j <= 5; j++) {
 				pst.setInt(1, (j % 2 == 0) ? 1 : (j % 3 == 0 ? 3 : 2));
 				pst.setInt(2, (j % 2 == 0) ? 2 : (j % 3 == 0 ? 1 : 3));
@@ -175,12 +174,12 @@ public class DBPopulateManager {
 		return successfulInsert;
 	}
 
-	public boolean populateMetaDataTable(Connection con)
+	public boolean populateMetaDataTable()
 			throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.MetaDataDBQueries.INSERT.toString();
 
-		try (PreparedStatement pst = con.prepareStatement(query)) {
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 			for (int j = 1; j <= 8; j++) {
 				pst.setString(1, "meta data " + j);
 				successfulInsert = pst.execute();
@@ -192,12 +191,12 @@ public class DBPopulateManager {
 		return successfulInsert;
 	}
 
-	public boolean populateRolesTable(Connection con)
+	public boolean populateRolesTable()
 			throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.RoleDBQueries.INSERT.toString();
 
-		try (PreparedStatement pst = con.prepareStatement(query)) {
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 			for (int j = 1; j <= 3; j++) {
 				pst.setString(1, j == 1 ? "admin" : (j == 2 ? "manager" : "user"));
 				pst.setString(2, j == 1 ? "admin description" : (j == 2 ? "manager description" : "user description"));
@@ -210,12 +209,12 @@ public class DBPopulateManager {
 		return successfulInsert;
 	}
 
-	public boolean populateUserCompetitionsTable(Connection con)
+	public boolean populateUserCompetitionsTable()
 			throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.UserCompetitionsDBQueries.INSERT.toString();
 
-		try (PreparedStatement pst = con.prepareStatement(query)) {
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 			for (int j = 1; j <= 50; j++) {
 				pst.setInt(1, new Random().nextInt(users) + 1);
 				pst.setInt(2, new Random().nextInt(competitions) + 1);
