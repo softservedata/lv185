@@ -7,7 +7,7 @@
 	<artifactId>lv185</artifactId>
 	<version>1.0</version>
 
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>lv185</name>
 	<url>http://maven.apache.org</url>
@@ -30,6 +30,11 @@
 		<maven.surefire.plugin.version>2.19.1</maven.surefire.plugin.version>
 		<!-- - - - - - Web - - - - - -->
 		<maven.war.plugin.version>2.6</maven.war.plugin.version>
+		<!-- <javax.servlet.api.version>2.5</javax.servlet.api.version> -->
+		<javax.javax.servlet.api.version>3.1.0</javax.javax.servlet.api.version>
+		<javax.servlet.jstl.version>1.2</javax.servlet.jstl.version>
+		<javax.servlet.jsp.jstl.version>1.2</javax.servlet.jsp.jstl.version>
+		<taglibs.standard.version>1.1.2</taglibs.standard.version> 
 	</properties>
 
 	<dependencies>
@@ -55,6 +60,36 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>${postgresql.connector.version}</version>
+		</dependency>
+			<!-- - - - Web - - - -->
+	
+		<!--
+		 <dependency>
+			 <groupId>javax.servlet</groupId>
+			 <artifactId>servlet-api</artifactId> 
+			<version>${javax.servlet.api.version}</version>
+			<scope>provided</scope>
+		 </dependency>
+		 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${javax.javax.servlet.api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${javax.servlet.jstl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>jstl-api</artifactId>
+			<version>${javax.servlet.jsp.jstl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>${taglibs.standard.version}</version>
 		</dependency>
 
 	</dependencies>
@@ -103,18 +138,16 @@
 					<reportsDirectory>${testng.reports.directory}</reportsDirectory>
 				</configuration>
 			</plugin>
-			<!--
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>${maven.war.plugin.version}</version>
 				<configuration>
-					<warSourceDirectory>WebContent</warSourceDirectory>
+					<!-- <warSourceDirectory>WebContent</warSourceDirectory> -->
 					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<warName>resources</warName>
+					<!-- <warName>resources</warName> -->
 				</configuration>
 			</plugin>
-			 -->
 			<plugin>
 				<groupId>com.google.code.echo-maven-plugin</groupId>
 				<artifactId>echo-maven-plugin</artifactId>
