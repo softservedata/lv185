@@ -16,7 +16,11 @@ import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.IUsersViewService;
 
 public class UsersViewServiceImpl implements IUsersViewService {
-
+	
+	/*	The getAll method is used for returning all users. 
+	 *  Also used as basic method for following getAllbyAdmin,getAlltoAddInCompetition,
+	 *  getAllinGroup, getAllinCompetition.
+	 **/
 	@Override
 	public List<UserDTO> getAll(int partNumber, int partSize)
 			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
@@ -32,6 +36,9 @@ public class UsersViewServiceImpl implements IUsersViewService {
 		return userDTO;
 	}
 	
+	/*	The getAllbyAdmin method is used for returning extended list of all users
+	 *  for admin role on a pages where users lists presented.
+	 **/
 	@Override
 	public List<UserDTO> getAllbyAdmin(int partNumber, int partSize)
 			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
@@ -39,6 +46,9 @@ public class UsersViewServiceImpl implements IUsersViewService {
 		return getAll(partNumber, partSize);
 	}
 
+	/*	The getAlltoAddInCompetition used for returning part of users list
+	 * in competitions UI when user path's by competition -> description-> (press button) invite user.
+	 **/
 	@Override
 	public List<UserDTO> getAlltoAddInCompetition(int partNumber, int partSize)
 			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
@@ -53,6 +63,10 @@ public class UsersViewServiceImpl implements IUsersViewService {
 		return userDTO;
 	}
 
+	/*	The getAllinGroup used for returning part of users list
+	 * in Groups UI when user path's by main -> groups-> description of gorups-> 
+	 * ->(press button) invite user to group.
+	 **/
 	@Override
 	public List<UserDTO> getAllinGroup(int partNumber, int partSize)
 			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
@@ -60,6 +74,9 @@ public class UsersViewServiceImpl implements IUsersViewService {
 		return getAlltoAddInCompetition(partNumber, partSize);
 	}
 
+	/*	The getAllinCompetition used for returning part of users list
+	 *  in competitions UI
+	 **/
 	@Override
 	public List<UserDTO> getAllinCompetition(int partNumber, int partSize)
 			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
