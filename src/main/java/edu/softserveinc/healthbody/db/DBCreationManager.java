@@ -56,10 +56,10 @@ public class DBCreationManager {
 			logger.info("Database exists!!!");
 		} else {
 			logger.info("Creating database " + databaseName);
-			result = statement.execute("CREATE DATABASE " + databaseName);
+			statement.execute("CREATE DATABASE " + databaseName);
+			result = true;
 			logger.info("Database " + databaseName + " created.");
 		}
-
 		return result;
 	}
 
