@@ -40,3 +40,7 @@ hs_err_pid*
 *.doc
 *.docx
 *.pdf
+
+#temp ignore files
+xxx*
+Postgre*
