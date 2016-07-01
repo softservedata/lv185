@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -25,6 +26,7 @@ import edu.softserveinc.healthbody.services.impl.UserProfileServiceImpl;
 import edu.softserveinc.healthbody.testapp.TestProfile;
 
 public class ProfileTest {
+
 	private static Logger logger = LoggerFactory.getLogger(TestProfile.class.getName());
   
 	@BeforeClass

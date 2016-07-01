@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 import edu.softserveinc.healthbody.dto.CompetitionDTO;
@@ -17,6 +19,8 @@ import edu.softserveinc.healthbody.services.impl.CompetitionsServiceImpl;
 import edu.softserveinc.healthbody.services.impl.CompetitionsViewServiceImpl;
 
 public class CompetitionsTest {
+	private static Logger logger = LoggerFactory.getLogger(CompetitionsTest.class.getName());
+	
   @Test
   public void testInsertCompetition() {
 	  
@@ -26,15 +30,15 @@ public class CompetitionsTest {
 		competitionsServiceImpl.insert(new CompetitionDTO("we are the champions"," " ,"2016-06-23" , "2016-07-23", "nice", "Name criteria 1", null, null));
 	} catch (SQLException | JDBCDriverException | DataBaseReadingException | QueryNotFoundException
 			| EmptyResultSetException | TransactionException | CloseStatementException e) {
-		e.printStackTrace();
+		logger.error("Insert didn't work", e);
 	}
 		try {
 			List<CompetitionDTO> ls4 = cs.getAll(1, 30);
-			System.out.println("In getAll: " + Arrays.toString(ls4.toArray()));
+			logger.info("In getAll: " + Arrays.toString(ls4.toArray()));
 		} catch (QueryNotFoundException | JDBCDriverException | DataBaseReadingException | EmptyResultSetException
 				| CloseStatementException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("GetAll didn't work", e);
 		}
   }
 }
