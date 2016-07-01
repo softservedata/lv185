@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
 import edu.softserveinc.healthbody.db.DBCreationManager;
-import edu.softserveinc.healthbody.db.DBCreationManager.TableQueries;
 import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
@@ -23,7 +22,7 @@ public class TestDBCreationManager {
 	private static String password = "root";
 	private static String URL = "jdbc:postgresql://localhost:5432/";
 	private static String databaseName = "healthbodydb";
-	private static String dropDatabase = "true";
+	private static String dropDatabase = "false";
 
 	public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		logger.info("TestDBCreationManager starts...");
@@ -43,8 +42,10 @@ public class TestDBCreationManager {
 			try {
 				DBCreationManager.getInstance().dropDatabase(st, databaseName);
 				logger.info("Database - " + databaseName + " was deleted");
+				
 			} catch (SQLException e) {
 				logger.error("Database wasn't deleted", e);
+				System.exit(0); 
 			}
 		}
 		try {
@@ -52,18 +53,21 @@ public class TestDBCreationManager {
 			logger.info("Database - " + databaseName + " was created");
 		} catch (SQLException e) {
 			logger.error("Database didn't create", e);
+			System.exit(0); 
 		}
 		
 		try {
 			con = DriverManager.getConnection(URL + databaseName, username, password);
 			st = con.createStatement();
-			for (TableQueries query : TableQueries.values()) {
-				logger.info("Creating " + query.name());
-				DBCreationManager.getInstance().createTable(st, query.toString());
+			DBCreationManager dbCReationManager = DBCreationManager.getInstance();
+			for (String query : dbCReationManager.getListOfQueries()) {
+				logger.info("Creating " + query.split("\"")[1]);
+				dbCReationManager.createTable(st, query);
 			}
 			
 		} catch (SQLException e) {
 			logger.error("Error creating database tables.", e);
+			System.exit(0); 
 		}
 		
 		try {				
@@ -80,8 +84,7 @@ public class TestDBCreationManager {
 			logger.info("Populated All tables");
 		} catch (JDBCDriverException | QueryNotFoundException | DataBaseReadingException | SQLException e) {
 			logger.error("Error populating database tables.", e);
-		}
-		
+		}		
 		
 		if (st != null)
 			st.close();
