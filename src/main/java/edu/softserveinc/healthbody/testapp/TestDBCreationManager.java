@@ -10,9 +10,6 @@ import org.slf4j.Logger;
 
 import edu.softserveinc.healthbody.db.DBCreationManager;
 import edu.softserveinc.healthbody.db.DBPopulateManager;
-import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
-import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
-import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 
 public class TestDBCreationManager {
 
@@ -69,21 +66,17 @@ public class TestDBCreationManager {
 			System.exit(0); 
 		}
 		
-		try {				
-			DBPopulateManager.getInstance().populateUsersTable();
-			DBPopulateManager.getInstance().populateGroupsTable();
-			DBPopulateManager.getInstance().populateUserGroupsTable();
-			DBPopulateManager.getInstance().populateAwardsTable();
-			DBPopulateManager.getInstance().populateCompetitionsTable();
-			DBPopulateManager.getInstance().populateCriteriaTable();
-			DBPopulateManager.getInstance().populateGroupCompetitionsTable();
-			DBPopulateManager.getInstance().populateMetaDataTable();
-			DBPopulateManager.getInstance().populateRolesTable();
-			DBPopulateManager.getInstance().populateUserCompetitionsTable();
-			logger.info("Populated All tables");
-		} catch (JDBCDriverException | QueryNotFoundException | DataBaseReadingException | SQLException e) {
-			logger.error("Error populating database tables.", e);
-		}		
+		DBPopulateManager.getInstance().populateUsersTable();
+		DBPopulateManager.getInstance().populateGroupsTable();
+		DBPopulateManager.getInstance().populateUserGroupsTable();
+		DBPopulateManager.getInstance().populateAwardsTable();
+		DBPopulateManager.getInstance().populateCompetitionsTable();
+		DBPopulateManager.getInstance().populateCriteriaTable();
+		DBPopulateManager.getInstance().populateGroupCompetitionsTable();
+		DBPopulateManager.getInstance().populateMetaDataTable();
+		DBPopulateManager.getInstance().populateRolesTable();
+		DBPopulateManager.getInstance().populateUserCompetitionsTable();
+		logger.info("Populated All tables");		
 		
 		if (st != null)
 			st.close();

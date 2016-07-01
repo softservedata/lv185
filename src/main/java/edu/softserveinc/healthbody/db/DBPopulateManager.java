@@ -9,9 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant;
-import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
-import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 
 public class DBPopulateManager {
 
@@ -35,7 +33,7 @@ public class DBPopulateManager {
 		return instance;
 	}
 
-	public boolean populateUsersTable() throws JDBCDriverException {
+	public boolean populateUsersTable() {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.UserDBQueries.INSERT.toString();
 
@@ -57,15 +55,14 @@ public class DBPopulateManager {
 				pst.setBoolean(14, false);
 				successfulInsert = pst.execute();
 			}
-		} catch (SQLException e) {
+		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating users table.");
 		}
 
 		return successfulInsert;
 	}
 
-	public boolean populateGroupsTable()
-			throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
+	public boolean populateGroupsTable() {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.GroupDBQueries.INSERT.toString();
 
@@ -78,14 +75,14 @@ public class DBPopulateManager {
 				pst.setString(5, "active");	
 				successfulInsert = pst.execute();
 			}
-		} catch (SQLException e) {
+		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating groups table.");
 		}
 
 		return successfulInsert;
 	}
 
-	public boolean populateUserGroupsTable() throws JDBCDriverException {
+	public boolean populateUserGroupsTable() {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.UserGroupQueries.INSERT.toString();
 
@@ -95,15 +92,14 @@ public class DBPopulateManager {
 				pst.setInt(2, (j <= 8) ? 1 : (j <= 12 ? 3 : 2));
 				successfulInsert = pst.execute();
 			}
-		} catch (SQLException e) {
+		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating usergroups table.");
 		}
 
 		return successfulInsert;
 	}
 
-	public boolean populateAwardsTable()
-			throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
+	public boolean populateAwardsTable() {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.AwardDBQueries.INSERT.toString();
 
@@ -112,15 +108,14 @@ public class DBPopulateManager {
 				pst.setString(1, "Name award " + j);
 				successfulInsert = pst.execute();
 			}
-		} catch (SQLException e) {
+		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating awards table.");
 		}
 
 		return successfulInsert;
 	}
 
-	public boolean populateCompetitionsTable()
-			throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
+	public boolean populateCompetitionsTable() {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.CompetitionDBQueries.INSERT.toString();
 
@@ -136,15 +131,14 @@ public class DBPopulateManager {
 				pst.setInt(5, (int) (Math.random() * 2 + 1));
 				successfulInsert = pst.execute();
 			}
-		} catch (SQLException e) {
+		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating competitions table.");
 		}
 
 		return successfulInsert;
 	}
 
-	public boolean populateCriteriaTable()
-			throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
+	public boolean populateCriteriaTable() {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.CriteriaDBQueries.INSERT.toString();
 
@@ -155,14 +149,14 @@ public class DBPopulateManager {
 				pst.setString(3, "get google " + j);
 				successfulInsert = pst.execute();
 			}
-		} catch (SQLException e) {
+		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating criteria table.");
 		}
 
 		return successfulInsert;
 	}
 
-	public boolean populateGroupCompetitionsTable() throws JDBCDriverException{
+	public boolean populateGroupCompetitionsTable() {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.GroupCompetitionsDBQueries.INSERT.toString();
 
@@ -172,15 +166,14 @@ public class DBPopulateManager {
 				pst.setInt(2, (j % 2 == 0) ? 2 : (j % 3 == 0 ? 1 : 3));
 				successfulInsert = pst.execute();
 			}
-		} catch (SQLException e) {
+		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating groupcompetitions table.");
 		}
 
 		return successfulInsert;
 	}
 
-	public boolean populateMetaDataTable()
-			throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
+	public boolean populateMetaDataTable() {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.MetaDataDBQueries.INSERT.toString();
 
@@ -189,15 +182,14 @@ public class DBPopulateManager {
 				pst.setString(1, "meta data " + j);
 				successfulInsert = pst.execute();
 			}
-		} catch (SQLException e) {
+		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating metadata table.");
 		}
 
 		return successfulInsert;
 	}
 
-	public boolean populateRolesTable()
-			throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
+	public boolean populateRolesTable() {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.RoleDBQueries.INSERT.toString();
 
@@ -207,15 +199,14 @@ public class DBPopulateManager {
 				pst.setString(2, j == 1 ? "admin description" : (j == 2 ? "manager description" : "user description"));
 				successfulInsert = pst.execute();
 			}
-		} catch (SQLException e) {
+		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating roles table.");
 		}
 
 		return successfulInsert;
 	}
 
-	public boolean populateUserCompetitionsTable()
-			throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
+	public boolean populateUserCompetitionsTable() {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.UserCompetitionsDBQueries.INSERT.toString();
 
@@ -228,7 +219,7 @@ public class DBPopulateManager {
 				pst.setString(5, "time " + j);
 				successfulInsert = pst.execute();
 			}
-		} catch (SQLException e) {
+		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating usercompetitions table.", e);
 		}
 
