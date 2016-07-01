@@ -4,6 +4,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import edu.softserveinc.healthbody.dao.GroupDao;
 import edu.softserveinc.healthbody.dao.RoleDao;
 import edu.softserveinc.healthbody.dao.UserDao;
@@ -22,12 +25,15 @@ import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.IBaseService;
+import edu.softserveinc.healthbody.testapp.TestProfile;
 
 public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 	
 	private static volatile UserProfileServiceImpl instance = null;
 	
 	protected final static String TRANSACTION_ERROR = "Transaction Error, Rollback";
+	
+	private static Logger logger = LoggerFactory.getLogger(TestProfile.class.getName());
 
 	private UserProfileServiceImpl() {
 	}
@@ -43,57 +49,74 @@ public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 		return instance;
 	}
 	
+	//create user
 	@Override
 	public void insert(UserDTO userDTO) throws SQLException, JDBCDriverException, DataBaseReadingException,
 							QueryNotFoundException, EmptyResultSetException, TransactionException, CloseStatementException {
+		if (userDTO == null) {
+			logger.error("you didn't enter user");
+			throw new IllegalArgumentException();
+		}
+		else {
+			ConnectionManager.getInstance().beginTransaction();
+			Role roles = RoleDao.get().getRoleByName(userDTO.getRoleName());
 		
-		ConnectionManager.getInstance().beginTransaction();
-		Role roles = RoleDao.get().getRoleByName(userDTO.getRoleName());
-		
-		try {
-			UserDao.get().createUser(new User(0, userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstname(), userDTO.getLastname(),
+			try {
+				UserDao.get().createUser(new User(0, userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstname(), userDTO.getLastname(),
 					 userDTO.getEmail(), Integer.parseInt(userDTO.getAge()), Double.parseDouble(userDTO.getWeight()), userDTO.getGender(),
 					 userDTO.getHealth(), userDTO.getPhotoURL(), userDTO.getGoogleApi(), roles.getIdRole(), userDTO.getStatus(), false));
-			User user = UserDao.get().getUserByLoginName(userDTO.getLogin());
-			Group group = GroupDao.getInstance().getGroupByName(userDTO.getGroups().get(0).getName());
-			UserGroupDao.get().createUserGroup(user, group);
-		} catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
-			ConnectionManager.getInstance().rollbackTransaction();
-			throw new TransactionException(TRANSACTION_ERROR, e);
+				User user = UserDao.get().getUserByLoginName(userDTO.getLogin());
+				Group group = GroupDao.getInstance().getGroupByName(userDTO.getGroups().get(0).getName());
+				UserGroupDao.get().createUserGroup(user, group);
+			} catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
+				ConnectionManager.getInstance().rollbackTransaction();
+				throw new TransactionException(TRANSACTION_ERROR, e);
+			}
+			ConnectionManager.getInstance().commitTransaction();
 		}
-		ConnectionManager.getInstance().commitTransaction();
-		
 	}
 
+	//get user by login
 	@Override
 	public UserDTO get(String name) throws SQLException, JDBCDriverException, EmptyResultSetException, TransactionException, CloseStatementException {
-		
-		User user = null;
-		Role role = null;
-		Group group = null;
-		List<UserGroup> ugs = new ArrayList<UserGroup>();
-		List<GroupDTO> groups = new ArrayList<GroupDTO>();
-		
-		ConnectionManager.getInstance().beginTransaction();
-		try {
-			 user = UserDao.get().getUserByLoginName(name);
-			 role = RoleDao.get().getRoleById(user.getIdRole());
-			 ugs = UserGroupDao.get().getUGbyId(user.getId());
-			 for( UserGroup ug : ugs ){
-			 group = GroupDao.getInstance().getById(ug.getIdGroup());
-			 groups.add(new GroupDTO(group.getName(), "", "", ""));
-			 }
-			 
-		} catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
-			ConnectionManager.getInstance().rollbackTransaction();
-			throw new TransactionException(TRANSACTION_ERROR, e);
+		if (name == null) {
+			logger.error("you didn't enter login");
+			throw new IllegalArgumentException();
 		}
-		ConnectionManager.getInstance().commitTransaction();
+		else {
+			User user = null;
+			Role role = null;
+			Group group = null;
+			List<UserGroup> ugs = new ArrayList<UserGroup>();
+			List<GroupDTO> groups = new ArrayList<GroupDTO>();
 		
-		return new UserDTO(user.getLogin(), user.getPasswd(), user.getFirsName(), user.getLastName(), user.getMail(),
+			ConnectionManager.getInstance().beginTransaction();
+			try {
+				user = UserDao.get().getUserByLoginName(name);
+				if (user == null) {
+					logger.error("Such user doesn't exist");
+					throw new IllegalArgumentException();
+				}
+				else {
+					role = RoleDao.get().getRoleById(user.getIdRole());
+					ugs = UserGroupDao.get().getUGbyId(user.getId());
+					for( UserGroup ug : ugs ){
+						group = GroupDao.getInstance().getById(ug.getIdGroup());
+						groups.add(new GroupDTO(group.getName(), "", "", ""));
+					}
+				}
+			 } catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
+				 ConnectionManager.getInstance().rollbackTransaction();
+				 throw new TransactionException(TRANSACTION_ERROR, e);
+			 }
+			ConnectionManager.getInstance().commitTransaction();
+		
+			return new UserDTO(user.getLogin(), user.getPasswd(), user.getFirsName(), user.getLastName(), user.getMail(),
 				user.getAge().toString(), user.getWeight().toString(), user.getGender(), user.getAvatar(), role.getName(), user.getStatus(), "", groups);
+		}
 	}
 	
+	//get user by id
 	public UserDTO getbyId(Integer id) throws SQLException, JDBCDriverException, TransactionException, CloseStatementException, EmptyResultSetException {
 		User user = null;
 		Role role = null;
@@ -104,13 +127,18 @@ public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 		ConnectionManager.getInstance().beginTransaction();
 		try {
 			 user = UserDao.get().getUserById(id);
-			 role = RoleDao.get().getRoleById(user.getIdRole());
-			 ugs = UserGroupDao.get().getUGbyId(user.getId());
-			 for( UserGroup ug : ugs ){
-			 group = GroupDao.getInstance().getById(ug.getIdGroup());
-			 groups.add(new GroupDTO(group.getName(), "", "", ""));
+			 if (user == null) {
+				 logger.error("Such user doesn't exist");
+				 throw new IllegalArgumentException();
 			 }
-			 
+			 else {
+				 role = RoleDao.get().getRoleById(user.getIdRole());
+				 ugs = UserGroupDao.get().getUGbyId(user.getId());
+				 for( UserGroup ug : ugs ){
+					 group = GroupDao.getInstance().getById(ug.getIdGroup());
+					 groups.add(new GroupDTO(group.getName(), "", "", ""));
+				 }
+			 }			 
 		} catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
 			throw new TransactionException(TRANSACTION_ERROR, e);
@@ -121,13 +149,35 @@ public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 				user.getAge().toString(), user.getWeight().toString(), user.getGender(), user.getAvatar(), role.getName(), user.getStatus(), "", groups);
 	}
 
+	//Update user
 	@Override
 	public void update(UserDTO userDTO) throws SQLException, JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException, TransactionException, CloseStatementException {
-		
+		if (userDTO == null) {
+			logger.error("you didn't enter user");
+			throw new IllegalArgumentException();
+		}
+		else {
+			ConnectionManager.getInstance().beginTransaction();
+			Role role = RoleDao.get().getByFieldName(userDTO.getRoleName());
+			try {	
+				UserDao.get().updateUser(new User(0, userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstname(), userDTO.getLastname(),
+					 userDTO.getEmail(), Integer.parseInt(userDTO.getAge()), Double.parseDouble(userDTO.getWeight()), userDTO.getGender(),
+					 userDTO.getHealth(), userDTO.getPhotoURL(), userDTO.getGoogleApi(), role.getIdRole(), userDTO.getStatus(), false));
+			}catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
+				ConnectionManager.getInstance().rollbackTransaction();
+				throw new TransactionException(TRANSACTION_ERROR, e);
+			}
+			ConnectionManager.getInstance().commitTransaction();
+		}
+	}
+
+	//Delete user for tests
+	@Override
+	public void delete(UserDTO userDTO) throws SQLException, JDBCDriverException, QueryNotFoundException, DataBaseReadingException, CloseStatementException, TransactionException {
 		ConnectionManager.getInstance().beginTransaction();
 		Role role = RoleDao.get().getByFieldName(userDTO.getRoleName());
 		try {	
-			UserDao.get().updateUser(new User(0, userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstname(), userDTO.getLastname(),
+			UserDao.get().deleteUserForTests(new User(0, userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstname(), userDTO.getLastname(),
 					 userDTO.getEmail(), Integer.parseInt(userDTO.getAge()), Double.parseDouble(userDTO.getWeight()), userDTO.getGender(),
 					 userDTO.getHealth(), userDTO.getPhotoURL(), userDTO.getGoogleApi(), role.getIdRole(), userDTO.getStatus(), false));
 		}catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
@@ -136,12 +186,22 @@ public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 		}
 		ConnectionManager.getInstance().commitTransaction();
 	}
-
-	@Override
-	public void delete(UserDTO baseDTO) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
+	//lock and unlock user (for lock - isDisabled = true, for unlock - isDisabled = false)
+	public void lock(UserDTO userDTO, boolean isDisabled) throws SQLException, JDBCDriverException, QueryNotFoundException, DataBaseReadingException, TransactionException {
+		if (userDTO == null) {
+			logger.error("you didn't enter user");
+			throw new IllegalArgumentException();
+		}
+		else {
+			ConnectionManager.getInstance().beginTransaction();
+			try {
+				UserDao.get().lockUser(isDisabled, userDTO.getLogin());
+			}catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
+				ConnectionManager.getInstance().rollbackTransaction();
+				throw new TransactionException(TRANSACTION_ERROR, e);
+			}
+		ConnectionManager.getInstance().commitTransaction();
+		}
+	}
 }

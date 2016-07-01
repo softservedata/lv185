@@ -66,21 +66,21 @@ public class TestDBCreationManager {
 			logger.error("Error creating database tables.", e);
 		}
 		
-		try {				
-			DBPopulateManager.getInstance().populateUsersTable();
-			DBPopulateManager.getInstance().populateGroupsTable();
-			DBPopulateManager.getInstance().populateUserGroupsTable();
-			DBPopulateManager.getInstance().populateAwardsTable();
-			DBPopulateManager.getInstance().populateCompetitionsTable();
-			DBPopulateManager.getInstance().populateCriteriaTable();
-			DBPopulateManager.getInstance().populateGroupCompetitionsTable();
-			DBPopulateManager.getInstance().populateMetaDataTable();
-			DBPopulateManager.getInstance().populateRolesTable();
-			DBPopulateManager.getInstance().populateUserCompetitionsTable();
-			logger.info("Populated All tables");
-		} catch (JDBCDriverException | QueryNotFoundException | DataBaseReadingException | SQLException e) {
-			logger.error("Error populating database tables.", e);
-		}
+//		try {				
+//			DBPopulateManager.getInstance().populateUsersTable();
+//			DBPopulateManager.getInstance().populateGroupsTable();
+//			DBPopulateManager.getInstance().populateUserGroupsTable();
+//			DBPopulateManager.getInstance().populateAwardsTable();
+//			DBPopulateManager.getInstance().populateCompetitionsTable();
+//			DBPopulateManager.getInstance().populateCriteriaTable();
+//			DBPopulateManager.getInstance().populateGroupCompetitionsTable();
+//			DBPopulateManager.getInstance().populateMetaDataTable();
+//			DBPopulateManager.getInstance().populateRolesTable();
+//			DBPopulateManager.getInstance().populateUserCompetitionsTable();
+//			logger.info("Populated All tables");
+//		} catch (JDBCDriverException | QueryNotFoundException | DataBaseReadingException | SQLException e) {
+//			logger.error("Error populating database tables.", e);
+//		}
 		
 		
 		if (st != null)

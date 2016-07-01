@@ -158,4 +158,7 @@ public final class UserDao extends AbstractDao<User> {
 		return result;
 	}
 	
+	public boolean deleteUserForTests(User user) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException {
+		return delete(user);
+	}
 }

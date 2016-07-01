@@ -231,4 +231,19 @@ public class DBPopulateManager {
 
 		return successfulInsert;
 	}
+	
+	public boolean deleteAllFromTables() throws SQLException, JDBCDriverException {
+		boolean result = false;
+		ConnectionManager.getInstance().beginTransaction();
+		String query = "truncate usergroups, groupcompetitions, usercompetitions, users, " 
+		+ "roles, groups, competitions, awards, criteria, metadata;";
+		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
+			result = pst.execute();
+		}catch (SQLException e) {
+			ConnectionManager.getInstance().rollbackTransaction();
+			System.out.println("Error deleting from table.");
+		}
+		ConnectionManager.getInstance().commitTransaction();
+		return result;
+	}
 }
