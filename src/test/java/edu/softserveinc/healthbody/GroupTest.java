@@ -1,12 +1,14 @@
 package edu.softserveinc.healthbody;
 
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertNotNull;
+
 import java.sql.SQLException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
-
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNotNull;
 
 import edu.softserveinc.healthbody.dto.GroupDTO;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
@@ -18,6 +20,7 @@ import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.impl.GroupServiceImpl;
 
 public class GroupTest {
+	private static Logger logger = LoggerFactory.getLogger(GroupTest.class.getName());
 
 	@Test
 	public void testGetAll() throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException,
@@ -26,13 +29,13 @@ public class GroupTest {
 		int partNumber = 1;
 		int partSize = 2;
 		List<GroupDTO> groupAll = groupService.getAll(partNumber, partSize);
-		System.out.println("Printing all range of GroupDTO from " + partNumber + " to " + partSize);
-		System.out.println("[");
+		logger.info("Printing all range of GroupDTO from " + partNumber + " to " + partSize);
+		logger.info("[");
 		for (GroupDTO group:groupAll){
-			System.out.println("  "+group.getName()+"   "+group.getCount()+"   "+group.getDescriptions()+"   "
+			logger.info("  "+group.getName()+"   "+group.getCount()+"   "+group.getDescriptions()+"   "
 					+group.getScoreGroup()+",");
 		}
-		System.out.println("]");
+		logger.info("]");
 	}
 
 	 @Test

@@ -88,8 +88,8 @@ public class DBCreationManager {
 		}
 	}
 
-	private static volatile DBCreationManager instance = null;
 	private static Logger logger = LoggerFactory.getLogger(DBCreationManager.class.getName());
+	private static volatile DBCreationManager instance = null;
 
 	private DBCreationManager() {
 	}
@@ -117,7 +117,7 @@ public class DBCreationManager {
 		boolean result = false;
 		statement.execute("select datname from pg_catalog.pg_database where datname = \'" + databaseName + "\';");
 		if (statement.getResultSet().next()){
-			System.out.println("Database exists!!!");
+			logger.info("Database exists!!!");
 		} else {
 			logger.info("Creating database " + databaseName);
 			result = statement.execute("CREATE DATABASE " + databaseName);

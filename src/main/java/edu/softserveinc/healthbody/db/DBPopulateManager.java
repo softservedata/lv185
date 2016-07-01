@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
@@ -12,6 +15,7 @@ import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 
 public class DBPopulateManager {
 
+	private static Logger logger = LoggerFactory.getLogger(DBPopulateManager.class.getName());
 	private static volatile DBPopulateManager instance = null;
 	private static int users = 10;
 	private static int competitions = 20;
@@ -54,7 +58,7 @@ public class DBPopulateManager {
 				successfulInsert = pst.execute();
 			}
 		} catch (SQLException e) {
-			System.out.println("Error populating users table.");
+			logger.error("Error populating users table.");
 		}
 
 		return successfulInsert;
@@ -75,7 +79,7 @@ public class DBPopulateManager {
 				successfulInsert = pst.execute();
 			}
 		} catch (SQLException e) {
-			System.out.println("Error populating groups table.");
+			logger.error("Error populating groups table.");
 		}
 
 		return successfulInsert;
@@ -92,7 +96,7 @@ public class DBPopulateManager {
 				successfulInsert = pst.execute();
 			}
 		} catch (SQLException e) {
-			System.out.println("Error populating usergroups table.");
+			logger.error("Error populating usergroups table.");
 		}
 
 		return successfulInsert;
@@ -109,7 +113,7 @@ public class DBPopulateManager {
 				successfulInsert = pst.execute();
 			}
 		} catch (SQLException e) {
-			System.out.println("Error populating awards table.");
+			logger.error("Error populating awards table.");
 		}
 
 		return successfulInsert;
@@ -133,7 +137,7 @@ public class DBPopulateManager {
 				successfulInsert = pst.execute();
 			}
 		} catch (SQLException e) {
-			System.out.println("Error populating competitions table.");
+			logger.error("Error populating competitions table.");
 		}
 
 		return successfulInsert;
@@ -152,7 +156,7 @@ public class DBPopulateManager {
 				successfulInsert = pst.execute();
 			}
 		} catch (SQLException e) {
-			System.out.println("Error populating criteria table.");
+			logger.error("Error populating criteria table.");
 		}
 
 		return successfulInsert;
@@ -169,7 +173,7 @@ public class DBPopulateManager {
 				successfulInsert = pst.execute();
 			}
 		} catch (SQLException e) {
-			System.out.println("Error populating groupcompetitions table.");
+			logger.error("Error populating groupcompetitions table.");
 		}
 
 		return successfulInsert;
@@ -186,7 +190,7 @@ public class DBPopulateManager {
 				successfulInsert = pst.execute();
 			}
 		} catch (SQLException e) {
-			System.out.println("Error populating metadata table.");
+			logger.error("Error populating metadata table.");
 		}
 
 		return successfulInsert;
@@ -204,7 +208,7 @@ public class DBPopulateManager {
 				successfulInsert = pst.execute();
 			}
 		} catch (SQLException e) {
-			System.out.println("Error populating roles table.");
+			logger.error("Error populating roles table.");
 		}
 
 		return successfulInsert;
@@ -225,8 +229,7 @@ public class DBPopulateManager {
 				successfulInsert = pst.execute();
 			}
 		} catch (SQLException e) {
-			System.out.println("Error populating usercompetitions table.");
-			e.printStackTrace();
+			logger.error("Error populating usercompetitions table.", e);
 		}
 
 		return successfulInsert;

@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 import edu.softserveinc.healthbody.dto.GroupDTO;
@@ -19,6 +21,8 @@ import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.impl.UserProfileServiceImpl;
 
 public class ProfileTest {
+	private static Logger logger = LoggerFactory.getLogger(ProfileTest.class.getName());
+	
   @Test
   public void testGetUserByLogin() throws SQLException, JDBCDriverException, EmptyResultSetException, TransactionException, CloseStatementException {
 	  UserDTO userDTO1 = UserProfileServiceImpl.getInstance().get("Login 3");
@@ -33,12 +37,12 @@ public class ProfileTest {
 	  assertEquals("w", userDTO1.getGender());
 	  assertEquals("user", userDTO1.getRoleName());
 	  
-	  System.out.println("\n\nFirstname: "+ userDTO1.getFirstname() + "\nLastname: " +userDTO1.getLastname() +
+	  logger.info("\n\nFirstname: "+ userDTO1.getFirstname() + "\nLastname: " +userDTO1.getLastname() +
 				"\nLogin: " + userDTO1.getLogin() + "\nPassword: " + userDTO1.getPassword() + "\nE-mail: " + userDTO1.getEmail() +
 				"\nWeight: " + userDTO1.getWeight() + "\nAge: " + userDTO1.getAge() + "\nGender: " + userDTO1.getGender() + "\nUserRole: " + userDTO1.getRoleName());
-		System.out.print("User's groups:  ");
+		logger.info("User's groups:  ");
 		for (GroupDTO group : userDTO1.getGroups()) {
-			System.out.print(group.getName() + "     ");
+			logger.info(group.getName() + "     ");
 		}
   }
   @Test
@@ -56,12 +60,12 @@ public class ProfileTest {
 	  assertEquals("m", userDTO.getGender());
 	  assertEquals("user", userDTO.getRoleName());
 	  
-		System.out.println("\n\nFirstname: "+ userDTO.getFirstname() + "\nLastname: " +userDTO.getLastname() +
+		logger.info("\n\nFirstname: "+ userDTO.getFirstname() + "\nLastname: " +userDTO.getLastname() +
 				"\nLogin: " + userDTO.getLogin() + "\nPassword: " + userDTO.getPassword() + "\nE-mail: " + userDTO.getEmail() +
 				"\nWeight: " + userDTO.getWeight() + " \nAge: " + userDTO.getAge() + "\nGender: " + userDTO.getGender() + "\nUserRole: " + userDTO.getRoleName());
-		System.out.print("User's groups:  ");
+		logger.info("User's groups:  ");
 		for (GroupDTO group : userDTO.getGroups()) {
-			System.out.print(group.getName() + "     ");
+			logger.info(group.getName() + "     ");
 		}
   }
   @Test
@@ -86,12 +90,12 @@ public class ProfileTest {
 	  assertEquals("w", userDTO2.getGender());
 	  assertEquals("user", userDTO2.getRoleName());
 	  
-		System.out.println("\n\nFirstname: "+ userDTO2.getFirstname() + "\nLastname: " +userDTO2.getLastname() +
+		logger.info("\n\nFirstname: "+ userDTO2.getFirstname() + "\nLastname: " +userDTO2.getLastname() +
 				"\nLogin: " + userDTO2.getLogin() + "\nPassword: " + userDTO2.getPassword() + "\nE-mail: " + userDTO2.getEmail() +
 				"\nWeight: " + userDTO2.getWeight() + " \nAge: " + userDTO2.getAge() + "\nGender: " + userDTO2.getGender() + "\nUserRole: " + userDTO2.getRoleName());
-		System.out.print("User's groups:  ");
+		logger.info("User's groups:  ");
 		for (GroupDTO group : userDTO2.getGroups()) {
-			System.out.print(group.getName() + "     ");
+			logger.info(group.getName() + "     ");
 		}
   }
   @Test
@@ -111,12 +115,12 @@ public class ProfileTest {
 	  assertEquals("67", userDTO4.getAge());
 	  assertEquals("m", userDTO4.getGender());
 	  	  
-	  System.out.println("\n\nFirstname: "+ userDTO4.getFirstname() + "\nLastname: " +userDTO4.getLastname() +
+	  logger.info("\n\nFirstname: "+ userDTO4.getFirstname() + "\nLastname: " +userDTO4.getLastname() +
 				"\nLogin: " + userDTO4.getLogin() + "\nPassword: " + userDTO4.getPassword() + "\nE-mail: " + userDTO4.getEmail() +
 				"\nWeight: " + userDTO4.getWeight() + "\nAge: " + userDTO4.getAge() + "\nGender: " + userDTO4.getGender() + "\nUserRole: " + userDTO4.getRoleName());
-	  System.out.print("User's groups:  ");
+	  logger.info("User's groups:  ");
 		for (GroupDTO group : userDTO4.getGroups()) {
-			System.out.print(group.getName() + "     ");
+			logger.info(group.getName() + "     ");
 		}
   }
 }

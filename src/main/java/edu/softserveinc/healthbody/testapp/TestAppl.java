@@ -7,9 +7,8 @@ import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-
+import org.slf4j.LoggerFactory;
 
 import edu.softserveinc.healthbody.dto.CompetitionDTO;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
@@ -48,13 +47,13 @@ public class TestAppl {
 			competitionsServiceImpl.insert(new CompetitionDTO("we are the champions"," " ,"2016-06-23" , "2016-07-23", "nice", "Name criteria 1", null, null));
 		} catch (TransactionException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Insert didn't work", e);
 		}
 		
-		System.out.println("In getAllActive: " + Arrays.toString(ls1.toArray()));
-		System.out.println("In getAllActiveByUser: " + Arrays.toString(ls2.toArray()));
-		System.out.println("In getAllByUser: " + Arrays.toString(ls3.toArray()));
-		System.out.println("In getAll: " + Arrays.toString(ls4.toArray()));
+		logger.info("In getAllActive: " + Arrays.toString(ls1.toArray()));
+		logger.info("In getAllActiveByUser: " + Arrays.toString(ls2.toArray()));
+		logger.info("In getAllByUser: " + Arrays.toString(ls3.toArray()));
+		logger.info("In getAll: " + Arrays.toString(ls4.toArray()));
 
 		DriverManager.registerDriver(new org.postgresql.Driver());
 

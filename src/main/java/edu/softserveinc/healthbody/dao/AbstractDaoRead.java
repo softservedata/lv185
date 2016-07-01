@@ -205,9 +205,7 @@ abstract class AbstractDaoRead<TEntity> extends ADaoInit implements IBasicReadDa
 		if (query == null) {
 			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.GET_ID_BY_FIELDS.name()));
 		}
-
 		query = makeQuery(partNumber, partSize, query, filters);
-		System.out.println(query);
 		try {
 			PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query);
 			ResultSet resultSet = pst.executeQuery();
