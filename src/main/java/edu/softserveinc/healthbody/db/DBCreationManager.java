@@ -40,9 +40,11 @@ public class DBCreationManager {
 		if (statement.getResultSet().next()){
 			String deleteConnectionsQuery = "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = \'"
 					+ databaseName + "\' AND pid <> pg_backend_pid();";
-			result = statement.execute(deleteConnectionsQuery + "DROP DATABASE " + databaseName + ";");			
+			result = statement.execute(deleteConnectionsQuery + "DROP DATABASE " + databaseName + ";");
+			logger.info("Database - " + databaseName + " was deleted");
 		} else {
 			logger.info("Cannot delete database "+databaseName+", because this datatbase is absent!");
+			result = true;
 		}
 		return result;
 	}

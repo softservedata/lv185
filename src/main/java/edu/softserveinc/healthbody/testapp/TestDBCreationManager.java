@@ -22,7 +22,7 @@ public class TestDBCreationManager {
 	private static String password = "root";
 	private static String URL = "jdbc:postgresql://localhost:5432/";
 	private static String databaseName = "healthbodydb";
-	private static String dropDatabase = "false";
+	private static String dropDatabase = "true";
 
 	public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		logger.info("TestDBCreationManager starts...");
@@ -41,7 +41,6 @@ public class TestDBCreationManager {
 		if(dropDatabase.equals("true")){
 			try {
 				DBCreationManager.getInstance().dropDatabase(st, databaseName);
-				logger.info("Database - " + databaseName + " was deleted");
 				
 			} catch (SQLException e) {
 				logger.error("Database wasn't deleted", e);
