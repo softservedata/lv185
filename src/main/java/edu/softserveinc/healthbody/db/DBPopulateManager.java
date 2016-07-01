@@ -58,7 +58,6 @@ public class DBPopulateManager {
 		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating users table.");
 		}
-
 		return successfulInsert;
 	}
 
@@ -78,7 +77,6 @@ public class DBPopulateManager {
 		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating groups table.");
 		}
-
 		return successfulInsert;
 	}
 
@@ -95,7 +93,6 @@ public class DBPopulateManager {
 		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating usergroups table.");
 		}
-
 		return successfulInsert;
 	}
 
@@ -111,7 +108,6 @@ public class DBPopulateManager {
 		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating awards table.");
 		}
-
 		return successfulInsert;
 	}
 
@@ -134,7 +130,6 @@ public class DBPopulateManager {
 		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating competitions table.");
 		}
-
 		return successfulInsert;
 	}
 
@@ -152,7 +147,6 @@ public class DBPopulateManager {
 		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating criteria table.");
 		}
-
 		return successfulInsert;
 	}
 
@@ -169,7 +163,6 @@ public class DBPopulateManager {
 		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating groupcompetitions table.");
 		}
-
 		return successfulInsert;
 	}
 
@@ -185,7 +178,6 @@ public class DBPopulateManager {
 		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating metadata table.");
 		}
-
 		return successfulInsert;
 	}
 
@@ -202,7 +194,6 @@ public class DBPopulateManager {
 		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating roles table.");
 		}
-
 		return successfulInsert;
 	}
 
@@ -222,7 +213,6 @@ public class DBPopulateManager {
 		} catch (JDBCDriverException | SQLException e) {
 			logger.error("Error populating usercompetitions table.", e);
 		}
-
 		return successfulInsert;
 	}
 }
