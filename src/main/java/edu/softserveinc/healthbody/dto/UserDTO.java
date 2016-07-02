@@ -19,10 +19,11 @@ public class UserDTO {
 	private String status;
 	private String score;
 	private List<GroupDTO> groups;
+	private String isDisabled;
 
 	public UserDTO(String login, String password, String firstname, String lastname, String email, String age,
 			String weight, String gender, String photoURL, String roleName, String status, String score,
-			List<GroupDTO> groups) {
+			List<GroupDTO> groups, String isDisabled) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -95,7 +96,10 @@ public class UserDTO {
 		return health;
 	}
 
-	
+	public String getIsDisabled() {
+		return isDisabled;
+	}
+
 	//setters
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
@@ -161,6 +165,10 @@ public class UserDTO {
 		this.googleApi = googleApi;
 	}
 	
+	public void setIsDisabled(String isDisabled) {
+	this.isDisabled = isDisabled;
+	}
+
 	@Override
 	public String toString() {
 		return "UserDTO [firstname=" + firstname + ", lastname=" + lastname + ", login=" + login + ", password="
@@ -168,5 +176,4 @@ public class UserDTO {
 				+ ", photoURL=" + photoURL + ", roleName=" + roleName + ", health=" + health + ", googleApi="
 				+ googleApi + ", status=" + status + ", score=" + score + ", groups=" + groups + "]" + System.lineSeparator();
 	}
-
 }

@@ -31,7 +31,7 @@ public class UsersViewServiceImpl implements IUsersViewService {
 			userDTO.add(new UserDTO(usersView.getFirsName(), usersView.getLastName(), usersView.getLogin(),
 					usersView.getPasswd(), usersView.getMail(), usersView.getAge().toString(),
 					usersView.getWeight().toString(), usersView.getGender(), usersView.getAvatar(),
-					usersView.getRoleName(), usersView.getStatus(), usersView.getScore().toString(), null));
+					usersView.getRoleName(), usersView.getStatus(), usersView.getScore().toString(), null, null));
 		}
 		return userDTO;
 	}
@@ -58,7 +58,7 @@ public class UsersViewServiceImpl implements IUsersViewService {
 				partSize)) {
 			userDTO.add(new UserDTO(usersView.getFirsName(), usersView.getLastName(), null,
 					null, null, usersView.getAge().toString(), usersView.getWeight().toString(),
-					null, usersView.getAvatar(), null, null, usersView.getScore().toString(), null));
+					null, usersView.getAvatar(), null, null, usersView.getScore().toString(), null, null));
 		}
 		return userDTO;
 	}
@@ -86,7 +86,7 @@ public class UsersViewServiceImpl implements IUsersViewService {
 				partSize)) {
 			userDTO.add(new UserDTO(usersView.getFirsName(), usersView.getLastName(), null,
 					null, null, usersView.getAge().toString(), usersView.getWeight().toString(), null,
-					usersView.getAvatar(), null, null, usersView.getScore().toString(), null));
+					usersView.getAvatar(), null, null, usersView.getScore().toString(), null, null));
 		}
 		return userDTO;
 	}

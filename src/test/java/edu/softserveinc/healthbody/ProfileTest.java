@@ -2,7 +2,11 @@ package edu.softserveinc.healthbody;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +14,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
+import edu.softserveinc.healthbody.db.DBCreationManager;
 import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.dto.GroupDTO;
 import edu.softserveinc.healthbody.dto.UserDTO;
@@ -29,6 +36,48 @@ public class ProfileTest {
 
 	private static Logger logger = LoggerFactory.getLogger(TestProfile.class.getName());
   
+	@BeforeSuite
+	public void setUpBeforeSuite() {
+		try (Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/", "postgres", "root");
+				Statement st = con.createStatement()){
+			if (!DBCreationManager.getInstance().createDatabase(st, "healthbodydb")){
+				logger.info("Couldn't create database, because encounter some problem!");
+				System.exit(0); 
+			}
+		} catch (SQLException e) {
+			logger.error("Problem with creating database", e);
+			System.exit(0); 
+		}
+		try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/healthbodydb", "postgres", "root");
+				Statement st = con.createStatement()){
+			DBCreationManager dbCReationManager = DBCreationManager.getInstance();
+			for (String query : dbCReationManager.getListOfQueries()) {
+				logger.info("Creating " + query.split("\"")[1]);
+				dbCReationManager.createTable(st, query);
+			}
+		} catch (SQLException e) {
+			logger.error("Problem with creating tables data", e);
+			System.exit(0); 
+		}
+	}
+	
+	@AfterSuite
+	public void tearDownAfterSuite() {
+		try (Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/", "postgres", "root");
+				Statement st = con.createStatement()){
+				if (!DBCreationManager.getInstance().dropDatabase(st, "healthbodydb")){
+					logger.info("Couldn't delete database, because encounter some problem!");
+					System.exit(0); 
+				}
+				else {
+				logger.error("Database wasn't deleted");			
+			}
+		} catch (SQLException e) {
+			logger.error("Problem with deleting database", e);
+			System.exit(0); 
+		}
+	}
+	
 	@BeforeClass
 	public void setUpBeforeClass() throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
 		DBPopulateManager.getInstance().populateUsersTable();
@@ -41,6 +90,7 @@ public class ProfileTest {
 		DBPopulateManager.getInstance().populateMetaDataTable();
 		DBPopulateManager.getInstance().populateRolesTable();
 		DBPopulateManager.getInstance().populateUserCompetitionsTable();
+		logger.info("Populated All tables");					
 	}
 	
 	@AfterClass
@@ -69,6 +119,18 @@ public class ProfileTest {
 	 		logger.info(group.getName() + "     ");
 	 	}
 	}
+	
+	//You didn't enter login
+	@Test (expectedExceptions = IllegalArgumentException.class)
+	public void testGetUserByLoginNull() throws SQLException, JDBCDriverException, EmptyResultSetException, TransactionException, CloseStatementException {
+		UserProfileServiceImpl.getInstance().get(null);
+	}
+	
+	//Such user doesn't exist
+	@Test (expectedExceptions = IllegalArgumentException.class)
+	public void testGetUserByLoginNotExist() throws SQLException, JDBCDriverException, EmptyResultSetException, TransactionException, CloseStatementException {
+		UserProfileServiceImpl.getInstance().get("Marisol");
+	}
   
 	@Test
 	public void testGetUserById() throws SQLException, JDBCDriverException, TransactionException, CloseStatementException, EmptyResultSetException {
@@ -91,6 +153,13 @@ public class ProfileTest {
 			logger.info(group.getName() + "     ");
 		}
 	}
+	
+	//User with such id doesn't exist
+	@Test (expectedExceptions = IllegalArgumentException.class)
+	public void testGetUserByIdNotExist() throws SQLException, JDBCDriverException, EmptyResultSetException, TransactionException, CloseStatementException {
+		UserProfileServiceImpl.getInstance().getbyId(0);
+	}
+		
 	@Test
 	public void testUpdateUser() throws SQLException, JDBCDriverException, TransactionException, CloseStatementException, EmptyResultSetException, DataBaseReadingException, QueryNotFoundException {
 		UserDTO userDTO2 = UserProfileServiceImpl.getInstance().getbyId(5);
@@ -116,11 +185,19 @@ public class ProfileTest {
 			logger.info(group.getName() + "     ");
 		}
 	}
+	
+	//You didn't enter user
+		@Test (expectedExceptions = IllegalArgumentException.class)
+		public void testUpdateUserNull() throws SQLException, JDBCDriverException, EmptyResultSetException, TransactionException, CloseStatementException, DataBaseReadingException, QueryNotFoundException {
+			UserDTO userDTO2 = null;
+			UserProfileServiceImpl.getInstance().update(userDTO2);
+		}
+		
 	@Test
 	public void testInsertUser() throws SQLException, JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException, TransactionException, CloseStatementException {
 		List<GroupDTO> groups = new ArrayList<GroupDTO>();
 		groups.add(new GroupDTO("Name group number 1", "10", "Description of group 1", "11"));
-		UserDTO userDTO3 = new UserDTO("President", "password", "Bill", "Klinton", "SomeMail75@gmail.com", "67", "80.5","m", "photourl", "user", "active", "1000", groups);
+		UserDTO userDTO3 = new UserDTO("President", "password", "Bill", "Klinton", "SomeMail75@gmail.com", "67", "80.5","m", "photourl", "user", "active", "1000", groups, "false");
 	 	UserProfileServiceImpl.getInstance().insert(userDTO3);
 	 	UserDTO userDTO4 = UserProfileServiceImpl.getInstance().get("President");
 	 	assertNotNull(userDTO4);
@@ -139,5 +216,38 @@ public class ProfileTest {
 		for (GroupDTO group : userDTO4.getGroups()) {
 			logger.info(group.getName() + "     ");
 		}
+		UserProfileServiceImpl.getInstance().delete(userDTO4);
+		logger.info("Delete user from database for test");
+	}
+	
+	//You didn't enter user
+	@Test (expectedExceptions = IllegalArgumentException.class)
+	public void testInsertUserNull() throws SQLException, JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException, TransactionException, CloseStatementException {
+		UserDTO userDTO3 = null;
+		UserProfileServiceImpl.getInstance().insert(userDTO3);
+	}
+					
+	@Test
+	public void testLockUser() throws SQLException, JDBCDriverException, EmptyResultSetException, TransactionException, CloseStatementException, QueryNotFoundException, DataBaseReadingException {
+		UserDTO userDTO5 = UserProfileServiceImpl.getInstance().get("Login 2");
+		userDTO5.setIsDisabled("true");
+		UserProfileServiceImpl.getInstance().lock(userDTO5, true);
+		assertEquals("true", userDTO5.getIsDisabled());
+		
+	}
+	
+	//You didn't enter user
+	@Test (expectedExceptions = IllegalArgumentException.class)
+	public void testLockUserNull() throws SQLException, JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException, TransactionException, CloseStatementException {
+		UserDTO userDTO5 = null;
+		UserProfileServiceImpl.getInstance().lock(userDTO5, true);
+	}
+	
+	//You entered incorrect isDisabled
+	@Test (expectedExceptions = IllegalArgumentException.class)
+	public void testLockUserIncorrectIsDisabled() throws SQLException, JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException, TransactionException, CloseStatementException {
+		UserDTO userDTO5 = UserProfileServiceImpl.getInstance().get("Login 6");
+		userDTO5.setIsDisabled("false");
+		UserProfileServiceImpl.getInstance().lock(userDTO5, false);
 	}
 }

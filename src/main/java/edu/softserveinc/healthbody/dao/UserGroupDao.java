@@ -93,6 +93,9 @@ public class UserGroupDao extends AbstractDao<UserGroup>{
 					throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
 			}
 		return result;
-					
+	}
+	
+	public boolean deleteByUserId (Integer id) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException {
+		return deleteById(id);
 	}
 }

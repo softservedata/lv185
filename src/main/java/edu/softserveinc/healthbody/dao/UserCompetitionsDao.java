@@ -82,4 +82,7 @@ public final class UserCompetitionsDao extends AbstractDao<UserCompetitions> {
 		return getAllbyId(id);
 	}
 
+	public boolean deleteByUserId(Integer id) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException {
+		return deleteById(id);
+	}
 }
