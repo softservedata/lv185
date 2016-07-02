@@ -100,12 +100,20 @@ public class UserViewTest {
 		}
 	}
 	
+	//List<UserDTO> with such partNumber doesn't exist
+//	@Test (expectedExceptions = IllegalArgumentException.class)
+//	public void testGetListUserDTOByPartNumberNotExist() throws SQLException, JDBCDriverException, EmptyResultSetException, TransactionException, CloseStatementException {
+//		UsersViewServiceImpl uvs = new UsersViewServiceImpl();
+//			List<UserDTO> ud2 = uvs.getAll(1150, 5);
+//			logger.info("In testGetListUserDTOByPartNumberNotExist: " + Arrays.toString(ud2.toArray()));
+//	}
+	
 	@Test
 	public void testUserViewGetAllbyAdmin() {
 		UsersViewServiceImpl uvs = new UsersViewServiceImpl();
 		try {
-			List<UserDTO> ud2 = uvs.getAllbyAdmin(1, 5);
-			logger.info("In getAllbyAdmin: " + Arrays.toString(ud2.toArray()));
+			List<UserDTO> ud3 = uvs.getAllbyAdmin(1, 5);
+			logger.info("In getAllbyAdmin: " + Arrays.toString(ud3.toArray()));
 		} catch (JDBCDriverException | SQLException | TransactionException e) {
 			logger.error("GetAllbyAdmin didn't work", e);
 		}
@@ -115,8 +123,8 @@ public class UserViewTest {
 	public void testUserViewGetAllinCompetition() {
 		UsersViewServiceImpl uvs = new UsersViewServiceImpl();
 		try {
-			List<UserDTO> ud3 = uvs.getAllinCompetition(1, 5);
-			logger.info("In getAllinCompetition: " + Arrays.toString(ud3.toArray()));
+			List<UserDTO> ud4 = uvs.getAllinCompetition(1, 5);
+			logger.info("In getAllinCompetition: " + Arrays.toString(ud4.toArray()));
 		} catch (JDBCDriverException | SQLException | TransactionException e) {
 			logger.error("GetAllinCompetition didn't work", e);
 		}
@@ -126,8 +134,8 @@ public class UserViewTest {
 	public void testUserViewGetAllinGroup() {
 		UsersViewServiceImpl uvs = new UsersViewServiceImpl();
 		try {
-			List<UserDTO> ud4 = uvs.getAllinGroup(1, 5);
-			logger.info("In getAllinGroup: " + Arrays.toString(ud4.toArray()));
+			List<UserDTO> ud5 = uvs.getAllinGroup(1, 5);
+			logger.info("In getAllinGroup: " + Arrays.toString(ud5.toArray()));
 		} catch (JDBCDriverException | SQLException | TransactionException e) {
 			logger.error("GetAllinGroup didn't work", e);
 		}
@@ -137,8 +145,8 @@ public class UserViewTest {
 	public void testUserViewGetAlltoAddInCompetition() {
 		UsersViewServiceImpl uvs = new UsersViewServiceImpl();
 		try {
-			List<UserDTO> ud5 = uvs.getAlltoAddInCompetition(1, 5);
-			logger.info("In getAlltoAddInCompetition: " + Arrays.toString(ud5.toArray()));
+			List<UserDTO> ud6 = uvs.getAlltoAddInCompetition(1, 5);
+			logger.info("In getAlltoAddInCompetition: " + Arrays.toString(ud6.toArray()));
 		} catch (JDBCDriverException | SQLException | TransactionException e) {
 			logger.error("GetAlltoAddInCompetition didn't work", e);
 		}
