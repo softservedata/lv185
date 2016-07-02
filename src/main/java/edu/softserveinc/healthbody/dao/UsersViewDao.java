@@ -84,13 +84,8 @@ public class UsersViewDao extends AbstractDaoRead<UsersView> {
 		if ((partNumber >= 0) && (partSize > 0)) {
 			query = query.substring(0, query.lastIndexOf(";")) + SQL_LIMIT;
 		}
-		try {
-			PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query);
-			if ((partNumber >= 0) && (partSize > 0)) {
-				pst.setInt(1, (partNumber - 1) * partSize);
-				pst.setInt(2, partSize);
-			}
-			ResultSet resultSet = pst.executeQuery();
+		try (PreparedStatement pst = createPreparedStatement(query, partNumber, partSize);
+			ResultSet resultSet = pst.executeQuery()){
 			String[] queryResult = new String[resultSet.getMetaData().getColumnCount()];
 			while (resultSet.next()) {
 				result.add(createInstance(getQueryResultArr(queryResult, resultSet)));
@@ -102,6 +97,16 @@ public class UsersViewDao extends AbstractDaoRead<UsersView> {
 			throw new EmptyResultSetException(String.format(EMPTY_RESULTSET, query));
 		}
 		return result;
+	}
+	
+	//methods for try-with-resources
+	private PreparedStatement createPreparedStatement(String query, int partNumber, int partSize) throws SQLException, JDBCDriverException {
+		PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query);
+			if ((partNumber >= 0) && (partSize > 0)) {
+				pst.setInt(1, (partNumber - 1) * partSize);
+				pst.setInt(2, partSize);
+			}
+			return pst;
 	}
 
 }
