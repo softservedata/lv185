@@ -32,7 +32,7 @@ public class UserViewTest {
 		try (Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/", "postgres", "root");
 				Statement st = con.createStatement()){
 			if (!DBCreationManager.getInstance().createDatabase(st, "healthbodydb")){
-				logger.info("Couldn't create database, because encounter some problem!");
+				logger.error("Couldn't create database, because encounter some problem!");
 				System.exit(0); 
 			}
 		} catch (SQLException e) {
@@ -57,11 +57,11 @@ public class UserViewTest {
 		try (Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/", "postgres", "root");
 				Statement st = con.createStatement()){
 				if (!DBCreationManager.getInstance().dropDatabase(st, "healthbodydb")){
-					logger.info("Couldn't delete database, because encounter some problem!");
+					logger.error("Couldn't delete database, because encounter some problem!");
 					System.exit(0); 
 				}
 				else {
-				logger.error("Database wasn't deleted");			
+				logger.info("Database was deleted");			
 			}
 		} catch (SQLException e) {
 			logger.error("Problem with deleting database", e);
