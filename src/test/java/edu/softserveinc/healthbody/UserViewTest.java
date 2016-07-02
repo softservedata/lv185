@@ -9,11 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 import edu.softserveinc.healthbody.dto.UserDTO;
-import edu.softserveinc.healthbody.exceptions.CloseStatementException;
-import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
-import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
-import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.impl.UsersViewServiceImpl;
 
@@ -50,9 +46,7 @@ public class UserViewTest {
 			logger.info("In getAllinCompetition: " + Arrays.toString(ud3.toArray()));
 //			logger.info("In getAllinGroup: " + Arrays.toString(ud4.toArray()));
 //			logger.info("In getAllinGroup: " + Arrays.toString(ud5.toArray()));
-		} catch (QueryNotFoundException | JDBCDriverException | DataBaseReadingException | EmptyResultSetException
-				| CloseStatementException | SQLException | TransactionException e) {
-			// TODO Auto-generated catch block
+		} catch (JDBCDriverException | SQLException | TransactionException e) {
 			logger.error("GetAll didn't work", e);
 		}
 	}
