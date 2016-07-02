@@ -18,7 +18,9 @@ import org.testng.annotations.Test;
 import edu.softserveinc.healthbody.db.DBCreationManager;
 import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.dto.UserDTO;
+import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
+import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
@@ -101,12 +103,12 @@ public class UserViewTest {
 	}
 	
 	//List<UserDTO> with such partNumber doesn't exist
-//	@Test (expectedExceptions = IllegalArgumentException.class)
-//	public void testGetListUserDTOByPartNumberNotExist() throws SQLException, JDBCDriverException, EmptyResultSetException, TransactionException, CloseStatementException {
-//		UsersViewServiceImpl uvs = new UsersViewServiceImpl();
-//			List<UserDTO> ud2 = uvs.getAll(1150, 5);
-//			logger.info("In testGetListUserDTOByPartNumberNotExist: " + Arrays.toString(ud2.toArray()));
-//	}
+	@Test (expectedExceptions = TransactionException.class)
+	public void testGetListUserDTOByPartNumberNotExist() throws JDBCDriverException, SQLException, TransactionException {
+		UsersViewServiceImpl uvs = new UsersViewServiceImpl();
+			List<UserDTO> ud2 = uvs.getAll(1150, 5);
+			logger.info("In testGetListUserDTOByPartNumberNotExist: " + Arrays.toString(ud2.toArray()));
+	}
 	
 	@Test
 	public void testUserViewGetAllbyAdmin() {
