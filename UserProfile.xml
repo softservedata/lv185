@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Profile Suite">
@@ -10,3 +11,17 @@
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Profile Suite">
+  <parameter name="Cunnectionurl" value="jdbc:postgresql://localhost:5432/healthbodydb" /> 
+  <parameter name="username" value="postgresname" /> 
+  <parameter name="password" value="rootpassword" /> 
+  <test name="Profile Test">
+    <classes>
+      <class name="edu.softserveinc.healthbody.ProfileTest"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
+>>>>>>> development
