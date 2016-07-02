@@ -35,9 +35,7 @@ public class CompetitionsTest {
 		try {
 			List<CompetitionDTO> ls4 = cs.getAll(1, 30);
 			logger.info("In getAll: " + Arrays.toString(ls4.toArray()));
-		} catch (QueryNotFoundException | JDBCDriverException | DataBaseReadingException | EmptyResultSetException
-				| CloseStatementException e) {
-			// TODO Auto-generated catch block
+		} catch (JDBCDriverException | SQLException | TransactionException e) {
 			logger.error("GetAll didn't work", e);
 		}
   }
