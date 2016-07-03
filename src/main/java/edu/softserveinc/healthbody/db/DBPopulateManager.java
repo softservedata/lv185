@@ -29,14 +29,6 @@ public class DBPopulateManager {
 		}
 	}
 
-	private DBPopulateManager(DataSource dataSource) {
-		try {
-			con = ConnectionManager.getInstance(dataSource).getConnection();
-		} catch (JDBCDriverException e) {
-			logger.error("Error populating users table.");
-		}
-	}
-
 	public static DBPopulateManager getInstance() {
 		if (instance == null) {
 			synchronized (DBPopulateManager.class) {
@@ -48,17 +40,6 @@ public class DBPopulateManager {
 		return instance;
 	}
 
-	public static DBPopulateManager getInstance(DataSource dataSource) {
-		if (instance == null) {
-			synchronized (DBPopulateManager.class) {
-				if (instance == null) {
-					instance = new DBPopulateManager(dataSource);
-				}
-			}
-		}
-		return instance;
-	}
-	
 	public boolean populateUsersTable() {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.UserDBQueries.INSERT.toString();

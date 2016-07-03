@@ -22,7 +22,6 @@ import org.testng.annotations.Test;
 import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.db.DBCreationManager;
 import edu.softserveinc.healthbody.db.DBPopulateManager;
-import edu.softserveinc.healthbody.db.DataSource;
 import edu.softserveinc.healthbody.db.DataSourceRepository;
 import edu.softserveinc.healthbody.dto.CompetitionDTO;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
@@ -88,24 +87,22 @@ public class TestCompetitionsView {
 	
 	@BeforeClass
 	public void setUpBeforeClass() throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
-		DataSource ds = DataSourceRepository.getInstance().getPostgresLocalHostTest();
-		DBPopulateManager.getInstance(ds).populateUsersTable();
-		DBPopulateManager.getInstance(ds).populateGroupsTable();
-		DBPopulateManager.getInstance(ds).populateUserGroupsTable();
-		DBPopulateManager.getInstance(ds).populateAwardsTable();
-		DBPopulateManager.getInstance(ds).populateCompetitionsTable();
-		DBPopulateManager.getInstance(ds).populateCriteriaTable();
-		DBPopulateManager.getInstance(ds).populateGroupCompetitionsTable();
-		DBPopulateManager.getInstance(ds).populateMetaDataTable();
-		DBPopulateManager.getInstance(ds).populateRolesTable();
-		DBPopulateManager.getInstance(ds).populateUserCompetitionsTable();
+		DBPopulateManager.getInstance().populateUsersTable();
+		DBPopulateManager.getInstance().populateGroupsTable();
+		DBPopulateManager.getInstance().populateUserGroupsTable();
+		DBPopulateManager.getInstance().populateAwardsTable();
+		DBPopulateManager.getInstance().populateCompetitionsTable();
+		DBPopulateManager.getInstance().populateCriteriaTable();
+		DBPopulateManager.getInstance().populateGroupCompetitionsTable();
+		DBPopulateManager.getInstance().populateMetaDataTable();
+		DBPopulateManager.getInstance().populateRolesTable();
+		DBPopulateManager.getInstance().populateUserCompetitionsTable();
 		logger.info("Populated All tables");					
 	}
 	
 	@AfterClass
 	public void tearDownAfterClass() throws SQLException, JDBCDriverException {
-		DataSource ds = DataSourceRepository.getInstance().getPostgresLocalHostTest();
-		DBPopulateManager.getInstance(ds).deleteAllFromTables();
+		DBPopulateManager.getInstance().deleteAllFromTables();
 	}
 	
 	@Test

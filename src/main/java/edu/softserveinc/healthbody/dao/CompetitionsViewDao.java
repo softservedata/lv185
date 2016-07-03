@@ -6,17 +6,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import edu.softserveinc.healthbody.dao.DaoStatementsConstant.CompetitionsViewQueries;
 import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.entity.CompetitionsView;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
+import edu.softserveinc.healthbody.exceptions.IllegalAgrumentCheckedException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
+import edu.softserveinc.healthbody.services.impl.CompetitionsViewServiceImpl;
 
 public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 
+	private final static Logger logger = LoggerFactory.getLogger(CompetitionsViewServiceImpl.class.getName());
 	private static volatile CompetitionsViewDao instance = null;
 
 	public CompetitionsViewDao() {
@@ -89,7 +95,12 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 	
 	public List<CompetitionsView> getActiveCompetitionsByUserView(int partNumber, int partSize, String login)
 			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
-			CloseStatementException {
+			CloseStatementException, IllegalAgrumentCheckedException {
+		if (login == null || login.isEmpty()) {
+			String errorStr = "Illegal parameter. \"login\" is empty or null.";
+			logger.error(errorStr);
+			throw new IllegalAgrumentCheckedException(errorStr);
+		}
 		List<CompetitionsView> result = new ArrayList<>();
 		String query = sqlQueries.get(CompetitionsViewQueries.GET_ALL_ACTIVE_BY_USER).toString();
 		if (query == null) {
@@ -141,7 +152,12 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 	
 	public List<CompetitionsView> getCompetitionsByUserView(int partNumber, int partSize, String login)
 			throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, EmptyResultSetException,
-			CloseStatementException {
+			CloseStatementException, IllegalAgrumentCheckedException {
+		if (login == null || login.isEmpty()) {
+			String errorStr = "Illegal parameter. \"login\" is empty or null.";
+			logger.error(errorStr);
+			throw new IllegalAgrumentCheckedException(errorStr);
+		}
 		List<CompetitionsView> result = new ArrayList<>();
 		String query = sqlQueries.get(CompetitionsViewQueries.GET_ALL_BY_USER).toString();
 		if (query == null) {
