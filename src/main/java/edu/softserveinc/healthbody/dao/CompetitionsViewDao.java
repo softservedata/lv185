@@ -97,7 +97,6 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 					String.format(QUERY_NOT_FOUND, CompetitionsViewQueries.GET_ALL_ACTIVE_BY_USER.name()));
 		}
 		if ((partNumber >= 0) && (partSize > 0)) {
-
 			query = query.substring(0, query.lastIndexOf(";")) + SQL_LIMIT;
 		}
 		try (PreparedStatement pst = createPreparedStatementLogin(query, login, partNumber, partSize);
@@ -150,7 +149,6 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 					String.format(QUERY_NOT_FOUND, CompetitionsViewQueries.GET_ALL_BY_USER.name()));
 		}
 		if ((partNumber >= 0) && (partSize > 0)) {
-
 			query = query.substring(0, query.lastIndexOf(";")) + SQL_LIMIT;
 		}
 		try (PreparedStatement pst = createPreparedStatementLogin(query, login, partNumber, partSize);

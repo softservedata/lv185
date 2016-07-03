@@ -52,10 +52,10 @@ public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 		try {
 			for (CompetitionsView competitionsView : CompetitionsViewDao.get().getActiveCompetitionsView(partNumber,
 					partSize)) {
-				competitionDTO
-						.add(new CompetitionDTO(competitionsView.getName(), competitionsView.getUsersCount().toString(),
-								competitionsView.getStart(), competitionsView.getFinish(),
-								competitionsView.getDescription(), null, new ArrayList<String>(), new ArrayList<String>()));
+				competitionDTO.add(new CompetitionDTO(competitionsView.getName(),
+						competitionsView.getUsersCount().toString(), competitionsView.getStart(),
+						competitionsView.getFinish(), competitionsView.getDescription(), null, new ArrayList<String>(),
+						new ArrayList<String>()));
 			}
 		} catch (CloseStatementException | QueryNotFoundException | EmptyResultSetException | DataBaseReadingException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
@@ -77,10 +77,10 @@ public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 		try {
 			for (CompetitionsView competitionsView : CompetitionsViewDao.get().getCompetitionsByUserView(partNumber,
 					partSize, login)) {
-				competitionDTO
-						.add(new CompetitionDTO(competitionsView.getName(), competitionsView.getUsersCount().toString(),
-								competitionsView.getStart(), competitionsView.getFinish(),
-								competitionsView.getDescription(), null, new ArrayList<String>(), new ArrayList<String>()));
+				competitionDTO.add(new CompetitionDTO(competitionsView.getName(),
+						competitionsView.getUsersCount().toString(), competitionsView.getStart(),
+						competitionsView.getFinish(), competitionsView.getDescription(), null, new ArrayList<String>(),
+						new ArrayList<String>()));
 			}
 		} catch (CloseStatementException | QueryNotFoundException | EmptyResultSetException | DataBaseReadingException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
@@ -102,10 +102,10 @@ public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 		try {
 			for (CompetitionsView competitionsView : CompetitionsViewDao.get().getActiveCompetitionsByUserView(partNumber,
 					partSize, login)) {
-				competitionDTO
-						.add(new CompetitionDTO(competitionsView.getName(), competitionsView.getUsersCount().toString(),
-								competitionsView.getStart(), competitionsView.getFinish(),
-								competitionsView.getDescription(), null, new ArrayList<String>(), new ArrayList<String>()));
+				competitionDTO.add(new CompetitionDTO(competitionsView.getName(),
+						competitionsView.getUsersCount().toString(), competitionsView.getStart(),
+						competitionsView.getFinish(), competitionsView.getDescription(), null, new ArrayList<String>(),
+						new ArrayList<String>()));
 			}
 		} catch (CloseStatementException | QueryNotFoundException | EmptyResultSetException | DataBaseReadingException e) {
 			ConnectionManager.getInstance().rollbackTransaction();

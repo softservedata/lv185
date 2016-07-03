@@ -1,4 +1,4 @@
-package edu.softserveinc.healthbody.competitionservice;
+package edu.softserveinc.healthbody;
 
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -39,4 +39,6 @@ public class CompetitionsTest {
 			logger.error("GetAll didn't work", e);
 		}
   }
+  
+  
 }
