@@ -1,8 +1,8 @@
 package edu.softserveinc.healthbody;
 
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNotNull;
-import static org.testng.AssertJUnit.assertNull;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -18,6 +18,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
 
 import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.db.DBCreationManager;
