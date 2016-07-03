@@ -18,9 +18,7 @@ import org.testng.annotations.Test;
 import edu.softserveinc.healthbody.db.DBCreationManager;
 import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.dto.UserDTO;
-import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
-import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
@@ -31,6 +29,19 @@ public class UserViewTest {
 	
 	@BeforeSuite
 	public void setUpBeforeSuite() {
+		try (Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/", "postgres", "root");
+				Statement st = con.createStatement()){
+				if (!DBCreationManager.getInstance().dropDatabase(st, "healthbodydb")){
+					logger.error("Couldn't delete database, because encounter some problem!");
+					System.exit(0); 
+				}
+				else {
+				logger.info("Database was deleted");			
+			}
+		} catch (SQLException e) {
+			logger.error("Problem with deleting database", e);
+			System.exit(0); 
+		}
 		try (Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/", "postgres", "root");
 				Statement st = con.createStatement()){
 			if (!DBCreationManager.getInstance().createDatabase(st, "healthbodydb")){
