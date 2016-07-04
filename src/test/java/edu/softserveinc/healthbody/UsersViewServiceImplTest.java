@@ -27,8 +27,8 @@ import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.impl.UsersViewServiceImpl;
 
-public class UserViewTest {
-	private static Logger logger = LoggerFactory.getLogger(UserViewTest.class.getName());
+public class UsersViewServiceImplTest {
+	private static Logger logger = LoggerFactory.getLogger(UsersViewServiceImplTest.class.getName());
 	
 	@BeforeSuite
 	public void setUpBeforeSuite() {
