@@ -32,7 +32,7 @@ import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.impl.UserProfileServiceImpl;
 import edu.softserveinc.healthbody.testapp.TestProfile;
 
-public class ProfileTest {
+public class UserProfileServiceImplTest {
 
 	private static Logger logger = LoggerFactory.getLogger(TestProfile.class.getName());
   
@@ -120,21 +120,22 @@ public class ProfileTest {
 	 	}
 	}
 	
-	//You didn't enter login
+	//User Login couldn't be null
 	@Test (expectedExceptions = IllegalArgumentException.class)
 	public void testGetUserByLoginNull() throws SQLException, JDBCDriverException, EmptyResultSetException, TransactionException, CloseStatementException {
 		UserProfileServiceImpl.getInstance().get(null);
 	}
 	
 	//Such user doesn't exist
-	@Test (expectedExceptions = IllegalArgumentException.class)
+	@Test
 	public void testGetUserByLoginNotExist() throws SQLException, JDBCDriverException, EmptyResultSetException, TransactionException, CloseStatementException {
-		UserProfileServiceImpl.getInstance().get("Marisol");
+		UserDTO userDTO = UserProfileServiceImpl.getInstance().get("Marisol");
+		assertEquals(null, userDTO);
 	}
   
 	@Test
 	public void testGetUserById() throws SQLException, JDBCDriverException, TransactionException, CloseStatementException, EmptyResultSetException {
-		UserDTO userDTO = UserProfileServiceImpl.getInstance().getbyId(10);
+		UserDTO userDTO = UserProfileServiceImpl.getInstance().getById(10);
 		assertNotNull(userDTO);
 		assertEquals("Name of 10 user", userDTO.getFirstname());
 		assertEquals("LastName of 10 user", userDTO.getLastname());
@@ -154,15 +155,9 @@ public class ProfileTest {
 		}
 	}
 	
-	//User with such id doesn't exist
-	@Test (expectedExceptions = IllegalArgumentException.class)
-	public void testGetUserByIdNotExist() throws SQLException, JDBCDriverException, EmptyResultSetException, TransactionException, CloseStatementException {
-		UserProfileServiceImpl.getInstance().getbyId(0);
-	}
-		
 	@Test
 	public void testUpdateUser() throws SQLException, JDBCDriverException, TransactionException, CloseStatementException, EmptyResultSetException, DataBaseReadingException, QueryNotFoundException {
-		UserDTO userDTO2 = UserProfileServiceImpl.getInstance().getbyId(5);
+		UserDTO userDTO2 = UserProfileServiceImpl.getInstance().getById(5);
 		userDTO2.setAge("56");
 		userDTO2.setFirstname("Ivan");
 		userDTO2.setPassword("heufrb"); 
@@ -216,7 +211,7 @@ public class ProfileTest {
 		for (GroupDTO group : userDTO4.getGroups()) {
 			logger.info(group.getName() + "     ");
 		}
-		UserProfileServiceImpl.getInstance().delete(userDTO4);
+		UserProfileServiceImpl.getInstance().test_delete(userDTO4);
 		logger.info("Delete user from database for test");
 	}
 	

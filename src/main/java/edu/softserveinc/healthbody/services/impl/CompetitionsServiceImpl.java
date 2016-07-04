@@ -21,8 +21,8 @@ public class CompetitionsServiceImpl implements ICompetitionsService {
 	public void insert(CompetitionDTO competitionDTO)
 			throws SQLException, JDBCDriverException, DataBaseReadingException, QueryNotFoundException,
 			EmptyResultSetException, TransactionException, CloseStatementException {
-		int idCriteria = CriteriaDao.get().getByFieldName(competitionDTO.getNameCriteria()).getIdCriteria();
-		CompetitionDao.get().createCompetition(new Competition(0, competitionDTO.getName(), competitionDTO.getDescription(), Date.valueOf(competitionDTO.getStartDate()), Date.valueOf(competitionDTO.getFinishDate()), idCriteria));
+		int idCriteria = CriteriaDao.getInstance().getByFieldName(competitionDTO.getNameCriteria()).getIdCriteria();
+		CompetitionDao.getInstance().createCompetition(new Competition(0, competitionDTO.getName(), competitionDTO.getDescription(), Date.valueOf(competitionDTO.getStartDate()), Date.valueOf(competitionDTO.getFinishDate()), idCriteria));
 
 	}
 	// TODO 
@@ -37,9 +37,17 @@ public class CompetitionsServiceImpl implements ICompetitionsService {
 			throws SQLException, JDBCDriverException, DataBaseReadingException, QueryNotFoundException,
 			EmptyResultSetException, TransactionException, CloseStatementException {
 	}
-	// TODO 
+	// TODO
 	@Override
 	public void delete(CompetitionDTO competitionDTO) {
+				
+	}
+	//use just for test
+	@Override
+	public void test_delete(CompetitionDTO baseDTO) throws SQLException, JDBCDriverException, QueryNotFoundException,
+			DataBaseReadingException, CloseStatementException, TransactionException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

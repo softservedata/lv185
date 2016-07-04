@@ -30,7 +30,7 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 		init();
 	}
 
-	public static CompetitionsViewDao get() {
+	public static CompetitionsViewDao getInstance() {
 		if (instance == null) {
 			synchronized (CompetitionsViewDao.class) {
 				if (instance == null) {

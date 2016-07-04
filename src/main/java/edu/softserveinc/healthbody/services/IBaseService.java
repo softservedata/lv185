@@ -18,6 +18,7 @@ public interface IBaseService<TBaseDTO> {
 	
 	void update(TBaseDTO baseDTO) throws SQLException, JDBCDriverException, DataBaseReadingException, QueryNotFoundException, EmptyResultSetException, TransactionException, CloseStatementException;
 	
-	void delete(TBaseDTO baseDTO) throws SQLException, JDBCDriverException, QueryNotFoundException, DataBaseReadingException, CloseStatementException, TransactionException;
+	//use just for test
+	void test_delete(TBaseDTO baseDTO) throws SQLException, JDBCDriverException, QueryNotFoundException, DataBaseReadingException, CloseStatementException, TransactionException;
 
 }

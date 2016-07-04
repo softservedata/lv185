@@ -24,7 +24,7 @@ public class UsersViewDao extends AbstractDaoRead<UsersView> {
 		init();
 	}
 
-	public static UsersViewDao get() {
+	public static UsersViewDao getInstance() {
 		if (instance == null) {
 			synchronized (UsersViewDao.class) {
 				if (instance == null) {
