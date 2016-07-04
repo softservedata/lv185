@@ -37,4 +37,9 @@ public final class DataSourceRepository {
 				"jdbc:postgresql://localhost:5432/", "postgres", "root");
 	}
 	
+	public DataSource getPostgresForTest(String nameTestDB) throws JDBCDriverException {
+		return new DataSource(DriverRepository.getInstance().getPostgresDriver(),
+				"jdbc:postgresql://localhost:5432/"+nameTestDB, "postgres", "root");
+	}
+	
 }
