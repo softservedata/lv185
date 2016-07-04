@@ -49,13 +49,13 @@ public class GroupTest {
 			logger.error("Problem with creating database", e);
 			System.exit(0); 
 		}
-		try(Connection con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHost()).getConnection();
-				Statement st = con.createStatement()){
+		Connection con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHost()).getConnection();
+		try(Statement st = con.createStatement()){
 			DBCreationManager dbCReationManager = DBCreationManager.getInstance();
 			for (String query : dbCReationManager.getListOfQueries()) {
 				logger.info("Creating " + query.split("\"")[1]);
 				dbCReationManager.createTable(st, query);
-			}
+			}				
 		} catch (SQLException e) {
 			logger.error("Problem with creating tables data", e);
 			System.exit(0); 
@@ -91,7 +91,7 @@ public class GroupTest {
 		DBPopulateManager.getInstance().populateMetaDataTable();
 		DBPopulateManager.getInstance().populateRolesTable();
 		DBPopulateManager.getInstance().populateUserCompetitionsTable();
-		logger.info("Populated All tables");					
+		logger.info("Populated All tables");	
 	}
 	
 	@AfterClass
@@ -118,9 +118,9 @@ public class GroupTest {
 	 @Test
 	 public void testGetDescriptionOfGroup() throws QueryNotFoundException,
 	 JDBCDriverException, DataBaseReadingException, CloseStatementException {
-	 GroupDTO groupDTO = GroupServiceImpl.getInstance().getGroup("Name group number 3");
+	 GroupDTO groupDTO = GroupServiceImpl.getInstance().getGroup("Name group number 2");
 	 String actual = groupDTO.getDescriptions();
-	 String expected = "New description";
+	 String expected = "Description of group 2";
 	 assertEquals(expected, actual);
 	 }
 
