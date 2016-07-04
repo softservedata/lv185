@@ -50,6 +50,13 @@ public class Hello extends HttpServlet {
 			System.out.println("JSON rd= " + rd);
 			rd.forward(request, response);
 		}
+		if ((request.getParameter("r") != null)
+				&& (!request.getParameter("r").isEmpty())) {
+			box = request.getParameter("r");
+			RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/work?aa=123&bb=456");
+			System.out.println("Redirect r= " + rd);
+			rd.forward(request, response);
+		}
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 //		int i = 1;

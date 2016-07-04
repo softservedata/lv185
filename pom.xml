@@ -34,7 +34,7 @@
 		<javax.javax.servlet.api.version>3.1.0</javax.javax.servlet.api.version>
 		<javax.servlet.jstl.version>1.2</javax.servlet.jstl.version>
 		<javax.servlet.jsp.jstl.version>1.2</javax.servlet.jsp.jstl.version>
-		<taglibs.standard.version>1.1.2</taglibs.standard.version> 
+		<taglibs.standard.version>1.1.2</taglibs.standard.version>
 	</properties>
 
 	<dependencies>
@@ -61,16 +61,10 @@
 			<artifactId>postgresql</artifactId>
 			<version>${postgresql.connector.version}</version>
 		</dependency>
-			<!-- - - - Web - - - -->
-	
-		<!--
-		 <dependency>
-			 <groupId>javax.servlet</groupId>
-			 <artifactId>servlet-api</artifactId> 
-			<version>${javax.servlet.api.version}</version>
-			<scope>provided</scope>
-		 </dependency>
-		 -->
+		<!-- - - - Web - - - -->
+
+		<!-- <dependency> <groupId>javax.servlet</groupId> <artifactId>servlet-api</artifactId> 
+			<version>${javax.servlet.api.version}</version> <scope>provided</scope> </dependency> -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -102,7 +96,7 @@
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>${maven.resources.plugin.version}</version>
 				<configuration>
-					<encoding>UTF-8</encoding>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
 
@@ -113,7 +107,7 @@
 				<configuration>
 					<source>${jdk.source.version}</source>
 					<target>${jdk.compiler.version}</target>
-					<encoding>UTF-8</encoding>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
 
@@ -144,8 +138,8 @@
 				<version>${maven.war.plugin.version}</version>
 				<configuration>
 					<!-- <warSourceDirectory>WebContent</warSourceDirectory> -->
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<!-- <warName>resources</warName> -->
+					<!-- <failOnMissingWebXml>false</failOnMissingWebXml> -->
+					<warName>healthbody</warName>
 				</configuration>
 			</plugin>
 			<plugin>
