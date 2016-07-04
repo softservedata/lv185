@@ -21,7 +21,7 @@ public final class AwardDao extends AbstractDao<Award> {
 			init();
 		}
 
-		public static AwardDao get() {
+		public static AwardDao getInstance() {
 			if (instance == null) {
 				synchronized (AwardDao.class) {
 					if (instance == null) {

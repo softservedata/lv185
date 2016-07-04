@@ -23,7 +23,7 @@ public final class CompetitionDao extends AbstractDao<Competition> {
 		init();
 	}
 
-	public static CompetitionDao get() {
+	public static CompetitionDao getInstance() {
 		if (instance == null) {
 			synchronized (CompetitionDao.class) {
 				if (instance == null) {

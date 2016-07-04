@@ -32,7 +32,7 @@ public class TestProfile {
 			logger.info(group.getName() + "    ");
 		}
 		
-		UserDTO userDTO = UserProfileServiceImpl.getInstance().getbyId(10);
+		UserDTO userDTO = UserProfileServiceImpl.getInstance().getById(10);
 	
 		logger.info("\n\nFirstname: "+ userDTO.getFirstname() + "\nLastname: " +userDTO.getLastname() +
 				"\nLogin: " + userDTO.getLogin() + "\nPassword: " + userDTO.getPassword() + "\nE-mail: " + userDTO.getEmail() +

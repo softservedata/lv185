@@ -30,7 +30,7 @@ public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 		List<CompetitionDTO> competitionDTO = new ArrayList<>();
 		ConnectionManager.getInstance().beginTransaction();
 		try {
-			for (CompetitionsView competitionsView : CompetitionsViewDao.get().getAllCompetitionsView(partNumber,
+			for (CompetitionsView competitionsView : CompetitionsViewDao.getInstance().getAllCompetitionsView(partNumber,
 					partSize)) {
 				competitionDTO.add(new CompetitionDTO(competitionsView.getName(),
 						competitionsView.getUsersCount().toString(), competitionsView.getStart(),
@@ -50,7 +50,7 @@ public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 		List<CompetitionDTO> competitionDTO = new ArrayList<>();
 		ConnectionManager.getInstance().beginTransaction();
 		try {
-			for (CompetitionsView competitionsView : CompetitionsViewDao.get().getActiveCompetitionsView(partNumber,
+			for (CompetitionsView competitionsView : CompetitionsViewDao.getInstance().getActiveCompetitionsView(partNumber,
 					partSize)) {
 				competitionDTO.add(new CompetitionDTO(competitionsView.getName(),
 						competitionsView.getUsersCount().toString(), competitionsView.getStart(),
@@ -75,7 +75,7 @@ public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 		List<CompetitionDTO> competitionDTO = new ArrayList<>();
 		ConnectionManager.getInstance().beginTransaction();
 		try {
-			for (CompetitionsView competitionsView : CompetitionsViewDao.get().getCompetitionsByUserView(partNumber,
+			for (CompetitionsView competitionsView : CompetitionsViewDao.getInstance().getCompetitionsByUserView(partNumber,
 					partSize, login)) {
 				competitionDTO.add(new CompetitionDTO(competitionsView.getName(),
 						competitionsView.getUsersCount().toString(), competitionsView.getStart(),
@@ -100,7 +100,7 @@ public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 		List<CompetitionDTO> competitionDTO = new ArrayList<>();
 		ConnectionManager.getInstance().beginTransaction();
 		try {
-			for (CompetitionsView competitionsView : CompetitionsViewDao.get().getActiveCompetitionsByUserView(partNumber,
+			for (CompetitionsView competitionsView : CompetitionsViewDao.getInstance().getActiveCompetitionsByUserView(partNumber,
 					partSize, login)) {
 				competitionDTO.add(new CompetitionDTO(competitionsView.getName(),
 						competitionsView.getUsersCount().toString(), competitionsView.getStart(),

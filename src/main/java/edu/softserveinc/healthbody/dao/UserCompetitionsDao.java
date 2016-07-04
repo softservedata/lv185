@@ -20,7 +20,7 @@ public final class UserCompetitionsDao extends AbstractDao<UserCompetitions> {
 		init();
 	}
 	
-	public static UserCompetitionsDao get() {
+	public static UserCompetitionsDao getInstance() {
 		if (instance == null) {
 			synchronized (UserCompetitionsDao.class) {
 				if (instance == null) {

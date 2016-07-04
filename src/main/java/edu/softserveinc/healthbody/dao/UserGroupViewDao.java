@@ -26,7 +26,7 @@ public class UserGroupViewDao extends AbstractDao<UserGroupView>{
 	}
 	
 	
-	public static UserGroupViewDao get(){
+	public static UserGroupViewDao getInstance(){
 		if (instance == null){
 			synchronized (UserGroupViewDao.class) {
 				if (instance == null){
