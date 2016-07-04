@@ -31,7 +31,7 @@ import edu.softserveinc.healthbody.services.impl.GroupServiceImpl;
 
 public class GroupTest {
 	private static Logger logger = LoggerFactory.getLogger(GroupTest.class.getName());
-	private static final String TEST_DATABASE = "healthbodydb";
+	private static final String TEST_DATABASE = "test";
 	
 	@BeforeSuite
 	public void setUpBeforeSuite() throws JDBCDriverException {
@@ -49,7 +49,7 @@ public class GroupTest {
 			logger.error("Problem with creating database", e);
 			System.exit(0); 
 		}
-		Connection con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHost()).getConnection();
+		Connection con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresForTest(TEST_DATABASE)).getConnection();
 		try(Statement st = con.createStatement()){
 			DBCreationManager dbCReationManager = DBCreationManager.getInstance();
 			for (String query : dbCReationManager.getListOfQueries()) {
