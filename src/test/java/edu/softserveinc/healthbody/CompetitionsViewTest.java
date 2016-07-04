@@ -33,8 +33,8 @@ import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.ICompetitionsViewService;
 import edu.softserveinc.healthbody.services.impl.CompetitionsViewServiceImpl;
 
-public class TestCompetitionsView {
-	private static Logger logger = LoggerFactory.getLogger(TestCompetitionsView.class.getName());
+public class CompetitionsViewTest {
+	private static Logger logger = LoggerFactory.getLogger(CompetitionsViewTest.class.getName());
   
 	@BeforeSuite
 	@Parameters("testdatabase")
