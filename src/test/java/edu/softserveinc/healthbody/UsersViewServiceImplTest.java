@@ -1,5 +1,8 @@
 package edu.softserveinc.healthbody;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -24,8 +27,8 @@ import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.impl.UsersViewServiceImpl;
 
-public class UserViewTest {
-	private static Logger logger = LoggerFactory.getLogger(UserViewTest.class.getName());
+public class UsersViewServiceImplTest {
+	private static Logger logger = LoggerFactory.getLogger(UsersViewServiceImplTest.class.getName());
 	
 	@BeforeSuite
 	public void setUpBeforeSuite() {
@@ -103,14 +106,13 @@ public class UserViewTest {
 	}
 	
 	@Test
-	public void testUserViewGetAll() {
+	public void testUserViewGetAll() throws JDBCDriverException, SQLException, TransactionException {
 		UsersViewServiceImpl uvs = new UsersViewServiceImpl();
-		try {
-			List<UserDTO> ud1 = uvs.getAll(1, 5);
-			logger.info("In getAll: " + Arrays.toString(ud1.toArray()));
-		} catch (JDBCDriverException | SQLException | TransactionException e) {
-			logger.error("GetAll didn't work", e);
-		}
+		List<UserDTO> ud1 = uvs.getAll(1, 2);
+		logger.info("testUserViewGetAll");
+		logger.info(ud1.toString());
+		assertNotNull(ud1);
+		assertEquals(ud1.size(), 2);
 	}
 	
 	//List<UserDTO> with such partNumber doesn't exist
@@ -122,47 +124,43 @@ public class UserViewTest {
 	}
 	
 	@Test
-	public void testUserViewGetAllbyAdmin() {
+	public void testUserViewGetAllbyAdmin() throws JDBCDriverException, SQLException, TransactionException {
 		UsersViewServiceImpl uvs = new UsersViewServiceImpl();
-		try {
-			List<UserDTO> ud3 = uvs.getAllbyAdmin(1, 5);
-			logger.info("In getAllbyAdmin: " + Arrays.toString(ud3.toArray()));
-		} catch (JDBCDriverException | SQLException | TransactionException e) {
-			logger.error("GetAllbyAdmin didn't work", e);
-		}
+		List<UserDTO> ud3 = uvs.getAllbyAdmin(1, 2);
+		logger.info("testUserViewGetAllbyAdmin");
+		logger.info(ud3.toString());
+		assertNotNull(ud3);
+		assertEquals(ud3.size(), 2);	
 	}
 	
 	@Test
-	public void testUserViewGetAllinCompetition() {
+	public void testUserViewGetAllinCompetition() throws JDBCDriverException, SQLException, TransactionException {
 		UsersViewServiceImpl uvs = new UsersViewServiceImpl();
-		try {
-			List<UserDTO> ud4 = uvs.getAllinCompetition(1, 5);
-			logger.info("In getAllinCompetition: " + Arrays.toString(ud4.toArray()));
-		} catch (JDBCDriverException | SQLException | TransactionException e) {
-			logger.error("GetAllinCompetition didn't work", e);
-		}
+		List<UserDTO> ud4 = uvs.getAllinCompetition(1, 2);
+		logger.info("testUserViewGetAllinCompetition");
+		logger.info(ud4.toString());
+		assertNotNull(ud4);
+		assertEquals(ud4.size(), 2);	
 	}
 	
 	@Test
-	public void testUserViewGetAllinGroup() {
+	public void testUserViewGetAllinGroup() throws JDBCDriverException, SQLException, TransactionException {
 		UsersViewServiceImpl uvs = new UsersViewServiceImpl();
-		try {
-			List<UserDTO> ud5 = uvs.getAllinGroup(1, 5);
-			logger.info("In getAllinGroup: " + Arrays.toString(ud5.toArray()));
-		} catch (JDBCDriverException | SQLException | TransactionException e) {
-			logger.error("GetAllinGroup didn't work", e);
-		}
+		List<UserDTO> ud5 = uvs.getAllinGroup(1, 2);
+		logger.info("testUserViewGetAllinGroup");
+		logger.info(ud5.toString());
+		assertNotNull(ud5);
+		assertEquals(ud5.size(), 2);	
 	}
 	
 	@Test
-	public void testUserViewGetAlltoAddInCompetition() {
+	public void testUserViewGetAlltoAddInCompetition() throws JDBCDriverException, SQLException, TransactionException {
 		UsersViewServiceImpl uvs = new UsersViewServiceImpl();
-		try {
-			List<UserDTO> ud6 = uvs.getAlltoAddInCompetition(1, 5);
-			logger.info("In getAlltoAddInCompetition: " + Arrays.toString(ud6.toArray()));
-		} catch (JDBCDriverException | SQLException | TransactionException e) {
-			logger.error("GetAlltoAddInCompetition didn't work", e);
-		}
+		List<UserDTO> ud6 = uvs.getAlltoAddInCompetition(1, 2);
+		logger.info("testUserViewGetAlltoAddInCompetition");
+		logger.info(ud6.toString());
+		assertNotNull(ud6);
+		assertEquals(ud6.size(), 2);	
 	}
 
 }

@@ -36,4 +36,5 @@ public final class DataSourceRepository {
 		return new DataSource(DriverRepository.getInstance().getPostgresDriver(),
 				"jdbc:postgresql://localhost:5432/", "postgres", "root");
 	}
+	
 }
