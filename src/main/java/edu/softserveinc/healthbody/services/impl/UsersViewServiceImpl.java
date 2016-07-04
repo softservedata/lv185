@@ -83,7 +83,7 @@ public class UsersViewServiceImpl implements IUsersViewService {
 
 	/*
 	 * The getAllinGroup used for returning part of users list in Groups UI when
-	 * user path's by main -> groups-> description of gorups-> ->(press button)
+	 * user path's by main -> groups-> description of groups-> ->(press button)
 	 * invite user to group.
 	 **/
 	@Override
