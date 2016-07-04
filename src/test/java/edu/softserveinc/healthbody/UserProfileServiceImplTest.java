@@ -30,11 +30,10 @@ import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.impl.UserProfileServiceImpl;
-import edu.softserveinc.healthbody.testapp.TestProfile;
 
 public class UserProfileServiceImplTest {
 
-	private static Logger logger = LoggerFactory.getLogger(TestProfile.class.getName());
+	private static Logger logger = LoggerFactory.getLogger(UserProfileServiceImplTest.class.getName());
   
 	@BeforeSuite
 	public void setUpBeforeSuite() {
