@@ -37,7 +37,6 @@ public class CompetitionsViewServiceImplTest {
 		logger.info("Setting up database...");
 		try (Connection con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHostNoDatabase()).getConnection();
 				Statement st = con.createStatement()) {
-			//
 			if (!DBCreationManager.getInstance().dropDatabase(st, testdatabase)) {
 				String failMessage = "Test database does not exist.";
 				logger.info(failMessage);
