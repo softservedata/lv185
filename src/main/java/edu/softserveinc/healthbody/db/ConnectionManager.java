@@ -85,8 +85,6 @@ public class ConnectionManager {
 		Connection connection = getAllConections().get(Thread.currentThread().getId());
 		if (connection == null) {
 			try {
-				// about data source
-
 				connection = DriverManager.getConnection(getDataSource().getConnectionUrl(), getDataSource().getUser(),
 						getDataSource().getPasswrd());
 			} catch (SQLException e) {

@@ -2,15 +2,15 @@ package edu.softserveinc.healthbody.db;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DBCreationManager {
 
@@ -41,10 +41,10 @@ public class DBCreationManager {
 			String deleteConnectionsQuery = "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = \'"
 					+ databaseName + "\' AND pid <> pg_backend_pid();";
 			result = statement.execute(deleteConnectionsQuery + "DROP DATABASE " + databaseName + ";");
-			logger.info("Database - " + databaseName + " was deleted");
+			logger.info("Database - " + databaseName + " was deleted.");
 		} else {
-			logger.info("Cannot delete database "+databaseName+", because this datatbase is absent!");
-			result = true;
+			logger.info("Database - " + databaseName + " does not exist.");
+			result = false;
 		}
 		return result;
 	}
@@ -53,12 +53,12 @@ public class DBCreationManager {
 		boolean result = false;
 		statement.execute("select datname from pg_catalog.pg_database where datname = \'" + databaseName + "\';");
 		if (statement.getResultSet().next()){
-			logger.info("Database exists!!!");
+			logger.info("Database - " + databaseName + " exists.");
 		} else {
 			logger.info("Creating database " + databaseName);
 			statement.execute("CREATE DATABASE " + databaseName);
 			result = true;
-			logger.info("Database " + databaseName + " created.");
+			logger.info("Database " + databaseName + " was created.");
 		}
 		return result;
 	}
@@ -70,24 +70,18 @@ public class DBCreationManager {
 	}
 	
 	public List<String> getListOfQueries() {
-		List<String> queries = null;
-		String row;
-		BufferedReader bufReader = null;
+		List<String> queries = new ArrayList<>();
 		StringBuilder sb = new StringBuilder();
-		try {
-			InputStream is = LOADER.getResourceAsStream(PATH_FILE);
-			if (is != null){
-				bufReader = new BufferedReader(new InputStreamReader(is));
-				while ((row = bufReader.readLine()) != null) {
-					sb.append(row);
-				}
-				queries = Arrays.asList(sb.toString().split(TABLES_SPLIT));				
-			} else {
-				logger.error("Problem with file access!");
+		try (BufferedReader bufReader = new BufferedReader(
+				new InputStreamReader(LOADER.getResourceAsStream(PATH_FILE)))) {
+			String row;
+			while ((row = bufReader.readLine()) != null) {
+				sb.append(row);
 			}
+			queries = Arrays.asList(sb.toString().split(TABLES_SPLIT));
 		} catch (IOException e) {
-			logger.error("Cannot access to file "+PATH_FILE, e);
-		}		
+			logger.error("Cannot access to file " + PATH_FILE, e);
+		}
 		return queries;
 	}
 	
