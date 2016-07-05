@@ -28,6 +28,7 @@
 		<org.testng.version>6.9.10</org.testng.version>
 		<testng.reports.directory>./target/surefire-reports/test-output</testng.reports.directory>
 		<maven.surefire.plugin.version>2.19.1</maven.surefire.plugin.version>
+		<org.mockito.version>1.10.19</org.mockito.version>
 		<!-- - - - - - Web - - - - - -->
 		<maven.war.plugin.version>2.6</maven.war.plugin.version>
 		<!-- <javax.servlet.api.version>2.5</javax.servlet.api.version> -->
@@ -44,6 +45,12 @@
 			<artifactId>testng</artifactId>
 			<version>${org.testng.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<!-- - - - Mock Object - - - -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${org.mockito.version}</version>
 		</dependency>
 		<!-- - - - DBConnect - - - -->
 		<dependency>
