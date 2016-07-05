@@ -86,9 +86,6 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 		} catch (SQLException e) {
 			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
 		}
-		if (result.isEmpty()) {
-			throw new EmptyResultSetException(String.format(EMPTY_RESULTSET, query));
-		}
 		return result;
 	}
 	
@@ -119,9 +116,6 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 		} catch (SQLException e) {
 			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
 		}
-		if (result.isEmpty()) {
-			throw new EmptyResultSetException(String.format(EMPTY_RESULTSET, query));
-		}
 		return result;
 	}
 
@@ -143,9 +137,6 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 			}
 		} catch (SQLException e) {
 			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
-		}
-		if (result.isEmpty()) {
-			throw new EmptyResultSetException(String.format(EMPTY_RESULTSET, query));
 		}
 		return result;
 	}
@@ -175,9 +166,6 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 			}
 		} catch (SQLException e) {
 			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
-		}
-		if (result.isEmpty()) {
-			throw new EmptyResultSetException(String.format(EMPTY_RESULTSET, query));
 		}
 		return result;
 	}

@@ -108,9 +108,6 @@ public final class GroupDao extends AbstractDao<Group> {
 		} catch (SQLException e) {
 			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
 		}
-		if (result.isEmpty()) {
-			throw new EmptyResultSetException(String.format(EMPTY_RESULTSET, query));
-		}
 		return result;
 	}
 
