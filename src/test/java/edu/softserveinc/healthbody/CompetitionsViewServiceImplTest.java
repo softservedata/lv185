@@ -3,10 +3,9 @@ package edu.softserveinc.healthbody;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
+import static org.testng.Assert.fail;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,16 +18,10 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-
-import edu.softserveinc.healthbody.db.ConnectionManager;
-import edu.softserveinc.healthbody.db.DBCreationManager;
 import edu.softserveinc.healthbody.db.DBPopulateManager;
-import edu.softserveinc.healthbody.db.DataSourceRepository;
 import edu.softserveinc.healthbody.dto.CompetitionDTO;
-import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.IllegalAgrumentCheckedException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
-import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.ICompetitionsViewService;
 import edu.softserveinc.healthbody.services.impl.CompetitionsViewServiceImpl;
@@ -38,67 +31,74 @@ public class CompetitionsViewServiceImplTest {
   
 	@BeforeSuite
 	@Parameters("testdatabase")
-	public void setUpBeforeSuite(@Optional("healthbodydbtest") String testdatabase) throws JDBCDriverException {
-		Connection con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHostNoDatabase()).getConnection();
-		try (
-				Statement st = con.createStatement()) {
-			if (!DBCreationManager.getInstance().dropDatabase(st, testdatabase)) {
-				logger.error("Couldn't delete test database.");
-				System.exit(0); 
-			}
-			if (!DBCreationManager.getInstance().createDatabase(st, testdatabase)){
-				logger.error("Couldn't create test database.");
-				System.exit(0); 
-			}
-		} catch (SQLException e) {
-			logger.error("Problem with deleting/creating database.", e);
-			System.exit(0); 
-		}
-		con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHostTest()).getConnection();
-		try (
-				Statement st = con.createStatement()) {
-			DBCreationManager dbCReationManager = DBCreationManager.getInstance();
-			for (String query : dbCReationManager.getListOfQueries()) {
-				logger.info("Creating " + query.split("\"")[1]);
-				dbCReationManager.createTable(st, query);
-			}
-		} catch (SQLException e) {
-			logger.error("Problem with creating tables data", e);
-			System.exit(0); 
-		}
+	public void setUpBeforeSuite() throws JDBCDriverException{
+		CreationDropDBForTest.getInstance().setUpBeforeSuite("healthbodydbtest");
 	}
 	
 	@AfterSuite
 	@Parameters("testdatabase")
-	public void tearDownAfterSuite(@Optional("healthbodydbtest") String testdatabase) throws JDBCDriverException {
-		Connection con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHostNoDatabase()).getConnection();
-		try (Statement st = con.createStatement()){
-			if (!DBCreationManager.getInstance().dropDatabase(st, testdatabase)){
-					logger.error("Couldn't delete database, because encounter some problem!");
-					System.exit(0); 
-				}
-				else {
-				logger.info("Database was deleted");			
-			}
-		} catch (SQLException e) {
-			logger.error("Problem with deleting database", e);
-			System.exit(0); 
-		}
+	public void setUpAfterSuite() throws JDBCDriverException{
+		CreationDropDBForTest.getInstance().tearDownAfterSuite("healthbodydbtest");
 	}
 	
 	@BeforeClass
-	public void setUpBeforeClass() throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
-		DBPopulateManager.getInstance().populateUsersTable();
-		DBPopulateManager.getInstance().populateGroupsTable();
-		DBPopulateManager.getInstance().populateUserGroupsTable();
-		DBPopulateManager.getInstance().populateAwardsTable();
-		DBPopulateManager.getInstance().populateCompetitionsTable();
-		DBPopulateManager.getInstance().populateCriteriaTable();
-		DBPopulateManager.getInstance().populateGroupCompetitionsTable();
-		DBPopulateManager.getInstance().populateMetaDataTable();
-		DBPopulateManager.getInstance().populateRolesTable();
-		DBPopulateManager.getInstance().populateUserCompetitionsTable();
-		logger.info("Populated All tables");					
+	public void setUpBeforeClass() {
+		logger.info("Filling database with test data...");
+		String failMessage = "Error filling: ";
+		int failedTables = 0;
+		if (!DBPopulateManager.getInstance().populateUsersTable()) { //1
+			failedTables += 1;
+		};
+//		DBPopulateManager.getInstance().populateGroupsTable(); //2
+//		DBPopulateManager.getInstance().populateUserGroupsTable(); //4
+		if (!DBPopulateManager.getInstance().populateAwardsTable()) { //8
+			failedTables += 8;
+		};
+		if (!DBPopulateManager.getInstance().populateCompetitionsTable()) { //16
+			failedTables += 16;
+		};
+//		DBPopulateManager.getInstance().populateCriteriaTable(); //32
+//		DBPopulateManager.getInstance().populateGroupCompetitionsTable(); //64
+//		DBPopulateManager.getInstance().populateMetaDataTable(); //128
+//		DBPopulateManager.getInstance().populateRolesTable(); //256
+		if (!DBPopulateManager.getInstance().populateUserCompetitionsTable()) { //512
+			failedTables += 512;
+		};
+		if (failedTables > 0) {
+			failMessage += convertBinaryFlagToTableNames(failedTables);
+			logger.error(failMessage);
+			fail(failMessage);
+		} else {
+			logger.info("Filling database with test data ends successfully...");
+		}
+	}
+	
+	/**
+	 * Converts binary flag to the list of tables that were failed to fill.
+	 * Masks:
+	 * 1   - Users
+	 * 2   - Groups
+	 * 4   - UserGroups
+	 * 8   - Awards
+	 * 16  - Competitions
+	 * 32  - Criteria 
+	 * 64  - GroupCompetitions
+	 * 128 - MetaData
+	 * 256 - Roles
+	 * 512 - UserCompetitions
+	*/
+	
+	private String convertBinaryFlagToTableNames(int flag){
+		String[] tables = {"Users", "Groups", "UserGroups", "Awards", "Competitions", "Criteria",
+				"GroupCompetitions", "MetaData", "Roles", "UserCompetitions"};
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < 10; i++) {
+			if ((flag & 1) == 1) {
+				sb.append(tables[i]).append("; ");
+			}
+			flag = flag >> 1;
+		}
+		return sb.toString();
 	}
 	
 	@AfterClass
@@ -107,7 +107,7 @@ public class CompetitionsViewServiceImplTest {
 	}
 	
 	@Test
-	public void testGetAll() throws JDBCDriverException, SQLException, TransactionException{
+	public void testGetAll() throws JDBCDriverException, SQLException, TransactionException {
 		ICompetitionsViewService cv = new CompetitionsViewServiceImpl();
 		List<CompetitionDTO> result = cv.getAll(1, 2);
 		System.out.println("testGetAll");
@@ -127,7 +127,7 @@ public class CompetitionsViewServiceImplTest {
 
 	@Test
 	@Parameters("userlogin")
-	public void testGetAllByUser(@Optional("Login 7") String userlogin) throws IllegalAgrumentCheckedException, SQLException, JDBCDriverException, TransactionException{
+	public void testGetAllByUser(@Optional("Login 7") String userlogin) throws IllegalAgrumentCheckedException, SQLException, JDBCDriverException, TransactionException {
 		ICompetitionsViewService cv = new CompetitionsViewServiceImpl();
 		List<CompetitionDTO> result;
 		result = cv.getAllByUser(1, 10, userlogin);
@@ -137,7 +137,7 @@ public class CompetitionsViewServiceImplTest {
 	}
 
 	@Test(expectedExceptions = IllegalAgrumentCheckedException.class)
-	public void testGetAllByUserNullLogin() throws IllegalAgrumentCheckedException, SQLException, JDBCDriverException, TransactionException{
+	public void testGetAllByUserNullLogin() throws IllegalAgrumentCheckedException, SQLException, JDBCDriverException, TransactionException {
 		ICompetitionsViewService cv = new CompetitionsViewServiceImpl();
 		List<CompetitionDTO> result;
 		result = cv.getAllByUser(1, 10, null);
@@ -145,7 +145,7 @@ public class CompetitionsViewServiceImplTest {
 	}
 
 	@Test(expectedExceptions = IllegalAgrumentCheckedException.class)
-	public void testGetAllByUserEmptyLogin() throws IllegalAgrumentCheckedException, SQLException, JDBCDriverException, TransactionException{
+	public void testGetAllByUserEmptyLogin() throws IllegalAgrumentCheckedException, SQLException, JDBCDriverException, TransactionException {
 		ICompetitionsViewService cv = new CompetitionsViewServiceImpl();
 		List<CompetitionDTO> result;
 		result = cv.getAllByUser(1, 10, "");
@@ -154,7 +154,7 @@ public class CompetitionsViewServiceImplTest {
 
 	@Test
 	@Parameters("userlogin")
-	public void testGetAllByUserBadPaginationParams(@Optional("Login 7") String userlogin) throws IllegalAgrumentCheckedException, SQLException, JDBCDriverException, TransactionException{
+	public void testGetAllByUserBadPaginationParams(@Optional("Login 7") String userlogin) throws IllegalAgrumentCheckedException, SQLException, JDBCDriverException, TransactionException {
 		ICompetitionsViewService cv = new CompetitionsViewServiceImpl();
 		List<CompetitionDTO> result;
 		result = cv.getAllByUser(1, 100, userlogin);
@@ -184,7 +184,7 @@ public class CompetitionsViewServiceImplTest {
 	}
 
 	@Test(expectedExceptions = IllegalAgrumentCheckedException.class)
-	public void testGetAllActiveByUserNullLogin() throws IllegalAgrumentCheckedException, SQLException, JDBCDriverException, TransactionException{
+	public void testGetAllActiveByUserNullLogin() throws IllegalAgrumentCheckedException, SQLException, JDBCDriverException, TransactionException {
 		ICompetitionsViewService cv = new CompetitionsViewServiceImpl();
 		List<CompetitionDTO> result;
 		result = cv.getAllActiveByUser(1, 10, null);
@@ -192,7 +192,7 @@ public class CompetitionsViewServiceImplTest {
 	}
 
 	@Test(expectedExceptions = IllegalAgrumentCheckedException.class)
-	public void testGetAllActiveByUserEmptyLogin() throws IllegalAgrumentCheckedException, SQLException, JDBCDriverException, TransactionException{
+	public void testGetAllActiveByUserEmptyLogin() throws IllegalAgrumentCheckedException, SQLException, JDBCDriverException, TransactionException {
 		ICompetitionsViewService cv = new CompetitionsViewServiceImpl();
 		List<CompetitionDTO> result;
 		result = cv.getAllActiveByUser(1, 10, "");

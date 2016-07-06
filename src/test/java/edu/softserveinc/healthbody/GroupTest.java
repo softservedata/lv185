@@ -34,10 +34,10 @@ public class GroupTest {
 	private static final String DELETE_DATABASE_ERROR = "Problem with deleting database";
 	private static final String CREATE_DATABASE_ERROR = "Problem with creating database";
 	private static final String CREATE_TABLEE_ERROR = "Problem with creating tables and populating data";
-	
-	private static Logger logger = LoggerFactory.getLogger(GroupTest.class.getName());
 	private static final String TEST_DATABASE = "test";
 	
+	private static Logger logger = LoggerFactory.getLogger(GroupTest.class.getName());
+
 	@BeforeSuite
 	public void setUpBeforeSuite() throws JDBCDriverException {
 		try (Connection con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHostNoDatabase()).getConnection();
@@ -83,7 +83,7 @@ public class GroupTest {
 			throw new RuntimeException(DELETE_DATABASE_ERROR);
 		}
 	}
-	
+
 	@BeforeClass
 	public void setUpBeforeClass() throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
 		DBPopulateManager.getInstance().populateUsersTable();
