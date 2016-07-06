@@ -3,9 +3,7 @@ package edu.softserveinc.healthbody;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -14,14 +12,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import edu.softserveinc.healthbody.db.ConnectionManager;
-import edu.softserveinc.healthbody.db.DBCreationManager;
 import edu.softserveinc.healthbody.db.DBPopulateManager;
-import edu.softserveinc.healthbody.db.DataSourceRepository;
 import edu.softserveinc.healthbody.dto.UserDTO;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
@@ -34,52 +28,14 @@ public class UsersViewServiceImplTest {
 	
 	@BeforeSuite
 	@Parameters("testdatabase")
-	public void setUpBeforeSuite(@Optional("healthbodydbtest") String testdatabase) throws JDBCDriverException {
-		Connection con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHostNoDatabase()).getConnection();
-		try (
-				Statement st = con.createStatement()) {
-			if (!DBCreationManager.getInstance().dropDatabase(st, testdatabase)) {
-				logger.error("Couldn't delete test database.");
-				System.exit(0); 
-			}
-			if (!DBCreationManager.getInstance().createDatabase(st, testdatabase)){
-				logger.error("Couldn't create test database.");
-				System.exit(0); 
-			}
-		} catch (SQLException e) {
-			logger.error("Problem with deleting/creating database.", e);
-			System.exit(0); 
-		}
-		con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHostTest()).getConnection();
-		try (
-				Statement st = con.createStatement()) {
-			DBCreationManager dbCReationManager = DBCreationManager.getInstance();
-			for (String query : dbCReationManager.getListOfQueries()) {
-				logger.info("Creating " + query.split("\"")[1]);
-				dbCReationManager.createTable(st, query);
-			}
-		} catch (SQLException e) {
-			logger.error("Problem with creating tables data", e);
-			System.exit(0); 
-		}
+	public void setUpBeforeSuite() throws JDBCDriverException{
+		CreationDropDBForTest.getInstance().setUpBeforeSuite("healthbodydbtest");
 	}
 	
 	@AfterSuite
 	@Parameters("testdatabase")
-	public void tearDownAfterSuite(@Optional("healthbodydbtest") String testdatabase) throws JDBCDriverException {
-		Connection con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHostNoDatabase()).getConnection();
-		try (Statement st = con.createStatement()){
-			if (!DBCreationManager.getInstance().dropDatabase(st, testdatabase)){
-					logger.error("Couldn't delete database, because encounter some problem!");
-					System.exit(0); 
-				}
-				else {
-				logger.info("Database was deleted");			
-			}
-		} catch (SQLException e) {
-			logger.error("Problem with deleting database", e);
-			System.exit(0); 
-		}
+	public void setUpAfterSuite() throws JDBCDriverException{
+		CreationDropDBForTest.getInstance().tearDownAfterSuite("healthbodydbtest");
 	}
 	
 	@BeforeClass

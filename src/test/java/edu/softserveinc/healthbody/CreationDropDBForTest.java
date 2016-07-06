@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.Optional;
 
 import edu.softserveinc.healthbody.db.ConnectionManager;
@@ -14,7 +16,24 @@ import edu.softserveinc.healthbody.db.DataSourceRepository;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 
 
-public class SetUpBeforeAfterSuite {
+public class CreationDropDBForTest {
+	private static Logger logger = LoggerFactory.getLogger(UsersViewServiceImplTest.class.getName());
+	private static volatile CreationDropDBForTest instance = null;
+	
+	private CreationDropDBForTest() {
+	}
+	
+	public static CreationDropDBForTest getInstance() {
+		if (instance == null) {
+			synchronized (CreationDropDBForTest.class) {
+				if (instance == null) {
+					instance = new CreationDropDBForTest();
+				}
+			}
+		}
+		return instance;
+	}
+	
 	//Before suite
 	public void setUpBeforeSuite(@Optional("healthbodydbtest") String testdatabase) throws JDBCDriverException {
 		logger.info("Setting up database...");

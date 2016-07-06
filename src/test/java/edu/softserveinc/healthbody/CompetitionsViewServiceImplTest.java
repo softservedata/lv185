@@ -1,10 +1,11 @@
 package edu.softserveinc.healthbody;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
+import static org.testng.Assert.fail;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -17,10 +18,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import edu.softserveinc.healthbody.db.ConnectionManager;
-import edu.softserveinc.healthbody.db.DBCreationManager;
 import edu.softserveinc.healthbody.db.DBPopulateManager;
-import edu.softserveinc.healthbody.db.DataSourceRepository;
 import edu.softserveinc.healthbody.dto.CompetitionDTO;
 import edu.softserveinc.healthbody.exceptions.IllegalAgrumentCheckedException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
@@ -33,58 +31,14 @@ public class CompetitionsViewServiceImplTest {
   
 	@BeforeSuite
 	@Parameters("testdatabase")
-	public void setUpBeforeSuite(@Optional("healthbodydbtest") String testdatabase) throws JDBCDriverException {
-		logger.info("Setting up database...");
-		try (Connection con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHostNoDatabase()).getConnection();
-				Statement st = con.createStatement()) {
-			if (!DBCreationManager.getInstance().dropDatabase(st, testdatabase)) {
-				String failMessage = "Test database does not exist.";
-				logger.info(failMessage);
-				//Not epic fail :) Let's go ahead.
-				//fail(failMessage);
-			}
-			if (!DBCreationManager.getInstance().createDatabase(st, testdatabase)){
-				String failMessage = "Couldn't create test database.";
-				logger.error(failMessage);
-				fail(failMessage);
-			}
-		} catch (SQLException e) {
-			String failMessage = "Problem with deleting/creating database.";
-			logger.error(failMessage);
-			fail(failMessage, e);
-		}
-		Connection con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHostTest()).getConnection();
-		try (Statement st = con.createStatement()) {
-			DBCreationManager dbCReationManager = DBCreationManager.getInstance();
-			for (String query : dbCReationManager.getListOfQueries()) {
-				logger.info("Creating table " + query.split("\"")[1]);
-				dbCReationManager.createTable(st, query);
-			}
-		} catch (SQLException e) {
-			String failMessage = "Problem with creating tables data";
-			logger.error(failMessage);
-			fail(failMessage, e);
-		}
-		logger.info("Setting up database ends successfully...");
+	public void setUpBeforeSuite() throws JDBCDriverException{
+		CreationDropDBForTest.getInstance().setUpBeforeSuite("healthbodydbtest");
 	}
 	
 	@AfterSuite
 	@Parameters("testdatabase")
-	public void tearDownAfterSuite(@Optional("healthbodydbtest") String testdatabase) throws JDBCDriverException {
-		Connection con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHostNoDatabase()).getConnection();
-		try (Statement st = con.createStatement()){
-			if (!DBCreationManager.getInstance().dropDatabase(st, testdatabase)) {
-				String failMessage = "Couldn't delete test database.";
-				logger.error(failMessage);
-				fail(failMessage);
-			} else {
-				logger.info("Database was deleted");
-			}
-		} catch (SQLException e) {
-			String failMessage = "Problem with deleting test database.";
-			logger.error(failMessage);
-			fail(failMessage, e);
-		}
+	public void setUpAfterSuite() throws JDBCDriverException{
+		CreationDropDBForTest.getInstance().tearDownAfterSuite("healthbodydbtest");
 	}
 	
 	@BeforeClass
