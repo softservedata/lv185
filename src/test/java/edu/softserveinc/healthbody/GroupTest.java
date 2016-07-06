@@ -30,6 +30,11 @@ import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.impl.GroupServiceImpl;
 
 public class GroupTest {
+	private static final String DELETE_CREATE_DATABASE_ERROR = "Problem with creating or deleting database";
+	private static final String DELETE_DATABASE_ERROR = "Problem with deleting database";
+	private static final String CREATE_DATABASE_ERROR = "Problem with creating database";
+	private static final String CREATE_TABLEE_ERROR = "Problem with creating tables and populating data";
+	
 	private static Logger logger = LoggerFactory.getLogger(GroupTest.class.getName());
 	private static final String TEST_DATABASE = "test";
 	
@@ -39,15 +44,15 @@ public class GroupTest {
 				Statement st = con.createStatement()){
 			if (!DBCreationManager.getInstance().dropDatabase(st, TEST_DATABASE)) {
 				logger.error("Couldn't delete test database.");
-				System.exit(0); 
+				throw new RuntimeException(DELETE_DATABASE_ERROR);
 			}
 			if (!DBCreationManager.getInstance().createDatabase(st, TEST_DATABASE)){
 				logger.error("Cannot create database, because encounter some problem!");
-				System.exit(0); 
+				throw new RuntimeException(CREATE_DATABASE_ERROR);
 			}
 		} catch (SQLException e) {
-			logger.error("Problem with creating database", e);
-			System.exit(0); 
+			logger.error(DELETE_CREATE_DATABASE_ERROR, e);
+			throw new RuntimeException(DELETE_CREATE_DATABASE_ERROR, e); 
 		}
 		Connection con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresForTest(TEST_DATABASE)).getConnection();
 		try(Statement st = con.createStatement()){
@@ -57,8 +62,8 @@ public class GroupTest {
 				dbCReationManager.createTable(st, query);
 			}				
 		} catch (SQLException e) {
-			logger.error("Problem with creating tables data", e);
-			System.exit(0); 
+			logger.error(CREATE_TABLEE_ERROR, e);
+			throw new RuntimeException(CREATE_TABLEE_ERROR, e);  
 		}
 	}
 	
@@ -68,14 +73,14 @@ public class GroupTest {
 				Statement st = con.createStatement()){
 				if (!DBCreationManager.getInstance().dropDatabase(st, TEST_DATABASE)){
 					logger.error("Cannot delete database, because encounter some problem!");
-					System.exit(0); 
+					throw new RuntimeException(DELETE_DATABASE_ERROR);
 				}
 				else {
 				logger.info("Database was deleted");			
 			}
 		} catch (SQLException e) {
 			logger.error("Problem with deleting database", e);
-			System.exit(0); 
+			throw new RuntimeException(DELETE_DATABASE_ERROR);
 		}
 	}
 	
