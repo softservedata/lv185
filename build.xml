@@ -124,7 +124,8 @@
 	           target="1.8" 
 	           verbose="false" 
 	           fork="false" 
-	           source="1.8">
+	           source="1.8"
+	           includeantruntime="false">
 	      <src>
 	        <pathelement location="${build.srcDir.0}"/>
 	      </src>
@@ -151,7 +152,8 @@
 	           target="1.8" 
 	           verbose="false" 
 	           fork="false" 
-	           source="1.8">
+	           source="1.8"
+	           includeantruntime="false">
 	      <src>
 	        <pathelement location="${build.testDir.0}"/>
 	      </src>
@@ -265,7 +267,7 @@
 	  <!-- Download dependencies target                                           -->
 
 	  <target name="test-offline">
-	    <condition property="maven.mode.offline">
+	    <condition property="mode.offline">
 	      <equals arg1="${settings.offline}" arg2="true"/>
 	    </condition>
 	  </target>
@@ -273,7 +275,7 @@
 	  <target name="get-deps" 
 	          depends="test-offline" 
 	          description="Download all dependencies" 
-	          unless="maven.mode.offline">
+	          unless="mode.offline">
 	    <mkdir dir="${repo.local}"/>
 	    <mkdir dir="${repo.local}/org/testng/testng/6.9.10"/>
 	    <get src="https://repo.maven.apache.org/maven2/org/testng/testng/6.9.10/testng-6.9.10.jar" 
