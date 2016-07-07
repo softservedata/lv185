@@ -117,7 +117,6 @@
 
 	  <target name="compile" depends="get-deps" description="Compile the code">
 	    <mkdir dir="${build.outputDir}"/>
-	  	<mkdir dir="${build.dir}/lib"/>
 	    <javac destdir="${build.outputDir}" 
 	           encoding="UTF-8" 
 	           nowarn="false" 
@@ -137,11 +136,6 @@
 	    <copy todir="${build.outputDir}">
 	      <fileset dir="${build.resourceDir.0}"/>
 	    </copy>
-	  	<copy todir="${build.dir}/lib">
-	  		      <fileset dir="${repo.local}">
-	  					<include name="**/*.jar" />
-		  		  </fileset>
-	  	</copy>
 	  </target>
 
 	  <!-- Test-compilation target                                                -->
@@ -173,7 +167,7 @@
 	  </target>
 	
 	<!-- Runs the file and generates Reportng report for TestNG-->
-		<taskdef resource="testngtasks" classpathref="build.classpath"/>
+		<taskdef resource="testngtasks" classpathref="build.test.classpath"/>
 
 	  <!-- Run all tests                                                          -->
 
@@ -182,7 +176,7 @@
 	          unless="testng.skipped" 
 	          description="Run the test cases">
 	    <mkdir dir="${test.reports}"/>
-	  	<testng outputdir="${test.reports}" classpathref="build.classpath" useDefaultListeners="true">
+	  	<testng outputdir="${test.reports}" classpathref="build.test.classpath" useDefaultListeners="true">
 	  					<xmlfileset dir="${basedir}" includes="testng.xml" />
 	  	</testng>
 	  </target>
