@@ -285,9 +285,9 @@
 	         dest="${repo.local}/org/testng/testng/6.9.10/testng-6.9.10.jar" 
 	         usetimestamp="false" 
 	         ignoreerrors="true"/>
-	  	<mkdir dir="${build.outputDir}"/>
+	  	<mkdir dir="${build.srcDir.0}"/>
 	  		    <get src="https://repo.maven.apache.org/maven2/org/testng/testng/6.9.10/testng-6.9.10.jar" 
-	  		         dest="${build.outputDir}/testng-6.9.10.jar" 
+	  		         dest="${build.srcDir.0}/testng-6.9.10.jar" 
 	  		         usetimestamp="false" 
 	  		         ignoreerrors="true"/>
 	    <mkdir dir="${repo.local}/com/beust/jcommander/1.48"/>
