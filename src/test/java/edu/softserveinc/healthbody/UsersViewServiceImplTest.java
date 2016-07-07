@@ -8,57 +8,17 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.dto.UserDTO;
-import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
-import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.impl.UsersViewServiceImpl;
 
 public class UsersViewServiceImplTest {
 	private static Logger logger = LoggerFactory.getLogger(UsersViewServiceImplTest.class.getName());
 	
-	@BeforeSuite
-	@Parameters("testdatabase")
-	public void setUpBeforeSuite() throws JDBCDriverException{
-		CreationDropDBForTest.getInstance().setUpBeforeSuite("healthbodydbtest");
-	}
-	
-	@AfterSuite
-	@Parameters("testdatabase")
-	public void setUpAfterSuite() throws JDBCDriverException{
-		CreationDropDBForTest.getInstance().tearDownAfterSuite("healthbodydbtest");
-	}
-	
-	@BeforeClass
-	public void setUpBeforeClass() throws JDBCDriverException, QueryNotFoundException, DataBaseReadingException, SQLException {
-		DBPopulateManager.getInstance().populateUsersTable();
-		DBPopulateManager.getInstance().populateGroupsTable();
-		DBPopulateManager.getInstance().populateUserGroupsTable();
-		DBPopulateManager.getInstance().populateAwardsTable();
-		DBPopulateManager.getInstance().populateCompetitionsTable();
-		DBPopulateManager.getInstance().populateCriteriaTable();
-		DBPopulateManager.getInstance().populateGroupCompetitionsTable();
-		DBPopulateManager.getInstance().populateMetaDataTable();
-		DBPopulateManager.getInstance().populateRolesTable();
-		DBPopulateManager.getInstance().populateUserCompetitionsTable();
-		logger.info("Populated All tables");					
-	}
-	
-	@AfterClass
-	public void tearDownAfterClass() throws SQLException, JDBCDriverException {
-		DBPopulateManager.getInstance().deleteAllFromTables();
-	}
-	
-	@Test
+	@Test 
 	public void testUserViewGetAll() throws JDBCDriverException, SQLException, TransactionException {
 		UsersViewServiceImpl uvs = new UsersViewServiceImpl();
 		List<UserDTO> ud1 = uvs.getAll(1, 2);
@@ -88,7 +48,7 @@ public class UsersViewServiceImplTest {
 		assertEquals(ud4.size(), 2);	
 	}
 	
-	@Test
+	@Test 
 	public void testUserViewGetAllinGroup() throws JDBCDriverException, SQLException, TransactionException {
 		UsersViewServiceImpl uvs = new UsersViewServiceImpl();
 		List<UserDTO> ud5 = uvs.getAllinGroup(1, 2);

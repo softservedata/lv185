@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Tests1 Suite">
+  <test name="Testng1">
+    <classes>
+      <class name="edu.softserveinc.healthbody.UserProfileServiceImplTest"></class>
+    </classes>
+  </test> 
+</suite> 

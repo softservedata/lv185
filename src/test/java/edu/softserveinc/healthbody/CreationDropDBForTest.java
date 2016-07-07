@@ -8,34 +8,24 @@ import java.sql.Statement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 
 import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.db.DBCreationManager;
+import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.db.DataSourceRepository;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 
 
 public class CreationDropDBForTest {
 	private static Logger logger = LoggerFactory.getLogger(UsersViewServiceImplTest.class.getName());
-	private static volatile CreationDropDBForTest instance = null;
 	
-	private CreationDropDBForTest() {
-	}
-	
-	public static CreationDropDBForTest getInstance() {
-		if (instance == null) {
-			synchronized (CreationDropDBForTest.class) {
-				if (instance == null) {
-					instance = new CreationDropDBForTest();
-				}
-			}
-		}
-		return instance;
-	}
-	
-	//Before suite
-	public void setUpBeforeSuite(@Optional("healthbodydbtest") String testdatabase) throws JDBCDriverException {
+	@BeforeSuite
+	@Parameters("healthbodydbtest")
+	public void setUpBeforeSuite(@Optional("healthbodydbtest")String testdatabase) throws JDBCDriverException {
 		logger.info("Setting up database...");
 		try (Connection con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHostNoDatabase()).getConnection();
 				Statement st = con.createStatement()) {
@@ -68,10 +58,22 @@ public class CreationDropDBForTest {
 			fail(failMessage, e);
 		}
 		logger.info("Setting up database ends successfully...");
+		DBPopulateManager.getInstance().populateUsersTable();
+		DBPopulateManager.getInstance().populateGroupsTable();
+		DBPopulateManager.getInstance().populateUserGroupsTable();
+		DBPopulateManager.getInstance().populateAwardsTable();
+		DBPopulateManager.getInstance().populateCompetitionsTable();
+		DBPopulateManager.getInstance().populateCriteriaTable();
+		DBPopulateManager.getInstance().populateGroupCompetitionsTable();
+		DBPopulateManager.getInstance().populateMetaDataTable();
+		DBPopulateManager.getInstance().populateRolesTable();
+		DBPopulateManager.getInstance().populateUserCompetitionsTable();
 	}
 
-	// After Suite	
-	public void tearDownAfterSuite(@Optional("healthbodydbtest") String testdatabase) throws JDBCDriverException {
+	
+	@AfterSuite
+	@Parameters("healthbodydbtest")
+	public void tearDownAfterSuite(@Optional("healthbodydbtest")String testdatabase) throws JDBCDriverException {
 		Connection con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHostNoDatabase()).getConnection();
 		try (Statement st = con.createStatement()){
 			if (!DBCreationManager.getInstance().dropDatabase(st, testdatabase)) {
@@ -87,4 +89,5 @@ public class CreationDropDBForTest {
 			fail(failMessage, e);
 		}
 	}
+
 }
