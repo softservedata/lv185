@@ -163,6 +163,9 @@
 	      </classpath>
 	    </javac>
 	  </target>
+	
+	<!-- Runs the file and generates Reportng report for TestNG-->
+		<taskdef resource="testngtasks" classpath="${build.outputDir}/testng-6.9.10.jar"/>
 
 	  <!-- Run all tests                                                          -->
 
@@ -282,6 +285,11 @@
 	         dest="${repo.local}/org/testng/testng/6.9.10/testng-6.9.10.jar" 
 	         usetimestamp="false" 
 	         ignoreerrors="true"/>
+	  	<mkdir dir="${build.outputDir}"/>
+	  		    <get src="https://repo.maven.apache.org/maven2/org/testng/testng/6.9.10/testng-6.9.10.jar" 
+	  		         dest="${build.outputDir}/testng-6.9.10.jar" 
+	  		         usetimestamp="false" 
+	  		         ignoreerrors="true"/>
 	    <mkdir dir="${repo.local}/com/beust/jcommander/1.48"/>
 	    <get src="https://repo.maven.apache.org/maven2/com/beust/jcommander/1.48/jcommander-1.48.jar" 
 	         dest="${repo.local}/com/beust/jcommander/1.48/jcommander-1.48.jar" 
