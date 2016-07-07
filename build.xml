@@ -117,6 +117,7 @@
 
 	  <target name="compile" depends="get-deps" description="Compile the code">
 	    <mkdir dir="${build.outputDir}"/>
+	  	<mkdir dir="${build.dir}/lib"/>
 	    <javac destdir="${build.outputDir}" 
 	           encoding="UTF-8" 
 	           nowarn="false" 
@@ -136,6 +137,11 @@
 	    <copy todir="${build.outputDir}">
 	      <fileset dir="${build.resourceDir.0}"/>
 	    </copy>
+	  	<copy todir="${build.dir}/lib">
+	  		      <fileset dir="${repo.local}">
+	  					<include name="**/*.jar" />
+		  		  </fileset>
+	  	</copy>
 	  </target>
 
 	  <!-- Test-compilation target                                                -->
@@ -167,7 +173,7 @@
 	  </target>
 	
 	<!-- Runs the file and generates Reportng report for TestNG-->
-		<taskdef resource="testngtasks" classpath="${repo.local}/org/testng/testng/6.9.10/testng-6.9.10.jar"/>
+		<taskdef resource="testngtasks" classpathref="build.classpath"/>
 
 	  <!-- Run all tests                                                          -->
 
@@ -176,8 +182,8 @@
 	          unless="testng.skipped" 
 	          description="Run the test cases">
 	    <mkdir dir="${test.reports}"/>
-	  	<testng outputdir="${test.reports}" classpathref="build.test.classpath" useDefaultListeners="true">
-	  					<xmlfileset dir="${basedir}" includes="UserView.xml" />
+	  	<testng outputdir="${test.reports}" classpathref="build.classpath" useDefaultListeners="true">
+	  					<xmlfileset dir="${basedir}" includes="testng.xml" />
 	  	</testng>
 	  </target>
 
@@ -253,11 +259,6 @@
 	         dest="${repo.local}/org/testng/testng/6.9.10/testng-6.9.10.jar" 
 	         usetimestamp="false" 
 	         ignoreerrors="true"/>
-	  	<!-- <mkdir dir="${build.testDir.0}"/>
-	  		    <get src="https://repo.maven.apache.org/maven2/org/testng/testng/6.9.10/testng-6.9.10.jar" 
-	  		         dest="${build.testDir.0}/testng-6.9.10.jar" 
-	  		         usetimestamp="false" 
-	  		         ignoreerrors="true"/> -->
 	    <mkdir dir="${repo.local}/com/beust/jcommander/1.48"/>
 	    <get src="https://repo.maven.apache.org/maven2/com/beust/jcommander/1.48/jcommander-1.48.jar" 
 	         dest="${repo.local}/com/beust/jcommander/1.48/jcommander-1.48.jar" 
