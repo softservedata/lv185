@@ -18,6 +18,8 @@
 	  <property name="repo.local" value="${user.home}/.m2/repository"/>
 	  <property name="settings.offline" value="false"/>
 	  <property name="settings.interactiveMode" value="true"/>
+	
+	  <property name="basedir" value="." />
 
 	  <!-- Defining classpaths                                                    -->
 
@@ -165,39 +167,18 @@
 	  </target>
 	
 	<!-- Runs the file and generates Reportng report for TestNG-->
-		<taskdef resource="testngtasks" classpath="${build.outputDir}/testng-6.9.10.jar"/>
+		<taskdef resource="testngtasks" classpath="${repo.local}/org/testng/testng/6.9.10/testng-6.9.10.jar"/>
 
 	  <!-- Run all tests                                                          -->
 
 	  <target name="test" 
-	          depends="compile-tests, testng-missing" 
+	          depends="compile-tests" 
 	          unless="testng.skipped" 
 	          description="Run the test cases">
 	    <mkdir dir="${test.reports}"/>
-	    <testng printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" dir=".">
-	      <sysproperty key="basedir" value="."/>
-	      <formatter type="xml"/>
-	      <formatter type="plain" usefile="false"/>
-	      <classpath>
-	        <path refid="build.test.classpath"/>
-	        <pathelement location="${build.outputDir}"/>
-	        <pathelement location="${build.testOutputDir}"/>
-	      </classpath>
-	      <batchtest todir="${test.reports}" unless="test">
-	        <fileset dir="${build.testDir.0}">
-	          <include name="**/Test*.java"/>
-	          <include name="**/*Test.java"/>
-	          <include name="**/*TestCase.java"/>
-	          <exclude name="**/*Abstract*Test.java"/>
-	        </fileset>
-	      </batchtest>
-	      <batchtest todir="${test.reports}" if="test">
-	        <fileset dir="${build.testDir.0}">
-	          <include name="**/${test}.java"/>
-	          <exclude name="**/*Abstract*Test.java"/>
-	        </fileset>
-	      </batchtest>
-	    </testng>
+	  	<testng outputdir="${test.reports}" classpathref="build.test.classpath" useDefaultListeners="true">
+	  					<xmlfileset dir="${basedir}" includes="UserView.xml" />
+	  	</testng>
 	  </target>
 
 	  <target name="test-testng-present">
@@ -206,26 +187,13 @@
 
 	  <target name="test-testng-status" 
 	          depends="test-testng-present">
-	    <condition property="testng.missing">
-	      <and>
-	        <isfalse value="${testng.present}"/>
-	        <isfalse value="${test.skip}"/>
-	      </and>
-	    </condition>
+	    
 	    <condition property="testng.skipped">
 	      <or>
 	        <isfalse value="${testng.present}"/>
 	        <istrue value="${test.skip}"/>
 	      </or>
 	    </condition>
-	  </target>
-
-	  <target name="testng-missing" 
-	          depends="test-testng-status" 
-	          if="testng.missing">
-	    <echo>=================================== WARNING ===================================</echo>
-	    <echo> TestNG is not present in the test classpath or your $ANT_HOME/lib directory. Tests not executed.</echo>
-	    <echo>===============================================================================</echo>
 	  </target>
 
 	  <!-- Javadoc target                                                         -->
@@ -285,11 +253,11 @@
 	         dest="${repo.local}/org/testng/testng/6.9.10/testng-6.9.10.jar" 
 	         usetimestamp="false" 
 	         ignoreerrors="true"/>
-	  	<mkdir dir="${build.srcDir.0}"/>
+	  	<!-- <mkdir dir="${build.testDir.0}"/>
 	  		    <get src="https://repo.maven.apache.org/maven2/org/testng/testng/6.9.10/testng-6.9.10.jar" 
-	  		         dest="${build.srcDir.0}/testng-6.9.10.jar" 
+	  		         dest="${build.testDir.0}/testng-6.9.10.jar" 
 	  		         usetimestamp="false" 
-	  		         ignoreerrors="true"/>
+	  		         ignoreerrors="true"/> -->
 	    <mkdir dir="${repo.local}/com/beust/jcommander/1.48"/>
 	    <get src="https://repo.maven.apache.org/maven2/com/beust/jcommander/1.48/jcommander-1.48.jar" 
 	         dest="${repo.local}/com/beust/jcommander/1.48/jcommander-1.48.jar" 
