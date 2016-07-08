@@ -21,7 +21,7 @@ import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 
 
 public class CreationDropDBForTest {
-	private static Logger logger = LoggerFactory.getLogger(UsersViewServiceImplTest.class.getName());
+	private static Logger logger = LoggerFactory.getLogger(CreationDropDBForTest.class.getName());
 	
 	@BeforeSuite
 	@Parameters("healthbodydbtest")
