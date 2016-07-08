@@ -177,7 +177,7 @@
 	          unless="testng.skipped" 
 	          description="Run the test cases">
 	    <mkdir dir="${test.reports}"/>
-	  	<testng outputdir="${test.reports}" classpathref="build.test.classpath" useDefaultListeners="true">
+	  	<testng outputdir="${test.reports}" classpathref="build.test.classpath" useDefaultListeners="false">
 	  					<xmlfileset dir="${basedir}" includes="testng.xml" />
 	  	</testng>
 	  </target>
