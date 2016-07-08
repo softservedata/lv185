@@ -85,8 +85,6 @@ public class ConnectionManager {
 		Connection connection = getAllConections().get(Thread.currentThread().getId());
 		if (connection == null) {
 			try {
-				// about data source
-
 				connection = DriverManager.getConnection(getDataSource().getConnectionUrl(), getDataSource().getUser(),
 						getDataSource().getPasswrd());
 			} catch (SQLException e) {
@@ -103,10 +101,12 @@ public class ConnectionManager {
 
 	public void commitTransaction() throws SQLException, JDBCDriverException {
 		getConnection().commit();
+		getConnection().setAutoCommit(true);
 	}
 
 	public void rollbackTransaction() throws SQLException, JDBCDriverException {
 		getConnection().rollback();
+		getConnection().setAutoCommit(true);
 	}
 
 	public static void closeAllConnections() throws JDBCDriverException {

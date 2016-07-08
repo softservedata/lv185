@@ -19,8 +19,9 @@ import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.impl.GroupServiceImpl;
 
-public class GroupTest {
-	private static Logger logger = LoggerFactory.getLogger(GroupTest.class.getName());
+public class GroupServiceImplTest {
+
+	private static Logger logger = LoggerFactory.getLogger(GroupServiceImplTest.class.getName());
 
 	@Test
 	public void testGetAll() throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException,
@@ -41,9 +42,9 @@ public class GroupTest {
 	 @Test
 	 public void testGetDescriptionOfGroup() throws QueryNotFoundException,
 	 JDBCDriverException, DataBaseReadingException, CloseStatementException {
-	 GroupDTO groupDTO = GroupServiceImpl.getInstance().getGroup("Name group number 3");
+	 GroupDTO groupDTO = GroupServiceImpl.getInstance().getGroup("Name group number 2");
 	 String actual = groupDTO.getDescriptions();
-	 String expected = "New description";
+	 String expected = "Description of group 2";
 	 assertEquals(expected, actual);
 	 }
 

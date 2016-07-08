@@ -26,4 +26,20 @@ public final class DataSourceRepository {
 		return new DataSource(DriverRepository.getInstance().getPostgresDriver(),
 				"jdbc:postgresql://localhost:5432/healthbodydb", "postgres", "root");
 	}
+
+	public DataSource getPostgresLocalHostTest() throws JDBCDriverException {
+		return new DataSource(DriverRepository.getInstance().getPostgresDriver(),
+				"jdbc:postgresql://localhost:5432/healthbodydbtest", "postgres", "root");
+	}
+
+	public DataSource getPostgresLocalHostNoDatabase() throws JDBCDriverException {
+		return new DataSource(DriverRepository.getInstance().getPostgresDriver(),
+				"jdbc:postgresql://localhost:5432/", "postgres", "root");
+	}
+	
+	public DataSource getPostgresForTest(String nameTestDB) throws JDBCDriverException {
+		return new DataSource(DriverRepository.getInstance().getPostgresDriver(),
+				"jdbc:postgresql://localhost:5432/"+nameTestDB, "postgres", "root");
+	}
+	
 }

@@ -31,7 +31,7 @@ public class UsersViewServiceImpl implements IUsersViewService {
 		List<UserDTO> userDTO = new ArrayList<>();
 		ConnectionManager.getInstance().beginTransaction();
 		try {
-			for (UsersView usersView : UsersViewDao.get().getAllUsersView(partNumber, partSize)) {
+			for (UsersView usersView : UsersViewDao.getInstance().getAllUsersView(partNumber, partSize)) {
 				userDTO.add(new UserDTO(usersView.getFirsName(), usersView.getLastName(), usersView.getLogin(),
 						usersView.getPasswd(), usersView.getMail(), usersView.getAge().toString(),
 						usersView.getWeight().toString(), usersView.getGender(), usersView.getAvatar(),
@@ -67,7 +67,7 @@ public class UsersViewServiceImpl implements IUsersViewService {
 		List<UserDTO> userDTO = new ArrayList<>();
 		ConnectionManager.getInstance().beginTransaction();
 		try {
-				for (UsersView usersView : UsersViewDao.get().getAllUsersView(partNumber, partSize)) {
+				for (UsersView usersView : UsersViewDao.getInstance().getAllUsersView(partNumber, partSize)) {
 					userDTO.add(new UserDTO(usersView.getFirsName(), usersView.getLastName(), null, null, null,
 							usersView.getAge().toString(), usersView.getWeight().toString(), null, usersView.getAvatar(), null,
 							null, usersView.getScore().toString(), null, null));
@@ -83,7 +83,7 @@ public class UsersViewServiceImpl implements IUsersViewService {
 
 	/*
 	 * The getAllinGroup used for returning part of users list in Groups UI when
-	 * user path's by main -> groups-> description of gorups-> ->(press button)
+	 * user path's by main -> groups-> description of groups-> ->(press button)
 	 * invite user to group.
 	 **/
 	@Override
@@ -102,7 +102,7 @@ public class UsersViewServiceImpl implements IUsersViewService {
 		List<UserDTO> userDTO = new ArrayList<>();
 		ConnectionManager.getInstance().beginTransaction();
 		try {
-				for (UsersView usersView : UsersViewDao.get().getAllUsersView(partNumber, partSize)) {
+				for (UsersView usersView : UsersViewDao.getInstance().getAllUsersView(partNumber, partSize)) {
 					userDTO.add(new UserDTO(usersView.getFirsName(), usersView.getLastName(), null, null, null,
 							usersView.getAge().toString(), usersView.getWeight().toString(), null, usersView.getAvatar(), null,
 							null, usersView.getScore().toString(), null, null));

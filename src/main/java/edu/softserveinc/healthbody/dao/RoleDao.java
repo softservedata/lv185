@@ -19,7 +19,7 @@ public class RoleDao extends AbstractDao<Role>{
 		init();
 	}
 
-	public static RoleDao get() {
+	public static RoleDao getInstance() {
 		if (instance == null) {
 			synchronized (UserDao.class) {
 				if (instance == null) {

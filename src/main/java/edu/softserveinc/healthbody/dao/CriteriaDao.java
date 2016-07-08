@@ -20,7 +20,7 @@ public class CriteriaDao extends AbstractDao<Criteria> {
 		init();
 	}
 
-	public static CriteriaDao get() {
+	public static CriteriaDao getInstance() {
 		if (instance == null) {
 			synchronized (CriteriaDao.class) {
 				if (instance == null) {

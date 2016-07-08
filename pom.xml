@@ -120,33 +120,6 @@
 					</plugin>
 
 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>${maven.surefire.plugin.version}</version>
-						<configuration>
-							<argLine>-Xms512m -Xmx1024m</argLine>
-							<skipTests>false</skipTests>
-							<!-- <argLine>${surefireArgLine}</argLine> -->
-							<systemPropertyVariables>
-								<surefire.reports.directory>
-									${testng.reports.directory}
-								</surefire.reports.directory>
-								<surefire.reports.profile>
-									${my.text} profile id
-									=${project.activeProfiles[0].id}
-								</surefire.reports.profile>
-							</systemPropertyVariables>
-							<suiteXmlFiles>
-								<!-- <suiteXmlFile>testng.xml</suiteXmlFile> -->
-								<file>Competition.xml</file>
-								<file>UserProfile.xml</file>
-								<!-- <file>testng1.xml</file> -->
-							</suiteXmlFiles>
-							<reportsDirectory>${testng.reports.directory}</reportsDirectory>
-						</configuration>
-					</plugin>
-
-					<plugin>
 						<groupId>com.google.code.echo-maven-plugin</groupId>
 						<artifactId>echo-maven-plugin</artifactId>
 						<version>1.0.0</version>
@@ -192,7 +165,6 @@
 						<configuration>
 							<argLine>-Xms512m -Xmx1024m</argLine>
 							<skipTests>false</skipTests>
-							<!-- <argLine>${surefireArgLine}</argLine> -->
 							<systemPropertyVariables>
 								<surefire.reports.directory>
 									${testng.reports.directory}
@@ -203,9 +175,10 @@
 								</surefire.reports.profile>
 							</systemPropertyVariables>
 							<suiteXmlFiles>
-								<!-- <suiteXmlFile>testng.xml</suiteXmlFile> -->
-								<file>testng.xml</file>
-								<!-- <file>testng1.xml</file> -->
+								<suiteXmlFile>testng.xml</suiteXmlFile>
+								<suiteXmlFile>testng1.xml</suiteXmlFile>
+								<suiteXmlFile>testng2.xml</suiteXmlFile>
+								<suiteXmlFile>testng3.xml</suiteXmlFile>
 							</suiteXmlFiles>
 							<reportsDirectory>${testng.reports.directory}</reportsDirectory>
 						</configuration>

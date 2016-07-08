@@ -16,7 +16,7 @@ public class MetaDataDao extends AbstractDao<MetaData> {
 		init();
 	}
 	
-	public MetaDataDao get() {
+	public MetaDataDao getInstance() {
 		if(instance == null) {
 			synchronized (MetaDataDao.class) {
 				if(instance == null) {

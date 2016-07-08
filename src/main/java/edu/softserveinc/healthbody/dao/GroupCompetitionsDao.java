@@ -20,7 +20,7 @@ public final class GroupCompetitionsDao extends AbstractDao<GroupCompetitions> {
 		init();
 	}
 
-	public static GroupCompetitionsDao get() {
+	public static GroupCompetitionsDao getInstance() {
 		if (instance == null) {
 			synchronized (GroupCompetitionsDao.class) {
 				if (instance == null) {

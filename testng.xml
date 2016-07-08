@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Tests Suite">
+  <test name="Testng1">
+    <classes>
+      <class name="edu.softserveinc.healthbody.CreationDropDBForTest"></class>
+      <class name="edu.softserveinc.healthbody.UsersViewServiceImplTest"></class>
+      <class name="edu.softserveinc.healthbody.UserProfileServiceImplTest"></class>
+      <class name="edu.softserveinc.healthbody.GroupServiceImplTest"></class>
+      <class name="edu.softserveinc.healthbody.CompetitionsViewServiceImplTest"></class>
+    </classes>
+  </test> 
+</suite> 

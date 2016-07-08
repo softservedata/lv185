@@ -22,7 +22,7 @@ public final class UserDao extends AbstractDao<User> {
 		init();
 	}
 
-	public static UserDao get() {
+	public static UserDao getInstance() {
 		if (instance == null) {
 			synchronized (UserDao.class) {
 				if (instance == null) {

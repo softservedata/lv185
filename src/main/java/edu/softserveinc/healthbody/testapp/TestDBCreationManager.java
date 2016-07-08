@@ -12,6 +12,11 @@ import edu.softserveinc.healthbody.db.DBCreationManager;
 import edu.softserveinc.healthbody.db.DBPopulateManager;
 
 public class TestDBCreationManager {
+	
+	private static final String DELETE_CREATE_DATABASE_ERROR = "Problem with creating or deleting database";
+	private static final String DELETE_DATABASE_ERROR = "Problem with deleting database";
+	private static final String CREATE_DATABASE_ERROR = "Problem with creating database";
+	private static final String CREATE_TABLEE_ERROR = "Problem with creating tables and populating data";
 
 	private static Logger logger = LoggerFactory.getLogger(TestDBCreationManager.class.getName());
 	private static String username = "postgres";
@@ -30,18 +35,18 @@ public class TestDBCreationManager {
 			if(dropDatabase.equals("true")){
 				if (!DBCreationManager.getInstance().dropDatabase(st, databaseName)){
 					logger.info("Couldn't delete database, because encounter some problem!");
-					System.exit(0); 
+					throw new RuntimeException(DELETE_DATABASE_ERROR);
 				}
 			} else {
 				logger.error("Database wasn't deleted");			
 			}
 			if (!DBCreationManager.getInstance().createDatabase(st, databaseName)){
 				logger.info("Couldn't create database, because encounter some problem!");
-				System.exit(0); 
+				throw new RuntimeException(CREATE_DATABASE_ERROR);
 			}
 		} catch (SQLException e) {
-			logger.error("Problem with creating or deleting database", e);
-			System.exit(0); 
+			logger.error(DELETE_CREATE_DATABASE_ERROR, e);
+			throw new RuntimeException(DELETE_CREATE_DATABASE_ERROR, e); 
 		}
 
 		try(Connection con = DriverManager.getConnection(URL + databaseName, username, password);
@@ -63,8 +68,8 @@ public class TestDBCreationManager {
 			DBPopulateManager.getInstance().populateUserCompetitionsTable();
 			logger.info("Populated All tables");					
 		} catch (SQLException e) {
-			logger.error("Problem with creating tables and populating data", e);
-			System.exit(0); 
+			logger.error(CREATE_TABLEE_ERROR, e);
+			throw new RuntimeException(CREATE_TABLEE_ERROR, e);  
 		}
 	}
 }
