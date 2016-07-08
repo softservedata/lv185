@@ -20,7 +20,14 @@
 	  <property name="settings.interactiveMode" value="true"/>
 	
 	  <property name="basedir" value="." />
-	  <property name="lib" value="${basedir}/lib" />
+	  <property name="rootdir" value="/" />
+	<!-- ================================= 
+          target: libset              
+         ================================= -->
+    <target name="libset" description="description">
+  	  <property name="lib" value="${basedir}/lib" />
+    </target>
+
 
 	  <!-- Defining classpaths                                                    -->
 
@@ -168,17 +175,27 @@
 	  </target>
 	
 	<!-- Runs the file and generates Reportng report for TestNG-->
-		<taskdef resource="testngtasks" classpath="./lib/testng-6.9.10.jar"/>
+	<!-- ================================= 
+          target: testngdef              
+         ================================= -->
+    <target name="testngdef" depends="libset, print-directory" description="description">
+		<taskdef resource="testngtasks" classpath="./target/lib/testng-6.9.10.jar"/>
+    </target>
 
 	  <!-- Run all tests                                                          -->
+	<target name="print-directory">
+		  <echo>current directory: ${basedir}</echo>
+		  <echo>current directory: ${rootdir}</echo>
+	</target>
 
 	  <target name="test" 
-	          depends="compile-tests" 
+	          depends="compile-tests, print-directory, testngdef" 
 	          unless="testng.skipped" 
 	          description="Run the test cases">
 	    <mkdir dir="${test.reports}"/>
-	  	<testng outputdir="${test.reports}" classpath="./lib/testng-6.9.10.jar" useDefaultListeners="false">
-	  					<xmlfileset dir="." includes="testng.xml" />
+	  	<testng outputdir="${test.reports}" classpath="./target/lib/*;./target/classes;./target/test-classes;" useDefaultListeners="false">
+<!--	  		<xmlfileset dir="/C:/lv185/" includes="testng.xml" /> -->
+	  		<xmlfileset dir="." includes="testng.xml" />
 	  	</testng>
 	  </target>
 
@@ -249,7 +266,7 @@
 		          description="Download all dependencies" 
 		          unless="mode.offline">
 		    <mkdir dir="${lib}"/>
-		    <get src="https://repo.maven.apache.org/maven2/org/testng/testng/6.9.10/testng-6.9.10.jar" 
+			<get src="https://repo.maven.apache.org/maven2/org/testng/testng/6.9.10/testng-6.9.10.jar" 
 		         dest="${lib}/testng-6.9.10.jar" 
 		         usetimestamp="false" 
 		         ignoreerrors="true"/>
@@ -413,7 +430,7 @@
 		         dest="${lib}/selenium-leg-rc-2.53.0.jar" 
 		         usetimestamp="false" 
 		         ignoreerrors="true"/>
-		  </target>
+	</target>
   
   <target name="help">
     <echo message="Please run: $ant -projecthelp"/>
