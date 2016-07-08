@@ -168,7 +168,7 @@
 	  </target>
 	
 	<!-- Runs the file and generates Reportng report for TestNG-->
-		<taskdef resource="testngtasks" classpathref="build.test.classpath"/>
+		<taskdef resource="testngtasks" classpath="./lib/testng-6.9.10.jar"/>
 
 	  <!-- Run all tests                                                          -->
 
@@ -177,8 +177,8 @@
 	          unless="testng.skipped" 
 	          description="Run the test cases">
 	    <mkdir dir="${test.reports}"/>
-	  	<testng outputdir="${test.reports}" classpathref="build.test.classpath" useDefaultListeners="false">
-	  					<xmlfileset dir="${basedir}" includes="testng.xml" />
+	  	<testng outputdir="${test.reports}" classpath="./lib/testng-6.9.10.jar" useDefaultListeners="false">
+	  					<xmlfileset dir="." includes="testng.xml" />
 	  	</testng>
 	  </target>
 
