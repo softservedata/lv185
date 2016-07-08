@@ -92,7 +92,12 @@
 			<artifactId>standard</artifactId>
 			<version>${taglibs.standard.version}</version>
 		</dependency>
-
+		<!-- - - - XML - - - -->
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.9</version>
+		</dependency>
 	</dependencies>
 
 	<build>
