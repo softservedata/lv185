@@ -45,4 +45,3 @@ public class GroupCompetitions implements IEntity{
 	
 		
 }
-

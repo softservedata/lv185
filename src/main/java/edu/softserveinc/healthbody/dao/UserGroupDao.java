@@ -99,4 +99,3 @@ public class UserGroupDao extends AbstractDao<UserGroup>{
 		return deleteById(id);
 	}
 }
-

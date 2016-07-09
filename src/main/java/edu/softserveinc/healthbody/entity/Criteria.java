@@ -57,4 +57,3 @@ public class Criteria implements IEntity {
 	  
 
 }
-

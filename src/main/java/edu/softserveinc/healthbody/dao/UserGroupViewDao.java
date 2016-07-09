@@ -76,4 +76,3 @@ public class UserGroupViewDao extends AbstractDao<UserGroupView>{
 	}
 
 }
-

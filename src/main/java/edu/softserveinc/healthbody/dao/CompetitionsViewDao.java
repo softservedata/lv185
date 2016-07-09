@@ -189,4 +189,5 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 		}
 		return pst;
 	}
+	
 }

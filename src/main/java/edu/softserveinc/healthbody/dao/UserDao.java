@@ -108,6 +108,7 @@ public final class UserDao extends AbstractDao<User> {
 			pst.setInt(i++, user.getIdRole());
 			pst.setString(i++, user.getStatus());
 			pst.setBoolean(i++, user.getIsDisabled());
+		
 			result = pst.execute();
 		} catch (SQLException e) {
 			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
@@ -140,7 +141,7 @@ public final class UserDao extends AbstractDao<User> {
 	public User getUserByLoginName(String login) throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException, CloseStatementException {
 		return getByFieldName(login);
 	}
-
+	
 	public boolean lockUser(boolean isDisabled, String login) throws QueryNotFoundException, SQLException, JDBCDriverException, DataBaseReadingException {
 		boolean result = false;
 		String query = sqlQueries.get(DaoQueries.ISDISABLED).toString();
@@ -161,4 +162,3 @@ public final class UserDao extends AbstractDao<User> {
 		return deleteById(id);
 	}
 }
-

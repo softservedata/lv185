@@ -75,5 +75,5 @@ public final class GroupCompetitionsDao extends AbstractDao<GroupCompetitions> {
 	public List<GroupCompetitions> view() throws JDBCDriverException, DataBaseReadingException, EmptyResultSetException, CloseStatementException{
 		return getAll();
 	}
-}
 
+}
