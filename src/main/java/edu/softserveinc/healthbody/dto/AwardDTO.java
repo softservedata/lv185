@@ -3,7 +3,7 @@ package edu.softserveinc.healthbody.dto;
 public class AwardDTO {
 
 	private String name;
-
+	
 	public AwardDTO(String name) {
 		this.name = name;
 	}

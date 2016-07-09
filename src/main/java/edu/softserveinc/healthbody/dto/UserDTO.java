@@ -24,7 +24,6 @@ public class UserDTO {
 	public UserDTO(String login, String password, String firstname, String lastname, String email, String age,
 			String weight, String gender, String photoURL, String roleName, String status, String score,
 			List<GroupDTO> groups, String isDisabled) {
-		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.login = login;

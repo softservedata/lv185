@@ -1,9 +1,10 @@
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.softserveinc.healthbody</groupId>
 	<artifactId>lv185</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<version>1.0</version>
 	<name>lv185</name>
 	<url>http://maven.apache.org</url>
@@ -63,6 +64,48 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- -->
+		<!-- https://mvnrepository.com/artifact/com.sun.xml.ws/jaxws-rt -->
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-rt</artifactId>
+			<version>2.2.10</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.0-b01</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.stream</groupId>
+			<artifactId>sjsxp</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.jws</groupId>
+			<artifactId>jsr181-api</artifactId>
+			<version>1.0-MR1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>3.1.6</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.jvnet.jax-ws-commons/jaxws-maven-plugin -->
+		<dependency>
+			<groupId>org.jvnet.jax-ws-commons</groupId>
+			<artifactId>jaxws-maven-plugin</artifactId>
+			<version>2.3</version>
+		</dependency>
+
+
+
 
 		<!-- - - - Logger - - - -->
 		<dependency>
@@ -84,6 +127,7 @@
 
 	</dependencies>
 	<build>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -93,9 +137,21 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-war-plugin</artifactId> 
-				<version>${maven.war.plugin.version}</version> <configuration> <warSourceDirectory>WebContent</warSourceDirectory> 
-				<failOnMissingWebXml>false</failOnMissingWebXml> <warName>resources</warName> 
+			<!-- WAR project -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven.war.plugin.version}</version>
+				<configuration>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<warName>healthbody</warName>
+				</configuration>
+			</plugin>
+			<!-- TomCat -->
+			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>tomcat-maven-plugin</artifactId> 
+				<configuration> <url>http://localhost:8080/manager/text</url> <server>tomcat</server> 
+				<username>admin</username> <password>s3cret</password> <path>/Diary</path> 
 				</configuration> </plugin> -->
 		</plugins>
 	</build>
