@@ -1,4 +1,4 @@
-package edu.softserveinc.healthbody.webservice;
+package edu.softserveinc.healthbody.webservice.impl;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -19,6 +19,7 @@ import edu.softserveinc.healthbody.services.impl.CompetitionsServiceImpl;
 import edu.softserveinc.healthbody.services.impl.CompetitionsViewServiceImpl;
 import edu.softserveinc.healthbody.services.impl.GroupServiceImpl;
 import edu.softserveinc.healthbody.services.impl.UsersViewServiceImpl;
+import edu.softserveinc.healthbody.webservice.HealthBodyWS;
 
 @WebService(endpointInterface = "edu.softserveinc.healthbody.webservice.HealthBodyWS")
 public class HealthBodyWSImpl implements HealthBodyWS {

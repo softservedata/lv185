@@ -6,7 +6,7 @@
 	<artifactId>lv185</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
-	<name>lv185</name>
+	<name>HealBody</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<!-- - - - - - Encoding - - - - - -->
@@ -91,11 +91,11 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-frontend-jaxws</artifactId>
 			<version>3.1.6</version>
-		</dependency>
+		</dependency> -->
 
 		<!-- https://mvnrepository.com/artifact/org.jvnet.jax-ws-commons/jaxws-maven-plugin -->
 		<dependency>
