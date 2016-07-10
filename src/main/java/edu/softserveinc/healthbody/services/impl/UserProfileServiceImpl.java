@@ -26,7 +26,6 @@ import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
 import edu.softserveinc.healthbody.services.IBaseService;
-import edu.softserveinc.healthbody.testapp.TestProfile;
 
 public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 	
@@ -34,7 +33,7 @@ public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 	
 	protected final static String TRANSACTION_ERROR = "Transaction Error, Rollback";
 	
-	private static Logger logger = LoggerFactory.getLogger(TestProfile.class.getName());
+	private static Logger logger = LoggerFactory.getLogger(UserProfileServiceImpl.class.getName());
 
 	private UserProfileServiceImpl() {
 	}
