@@ -42,12 +42,12 @@ public class CreateDropTestDatabase {
 			}
 		} catch (SQLException e) {
 			String failMessage = "Problem with deleting/creating database " + testDatabase + ".";
-			logger.error(failMessage);
+			logger.error(failMessage, e);
 			fail(failMessage, e);
 		} catch (JDBCDriverException e) {
 			String failMessage = "Couldn't get connection.";
 			logger.error(failMessage, e);
-			fail(failMessage);
+			fail(failMessage, e);
 		}
 		Connection con = null;
 		try {
@@ -55,7 +55,7 @@ public class CreateDropTestDatabase {
 		} catch (JDBCDriverException e) {
 			String failMessage = "Couldn't get connection.";
 			logger.error(failMessage, e);
-			fail(failMessage);
+			fail(failMessage, e);
 		}
 		try (Statement st = con.createStatement()) {
 			DBCreationManager dbCReationManager = DBCreationManager.getInstance();
@@ -65,7 +65,7 @@ public class CreateDropTestDatabase {
 			}
 		} catch (SQLException e) {
 			String failMessage = "Problem with creating tables in database " + testDatabase + ".";
-			logger.error(failMessage);
+			logger.error(failMessage, e);
 			fail(failMessage, e);
 		}
 		logger.info("Setting up database ends successfully...");
@@ -91,7 +91,7 @@ public class CreateDropTestDatabase {
 		} catch (JDBCDriverException e) {
 			String failMessage = "Couldn't get connection.";
 			logger.error(failMessage, e);
-			fail(failMessage);
+			fail(failMessage, e);
 		}
 		try (Statement st = con.createStatement()) {
 			if (!DBCreationManager.getInstance().dropDatabase(st, testDatabase)) {
@@ -103,9 +103,8 @@ public class CreateDropTestDatabase {
 			}
 		} catch (SQLException e) {
 			String failMessage = "Problem with deleting database " + testDatabase + ".";
-			logger.error(failMessage);
+			logger.error(failMessage, e);
 			fail(failMessage, e);
 		}
 	}
-
 }
