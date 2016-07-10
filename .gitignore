@@ -15,6 +15,9 @@ hs_err_pid*
 *.[oa]
 /bin/
 
+# Ignore .log files
+*.log
+
 /.externalToolBuilders/
 /.settings/
 /target/
@@ -37,3 +40,7 @@ hs_err_pid*
 *.doc
 *.docx
 *.pdf
+
+#temp ignore files
+xxx*
+Postgre*
