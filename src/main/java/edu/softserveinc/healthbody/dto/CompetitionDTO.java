@@ -58,6 +58,39 @@ public class CompetitionDTO {
 		return nameCriteria;
 	}
 
+	//setters
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setCount(String count) {
+		this.count = count;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public void setFinishDate(String finishDate) {
+		this.finishDate = finishDate;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setNameCriteria(String nameCriteria) {
+		this.nameCriteria = nameCriteria;
+	}
+
+	public void setGroups(List<String> groups) {
+		this.groups = groups;
+	}
+
+	public void setLogins(List<String> logins) {
+		this.logins = logins;
+	}
+
 	@Override
 	public String toString() {
 		return "CompetitionDTO [name=" + name + ", count=" + count + ", startDate=" + startDate + ", finishDate="

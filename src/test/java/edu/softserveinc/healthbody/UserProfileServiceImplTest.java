@@ -231,19 +231,4 @@ public class UserProfileServiceImplTest {
 			fail(EXCEPTION_CATCHED, e);
 		}
 	}
-	
-	//You entered incorrect isDisabled
-	@Test (expectedExceptions = IllegalArgumentException.class)
-	public void testLockUserIncorrectIsDisabled() {
-		UserDTO userDTO5;
-		try {
-			userDTO5 = UserProfileServiceImpl.getInstance().get("Login 6");
-			userDTO5.setIsDisabled("false");
-			UserProfileServiceImpl.getInstance().lock(userDTO5, false);
-		} catch (SQLException | JDBCDriverException | EmptyResultSetException | TransactionException
-				| CloseStatementException | QueryNotFoundException | DataBaseReadingException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
-		}
-	}
 }
