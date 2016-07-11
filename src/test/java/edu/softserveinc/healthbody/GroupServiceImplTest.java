@@ -8,8 +8,11 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.dto.GroupDTO;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
@@ -23,6 +26,17 @@ public class GroupServiceImplTest {
 
 	private static Logger logger = LoggerFactory.getLogger(GroupServiceImplTest.class.getName());
 
+	@BeforeClass
+	public void populateTestData(){
+		new CreateDropTestDatabase().populateDBTables();
+	}
+	
+	@AfterClass
+	public void CleanTableAfterTest() throws SQLException, JDBCDriverException{
+		DBPopulateManager.getInstance().deleteAllFromTables();
+		logger.info("Aftertest block Userviewserviceimpl worked");
+	}
+	
 	@Test
 	public void testGetAll() throws QueryNotFoundException, JDBCDriverException, DataBaseReadingException,
 			EmptyResultSetException, CloseStatementException {

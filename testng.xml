@@ -7,20 +7,28 @@
 			<class name="edu.softserveinc.healthbody.CreateDropTestDatabase" />
 		</classes>
 	</test>
+	
 	<test name="UserTests">
 		<classes>
 			<class name="edu.softserveinc.healthbody.UsersViewServiceImplTest" />
+		</classes>
+	</test>
+	
+	<test name="GroupTests">
+		<classes>
 			<class name="edu.softserveinc.healthbody.UserProfileServiceImplTest" />
 		</classes>
 	</test>
-	<test name="GroupTests">
+	
+		<test name="UserProifileTests">
 		<classes>
-			<class name="edu.softserveinc.healthbody.GroupServiceImplTest" />
+		<class name="edu.softserveinc.healthbody.CompetitionsViewServiceImplTest" />
 		</classes>
 	</test>
+	
 	<test name="CompetitionTests">
 		<classes>
-			<class name="edu.softserveinc.healthbody.CompetitionsViewServiceImplTest" />
+					<class name="edu.softserveinc.healthbody.GroupServiceImplTest" />
 		</classes>
 	</test>
 </suite> 
