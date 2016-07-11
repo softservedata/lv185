@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite1">
+
+  <test name="Testng1">
+    <classes>
+      <class name="edu.softserveinc.healthbody.CreationDropDBForTest">
+      <methods>
+      <include name="setUpBeforeSuite"></include>
+      <include name="tearDownAfterSuite"></include>
+      </methods>
+      </class>
+    </classes>
+  </test>
+  
+  <test name="Testng2">
+    <classes>
+      <class name="edu.softserveinc.healthbody.UsersViewServiceImplTest">
+      <methods>
+      <include name="testUserViewGetAll"></include>
+      <include name="testUserViewGetAllbyAdmin"></include>
+      <include name="testUserViewGetAllinCompetition"></include>
+      <include name="testUserViewGetAllinGroup"></include>
+      <include name="testUserViewGetAlltoAddInCompetition"></include>
+      </methods>
+      </class>
+    </classes>
+  </test>
+  
+  <test name="Testng3">
+    <classes>
+      <class name="edu.softserveinc.healthbody.UserProfileServiceImplTest">
+      <methods>
+      <include name="testGetUserByLogin"></include>
+      <include name="testGetUserByLoginNull"></include>
+      <include name="testGetUserByLoginNotExist"></include>
+      <include name="testGetUserById"></include>
+      <include name="testUpdateUser"></include>
+      <include name="testUpdateUserNull"></include>
+      <include name="testInsertUser"></include>
+      <include name="testInsertUserNull"></include>
+      <include name="testLockUser"></include>
+      <include name="testLockUserNull"></include>
+      <include name="testLockUserIncorrectIsDisabled"></include>
+      </methods>
+      </class>
+    </classes>
+  </test>
+  
+  <test name="Testng4">
+    <classes>
+      <class name="edu.softserveinc.healthbody.GroupServiceImplTest">
+      <methods>
+      <include name="testGetAll"></include>
+      <include name="testGetDescriptionOfGroup"></include>
+      <include name="testUpdateGroupDTOStringStringString"></include>
+      </methods>
+      </class>
+    </classes>
+  </test>
+  
+  <test name="Testng5">
+    <classes>
+      <class name="edu.softserveinc.healthbody.CompetitionsViewServiceImplTest">
+         <methods>
+      <include name="testGetAll"></include>
+      <include name="testGetAllActive"></include>
+      <include name="testGetAllByUser"></include>
+      <include name="testGetAllByUserNullLogin"></include>
+      <include name="testGetAllByUserEmptyLogin"></include>
+      <include name="testGetAllByUserBadPaginationParams"></include>
+      <include name="testGetAllActiveByUser"></include>
+      <include name="testGetAllActiveByUserNullLogin"></include>
+      <include name="testGetAllActiveByUserEmptyLogin"></include>
+      </methods>
+      </class>
+    </classes>
+  </test> 
+  
+</suite> 
