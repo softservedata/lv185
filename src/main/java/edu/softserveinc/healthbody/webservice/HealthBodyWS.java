@@ -33,13 +33,13 @@ public interface HealthBodyWS {
 	CompetitionDTO get(String name) throws SQLException, JDBCDriverException, EmptyResultSetException,
 			TransactionException, CloseStatementException;
 
-	@WebMethod
+	/*@WebMethod
 	void update(CompetitionDTO competitionDTO) throws SQLException, JDBCDriverException, DataBaseReadingException,
 			QueryNotFoundException, EmptyResultSetException, TransactionException, CloseStatementException;
 
 	@WebMethod
 	void delete(CompetitionDTO competitionDTO);
-
+*/
 	@WebMethod
 	List<CompetitionDTO> getAllCompetitions(int partNumber, int partSize)
 			throws JDBCDriverException, SQLException, TransactionException;

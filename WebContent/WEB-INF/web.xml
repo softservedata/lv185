@@ -14,4 +14,7 @@
     <servlet-name>healthbody</servlet-name>
     <url-pattern>/healthbody</url-pattern>
   </servlet-mapping> 
+   <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
 </web-app>
