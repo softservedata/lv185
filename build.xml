@@ -20,6 +20,7 @@
 	<property name="settings.interactiveMode" value="true" />
 	<property name="basedir" value="." />
 	<property name="lib" value="${basedir}/lib" />
+	<property name="web.dir" value="${basedir}/WebContent/WEB-INF" />
 
 	<!-- Defining classpaths                                             -->
 
@@ -47,7 +48,7 @@
 	<target name="compile" depends="get-deps" description="Compile the code">
 		<mkdir dir="${build.outputDir}" />
 		<mkdir dir="${build.dir}/lib" />
-		<javac destdir="${build.outputDir}" encoding="UTF-8" nowarn="false" debug="true" optimize="false" deprecation="true" target="1.7" verbose="false" fork="false" source="1.8" includeantruntime="false">
+		<javac destdir="${build.outputDir}" encoding="UTF-8" nowarn="false" debug="true" optimize="false" deprecation="true" target="1.7" verbose="false" fork="false" source="1.7" includeantruntime="false">
 			<src>
 				<pathelement location="${build.srcDir.0}" />
 			</src>
@@ -65,7 +66,7 @@
 
 	<target name="compile-tests" depends="compile" description="Compile the test code" unless="test.skip">
 		<mkdir dir="${build.testOutputDir}" />
-		<javac destdir="${build.testOutputDir}" encoding="UTF-8" nowarn="false" debug="true" optimize="false" deprecation="true" target="1.7" verbose="false" fork="false" source="1.8" includeantruntime="false">
+		<javac destdir="${build.testOutputDir}" encoding="UTF-8" nowarn="false" debug="true" optimize="false" deprecation="true" target="1.7" verbose="false" fork="false" source="1.7" includeantruntime="false">
 			<src>
 				<pathelement location="${build.testDir.0}" />
 			</src>
@@ -111,7 +112,16 @@
 	<!-- Package target                                                         -->
 
 	<target name="package" depends="compile,test" description="Package the application">
-		<jar jarfile="${build.dir}/${build.finalName}.jar" compress="true" index="false" basedir="${build.outputDir}" excludes="**/package.html" />
+		
+<!--		<jar jarfile="${build.dir}/${build.finalName}.jar" compress="true" index="false" basedir="${build.outputDir}" excludes="**/package.html" /> -->
+		
+		<war destfile="${build.dir}/${build.finalName}.war" webxml="${web.dir}/web.xml">
+		      <lib dir="${build.dir}/lib">
+		         <exclude name="jdbc1.jar"/>
+		      </lib>
+		      <classes dir="${build.dir}/classes"/>
+		 </war>
+		
 	</target>
 
 	<!-- A dummy target for the package named after the type it creates         -->
