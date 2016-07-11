@@ -126,8 +126,9 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>${maven.war.plugin.version}</version>
 				<configuration>
-					<webXml>WebContent\WEB-INF\web.xml</webXml>
+					<warSourceDirectory>WebContent</warSourceDirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<warName>lv185</warName>
 				</configuration>
 			</plugin>
 		</plugins>
