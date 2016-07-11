@@ -10,8 +10,11 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.dto.GroupDTO;
 import edu.softserveinc.healthbody.dto.UserDTO;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
@@ -27,6 +30,16 @@ public class UserProfileServiceImplTest {
 	private static Logger logger = LoggerFactory.getLogger(UserProfileServiceImplTest.class.getName());
 	private static final String EXCEPTION_CATCHED = "Exception catched while running test method.";
 	
+	@BeforeClass
+	public void populateTestData(){
+		new CreateDropTestDatabase().populateDBTables();
+	}
+	
+	@AfterClass
+	public void CleanTableAfterTest() throws SQLException, JDBCDriverException{
+		DBPopulateManager.getInstance().deleteAllFromTables();
+		logger.info("Aftertest block Userviewserviceimpl worked");
+	}
 	@Test
 	public void testGetUserByLogin() {
 		UserDTO userDTO1;
@@ -57,7 +70,7 @@ public class UserProfileServiceImplTest {
 	}
 	
 	//User Login couldn't be null
-	@Test (expectedExceptions = IllegalArgumentException.class) 
+	@Test  (expectedExceptions = IllegalArgumentException.class) 
 	public void testGetUserByLoginNull() {
 		try {
 			UserProfileServiceImpl.getInstance().get(null);
@@ -157,7 +170,6 @@ public class UserProfileServiceImplTest {
 		}
 	}
 		
-	@Test
 	public void testInsertUser() {
 		List<GroupDTO> groups = new ArrayList<GroupDTO>();
 		groups.add(new GroupDTO("Name group number 1", "10", "Description of group 1", "11"));
@@ -233,7 +245,8 @@ public class UserProfileServiceImplTest {
 	}
 	
 	//You entered incorrect isDisabled
-	@Test (expectedExceptions = IllegalArgumentException.class)
+	@Test  
+	(expectedExceptions = IllegalArgumentException.class)
 	public void testLockUserIncorrectIsDisabled() {
 		UserDTO userDTO5;
 		try {
@@ -246,4 +259,5 @@ public class UserProfileServiceImplTest {
 			fail(EXCEPTION_CATCHED, e);
 		}
 	}
+	
 }

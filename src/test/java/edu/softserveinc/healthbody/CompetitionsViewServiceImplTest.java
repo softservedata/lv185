@@ -1,16 +1,22 @@
 package edu.softserveinc.healthbody;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
+import static org.testng.Assert.fail;
 
 import java.sql.SQLException;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.dto.CompetitionDTO;
 import edu.softserveinc.healthbody.exceptions.IllegalAgrumentCheckedException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
@@ -22,6 +28,17 @@ public class CompetitionsViewServiceImplTest {
 	private static Logger logger = LoggerFactory.getLogger(CompetitionsViewServiceImplTest.class.getName());
 	private static final String EXCEPTION_CATCHED = "Exception catched while running test method.";
 
+	@BeforeClass
+	public void populateTestData(){
+		new CreateDropTestDatabase().populateDBTables();
+	}
+	
+	@AfterClass
+	public void CleanTableAfterTest() throws SQLException, JDBCDriverException{
+		DBPopulateManager.getInstance().deleteAllFromTables();
+		logger.info("Aftertest block Userviewserviceimpl worked");
+	}
+	
 	@Test
 	public void testGetAll() {
 		ICompetitionsViewService cv = new CompetitionsViewServiceImpl();
@@ -171,4 +188,5 @@ public class CompetitionsViewServiceImplTest {
 			fail(EXCEPTION_CATCHED, e);
 		}
 	}
+	
 }

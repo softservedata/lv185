@@ -9,8 +9,11 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.dto.UserDTO;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
@@ -19,6 +22,17 @@ import edu.softserveinc.healthbody.services.impl.UsersViewServiceImpl;
 public class UsersViewServiceImplTest {
 	private static Logger logger = LoggerFactory.getLogger(UsersViewServiceImplTest.class.getName());
 	private static final String EXCEPTION_CATCHED = "Exception catched while running test method.";
+	
+	@BeforeClass
+	public void populateTestData(){
+		new CreateDropTestDatabase().populateDBTables();
+	}
+	
+	@AfterClass
+	public void CleanTableAfterTest() throws SQLException, JDBCDriverException{
+		DBPopulateManager.getInstance().deleteAllFromTables();
+		logger.info("Aftertest block Userviewserviceimpl worked");
+	}
 
 	@Test
 	public void testUserViewGetAll() {
@@ -36,7 +50,7 @@ public class UsersViewServiceImplTest {
 		}
 	}
 
-	@Test
+	@Test 
 	public void testUserViewGetAllbyAdmin() {
 		UsersViewServiceImpl uvs = new UsersViewServiceImpl();
 		List<UserDTO> ud3;
@@ -100,4 +114,6 @@ public class UsersViewServiceImplTest {
 		}
 	}
 
+
 }
+
