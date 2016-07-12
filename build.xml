@@ -120,7 +120,7 @@
 				<exclude name="jdbc1.jar" />
 			</lib>
 			<classes dir="${build.dir}/classes" />
-			<fileset dir="${web.dir}" excludes="${web.dir}/web.xml" />
+			<webinf dir="${web.dir}" />
 		</war>
 
 	</target>
