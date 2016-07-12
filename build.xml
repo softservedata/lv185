@@ -120,7 +120,10 @@
 				<exclude name="jdbc1.jar" />
 			</lib>
 			<classes dir="${build.dir}/classes" />
-			<webinf dir="${web.dir}" />
+		<!--	<webinf dir="${web.dir}" /> -->
+			<fileset dir = "${basedir}/WebContent">
+			      <include name = "**/*.*"/>
+			</fileset>
 		</war>
 
 	</target>
