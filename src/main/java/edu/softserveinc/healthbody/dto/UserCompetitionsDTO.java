@@ -10,6 +10,8 @@ public class UserCompetitionsDTO {
 	private String awardsName;
 	private String timeReceivedAward;
 	
+	public UserCompetitionsDTO() {}
+	
 	public UserCompetitionsDTO(String login, List<String> competitions, String userScore, String awardsName,
 			String timeReceivedAward) {
 		

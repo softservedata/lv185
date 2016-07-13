@@ -8,8 +8,9 @@ public class GroupDTO {
 	private String scoreGroup;
 	// private String status;
 
+	public GroupDTO() {}
+	
 	public GroupDTO(String name, String count, String descriptions, String scoreGroup) {
-		super();
 		this.name = name;
 		this.count = count;
 		this.descriptions = descriptions;

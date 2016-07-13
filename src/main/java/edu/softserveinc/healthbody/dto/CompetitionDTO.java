@@ -13,9 +13,10 @@ public class CompetitionDTO {
 	private List<String> groups;
 	private List<String> logins;
 
+	public CompetitionDTO() {}
+	
 	public CompetitionDTO(String name, String count, String startDate, String finishDate, String description,
 			String nameCriteria, List<String> groups, List<String> logins) {
-		super();
 		this.name = name;
 		this.count = count;
 		this.startDate = startDate;
