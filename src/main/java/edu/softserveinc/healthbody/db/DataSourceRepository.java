@@ -20,6 +20,11 @@ public final class DataSourceRepository {
 		return instance;
 	}
 
+	public DataSource getPostgresJenkins()throws JDBCDriverException{
+		return new DataSource(DriverRepository.getInstance().getPostgresDriver(), 
+				"postgresql://$OPENSHIFT_POSTGRESQL_DB_HOST:$OPENSHIFT_POSTGRESQL_DB_PORT", "adminud8ggnm", "6JxTBU-ab6KR");
+	}
+
 	public DataSource getPostgresLocalHost() throws JDBCDriverException {
 		return new DataSource(DriverRepository.getInstance().getPostgresDriver(),
 				"jdbc:postgresql://localhost:5432/healthbodydb", "postgres", "root");

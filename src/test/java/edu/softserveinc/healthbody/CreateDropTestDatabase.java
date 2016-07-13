@@ -32,8 +32,6 @@ public class CreateDropTestDatabase {
 			if (!DBCreationManager.getInstance().dropDatabase(st, testDatabase)) {
 				String failMessage = "Database " + testDatabase + " does not exist.";
 				logger.info(failMessage);
-				// Not epic fail :) Let's go ahead.
-				// fail(failMessage);
 			}
 			if (!DBCreationManager.getInstance().createDatabase(st, testDatabase)) {
 				String failMessage = "Couldn't create database " + testDatabase + ".";
@@ -49,6 +47,7 @@ public class CreateDropTestDatabase {
 			logger.error(failMessage, e);
 			fail(failMessage, e);
 		}
+		logger.info("Setting up database ends successfully...");
 		try {
 			ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHostByDatabaseName(testDatabase)).getConnection();
 		} catch (JDBCDriverException e) {
