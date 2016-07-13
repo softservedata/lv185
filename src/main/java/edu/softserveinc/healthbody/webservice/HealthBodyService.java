@@ -19,10 +19,10 @@ public interface HealthBodyService {
 	UserDTO getUserByLogin(String login);
 	
 	@WebMethod
-	void updateUser(UserDTO userDTO);
+	void updateUser(String login, String password, String age, String weight);
 	
 	@WebMethod
-	void lockUser(UserDTO userDTO, boolean isDisabled);
+	void lockUser(String login, boolean isDisabled);
 	
 	@WebMethod
 	List<UserDTO> getAllUsers(int partNumber, int partSize);
@@ -40,10 +40,10 @@ public interface HealthBodyService {
 	GroupDTO getGroupByName(String name);
 	
 	@WebMethod
-	String getDescriptionOfGroup(GroupDTO groupDTO);
+	String getDescriptionOfGroup(String name);
 	
 	@WebMethod
-	void updateGroup(GroupDTO groupDTO);
+	void updateGroup(String name, String count, String description, String score);
 	
 	@WebMethod
 	List<CompetitionDTO> getAllCompetitions(int partNumber, int partSize);

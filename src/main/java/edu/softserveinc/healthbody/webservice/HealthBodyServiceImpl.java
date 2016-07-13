@@ -51,8 +51,12 @@ public class HealthBodyServiceImpl implements HealthBodyService {
 	}
 
 	@Override
-	public void updateUser(UserDTO userDTO) {
+	public void updateUser(String login, String password, String age, String weight) {
 		try {
+			UserDTO userDTO = UserProfileServiceImpl.getInstance().get(login);
+			userDTO.setPassword(password);
+			userDTO.setAge(age);
+			userDTO.setWeight(weight);
 			UserProfileServiceImpl.getInstance().update(userDTO);
 		} catch (SQLException | JDBCDriverException | DataBaseReadingException | QueryNotFoundException
 				| EmptyResultSetException | TransactionException | CloseStatementException e) {
@@ -61,11 +65,12 @@ public class HealthBodyServiceImpl implements HealthBodyService {
 	}
 
 	@Override
-	public void lockUser(UserDTO userDTO, boolean isDisabled) {
+	public void lockUser(String login, boolean isDisabled) {
 		try {
+			UserDTO userDTO = UserProfileServiceImpl.getInstance().get(login);
 			UserProfileServiceImpl.getInstance().lock(userDTO, isDisabled);
 		} catch (SQLException | JDBCDriverException | QueryNotFoundException | DataBaseReadingException
-				| TransactionException | CloseStatementException e) {
+				| TransactionException | CloseStatementException | EmptyResultSetException e) {
 			logger.error("lock user failed", e);
 		}
 	}
@@ -125,13 +130,24 @@ public class HealthBodyServiceImpl implements HealthBodyService {
 	}
 
 	@Override
-	public String getDescriptionOfGroup(GroupDTO groupDTO) {
-		return  GroupServiceImpl.getInstance().getDescriptionOfGroup(groupDTO);
+	public String getDescriptionOfGroup(String name) {
+		GroupDTO groupDTO;
+		try {
+			groupDTO = GroupServiceImpl.getInstance().getGroup(name);
+			return  GroupServiceImpl.getInstance().getDescriptionOfGroup(groupDTO);
+		} catch (QueryNotFoundException | JDBCDriverException | DataBaseReadingException | CloseStatementException e) {
+			logger.error("get description of group", e);
+		}
+		return null;
 	}
 
 	@Override
-	public void updateGroup(GroupDTO groupDTO) {
+	public void updateGroup(String name, String count, String description, String score) {
 		try {
+			GroupDTO groupDTO = GroupServiceImpl.getInstance().getGroup(name);
+			groupDTO.setCount(count);
+			groupDTO.setDescriptions(description);
+			groupDTO.setScoreGroup(score);
 			GroupServiceImpl.getInstance().update(groupDTO);
 		} catch (SQLException | JDBCDriverException | DataBaseReadingException | QueryNotFoundException
 				| EmptyResultSetException | TransactionException | CloseStatementException e) {

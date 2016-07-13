@@ -59,7 +59,6 @@ public final class DataSource {
 				&& getUser().equals(((DataSource) dataSource).getUser())
 				&& getPasswrd().equals(((DataSource) dataSource).getPasswrd());
 		}
-		
 		return result;
 	}
 	

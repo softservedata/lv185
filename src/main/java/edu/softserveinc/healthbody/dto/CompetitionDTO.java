@@ -13,9 +13,10 @@ public class CompetitionDTO {
 	private List<String> groups;
 	private List<String> logins;
 
+	public CompetitionDTO() {}
+	
 	public CompetitionDTO(String name, String count, String startDate, String finishDate, String description,
 			String nameCriteria, List<String> groups, List<String> logins) {
-		super();
 		this.name = name;
 		this.count = count;
 		this.startDate = startDate;
@@ -56,6 +57,39 @@ public class CompetitionDTO {
 
 	public String getNameCriteria() {
 		return nameCriteria;
+	}
+
+	//setters
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setCount(String count) {
+		this.count = count;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public void setFinishDate(String finishDate) {
+		this.finishDate = finishDate;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setNameCriteria(String nameCriteria) {
+		this.nameCriteria = nameCriteria;
+	}
+
+	public void setGroups(List<String> groups) {
+		this.groups = groups;
+	}
+
+	public void setLogins(List<String> logins) {
+		this.logins = logins;
 	}
 
 	@Override

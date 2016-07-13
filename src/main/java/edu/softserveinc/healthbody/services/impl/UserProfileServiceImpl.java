@@ -64,7 +64,7 @@ public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 			try {
 				UserDao.getInstance().createUser(new User(0, userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstname(), userDTO.getLastname(),
 					 userDTO.getEmail(), Integer.parseInt(userDTO.getAge()), Double.parseDouble(userDTO.getWeight()), userDTO.getGender(),
-					 userDTO.getHealth(), userDTO.getPhotoURL(), userDTO.getGoogleApi(), roles.getIdRole(), userDTO.getStatus(), false));
+					 userDTO.getHealth(), userDTO.getPhotoURL(), userDTO.getGoogleApi(), roles.getIdRole(), userDTO.getStatus(), Boolean.parseBoolean(userDTO.getIsDisabled())));
 				User user = UserDao.getInstance().getUserByLoginName(userDTO.getLogin());
 				Group group = GroupDao.getInstance().getGroupByName(userDTO.getGroups().get(0).getName());
 				UserGroupDao.getInstance().createUserGroup(user, group);
@@ -156,7 +156,7 @@ public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 			try {	
 				UserDao.getInstance().updateUser(new User(0, userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstname(), userDTO.getLastname(),
 					 userDTO.getEmail(), Integer.parseInt(userDTO.getAge()), Double.parseDouble(userDTO.getWeight()), userDTO.getGender(),
-					 userDTO.getHealth(), userDTO.getPhotoURL(), userDTO.getGoogleApi(), role.getIdRole(), userDTO.getStatus(), false));
+					 userDTO.getHealth(), userDTO.getPhotoURL(), userDTO.getGoogleApi(), role.getIdRole(), userDTO.getStatus(), Boolean.parseBoolean(userDTO.getIsDisabled())));
 			}catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 				ConnectionManager.getInstance().rollbackTransaction();
 				throw new TransactionException(TRANSACTION_ERROR, e);
@@ -188,28 +188,14 @@ public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 			throw new IllegalArgumentException();
 		}
 		else {
-			User user = UserDao.getInstance().getUserByLoginName(userDTO.getLogin());
-			if (String.valueOf(user.getIsDisabled()).equals(String.valueOf(isDisabled))) {
-				logger.error("You entered incorrect isDisabled");
-				if (isDisabled == true) {
-					logger.error("User is already locked");
-					throw new IllegalArgumentException();
-				}
-				else {
-					logger.error("User is already unlocked");
-					throw new IllegalArgumentException();
-				}
+			ConnectionManager.getInstance().beginTransaction();
+			try {
+				UserDao.getInstance().lockUser(isDisabled, userDTO.getLogin());
+			}catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
+				ConnectionManager.getInstance().rollbackTransaction();
+				throw new TransactionException(TRANSACTION_ERROR, e);
 			}
-			else {
-				ConnectionManager.getInstance().beginTransaction();
-				try {
-					UserDao.getInstance().lockUser(isDisabled, userDTO.getLogin());
-				}catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
-					ConnectionManager.getInstance().rollbackTransaction();
-					throw new TransactionException(TRANSACTION_ERROR, e);
-				}
 		ConnectionManager.getInstance().commitTransaction();
-			}
 		}
 	}
 }

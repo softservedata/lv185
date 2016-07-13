@@ -4,6 +4,8 @@ public class AwardDTO {
 
 	private String name;
 
+	public AwardDTO() {}
+	
 	public AwardDTO(String name) {
 		this.name = name;
 	}
