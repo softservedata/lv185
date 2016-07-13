@@ -9,6 +9,8 @@ public class CriteriaDTO {
 	private String getGoogle;
 	private List<CompetitionDTO> competitions;
 	
+	public CriteriaDTO() {}
+	
 	public CriteriaDTO(String name, String metrics, String getGoogle, List<CompetitionDTO> competitions) {
 		this.name = name;
 		this.metrics = metrics;

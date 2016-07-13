@@ -8,6 +8,8 @@ public class RoleDTO {
 	private String description;
 	private List<UserDTO> users;
 
+	public RoleDTO() {}
+	
 	public RoleDTO(String name, String description, List<UserDTO> users) {
 		this.name = name;
 		this.description = description;

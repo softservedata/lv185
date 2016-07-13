@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.softserveinc.healthbody</groupId>
 	<artifactId>lv185</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<version>1.0</version>
 	<name>lv185</name>
 	<url>http://maven.apache.org</url>
@@ -12,8 +13,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.resources.plugin.version>2.7</maven.resources.plugin.version>
 		<!-- - - - - - Java - - - - - -->
-		<jdk.source.version.local>1.8</jdk.source.version.local>
-		<jdk.compiler.version.local>1.8</jdk.compiler.version.local>
+		<jdk.source.version.local>1.7</jdk.source.version.local>
+		<jdk.compiler.version.local>1.7</jdk.compiler.version.local>
 		<jdk.source.version.openshift>1.6</jdk.source.version.openshift>
 		<jdk.compiler.version.openshift>1.6</jdk.compiler.version.openshift>
 		<maven.compiler.plugin.version>3.3</maven.compiler.plugin.version>
@@ -45,6 +46,7 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- - - - DBConnect - - - -->
+<!--
 		<dependency>
 			<groupId>net.sourceforge.jtds</groupId>
 			<artifactId>jtds</artifactId>
@@ -55,6 +57,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.connector.version}</version>
 		</dependency>
+-->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -76,15 +79,13 @@
 		    <artifactId>commons-dbcp2</artifactId>
 		    <version>${org.apache.commons.dbcp2.version}</version>
 		</dependency>
-
 		<!-- - - - Logger - - - -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${org.slf4j.version}</version>
 		</dependency>
-		
-<!--
+<!-- 		
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-server</artifactId>
@@ -95,7 +96,20 @@
 			<artifactId>selenium-java</artifactId>
 			<version>2.53.0</version>
 		</dependency>
--->
+ -->		
+		 <!-- jax-ws maven dependency -->
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <version>2.2.8</version>
+        </dependency>
+        <!-- servlet provided by tomcat -->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.0.1</version>
+            <scope>provided</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -107,10 +121,16 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-war-plugin</artifactId> 
-				<version>${maven.war.plugin.version}</version> <configuration> <warSourceDirectory>WebContent</warSourceDirectory> 
-				<failOnMissingWebXml>false</failOnMissingWebXml> <warName>resources</warName> 
-				</configuration> </plugin> -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven.war.plugin.version}</version>
+				<configuration>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<warName>lv185</warName>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<profiles>
@@ -223,9 +243,6 @@
 							</systemPropertyVariables>
 							<suiteXmlFiles>
 								<suiteXmlFile>testng.xml</suiteXmlFile>
-								<suiteXmlFile>testng1.xml</suiteXmlFile>
-								<suiteXmlFile>testng2.xml</suiteXmlFile>
-								<suiteXmlFile>testng3.xml</suiteXmlFile>
 							</suiteXmlFiles>
 							<reportsDirectory>${testng.reports.directory}</reportsDirectory>
 						</configuration>

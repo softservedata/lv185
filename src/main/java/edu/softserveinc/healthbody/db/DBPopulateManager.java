@@ -25,7 +25,7 @@ public class DBPopulateManager {
 		try {
 			con = ConnectionManager.getInstance().getConnection();
 		} catch (JDBCDriverException e) {
-			logger.error("Error populating users table.");
+			logger.error("Error in DBPopulateManager constructor while getting connetion.", e);
 		}
 	}
 
@@ -43,6 +43,7 @@ public class DBPopulateManager {
 	public boolean populateUsersTable() {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.UserDBQueries.INSERT.toString();
+		
 
 		try (PreparedStatement pst = con.prepareStatement(query)) {
 			for (int j = 1; j <= users; j++) {
@@ -66,7 +67,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating users table.");
+			logger.error("Error populating users table.", e);
 		}
 		return successfulInsert;
 	}
@@ -88,7 +89,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating groups table.");
+			logger.error("Error populating groups table.", e);
 		}
 		return successfulInsert;
 	}
@@ -107,7 +108,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating usergroups table.");
+			logger.error("Error populating usergroups table.", e);
 		}
 		return successfulInsert;
 	}
@@ -115,6 +116,7 @@ public class DBPopulateManager {
 	public boolean populateAwardsTable() {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.AwardDBQueries.INSERT.toString();
+
 
 		try (PreparedStatement pst = con.prepareStatement(query)) {
 			for (int j = 1; j <= 4; j++) {
@@ -125,7 +127,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating awards table.");
+			logger.error("Error populating awards table.", e);
 		}
 		return successfulInsert;
 	}
@@ -133,6 +135,7 @@ public class DBPopulateManager {
 	public boolean populateCompetitionsTable() {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.CompetitionDBQueries.INSERT.toString();
+
 
 		try (PreparedStatement pst = con.prepareStatement(query)) {
 			for (int j = 1; j <= competitions; j++) {
@@ -150,7 +153,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating competitions table.");
+			logger.error("Error populating competitions table.", e);
 		}
 		return successfulInsert;
 	}
@@ -170,7 +173,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating criteria table.");
+			logger.error("Error populating criteria table.", e);
 		}
 		return successfulInsert;
 	}
@@ -189,7 +192,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating groupcompetitions table.");
+			logger.error("Error populating groupcompetitions table.", e);
 		}
 		return successfulInsert;
 	}
@@ -207,7 +210,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating metadata table.");
+			logger.error("Error populating metadata table.", e);
 		}
 		return successfulInsert;
 	}
@@ -215,6 +218,7 @@ public class DBPopulateManager {
 	public boolean populateRolesTable() {
 		boolean successfulInsert = false;
 		String query = DaoStatementsConstant.RoleDBQueries.INSERT.toString();
+
 
 		try (PreparedStatement pst = con.prepareStatement(query)) {
 			for (int j = 1; j <= 3; j++) {
@@ -226,7 +230,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating roles table.");
+			logger.error("Error populating roles table.", e);
 		}
 		return successfulInsert;
 	}
@@ -256,14 +260,14 @@ public class DBPopulateManager {
 	public boolean deleteAllFromTables() throws SQLException, JDBCDriverException {
 		boolean result = false;
 		ConnectionManager.getInstance().beginTransaction();
-		String query = "truncate usergroups, groupcompetitions, usercompetitions, users, " 
+		String query = "drop TABLE if exists usergroups, groupcompetitions, usercompetitions, users, " 
 		+ "roles, groups, competitions, awards, criteria, metadata;";
 		try (PreparedStatement pst = con.prepareStatement(query)) {
 			result = pst.execute();
 			ConnectionManager.getInstance().commitTransaction();
 		} catch (SQLException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
-			logger.error("Error trancating database tables.");
+			logger.error("Error trancating database tables.", e);
 		}
 		return result;
 	}
