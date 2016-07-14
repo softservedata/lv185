@@ -20,7 +20,7 @@
 	<property name="settings.interactiveMode" value="true" />
 	<property name="basedir" value="." />
 	<property name="lib" value="${basedir}/lib" />
-	<property name="web.dir" value="${basedir}/WebContent/WEB-INF" />
+	<property name="web.dir" value="src/main/webapp" />
 
 	<!-- Defining classpaths                                             -->
 
@@ -85,7 +85,7 @@
 	<!-- Run all tests                                                       -->
 	<target name="test" depends="compile-tests, testngdef" unless="testng.skipped" description="Run the test cases">
 		<mkdir dir="${test.reports}" />
-		<testng outputdir="${test.reports}" classpath="./target/lib/*;./target/classes;./target/test-classes;" useDefaultListeners="false">
+		<testng outputdir="${test.reports}" classpath="./target/lib/*;./target/classes;./target/test-classes;" useDefaultListeners="true">
 			<xmlfileset dir="." includes="testng.xml" />
 		</testng>
 	</target>
@@ -115,22 +115,18 @@
 
 		<!--		<jar jarfile="${build.dir}/${build.finalName}.jar" compress="true" index="false" basedir="${build.outputDir}" excludes="**/package.html" /> -->
 
-		<war destfile="${build.dir}/${build.finalName}.war" webxml="${web.dir}/web.xml">
+		<war destfile="${build.dir}/${build.finalName}.war" webxml="${web.dir}/WEB-INF/web.xml">
 			<lib dir="${build.dir}/lib">
 				<exclude name="jdbc1.jar" />
 			</lib>
 			<classes dir="${build.dir}/classes" />
-		<!--	<webinf dir="${web.dir}" /> -->
-			<fileset dir = "${basedir}/WebContent">
+		<!--	<webinf dir="${web.dir}/WEB-INF" /> -->
+			<fileset dir = "${web.dir}">
 			      <include name = "**/*.*"/>
 			</fileset>
 		</war>
 
 	</target>
-
-	<!-- A dummy target for the package named after the type it creates         -->
-
-	<target name="jar" depends="package" description="Builds the jar for the application" />
 
 	<!-- Download dependencies target                                           -->
 
