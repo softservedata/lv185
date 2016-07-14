@@ -22,7 +22,7 @@ public final class DataSourceRepository {
 
 	public DataSource getPostgresJenkins()throws JDBCDriverException{
 		return new DataSource(DriverRepository.getInstance().getPostgresDriver(), 
-				"postgresql://$OPENSHIFT_POSTGRESQL_DB_HOST:$OPENSHIFT_POSTGRESQL_DB_PORT", "adminud8ggnm", "6JxTBU-ab6KR");
+				"postgresql://$OPENSHIFT_POSTGRESQL_DB_HOST:$OPENSHIFT_POSTGRESQL_DB_PORT", "adminwztqd4h", "UX8CuXn8UiD7");
 	}
 
 	public DataSource getPostgresLocalHost() throws JDBCDriverException {
