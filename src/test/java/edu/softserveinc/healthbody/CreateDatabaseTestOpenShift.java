@@ -44,7 +44,7 @@ private static Logger logger = LoggerFactory.getLogger(CreateDatabaseTestOpenShi
  			logger.error(failMessage, e);
  			fail(failMessage, e);
  		} catch (JDBCDriverException e) {
- 			String failMessage = "Couldxn't get connection.";
+ 			String failMessage = "Couldn't get connection.";
  			logger.error(failMessage, e);
  			fail(failMessage, e);
  		}
