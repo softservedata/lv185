@@ -22,7 +22,7 @@
   
   <servlet>
 		<servlet-name>googleTest</servlet-name>
-		<servlet-class>edu.softserveinc.healthbody.webclient.servlets.GoogleTestServlet</servlet-class>
+		<servlet-class>edu.softserveinc.healthbody.servlets.GoogleTestServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>googleTest</servlet-name>
