@@ -20,6 +20,12 @@ public final class DataSourceRepository {
 		return instance;
 	}
 
+	
+	public DataSource getPostgresJenkins()throws JDBCDriverException{
+		return new DataSource(DriverRepository.getInstance().getPostgresDriver(), 
+				"postgresql://127.10.182.2 : 5432", "postgres", "root");
+	}
+	
 	public DataSource getPostgresLocalHost() throws JDBCDriverException {
 		return new DataSource(DriverRepository.getInstance().getPostgresDriver(),
 				"jdbc:postgresql://localhost:5432/healthbodydb", "postgres", "root");
