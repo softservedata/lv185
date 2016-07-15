@@ -24,7 +24,7 @@ private static Logger logger = LoggerFactory.getLogger(CreateDatabaseTestOpenShi
  	@BeforeSuite
  	@Parameters("testDatabase")
  	@Override
- 	public void createTestDatabase(@Optional("jenkins") String testDatabase) {
+ 	public void createTestDatabase(@Optional("healthbodydbtest") String testDatabase) {
  		logger.info("Setting up database " + testDatabase + ".");
 		try (Connection con = ConnectionManager
  				.getInstance(DataSourceRepository.getInstance().getPostgresJenkins()).getConnection();
@@ -54,7 +54,7 @@ private static Logger logger = LoggerFactory.getLogger(CreateDatabaseTestOpenShi
  	@AfterSuite
  	@Parameters("testDatabase")
  	@Override
- 	public void dropTestDatabase(@Optional("jenkins") String testDatabase) {
+ 	public void dropTestDatabase(@Optional("healthbodydbtest") String testDatabase) {
  		Connection con = null;
  		try {
  			con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresJenkins())
