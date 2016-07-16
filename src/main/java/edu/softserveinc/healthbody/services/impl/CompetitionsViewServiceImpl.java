@@ -23,7 +23,6 @@ import edu.softserveinc.healthbody.services.ICompetitionsViewService;
 public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 
 	private final static Logger logger = LoggerFactory.getLogger(CompetitionsViewServiceImpl.class.getName());
-	protected final static String TRANSACTION_ERROR = "Transaction error. Rollback.";
 
 	@Override
 	public List<CompetitionDTO> getAll(int partNumber, int partSize) throws JDBCDriverException, SQLException, TransactionException {
@@ -39,7 +38,7 @@ public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 			}
 		} catch (CloseStatementException | QueryNotFoundException | EmptyResultSetException | DataBaseReadingException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
-			throw new TransactionException(TRANSACTION_ERROR, e);
+			throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);
 		}
 		ConnectionManager.getInstance().commitTransaction();
 		return competitionDTO;
@@ -59,7 +58,7 @@ public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 			}
 		} catch (CloseStatementException | QueryNotFoundException | EmptyResultSetException | DataBaseReadingException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
-			throw new TransactionException(TRANSACTION_ERROR, e);
+			throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);
 		}
 		ConnectionManager.getInstance().commitTransaction();
 		return competitionDTO;
@@ -84,7 +83,7 @@ public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 			}
 		} catch (CloseStatementException | QueryNotFoundException | EmptyResultSetException | DataBaseReadingException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
-			throw new TransactionException(TRANSACTION_ERROR, e);
+			throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);
 		}
 		ConnectionManager.getInstance().commitTransaction();
 		return competitionDTO;
@@ -109,7 +108,7 @@ public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 			}
 		} catch (CloseStatementException | QueryNotFoundException | EmptyResultSetException | DataBaseReadingException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
-			throw new TransactionException(TRANSACTION_ERROR, e);
+			throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);
 		}
 		ConnectionManager.getInstance().commitTransaction();
 		return competitionDTO;

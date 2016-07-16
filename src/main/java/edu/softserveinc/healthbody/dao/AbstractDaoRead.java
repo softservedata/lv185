@@ -17,7 +17,7 @@ import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 
 abstract class AbstractDaoRead<TEntity> implements IBasicReadDao<TEntity> {
-	protected final static String QUERY_NOT_FOUND = "Query not found %s";
+	protected final static String QUERY_NOT_FOUND = "Query not found ?";
 //	protected final static String EMPTY_RESULTSET = "Empty ResultSet by Query %s";
 	protected final static String DATABASE_READING_ERROR = "Database Reading Error";
 

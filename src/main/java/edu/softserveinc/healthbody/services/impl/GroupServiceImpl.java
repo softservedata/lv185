@@ -19,7 +19,6 @@ import edu.softserveinc.healthbody.services.IGroupService;
 
 public class GroupServiceImpl implements IGroupService{
 	
-	private static final String TRANSACTION_ERROR = "Transaction Error, Rollback";
 	private static volatile GroupServiceImpl instance = null;
 	
 	private GroupServiceImpl() {
@@ -67,7 +66,7 @@ public class GroupServiceImpl implements IGroupService{
 					groupDTO.getDescriptions(), groupDTO.getScoreGroup(), group.getStatus()));
 		}catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
-			throw new TransactionException(TRANSACTION_ERROR, e);			
+			throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);			
 		}
 		ConnectionManager.getInstance().commitTransaction();
 	}

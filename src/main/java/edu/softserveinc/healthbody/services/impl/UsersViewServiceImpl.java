@@ -18,8 +18,6 @@ import edu.softserveinc.healthbody.services.IUsersViewService;
 
 public class UsersViewServiceImpl implements IUsersViewService {
 
-	protected final static String TRANSACTION_ERROR = "Transaction error. Rollback.";
-
 	/*
 	 * The getAll method is used for returning all users. Also used as basic
 	 * method for following getAllbyAdmin,getAlltoAddInCompetition,
@@ -40,7 +38,7 @@ public class UsersViewServiceImpl implements IUsersViewService {
 		} catch (CloseStatementException | QueryNotFoundException | EmptyResultSetException
 				| DataBaseReadingException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
-			throw new TransactionException(TRANSACTION_ERROR, e);
+			throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);
 		}
 		ConnectionManager.getInstance().commitTransaction();
 		return userDTO;
@@ -75,7 +73,7 @@ public class UsersViewServiceImpl implements IUsersViewService {
 		} catch (CloseStatementException | QueryNotFoundException | EmptyResultSetException
 				| DataBaseReadingException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
-			throw new TransactionException(TRANSACTION_ERROR, e);
+			throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);
 		}
 		ConnectionManager.getInstance().commitTransaction();		
 		return userDTO;
@@ -110,7 +108,7 @@ public class UsersViewServiceImpl implements IUsersViewService {
 		} catch (CloseStatementException | QueryNotFoundException | EmptyResultSetException
 				| DataBaseReadingException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
-			throw new TransactionException(TRANSACTION_ERROR, e);
+			throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);
 		}
 		ConnectionManager.getInstance().commitTransaction();	
 		return userDTO;

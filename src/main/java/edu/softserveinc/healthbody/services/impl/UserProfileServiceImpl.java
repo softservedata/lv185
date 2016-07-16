@@ -31,8 +31,6 @@ public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 	
 	private static volatile UserProfileServiceImpl instance = null;
 	
-	protected final static String TRANSACTION_ERROR = "Transaction Error, Rollback";
-	
 	private static Logger logger = LoggerFactory.getLogger(UserProfileServiceImpl.class.getName());
 
 	private UserProfileServiceImpl() {
@@ -70,7 +68,7 @@ public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 				UserGroupDao.getInstance().createUserGroup(user, group);
 			} catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 				ConnectionManager.getInstance().rollbackTransaction();
-				throw new TransactionException(TRANSACTION_ERROR, e);
+				throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);
 			}
 			ConnectionManager.getInstance().commitTransaction();
 		}
@@ -107,7 +105,7 @@ public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 				}
 			 } catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 				 ConnectionManager.getInstance().rollbackTransaction();
-				 throw new TransactionException(TRANSACTION_ERROR, e);
+				 throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);
 			 }
 			ConnectionManager.getInstance().commitTransaction();
 		
@@ -135,7 +133,7 @@ public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 			}
 		} catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
-			throw new TransactionException(TRANSACTION_ERROR, e);
+			throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);
 		}
 		ConnectionManager.getInstance().commitTransaction();
 		
@@ -159,7 +157,7 @@ public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 					 userDTO.getHealth(), userDTO.getPhotoURL(), userDTO.getGoogleApi(), role.getIdRole(), userDTO.getStatus(), Boolean.parseBoolean(userDTO.getIsDisabled())));
 			}catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 				ConnectionManager.getInstance().rollbackTransaction();
-				throw new TransactionException(TRANSACTION_ERROR, e);
+				throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);
 			}
 			ConnectionManager.getInstance().commitTransaction();
 		}
@@ -176,7 +174,7 @@ public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 			UserDao.getInstance().deleteUserForTests(user.getId());
 		}catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
-			throw new TransactionException(TRANSACTION_ERROR, e);
+			throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);
 		}
 		ConnectionManager.getInstance().commitTransaction();
 	}
@@ -193,7 +191,7 @@ public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 				UserDao.getInstance().lockUser(isDisabled, userDTO.getLogin());
 			}catch (JDBCDriverException | DataBaseReadingException | QueryNotFoundException e) {
 				ConnectionManager.getInstance().rollbackTransaction();
-				throw new TransactionException(TRANSACTION_ERROR, e);
+				throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);
 			}
 		ConnectionManager.getInstance().commitTransaction();
 		}
