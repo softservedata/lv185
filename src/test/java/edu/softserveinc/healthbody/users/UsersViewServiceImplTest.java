@@ -14,7 +14,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import edu.softserveinc.healthbody.constants.TestConstants;
-import edu.softserveinc.healthbody.db.CreateDatabaseTestOpenShift;
+import edu.softserveinc.healthbody.db.CreateDropTestDatabase;
 import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.dto.UserDTO;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
@@ -26,7 +26,7 @@ public class UsersViewServiceImplTest {
 
 	@BeforeClass
 	public void populateTestData(){
-		new CreateDatabaseTestOpenShift().populateDBTables();
+		new CreateDropTestDatabase().populateDBTables();
 	}
 	
 	@AfterClass

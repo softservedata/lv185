@@ -12,7 +12,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import edu.softserveinc.healthbody.db.CreateDatabaseTestOpenShift;
+import edu.softserveinc.healthbody.db.CreateDropTestDatabase;
 import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.dto.GroupDTO;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
@@ -29,7 +29,7 @@ public class GroupServiceImplTest {
 
 	@BeforeClass
 	public void populateTestData(){
-		new CreateDatabaseTestOpenShift().populateDBTables();
+		new CreateDropTestDatabase().populateDBTables();
 	}
 	
 	@AfterClass

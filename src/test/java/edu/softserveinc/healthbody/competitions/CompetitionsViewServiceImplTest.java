@@ -17,7 +17,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import edu.softserveinc.healthbody.constants.TestConstants;
-import edu.softserveinc.healthbody.db.CreateDatabaseTestOpenShift;
+import edu.softserveinc.healthbody.db.CreateDropTestDatabase;
 import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.dto.CompetitionDTO;
 import edu.softserveinc.healthbody.exceptions.IllegalAgrumentCheckedException;
@@ -31,7 +31,7 @@ public class CompetitionsViewServiceImplTest {
 
 	@BeforeClass
 	public void populateTestData(){
-		new CreateDatabaseTestOpenShift().populateDBTables();
+		new CreateDropTestDatabase().populateDBTables();
 	}
 	
 	@AfterClass
