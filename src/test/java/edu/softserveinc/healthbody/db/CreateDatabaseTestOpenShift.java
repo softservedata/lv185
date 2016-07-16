@@ -54,7 +54,8 @@ private static Logger logger = LoggerFactory.getLogger(CreateDatabaseTestOpenShi
 	public void populateDBTables(){
 		Connection con = null;
 		try {
-			con = ConnectionManager.getInstance().getConnection();
+			con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresJenkins())
+					.getConnection();
 		} catch (JDBCDriverException e) {
 			String failMessage = "Couldn't get connection.";
 			logger.error(failMessage, e);
