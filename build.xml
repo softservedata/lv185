@@ -12,12 +12,9 @@
 	<property name="build.resourceDir.0" value="src/main/resources" />
 	<property name="build.testOutputDir" value="${build.dir}/test-classes" />
 	<property name="build.testDir.0" value="src/test/java" />
-	<property name="build.testResourceDir.0" value="src/test/resources" />
 	<property name="test.reports" value="${build.dir}/test-reports" />
 	<property name="reporting.outputDirectory" value="${build.dir}/site" />
-	<property name="repo.local" value="${user.home}/.m2/repository" />
 	<property name="settings.offline" value="false" />
-	<property name="settings.interactiveMode" value="true" />
 	<property name="basedir" value="." />
 	<property name="lib" value="${basedir}/lib" />
 	<property name="web.dir" value="src/main/webapp" />
