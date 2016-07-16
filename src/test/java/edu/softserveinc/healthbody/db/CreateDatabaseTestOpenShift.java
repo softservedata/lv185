@@ -51,6 +51,46 @@ private static Logger logger = LoggerFactory.getLogger(CreateDatabaseTestOpenShi
  			logger.info("Setting up database ends successfully...");
  	}
  	
+	public void populateDBTables(){
+		Connection con = null;
+		try {
+			con = ConnectionManager.getInstance().getConnection();
+		} catch (JDBCDriverException e) {
+			String failMessage = "Couldn't get connection.";
+			logger.error(failMessage, e);
+			fail(failMessage, e);
+		}
+		try (Statement st = con.createStatement()){
+			DBPopulateManager.getInstance().deleteAllFromTables();
+		} catch (SQLException | JDBCDriverException e) {
+			String failMessage = "Problem with deleting tables in database.";
+			logger.error(failMessage, e);
+			fail(failMessage, e);
+		} 
+		try (Statement st = con.createStatement()) {
+			DBCreationManager dbCReationManager = DBCreationManager.getInstance();
+			for (String query : dbCReationManager.getListOfQueries()) {
+				logger.info("Creating table " + query.split("\"")[1]);
+				dbCReationManager.createTable(st, query);
+			}
+		} catch (SQLException e) {
+			String failMessage = "Problem with creating tables in database.";
+			logger.error(failMessage, e);
+			fail(failMessage, e);
+		}
+		DBPopulateManager.getInstance().populateUsersTable();
+		DBPopulateManager.getInstance().populateGroupsTable();
+		DBPopulateManager.getInstance().populateUserGroupsTable();
+	    DBPopulateManager.getInstance().populateAwardsTable();
+	    DBPopulateManager.getInstance().populateCompetitionsTable();
+	    DBPopulateManager.getInstance().populateCriteriaTable();
+	    DBPopulateManager.getInstance().populateGroupCompetitionsTable();
+	    DBPopulateManager.getInstance().populateMetaDataTable();
+	    DBPopulateManager.getInstance().populateRolesTable();
+	    DBPopulateManager.getInstance().populateUserCompetitionsTable();
+		logger.info("End of tables population");
+	}
+ 	
  	@AfterSuite
  	@Parameters("testDatabase")
  	@Override
