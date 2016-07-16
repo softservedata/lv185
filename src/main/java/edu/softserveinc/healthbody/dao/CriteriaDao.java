@@ -16,7 +16,6 @@ public class CriteriaDao extends AbstractDao<Criteria> {
 	private static volatile CriteriaDao instance = null;
 
 	private CriteriaDao() {
-		super();
 		init();
 	}
 

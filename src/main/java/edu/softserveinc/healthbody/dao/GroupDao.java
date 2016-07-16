@@ -20,7 +20,6 @@ public final class GroupDao extends AbstractDao<Group> {
 	private static volatile GroupDao instance = null;
 
 	private GroupDao() {
-		super();
 		init();
 	}
 

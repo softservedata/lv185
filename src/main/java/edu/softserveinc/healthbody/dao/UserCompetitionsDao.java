@@ -16,7 +16,6 @@ public final class UserCompetitionsDao extends AbstractDao<UserCompetitions> {
 	private static volatile UserCompetitionsDao instance = null;
 	
 	private UserCompetitionsDao() {
-		super();
 		init();
 	}
 	

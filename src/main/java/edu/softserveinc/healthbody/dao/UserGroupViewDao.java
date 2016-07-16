@@ -21,7 +21,6 @@ public class UserGroupViewDao extends AbstractDao<UserGroupView>{
 
 	
 	public UserGroupViewDao() {
-		super();
 		init();
 	}
 	

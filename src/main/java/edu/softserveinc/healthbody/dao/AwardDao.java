@@ -17,7 +17,6 @@ public final class AwardDao extends AbstractDao<Award> {
 	private static volatile AwardDao instance = null;
 
 		private AwardDao() {
-			super();
 			init();
 		}
 

@@ -19,7 +19,6 @@ public final class CompetitionDao extends AbstractDao<Competition> {
 	private static volatile CompetitionDao instance = null;
 
 	private CompetitionDao() {
-		super();
 		init();
 	}
 

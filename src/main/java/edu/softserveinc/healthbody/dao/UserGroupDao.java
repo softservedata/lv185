@@ -23,7 +23,6 @@ public class UserGroupDao extends AbstractDao<UserGroup>{
 
 	
 	public UserGroupDao() {
-		super();
 		init();
 	}
 	

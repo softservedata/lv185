@@ -20,7 +20,6 @@ public class UsersViewDao extends AbstractDaoRead<UsersView> {
 	private static volatile UsersViewDao instance = null;
 
 	public UsersViewDao() {
-		super();
 		init();
 	}
 

@@ -26,7 +26,6 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 	private static volatile CompetitionsViewDao instance = null;
 
 	public CompetitionsViewDao() {
-		super();
 		init();
 	}
 

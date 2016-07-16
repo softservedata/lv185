@@ -15,7 +15,6 @@ public class RoleDao extends AbstractDao<Role>{
 	private static volatile RoleDao instance = null;
 	
 	private RoleDao() {
-		super();
 		init();
 	}
 

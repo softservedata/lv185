@@ -18,7 +18,6 @@ public final class UserDao extends AbstractDao<User> {
 	private static volatile UserDao instance = null;
 
 	private UserDao() {
-		super();
 		init();
 	}
 
