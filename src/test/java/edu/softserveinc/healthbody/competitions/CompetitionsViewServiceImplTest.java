@@ -8,8 +8,6 @@ import static org.testng.Assert.fail;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
@@ -23,12 +21,12 @@ import edu.softserveinc.healthbody.dto.CompetitionDTO;
 import edu.softserveinc.healthbody.exceptions.IllegalAgrumentCheckedException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
+import edu.softserveinc.healthbody.log.LoggerWrapper;
 import edu.softserveinc.healthbody.services.ICompetitionsViewService;
 import edu.softserveinc.healthbody.services.impl.CompetitionsViewServiceImpl;
 
 public class CompetitionsViewServiceImplTest {
-	private static Logger logger = LoggerFactory.getLogger(CompetitionsViewServiceImplTest.class.getName());
-
+	
 	@BeforeClass
 	public void populateTestData(){
 		new CreateDropTestDatabase().populateDBTables();
@@ -37,7 +35,7 @@ public class CompetitionsViewServiceImplTest {
 	@AfterClass
 	public void CleanTableAfterTest() throws SQLException, JDBCDriverException{
 		DBPopulateManager.getInstance().deleteAllFromTables();
-		logger.info("Aftertest block UserviewServiceimpl worked");
+		LoggerWrapper.info(this.getClass(), "Aftertest block UserviewServiceimpl worked");
 	}
 	
 	@Test
@@ -48,12 +46,12 @@ public class CompetitionsViewServiceImplTest {
 			result = cv.getAll(1, 2);
 			assertNotNull(result);
 			assertEquals(result.size(), 2);
-//			logger.info("testGetAll");
-//			logger.info(result.toString());
+//			LoggerWrapper.info("testGetAll");
+//			LoggerWrapper.info(result.toString());
 //			System.out.println("testGetAll");
 //			System.out.println(result);
 		} catch (JDBCDriverException | SQLException | TransactionException e) {
-			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			LoggerWrapper.error(this.getClass(), TestConstants.EXCEPTION_CATCHED + e);
 			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
@@ -65,12 +63,12 @@ public class CompetitionsViewServiceImplTest {
 		try {
 			result = cv.getAllActive(1, 10);
 			assertNotNull(result);
-//			logger.info("testGetAllActive");
-//			logger.info(result.toString());
+//			LoggerWrapper.info("testGetAllActive");
+//			LoggerWrapper.info(result.toString());
 //			System.out.println("testGetAllActive");
 //			System.out.println(result);
 		} catch (JDBCDriverException | SQLException | TransactionException e) {
-			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			LoggerWrapper.error(this.getClass(), TestConstants.EXCEPTION_CATCHED + e);
 			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
@@ -83,12 +81,12 @@ public class CompetitionsViewServiceImplTest {
 		try {
 			result = cv.getAllByUser(1, 10, userlogin);
 			assertNotNull(result);
-//			logger.info("testGetAllByUser");
-//			logger.info(result.toString());
+//			LoggerWrapper.info("testGetAllByUser");
+//			LoggerWrapper.info(result.toString());
 //			System.out.println("testGetAllByUser");
 //			System.out.println(result);
 		} catch (IllegalAgrumentCheckedException | SQLException | JDBCDriverException | TransactionException e) {
-			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			LoggerWrapper.error(this.getClass(), TestConstants.EXCEPTION_CATCHED + e);
 			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
@@ -101,7 +99,7 @@ public class CompetitionsViewServiceImplTest {
 			result = cv.getAllByUser(1, 10, null);
 			assertNull(result);
 		} catch (SQLException | JDBCDriverException | TransactionException e) {
-			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			LoggerWrapper.error(this.getClass(), TestConstants.EXCEPTION_CATCHED + e);
 			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
@@ -114,7 +112,7 @@ public class CompetitionsViewServiceImplTest {
 			result = cv.getAllByUser(1, 10, "");
 			assertNull(result);
 		} catch (SQLException | JDBCDriverException | TransactionException e) {
-			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			LoggerWrapper.error(this.getClass(), TestConstants.EXCEPTION_CATCHED + e);
 			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
@@ -139,7 +137,7 @@ public class CompetitionsViewServiceImplTest {
 			result = cv.getAllByUser(2_000_000_000, 2_000_000_000, userlogin);
 			assertEquals(0, result.size());
 		} catch (IllegalAgrumentCheckedException | SQLException | JDBCDriverException | TransactionException e) {
-			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			LoggerWrapper.error(this.getClass(), TestConstants.EXCEPTION_CATCHED + e);
 			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
@@ -152,12 +150,12 @@ public class CompetitionsViewServiceImplTest {
 		try {
 			result = cv.getAllActiveByUser(1, 10, userlogin);
 			assertNotNull(result);
-//			logger.info("testGetAllActiveByUser");
-//			logger.info(result.toString());
+//			LoggerWrapper.info("testGetAllActiveByUser");
+//			LoggerWrapper.info(result.toString());
 //			System.out.println("testGetAllActiveByUser");
 //			System.out.println(result);
 		} catch (IllegalAgrumentCheckedException | SQLException | JDBCDriverException | TransactionException e) {
-			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			LoggerWrapper.error(this.getClass(), TestConstants.EXCEPTION_CATCHED + e);
 			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 //		System.out.println("testGetAllActiveByUser");
@@ -172,7 +170,7 @@ public class CompetitionsViewServiceImplTest {
 			result = cv.getAllActiveByUser(1, 10, null);
 			assertNull(result);
 		} catch (SQLException | JDBCDriverException | TransactionException e) {
-			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			LoggerWrapper.error(this.getClass(), TestConstants.EXCEPTION_CATCHED + e);
 			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
@@ -185,7 +183,7 @@ public class CompetitionsViewServiceImplTest {
 			result = cv.getAllActiveByUser(1, 10, "");
 			assertNull(result);
 		} catch (SQLException | JDBCDriverException | TransactionException e) {
-			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			LoggerWrapper.error(this.getClass(), TestConstants.EXCEPTION_CATCHED + e);
 			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}

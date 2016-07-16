@@ -6,52 +6,50 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
+import edu.softserveinc.healthbody.log.LoggerWrapper;
 
 public class CreateDropTestDatabase {
-	private static Logger logger = LoggerFactory.getLogger(CreateDropTestDatabase.class.getName());
 
 	@BeforeSuite
 	@Parameters("testDatabase")
 	public void createTestDatabase(@Optional("healthbodydbtest") String testDatabase) {
-		logger.info("Setting up database " + testDatabase + ".");
+		LoggerWrapper.info(this.getClass(), "Setting up database " + testDatabase + ".");
 		try (Connection con = ConnectionManager
 				.getInstance(DataSourceRepository.getInstance().getPostgresLocalHostNoDatabase()).getConnection();
 				Statement st = con.createStatement()) {
 			if (!DBCreationManager.getInstance().dropDatabase(st, testDatabase)) {
 				String failMessage = "Database " + testDatabase + " does not exist.";
-				logger.info(failMessage);
+				LoggerWrapper.info(this.getClass(), failMessage);
 				// Not epic fail :) Let's go ahead.
 				// fail(failMessage);
 			}
 			if (!DBCreationManager.getInstance().createDatabase(st, testDatabase)) {
 				String failMessage = "Couldn't create database " + testDatabase + ".";
-				logger.error(failMessage);
+				LoggerWrapper.error(this.getClass(), failMessage);
 				fail(failMessage);
 			}
 		} catch (SQLException e) {
 			String failMessage = "Problem with deleting/creating database " + testDatabase + ".";
-			logger.error(failMessage, e);
+			LoggerWrapper.error(this.getClass(), failMessage + e);
 			fail(failMessage, e);
 		} catch (JDBCDriverException e) {
 			String failMessage = "Couldn't get connection.";
-			logger.error(failMessage, e);
+			LoggerWrapper.error(this.getClass(), failMessage + e);
 			fail(failMessage, e);
 		}
 		try {
 			ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresLocalHostByDatabaseName(testDatabase)).getConnection();
 		} catch (JDBCDriverException e) {
 			String failMessage = "Couldn't get connection.";
-			logger.error(failMessage, e);
+			LoggerWrapper.error(this.getClass(), failMessage + e);
 			fail(failMessage, e);
-		}		logger.info("Setting up database ends successfully...");
+		}		LoggerWrapper.info(this.getClass(), "Setting up database ends successfully...");
 	}
 	
 	public void populateDBTables(){
@@ -60,25 +58,25 @@ public class CreateDropTestDatabase {
 			con = ConnectionManager.getInstance().getConnection();
 		} catch (JDBCDriverException e) {
 			String failMessage = "Couldn't get connection.";
-			logger.error(failMessage, e);
+			LoggerWrapper.error(this.getClass(), failMessage + e);
 			fail(failMessage, e);
 		}
 		try (Statement st = con.createStatement()){
 			DBPopulateManager.getInstance().deleteAllFromTables();
 		} catch (SQLException | JDBCDriverException e) {
 			String failMessage = "Problem with deleting tables in database.";
-			logger.error(failMessage, e);
+			LoggerWrapper.error(this.getClass(), failMessage + e);
 			fail(failMessage, e);
 		} 
 		try (Statement st = con.createStatement()) {
 			DBCreationManager dbCReationManager = DBCreationManager.getInstance();
 			for (String query : dbCReationManager.getListOfQueries()) {
-				logger.info("Creating table " + query.split("\"")[1]);
+				LoggerWrapper.info(this.getClass(), "Creating table " + query.split("\"")[1]);
 				dbCReationManager.createTable(st, query);
 			}
 		} catch (SQLException e) {
 			String failMessage = "Problem with creating tables in database.";
-			logger.error(failMessage, e);
+			LoggerWrapper.error(this.getClass(), failMessage + e);
 			fail(failMessage, e);
 		}
 		DBPopulateManager.getInstance().populateUsersTable();
@@ -91,7 +89,7 @@ public class CreateDropTestDatabase {
 	    DBPopulateManager.getInstance().populateMetaDataTable();
 	    DBPopulateManager.getInstance().populateRolesTable();
 	    DBPopulateManager.getInstance().populateUserCompetitionsTable();
-		logger.info("End of tables population");
+		LoggerWrapper.info(this.getClass(), "End of tables population");
 	}
 
 	
@@ -104,20 +102,20 @@ public class CreateDropTestDatabase {
 					.getConnection();
 		} catch (JDBCDriverException e) {
 			String failMessage = "Couldn't get connection.";
-			logger.error(failMessage, e);
+			LoggerWrapper.error(this.getClass(), failMessage + e);
 			fail(failMessage, e);
 		}
 		try (Statement st = con.createStatement()) {
 			if (!DBCreationManager.getInstance().dropDatabase(st, testDatabase)) {
 				String failMessage = "Couldn't delete database " + testDatabase + ".";
-				logger.error(failMessage);
+				LoggerWrapper.error(this.getClass(), failMessage);
 				fail(failMessage);
 			} else {
-				logger.info("Database " + testDatabase + " was deleted.");
+				LoggerWrapper.info(this.getClass(), "Database " + testDatabase + " was deleted.");
 			}
 		} catch (SQLException e) {
 			String failMessage = "Problem with deleting database " + testDatabase + ".";
-			logger.error(failMessage, e);
+			LoggerWrapper.error(this.getClass(), failMessage + e);
 			fail(failMessage, e);
 		}
 	}
