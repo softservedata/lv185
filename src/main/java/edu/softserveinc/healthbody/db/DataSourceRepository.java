@@ -23,7 +23,7 @@ public final class DataSourceRepository {
 	
 	public DataSource getPostgresJenkins()throws JDBCDriverException{
 		return new DataSource(DriverRepository.getInstance().getPostgresDriver(), 
-				"postgresql://127.10.182.2:5432/", "adminud8ggnm", " 6JxTBU-ab6KR");
+				"jdbc:postgresql://127.10.182.2:5432/jenkins", "adminud8ggnm", " 6JxTBU-ab6KR");
 	}
 	
 	public DataSource getPostgresLocalHost() throws JDBCDriverException {
