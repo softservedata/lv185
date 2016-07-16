@@ -19,7 +19,7 @@
 	<property name="lib" value="${basedir}/lib" />
 	<property name="web.dir" value="src/main/webapp" />
 
-	<!-- Defining classpaths                                             -->
+	<!-- Defining classpaths                                                    -->
 
 	<path id="build.classpath">
 		<pathelement location="${basedir}" />
@@ -74,13 +74,15 @@
 		</javac>
 	</target>
 
-	<!-- Runs the file and generates Reportng report for TestNG-->
+	<!-- Runs the file and generates Reportng report for TestNG                 -->
+	
 	<target name="testngdef" description="description">
 		<taskdef resource="testngtasks" classpath="./target/lib/testng-6.9.10.jar" />
 	</target>
 
-	<!-- Run all tests                                                       -->
-	<target name="test" depends="compile-tests, testngdef" unless="testng.skipped" description="Run the test cases">
+	<!-- Run all tests                                                          -->
+	
+	<target name="test" depends="compile-tests, testngdef, testng-missing" unless="testng.skipped" description="Run the test cases">
 		<mkdir dir="${test.reports}" />
 		<testng outputdir="${test.reports}" classpath="./target/lib/*;./target/classes;./target/test-classes;" useDefaultListeners="true">
 			<xmlfileset dir="." includes="testng.xml" />
@@ -92,12 +94,22 @@
 	</target>
 
 	<target name="test-testng-status" depends="test-testng-present">
+		<condition property="testng.missing">
+			<and>
+				<isfalse value="${testng.present}" />
+				<isfalse value="${test.skip}" />
+			</and>
+		</condition>
 		<condition property="testng.skipped">
 			<or>
 				<isfalse value="${testng.present}" />
 				<istrue value="${test.skip}" />
 			</or>
 		</condition>
+	</target>
+
+	<target name="testng-missing" depends="test-testng-status" if="testng.missing">
+		<echo> WARNING! Tests not executed. Package not created </echo>
 	</target>
 
 	<!-- Javadoc target                                                         -->
@@ -108,7 +120,7 @@
 
 	<!-- Package target                                                         -->
 
-	<target name="package" depends="compile,test" description="Package the application">
+	<target name="package" depends="compile, test" unless="testng.missing" description="Package the application">
 
 		<!--		<jar jarfile="${build.dir}/${build.finalName}.jar" compress="true" index="false" basedir="${build.outputDir}" excludes="**/package.html" /> -->
 
@@ -117,12 +129,10 @@
 				<exclude name="jdbc1.jar" />
 			</lib>
 			<classes dir="${build.dir}/classes" />
-		<!--	<webinf dir="${web.dir}/WEB-INF" /> -->
-			<fileset dir = "${web.dir}">
-			      <include name = "**/*.*"/>
+			<fileset dir="${web.dir}">
+				<include name="**/*.*" />
 			</fileset>
 		</war>
-
 	</target>
 
 	<!-- Download dependencies target                                           -->
