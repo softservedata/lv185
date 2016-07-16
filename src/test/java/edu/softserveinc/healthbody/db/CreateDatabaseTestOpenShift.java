@@ -48,14 +48,20 @@ private static Logger logger = LoggerFactory.getLogger(CreateDatabaseTestOpenShi
  			logger.error(failMessage, e);
  			fail(failMessage, e);
  		}
- 			logger.info("Setting up database ends successfully...");
- 	}
+		try {
+			ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresJenkinsByDatabaseName(testDatabase)).getConnection();
+		} catch (JDBCDriverException e) {
+			String failMessage = "Couldn't get connection.";
+			logger.error(failMessage, e);
+			fail(failMessage, e);
+		}		logger.info("Setting up database ends successfully...");
+	}
+ 	
  	
 	public void populateDBTables(){
 		Connection con = null;
 		try {
-			con = ConnectionManager.getInstance(DataSourceRepository.getInstance().getPostgresJenkins())
-					.getConnection();
+			con = ConnectionManager.getInstance().getConnection();
 		} catch (JDBCDriverException e) {
 			String failMessage = "Couldn't get connection.";
 			logger.error(failMessage, e);
