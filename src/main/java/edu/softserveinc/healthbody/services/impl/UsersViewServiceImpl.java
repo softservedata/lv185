@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.softserveinc.healthbody.constants.ServiceConstants;
 import edu.softserveinc.healthbody.dao.UsersViewDao;
 import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.dto.UserDTO;

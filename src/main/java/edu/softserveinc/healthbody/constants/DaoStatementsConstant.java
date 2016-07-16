@@ -1,4 +1,4 @@
-package edu.softserveinc.healthbody.dao;
+package edu.softserveinc.healthbody.constants;
 
 import edu.softserveinc.healthbody.dao.IBasicDao.DaoQueries;
 

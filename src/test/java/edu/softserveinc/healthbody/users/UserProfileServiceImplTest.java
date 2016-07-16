@@ -1,4 +1,4 @@
-package edu.softserveinc.healthbody;
+package edu.softserveinc.healthbody.users;
 
 import static org.testng.Assert.fail;
 import static org.testng.AssertJUnit.assertEquals;
@@ -14,6 +14,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import edu.softserveinc.healthbody.constants.TestConstants;
+import edu.softserveinc.healthbody.db.CreateDropTestDatabase;
 import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.dto.GroupDTO;
 import edu.softserveinc.healthbody.dto.UserDTO;
@@ -28,7 +30,6 @@ import edu.softserveinc.healthbody.services.impl.UserProfileServiceImpl;
 public class UserProfileServiceImplTest {
 
 	private static Logger logger = LoggerFactory.getLogger(UserProfileServiceImplTest.class.getName());
-	private static final String EXCEPTION_CATCHED = "Exception catched while running test method.";
 	
 	@BeforeClass
 	public void populateTestData(){
@@ -64,8 +65,8 @@ public class UserProfileServiceImplTest {
 			}
 		} catch (SQLException | JDBCDriverException | EmptyResultSetException | TransactionException
 				| CloseStatementException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 	
@@ -76,8 +77,8 @@ public class UserProfileServiceImplTest {
 			UserProfileServiceImpl.getInstance().get(null);
 		} catch (SQLException | JDBCDriverException | EmptyResultSetException | TransactionException
 				| CloseStatementException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 	
@@ -90,8 +91,8 @@ public class UserProfileServiceImplTest {
 			assertEquals(null, userDTO);
 		} catch (SQLException | JDBCDriverException | EmptyResultSetException | TransactionException
 				| CloseStatementException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
   
@@ -119,8 +120,8 @@ public class UserProfileServiceImplTest {
 			}
 		} catch (SQLException | JDBCDriverException | EmptyResultSetException | TransactionException
 				| CloseStatementException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 	
@@ -152,8 +153,8 @@ public class UserProfileServiceImplTest {
 			}
 		} catch (SQLException | JDBCDriverException | EmptyResultSetException | TransactionException
 				| CloseStatementException | DataBaseReadingException | QueryNotFoundException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 	
@@ -165,8 +166,8 @@ public class UserProfileServiceImplTest {
 			UserProfileServiceImpl.getInstance().update(userDTO2);
 		} catch (SQLException | JDBCDriverException | DataBaseReadingException | QueryNotFoundException
 				| EmptyResultSetException | TransactionException | CloseStatementException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 		
@@ -197,8 +198,8 @@ public class UserProfileServiceImplTest {
 		 	logger.info("Delete user from database for test");
 	 	} catch (SQLException | JDBCDriverException | DataBaseReadingException | QueryNotFoundException
 				| EmptyResultSetException | TransactionException | CloseStatementException e) {
-	 		logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+	 		logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 	
@@ -210,8 +211,8 @@ public class UserProfileServiceImplTest {
 			UserProfileServiceImpl.getInstance().insert(userDTO3);
 		} catch (SQLException | JDBCDriverException | DataBaseReadingException | QueryNotFoundException
 				| EmptyResultSetException | TransactionException | CloseStatementException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 					
@@ -225,8 +226,8 @@ public class UserProfileServiceImplTest {
 			assertEquals("true", userDTO5.getIsDisabled());
 		} catch (SQLException | JDBCDriverException | EmptyResultSetException | TransactionException
 				| CloseStatementException | QueryNotFoundException | DataBaseReadingException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 		
 	}
@@ -239,8 +240,8 @@ public class UserProfileServiceImplTest {
 			UserProfileServiceImpl.getInstance().lock(userDTO5, true);
 		} catch (SQLException | JDBCDriverException | QueryNotFoundException | DataBaseReadingException
 				| TransactionException | CloseStatementException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 }

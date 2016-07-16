@@ -1,4 +1,4 @@
-package edu.softserveinc.healthbody;
+package edu.softserveinc.healthbody.db;
 
 import static org.testng.Assert.fail;
 

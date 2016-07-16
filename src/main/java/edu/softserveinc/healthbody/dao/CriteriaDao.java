@@ -3,7 +3,7 @@ package edu.softserveinc.healthbody.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.softserveinc.healthbody.dao.DaoStatementsConstant.CriteriaDBQueries;
+import edu.softserveinc.healthbody.constants.DaoStatementsConstant.CriteriaDBQueries;
 import edu.softserveinc.healthbody.entity.Criteria;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;

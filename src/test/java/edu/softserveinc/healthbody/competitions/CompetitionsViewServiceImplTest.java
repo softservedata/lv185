@@ -1,4 +1,4 @@
-package edu.softserveinc.healthbody;
+package edu.softserveinc.healthbody.competitions;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -16,6 +16,8 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import edu.softserveinc.healthbody.constants.TestConstants;
+import edu.softserveinc.healthbody.db.CreateDropTestDatabase;
 import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.dto.CompetitionDTO;
 import edu.softserveinc.healthbody.exceptions.IllegalAgrumentCheckedException;
@@ -26,7 +28,6 @@ import edu.softserveinc.healthbody.services.impl.CompetitionsViewServiceImpl;
 
 public class CompetitionsViewServiceImplTest {
 	private static Logger logger = LoggerFactory.getLogger(CompetitionsViewServiceImplTest.class.getName());
-	private static final String EXCEPTION_CATCHED = "Exception catched while running test method.";
 
 	@BeforeClass
 	public void populateTestData(){
@@ -36,7 +37,7 @@ public class CompetitionsViewServiceImplTest {
 	@AfterClass
 	public void CleanTableAfterTest() throws SQLException, JDBCDriverException{
 		DBPopulateManager.getInstance().deleteAllFromTables();
-		logger.info("Aftertest block Userviewserviceimpl worked");
+		logger.info("Aftertest block UserviewServiceimpl worked");
 	}
 	
 	@Test
@@ -52,8 +53,8 @@ public class CompetitionsViewServiceImplTest {
 //			System.out.println("testGetAll");
 //			System.out.println(result);
 		} catch (JDBCDriverException | SQLException | TransactionException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 
@@ -69,8 +70,8 @@ public class CompetitionsViewServiceImplTest {
 //			System.out.println("testGetAllActive");
 //			System.out.println(result);
 		} catch (JDBCDriverException | SQLException | TransactionException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 
@@ -87,8 +88,8 @@ public class CompetitionsViewServiceImplTest {
 //			System.out.println("testGetAllByUser");
 //			System.out.println(result);
 		} catch (IllegalAgrumentCheckedException | SQLException | JDBCDriverException | TransactionException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 
@@ -100,8 +101,8 @@ public class CompetitionsViewServiceImplTest {
 			result = cv.getAllByUser(1, 10, null);
 			assertNull(result);
 		} catch (SQLException | JDBCDriverException | TransactionException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 
@@ -113,8 +114,8 @@ public class CompetitionsViewServiceImplTest {
 			result = cv.getAllByUser(1, 10, "");
 			assertNull(result);
 		} catch (SQLException | JDBCDriverException | TransactionException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 
@@ -138,8 +139,8 @@ public class CompetitionsViewServiceImplTest {
 			result = cv.getAllByUser(2_000_000_000, 2_000_000_000, userlogin);
 			assertEquals(0, result.size());
 		} catch (IllegalAgrumentCheckedException | SQLException | JDBCDriverException | TransactionException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 
@@ -156,8 +157,8 @@ public class CompetitionsViewServiceImplTest {
 //			System.out.println("testGetAllActiveByUser");
 //			System.out.println(result);
 		} catch (IllegalAgrumentCheckedException | SQLException | JDBCDriverException | TransactionException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 //		System.out.println("testGetAllActiveByUser");
 //		System.out.println(result);
@@ -171,8 +172,8 @@ public class CompetitionsViewServiceImplTest {
 			result = cv.getAllActiveByUser(1, 10, null);
 			assertNull(result);
 		} catch (SQLException | JDBCDriverException | TransactionException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 
@@ -184,8 +185,8 @@ public class CompetitionsViewServiceImplTest {
 			result = cv.getAllActiveByUser(1, 10, "");
 			assertNull(result);
 		} catch (SQLException | JDBCDriverException | TransactionException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			logger.error(TestConstants.EXCEPTION_CATCHED, e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 	

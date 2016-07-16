@@ -9,7 +9,7 @@ import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.softserveinc.healthbody.dao.DaoStatementsConstant;
+import edu.softserveinc.healthbody.constants.DaoStatementsConstant;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 
 public class DBPopulateManager {

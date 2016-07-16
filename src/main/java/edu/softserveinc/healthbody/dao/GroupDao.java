@@ -6,7 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.softserveinc.healthbody.dao.DaoStatementsConstant.GroupDBQueries;
+import edu.softserveinc.healthbody.constants.DaoConstants;
+import edu.softserveinc.healthbody.constants.DaoStatementsConstant.GroupDBQueries;
 import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.entity.Group;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
@@ -68,7 +69,7 @@ public final class GroupDao extends AbstractDao<Group> {
 		boolean result = false;
 		String query = sqlQueries.get(DaoQueries.UPDATE).toString();
 		if (query == null) {
-			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.UPDATE.name()));
+			throw new QueryNotFoundException(String.format(DaoConstants.QUERY_NOT_FOUND, DaoQueries.UPDATE.name()));
 		}
 		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 			int i = 1;
@@ -78,7 +79,7 @@ public final class GroupDao extends AbstractDao<Group> {
 			pst.setString(i++, group.getName());
 			result = pst.execute();
 		} catch (SQLException e) {
-			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+			throw new DataBaseReadingException(DaoConstants.DATABASE_READING_ERROR, e);
 		}
 		return result;
 	}
@@ -93,7 +94,7 @@ public final class GroupDao extends AbstractDao<Group> {
 		List<Group> result = new ArrayList<>();
 		String query = sqlQueries.get(DaoQueries.GET_ALL).toString();
 		if (query == null) {
-			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, GroupDBQueries.GET_ALL.name()));
+			throw new QueryNotFoundException(String.format(DaoConstants.QUERY_NOT_FOUND, GroupDBQueries.GET_ALL.name()));
 		}
 		if ((partNumber >= 0) && (partSize > 0)) {
 			query = query.substring(0, query.lastIndexOf(";")) + SQL_LIMIT;
@@ -105,7 +106,7 @@ public final class GroupDao extends AbstractDao<Group> {
 				result.add(createInstance(getQueryResultArr(queryResult, resultSet)));
 			}
 		} catch (SQLException e) {
-			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+			throw new DataBaseReadingException(DaoConstants.DATABASE_READING_ERROR, e);
 		}
 		return result;
 	}

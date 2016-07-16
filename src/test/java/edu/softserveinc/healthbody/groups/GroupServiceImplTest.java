@@ -1,4 +1,4 @@
-package edu.softserveinc.healthbody;
+package edu.softserveinc.healthbody.groups;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
@@ -12,6 +12,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import edu.softserveinc.healthbody.db.CreateDropTestDatabase;
 import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.dto.GroupDTO;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;

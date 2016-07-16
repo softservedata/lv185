@@ -3,6 +3,7 @@ package edu.softserveinc.healthbody.dao;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import edu.softserveinc.healthbody.constants.DaoConstants;
 import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.entity.IEntity;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
@@ -23,7 +24,7 @@ abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEnt
 		boolean result = false;
 		String query = sqlQueries.get(DaoQueries.INSERT).toString();
 		if (query == null) {
-			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.INSERT.name()));
+			throw new QueryNotFoundException(String.format(DaoConstants.QUERY_NOT_FOUND, DaoQueries.INSERT.name()));
 		}
 		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 
@@ -32,7 +33,7 @@ abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEnt
 			}
 			result = pst.execute();
 		} catch (SQLException e) {
-			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+			throw new DataBaseReadingException(DaoConstants.DATABASE_READING_ERROR, e);
 		}
 		return result;
 	}
@@ -45,7 +46,7 @@ abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEnt
 		boolean result = false;
 		String query = sqlQueries.get(DaoQueries.UPDATE_BY_FIELD).toString();
 		if (query == null) {
-			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.UPDATE_BY_FIELD.name()));
+			throw new QueryNotFoundException(String.format(DaoConstants.QUERY_NOT_FOUND, DaoQueries.UPDATE_BY_FIELD.name()));
 		}
 		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 			pst.setString(1, fieldName);
@@ -54,7 +55,7 @@ abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEnt
 			pst.setString(4, textCondition);
 			result = pst.execute();
 		} catch (SQLException e) {
-			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+			throw new DataBaseReadingException(DaoConstants.DATABASE_READING_ERROR, e);
 		}
 		return result;
 	}
@@ -65,13 +66,13 @@ abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEnt
 		boolean result = false;
 		String query = sqlQueries.get(DaoQueries.DELETE_BY_ID).toString();
 		if (query == null) {
-			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.DELETE_BY_ID.name()));
+			throw new QueryNotFoundException(String.format(DaoConstants.QUERY_NOT_FOUND, DaoQueries.DELETE_BY_ID.name()));
 		}
 		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 			pst.setInt(1, id);
 			result = pst.execute();
 		} catch (SQLException e) {
-			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+			throw new DataBaseReadingException(DaoConstants.DATABASE_READING_ERROR, e);
 		}
 		return result;
 	}
@@ -82,13 +83,13 @@ abstract class AbstractDao<TEntity extends IEntity> extends AbstractDaoRead<TEnt
 		boolean result = false;
 		String query = sqlQueries.get(DaoQueries.DELETE_BY_FIELD).toString();
 		if (query == null) {
-			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, DaoQueries.DELETE_BY_FIELD.name()));
+			throw new QueryNotFoundException(String.format(DaoConstants.QUERY_NOT_FOUND, DaoQueries.DELETE_BY_FIELD.name()));
 		}
 		try (PreparedStatement pst = ConnectionManager.getInstance().getConnection().prepareStatement(query)) {
 			pst.setString(1, textCondition);
 			result = pst.execute();
 		} catch (SQLException e) {
-			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+			throw new DataBaseReadingException(DaoConstants.DATABASE_READING_ERROR, e);
 		}
 		return result;
 	}

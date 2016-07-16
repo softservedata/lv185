@@ -7,6 +7,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.softserveinc.healthbody.constants.ServiceConstants;
 import edu.softserveinc.healthbody.dao.GroupDao;
 import edu.softserveinc.healthbody.dao.RoleDao;
 import edu.softserveinc.healthbody.dao.UserCompetitionsDao;

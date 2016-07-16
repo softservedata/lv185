@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import edu.softserveinc.healthbody.dao.DaoStatementsConstant.GroupDBQueries;
+import edu.softserveinc.healthbody.constants.DaoStatementsConstant.GroupDBQueries;
 import edu.softserveinc.healthbody.entity.Award;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;

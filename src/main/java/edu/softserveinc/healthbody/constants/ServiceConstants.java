@@ -1,4 +1,4 @@
-package edu.softserveinc.healthbody.services.impl;
+package edu.softserveinc.healthbody.constants;
 
 public class ServiceConstants {
 
