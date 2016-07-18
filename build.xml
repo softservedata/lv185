@@ -82,7 +82,7 @@
 
 	<!-- Run all tests                                                          -->
 	
-	<target name="test" depends="compile-tests, testngdef, testng-missing" unless="testng.skipped" description="Run the test cases">
+	<target name="test" depends="compile-tests, testngdef" unless="testng.skipped" description="Run the test cases">
 		<mkdir dir="${test.reports}" />
 		<testng outputdir="${test.reports}" classpath="./target/lib/*;./target/classes;./target/test-classes;" useDefaultListeners="true">
 			<xmlfileset dir="." includes="testng.xml" />
@@ -108,9 +108,9 @@
 		</condition>
 	</target>
 
-	<target name="testng-missing" depends="test-testng-status" if="testng.missing">
+<!--	<target name="testng-missing" depends="test-testng-status" if="testng.missing">
 		<echo> WARNING! Tests not executed. Package not created </echo>
-	</target>
+	</target> -->
 
 	<!-- Javadoc target                                                         -->
 
