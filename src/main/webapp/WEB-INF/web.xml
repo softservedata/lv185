@@ -21,6 +21,16 @@
   </session-config>
   
   <servlet>
+		<servlet-name>GoogleAuth</servlet-name>
+		<servlet-class>edu.softserveinc.healthbody.servlets.GoogleAuth</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GoogleAuth</servlet-name>
+		<url-pattern>/GoogleAuth</url-pattern>
+	</servlet-mapping>
+  
+  
+  <servlet>
 		<servlet-name>googleTest</servlet-name>
 		<servlet-class>edu.softserveinc.healthbody.servlets.GoogleTestServlet</servlet-class>
 	</servlet>
