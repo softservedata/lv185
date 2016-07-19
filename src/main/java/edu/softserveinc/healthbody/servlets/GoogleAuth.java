@@ -8,17 +8,16 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import edu.softserveinc.healthbody.servlets.GooglePojo;
 
-@WebServlet("/GoogleAuth")
 public class GoogleAuth extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -33,8 +32,9 @@ public class GoogleAuth extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
+    	
+    	response.setContentType("application/json;charset=UTF-8");
         
-        System.out.println("entering doGet");
         try {
             // get code
             String code = request.getParameter("code");
@@ -43,7 +43,7 @@ public class GoogleAuth extends HttpServlet {
                     + code
                     + "&client_id=48524677967-juniqolaio06efre3m3q7774097q50u8.apps.googleusercontent.com"
                     + "&client_secret=KBpMscuWOZc43u-4KKpwbE5T"
-                    + "&redirect_uri=http://localhost:8080"
+                    + "&redirect_uri=http://localhost:8080/lv185/GoogleAuth"
                     + "&grant_type=authorization_code";
             
             //post parameters
@@ -62,12 +62,10 @@ public class GoogleAuth extends HttpServlet {
             while ((line = reader.readLine()) != null) {
                 outputString += line;
             }
-            System.out.println(outputString);
             
             //get Access Token 
             JsonObject json = (JsonObject)new JsonParser().parse(outputString);
             String access_token = json.get("access_token").getAsString();
-            System.out.println(access_token);
 
             //get User Info 
             url = new URL(
@@ -80,7 +78,6 @@ public class GoogleAuth extends HttpServlet {
             while ((line = reader.readLine()) != null) {
                 outputString += line;
             }
-            System.out.println(outputString);
             
             // Convert JSON response into Pojo class
             GooglePojo data = new Gson().fromJson(outputString, GooglePojo.class);
@@ -95,7 +92,6 @@ public class GoogleAuth extends HttpServlet {
         } catch (IOException e) {
             System.out.println( e);
         }
-        System.out.println("leaving doGet");
     }
 
 }
