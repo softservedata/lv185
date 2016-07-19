@@ -3,7 +3,7 @@ package edu.softserveinc.healthbody.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.softserveinc.healthbody.dao.DaoStatementsConstant.UserCompetitionsDBQueries;
+import edu.softserveinc.healthbody.constants.DaoStatementsConstant.UserCompetitionsDBQueries;
 import edu.softserveinc.healthbody.entity.UserCompetitions;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
 import edu.softserveinc.healthbody.exceptions.DataBaseReadingException;
@@ -16,7 +16,6 @@ public final class UserCompetitionsDao extends AbstractDao<UserCompetitions> {
 	private static volatile UserCompetitionsDao instance = null;
 	
 	private UserCompetitionsDao() {
-		super();
 		init();
 	}
 	

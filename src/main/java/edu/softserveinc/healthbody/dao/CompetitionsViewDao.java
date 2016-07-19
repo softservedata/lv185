@@ -6,10 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import edu.softserveinc.healthbody.dao.DaoStatementsConstant.CompetitionsViewQueries;
+import edu.softserveinc.healthbody.constants.DaoConstants;
+import edu.softserveinc.healthbody.constants.DaoStatementsConstant.CompetitionsViewQueries;
 import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.entity.CompetitionsView;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
@@ -18,15 +16,13 @@ import edu.softserveinc.healthbody.exceptions.EmptyResultSetException;
 import edu.softserveinc.healthbody.exceptions.IllegalAgrumentCheckedException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
-import edu.softserveinc.healthbody.services.impl.CompetitionsViewServiceImpl;
+import edu.softserveinc.healthbody.log.LoggerWrapper;
 
 public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 
-	private final static Logger logger = LoggerFactory.getLogger(CompetitionsViewServiceImpl.class.getName());
 	private static volatile CompetitionsViewDao instance = null;
 
 	public CompetitionsViewDao() {
-		super();
 		init();
 	}
 
@@ -72,7 +68,7 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 		String query = sqlQueries.get(CompetitionsViewQueries.GET_ALL_ACTIVE).toString();
 		if (query == null) {
 			throw new QueryNotFoundException(
-					String.format(QUERY_NOT_FOUND, CompetitionsViewQueries.GET_ALL_ACTIVE.name()));
+					String.format(DaoConstants.QUERY_NOT_FOUND, CompetitionsViewQueries.GET_ALL_ACTIVE.name()));
 		}
 		if ((partNumber >= 0) && (partSize > 0)) {
 			query = query.substring(0, query.lastIndexOf(";")) + SQL_LIMIT;
@@ -84,7 +80,7 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 				result.add(createInstance(getQueryResultArr(queryResult, resultSet)));
 			}
 		} catch (SQLException e) {
-			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+			throw new DataBaseReadingException(DaoConstants.DATABASE_READING_ERROR, e);
 		}
 		return result;
 	}
@@ -95,14 +91,14 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 			CloseStatementException, IllegalAgrumentCheckedException {
 		if (login == null || login.isEmpty()) {
 			String errorStr = "Illegal parameter. \"login\" is empty or null.";
-			logger.error(errorStr);
+			LoggerWrapper.error(this.getClass(), errorStr);
 			throw new IllegalAgrumentCheckedException(errorStr);
 		}
 		List<CompetitionsView> result = new ArrayList<>();
 		String query = sqlQueries.get(CompetitionsViewQueries.GET_ALL_ACTIVE_BY_USER).toString();
 		if (query == null) {
 			throw new QueryNotFoundException(
-					String.format(QUERY_NOT_FOUND, CompetitionsViewQueries.GET_ALL_ACTIVE_BY_USER.name()));
+					String.format(DaoConstants.QUERY_NOT_FOUND, CompetitionsViewQueries.GET_ALL_ACTIVE_BY_USER.name()));
 		}
 		if ((partNumber >= 0) && (partSize > 0)) {
 			query = query.substring(0, query.lastIndexOf(";")) + SQL_LIMIT;
@@ -114,7 +110,7 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 				result.add(createInstance(getQueryResultArr(queryResult, resultSet)));
 			}
 		} catch (SQLException e) {
-			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+			throw new DataBaseReadingException(DaoConstants.DATABASE_READING_ERROR, e);
 		}
 		return result;
 	}
@@ -124,7 +120,7 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 		List<CompetitionsView> result = new ArrayList<>();
 		String query = sqlQueries.get(CompetitionsViewQueries.GET_ALL).toString();
 		if (query == null) {
-			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, CompetitionsViewQueries.GET_ALL.name()));
+			throw new QueryNotFoundException(String.format(DaoConstants.QUERY_NOT_FOUND, CompetitionsViewQueries.GET_ALL.name()));
 		}
 		if ((partNumber >= 0) && (partSize > 0)) {
 			query = query.substring(0, query.lastIndexOf(";")) + SQL_LIMIT;
@@ -136,7 +132,7 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 				result.add(createInstance(getQueryResultArr(queryResult, resultSet)));
 			}
 		} catch (SQLException e) {
-			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+			throw new DataBaseReadingException(DaoConstants.DATABASE_READING_ERROR, e);
 		}
 		return result;
 	}
@@ -146,14 +142,14 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 			CloseStatementException, IllegalAgrumentCheckedException {
 		if (login == null || login.isEmpty()) {
 			String errorStr = "Illegal parameter. \"login\" is empty or null.";
-			logger.error(errorStr);
+			LoggerWrapper.error(this.getClass(), errorStr);
 			throw new IllegalAgrumentCheckedException(errorStr);
 		}
 		List<CompetitionsView> result = new ArrayList<>();
 		String query = sqlQueries.get(CompetitionsViewQueries.GET_ALL_BY_USER).toString();
 		if (query == null) {
 			throw new QueryNotFoundException(
-					String.format(QUERY_NOT_FOUND, CompetitionsViewQueries.GET_ALL_BY_USER.name()));
+					String.format(DaoConstants.QUERY_NOT_FOUND, CompetitionsViewQueries.GET_ALL_BY_USER.name()));
 		}
 		if ((partNumber >= 0) && (partSize > 0)) {
 			query = query.substring(0, query.lastIndexOf(";")) + SQL_LIMIT;
@@ -165,7 +161,7 @@ public class CompetitionsViewDao extends AbstractDaoRead<CompetitionsView> {
 				result.add(createInstance(getQueryResultArr(queryResult, resultSet)));
 			}
 		} catch (SQLException e) {
-			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+			throw new DataBaseReadingException(DaoConstants.DATABASE_READING_ERROR, e);
 		}
 		return result;
 	}

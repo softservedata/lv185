@@ -4,9 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import edu.softserveinc.healthbody.constants.ServiceConstants;
 import edu.softserveinc.healthbody.dao.CompetitionsViewDao;
 import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.dto.CompetitionDTO;
@@ -18,12 +16,10 @@ import edu.softserveinc.healthbody.exceptions.IllegalAgrumentCheckedException;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.QueryNotFoundException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
+import edu.softserveinc.healthbody.log.LoggerWrapper;
 import edu.softserveinc.healthbody.services.ICompetitionsViewService;
 
 public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
-
-	private final static Logger logger = LoggerFactory.getLogger(CompetitionsViewServiceImpl.class.getName());
-	protected final static String TRANSACTION_ERROR = "Transaction error. Rollback.";
 
 	@Override
 	public List<CompetitionDTO> getAll(int partNumber, int partSize) throws JDBCDriverException, SQLException, TransactionException {
@@ -39,7 +35,7 @@ public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 			}
 		} catch (CloseStatementException | QueryNotFoundException | EmptyResultSetException | DataBaseReadingException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
-			throw new TransactionException(TRANSACTION_ERROR, e);
+			throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);
 		}
 		ConnectionManager.getInstance().commitTransaction();
 		return competitionDTO;
@@ -59,7 +55,7 @@ public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 			}
 		} catch (CloseStatementException | QueryNotFoundException | EmptyResultSetException | DataBaseReadingException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
-			throw new TransactionException(TRANSACTION_ERROR, e);
+			throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);
 		}
 		ConnectionManager.getInstance().commitTransaction();
 		return competitionDTO;
@@ -69,7 +65,7 @@ public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 	public List<CompetitionDTO> getAllByUser(int partNumber, int partSize, String login) throws IllegalAgrumentCheckedException, SQLException, JDBCDriverException, TransactionException {
 		if (login == null || login.isEmpty()) {
 			String errorStr = "Illegal parameter. \"login\" is empty or null.";
-			logger.error(errorStr);
+			LoggerWrapper.error(this.getClass(), errorStr);
 			throw new IllegalAgrumentCheckedException(errorStr);
 		}
 		List<CompetitionDTO> competitionDTO = new ArrayList<>();
@@ -84,7 +80,7 @@ public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 			}
 		} catch (CloseStatementException | QueryNotFoundException | EmptyResultSetException | DataBaseReadingException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
-			throw new TransactionException(TRANSACTION_ERROR, e);
+			throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);
 		}
 		ConnectionManager.getInstance().commitTransaction();
 		return competitionDTO;
@@ -94,7 +90,7 @@ public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 	public List<CompetitionDTO> getAllActiveByUser(int partNumber, int partSize, String login) throws IllegalAgrumentCheckedException, SQLException, JDBCDriverException, TransactionException{
 		if (login == null || login.isEmpty()) {
 			String errorStr = "Illegal parameter. \"login\" is empty or null.";
-			logger.error(errorStr);
+			LoggerWrapper.error(this.getClass(), errorStr);
 			throw new IllegalAgrumentCheckedException(errorStr);
 		}
 		List<CompetitionDTO> competitionDTO = new ArrayList<>();
@@ -109,7 +105,7 @@ public class CompetitionsViewServiceImpl implements ICompetitionsViewService {
 			}
 		} catch (CloseStatementException | QueryNotFoundException | EmptyResultSetException | DataBaseReadingException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
-			throw new TransactionException(TRANSACTION_ERROR, e);
+			throw new TransactionException(ServiceConstants.TRANSACTION_ERROR, e);
 		}
 		ConnectionManager.getInstance().commitTransaction();
 		return competitionDTO;

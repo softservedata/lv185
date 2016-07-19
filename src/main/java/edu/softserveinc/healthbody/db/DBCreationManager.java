@@ -9,12 +9,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import edu.softserveinc.healthbody.log.LoggerWrapper;
 
 public class DBCreationManager {
 
-	private static Logger logger = LoggerFactory.getLogger(DBCreationManager.class.getName());
 	private static final ClassLoader LOADER = Thread.currentThread().getContextClassLoader();
 	private static final String PATH_FILE = "tables.txt";
 	private static final String TABLES_SPLIT = ";";
@@ -41,9 +39,9 @@ public class DBCreationManager {
 			String deleteConnectionsQuery = "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = \'"
 					+ databaseName + "\' AND pid <> pg_backend_pid();";
 			result = statement.execute(deleteConnectionsQuery + "DROP DATABASE " + databaseName + ";");
-			logger.info("Database - " + databaseName + " was deleted.");
+			LoggerWrapper.info(this.getClass(), "Database - " + databaseName + " was deleted.");
 		} else {
-			logger.info("Database - " + databaseName + " does not exist.");
+			LoggerWrapper.info(this.getClass(), "Database - " + databaseName + " does not exist.");
 			result = false;
 		}
 		return result;
@@ -53,12 +51,12 @@ public class DBCreationManager {
 		boolean result = false;
 		statement.execute("select datname from pg_catalog.pg_database where datname = \'" + databaseName + "\';");
 		if (statement.getResultSet().next()){
-			logger.info("Database - " + databaseName + " exists.");
+			LoggerWrapper.info(this.getClass(), "Database - " + databaseName + " exists.");
 		} else {
-			logger.info("Creating database " + databaseName);
+			LoggerWrapper.info(this.getClass(), "Creating database " + databaseName);
 			statement.execute("CREATE DATABASE " + databaseName);
 			result = true;
-			logger.info("Database " + databaseName + " was created.");
+			LoggerWrapper.info(this.getClass(), "Database " + databaseName + " was created.");
 		}
 		return result;
 	}
@@ -80,7 +78,7 @@ public class DBCreationManager {
 			}
 			queries = Arrays.asList(sb.toString().split(TABLES_SPLIT));
 		} catch (IOException e) {
-			logger.error("Cannot access to file " + PATH_FILE, e);
+			LoggerWrapper.error(this.getClass(), "Cannot access to file " + PATH_FILE + e);
 		}
 		return queries;
 	}

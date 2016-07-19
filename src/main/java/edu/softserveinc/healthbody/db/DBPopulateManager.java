@@ -6,15 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Random;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import edu.softserveinc.healthbody.dao.DaoStatementsConstant;
+import edu.softserveinc.healthbody.constants.DaoStatementsConstant;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
+import edu.softserveinc.healthbody.log.LoggerWrapper;
 
 public class DBPopulateManager {
 
-	private static Logger logger = LoggerFactory.getLogger(DBPopulateManager.class.getName());
 	private static volatile DBPopulateManager instance = null;
 	private static int users = 10;
 	private static int competitions = 20;
@@ -25,7 +22,7 @@ public class DBPopulateManager {
 		try {
 			con = ConnectionManager.getInstance().getConnection();
 		} catch (JDBCDriverException e) {
-			logger.error("Error in DBPopulateManager constructor while getting connetion.", e);
+			LoggerWrapper.error(this.getClass(), "Error in DBPopulateManager constructor while getting connetion." + e);
 		}
 	}
 
@@ -67,7 +64,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating users table.", e);
+			LoggerWrapper.error(this.getClass(), "Error populating users table." + e);
 		}
 		return successfulInsert;
 	}
@@ -89,7 +86,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating groups table.", e);
+			LoggerWrapper.error(this.getClass(), "Error populating groups table." + e);
 		}
 		return successfulInsert;
 	}
@@ -108,7 +105,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating usergroups table.", e);
+			LoggerWrapper.error(this.getClass(), "Error populating usergroups table." + e);
 		}
 		return successfulInsert;
 	}
@@ -127,7 +124,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating awards table.", e);
+			LoggerWrapper.error(this.getClass(), "Error populating awards table." + e);
 		}
 		return successfulInsert;
 	}
@@ -153,7 +150,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating competitions table.", e);
+			LoggerWrapper.error(this.getClass(), "Error populating competitions table." + e);
 		}
 		return successfulInsert;
 	}
@@ -173,7 +170,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating criteria table.", e);
+			LoggerWrapper.error(this.getClass(), "Error populating criteria table." + e);
 		}
 		return successfulInsert;
 	}
@@ -192,7 +189,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating groupcompetitions table.", e);
+			LoggerWrapper.error(this.getClass(), "Error populating groupcompetitions table." + e);
 		}
 		return successfulInsert;
 	}
@@ -210,7 +207,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating metadata table.", e);
+			LoggerWrapper.error(this.getClass(), "Error populating metadata table." + e);
 		}
 		return successfulInsert;
 	}
@@ -230,7 +227,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating roles table.", e);
+			LoggerWrapper.error(this.getClass(), "Error populating roles table." + e);
 		}
 		return successfulInsert;
 	}
@@ -252,7 +249,7 @@ public class DBPopulateManager {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Error populating usercompetitions table.", e);
+			LoggerWrapper.error(this.getClass(), "Error populating usercompetitions table." + e);
 		}
 		return successfulInsert;
 	}
@@ -267,7 +264,7 @@ public class DBPopulateManager {
 			ConnectionManager.getInstance().commitTransaction();
 		} catch (SQLException e) {
 			ConnectionManager.getInstance().rollbackTransaction();
-			logger.error("Error trancating database tables.", e);
+			LoggerWrapper.error(this.getClass(), "Error trancating database tables." + e);
 		}
 		return result;
 	}

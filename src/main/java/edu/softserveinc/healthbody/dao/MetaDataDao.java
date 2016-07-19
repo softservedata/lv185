@@ -3,7 +3,7 @@ package edu.softserveinc.healthbody.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.softserveinc.healthbody.dao.DaoStatementsConstant.MetaDataDBQueries;
+import edu.softserveinc.healthbody.constants.DaoStatementsConstant.MetaDataDBQueries;
 import edu.softserveinc.healthbody.entity.MetaData;
 
 public class MetaDataDao extends AbstractDao<MetaData> {

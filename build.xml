@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xml>
 
-<project name="lv185" default="package" basedir=".">
+<project name="HealthBody-WebService" default="package" basedir=".">
 
 	<!-- Build environment properties                                           -->
 
-	<property name="build.finalName" value="lv185-1.0" />
+	<property name="build.finalName" value="HealthBody-WebService" />
 	<property name="build.dir" value="target" />
 	<property name="build.outputDir" value="${build.dir}/classes" />
 	<property name="build.srcDir.0" value="src/main/java" />
 	<property name="build.resourceDir.0" value="src/main/resources" />
 	<property name="build.testOutputDir" value="${build.dir}/test-classes" />
 	<property name="build.testDir.0" value="src/test/java" />
-	<property name="build.testResourceDir.0" value="src/test/resources" />
 	<property name="test.reports" value="${build.dir}/test-reports" />
 	<property name="reporting.outputDirectory" value="${build.dir}/site" />
-	<property name="repo.local" value="${user.home}/.m2/repository" />
-	<property name="settings.offline" value="false" />
-	<property name="settings.interactiveMode" value="true" />
+	<property name="settings.offline" value="true" />
 	<property name="basedir" value="." />
 	<property name="lib" value="${basedir}/lib" />
 	<property name="web.dir" value="src/main/webapp" />
 
-	<!-- Defining classpaths                                             -->
+	<!-- Defining classpaths                                                    -->
 
 	<path id="build.classpath">
 		<pathelement location="${basedir}" />
@@ -45,7 +42,7 @@
 
 	<!-- Compilation target                                                     -->
 
-	<target name="compile" depends="get-deps" description="Compile the code">
+	<target name="compile" depends="get-deps, clean" description="Compile the code">
 		<mkdir dir="${build.outputDir}" />
 		<mkdir dir="${build.dir}/lib" />
 		<javac destdir="${build.outputDir}" encoding="UTF-8" nowarn="false" debug="true" optimize="false" deprecation="true" target="1.7" verbose="false" fork="false" source="1.7" includeantruntime="false">
@@ -63,8 +60,7 @@
 	</target>
 
 	<!-- Test-compilation target                                                -->
-
-	<target name="compile-tests" depends="compile" description="Compile the test code" unless="test.skip">
+	<target name="compile-tests" depends="compile" description="Compile the test code">
 		<mkdir dir="${build.testOutputDir}" />
 		<javac destdir="${build.testOutputDir}" encoding="UTF-8" nowarn="false" debug="true" optimize="false" deprecation="true" target="1.7" verbose="false" fork="false" source="1.7" includeantruntime="false">
 			<src>
@@ -77,41 +73,37 @@
 		</javac>
 	</target>
 
-	<!-- Runs the file and generates Reportng report for TestNG-->
+	<!-- Runs the file and generates Reportng report for TestNG                 -->
+	
 	<target name="testngdef" description="description">
 		<taskdef resource="testngtasks" classpath="./target/lib/testng-6.9.10.jar" />
 	</target>
 
-	<!-- Run all tests                                                       -->
-	<target name="test" depends="compile-tests, testngdef" unless="testng.skipped" description="Run the test cases">
+	<!-- Run all tests                                                          -->
+	
+	<target name="testng" depends="compile-tests, testngdef, test-offline" description="Run the test cases">
 		<mkdir dir="${test.reports}" />
-		<testng outputdir="${test.reports}" classpath="./target/lib/*;./target/classes;./target/test-classes;" useDefaultListeners="true">
+		<testng outputdir="${test.reports}" classpath="./target/lib/*;./target/classes;./target/test-classes;" useDefaultListeners="true" failureProperty="test.failed">
 			<xmlfileset dir="." includes="testng.xml" />
 		</testng>
 	</target>
-
-	<target name="test-testng-present">
-		<available classname="testng.framework.Test" property="testng.present" classpathref="build.test.classpath" />
+	
+	<target name="testng-failed" if="test.failed">
+	    <fail message="Some unit tests failed"/>
 	</target>
-
-	<target name="test-testng-status" depends="test-testng-present">
-		<condition property="testng.skipped">
-			<or>
-				<isfalse value="${testng.present}" />
-				<istrue value="${test.skip}" />
-			</or>
-		</condition>
-	</target>
+	
+	<target name="test" depends="testng,testng-failed"/>
 
 	<!-- Javadoc target                                                         -->
 
 	<target name="javadoc" description="Generates the Javadoc of the application">
 		<javadoc sourcepath="${build.srcDir.0}" packagenames="*" destdir="${reporting.outputDirectory}/apidocs" access="protected" old="false" verbose="false" version="true" use="true" author="true" splitindex="false" nodeprecated="false" nodeprecatedlist="false" notree="false" noindex="false" nohelp="false" nonavbar="false" serialwarn="false" charset="ISO-8859-1" linksource="false" breakiterator="false" />
+		<echo message="I'm here. Now what?"/>
 	</target>
 
 	<!-- Package target                                                         -->
 
-	<target name="package" depends="compile,test" description="Package the application">
+	<target name="package" depends="compile, test" unless="test.failed" description="Package the application">
 
 		<!--		<jar jarfile="${build.dir}/${build.finalName}.jar" compress="true" index="false" basedir="${build.outputDir}" excludes="**/package.html" /> -->
 
@@ -120,12 +112,10 @@
 				<exclude name="jdbc1.jar" />
 			</lib>
 			<classes dir="${build.dir}/classes" />
-		<!--	<webinf dir="${web.dir}/WEB-INF" /> -->
-			<fileset dir = "${web.dir}">
-			      <include name = "**/*.*"/>
+			<fileset dir="${web.dir}">
+				<include name="**/*.*" />
 			</fileset>
 		</war>
-
 	</target>
 
 	<!-- Download dependencies target                                           -->

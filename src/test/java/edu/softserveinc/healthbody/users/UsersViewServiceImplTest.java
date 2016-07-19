@@ -1,4 +1,4 @@
-package edu.softserveinc.healthbody;
+package edu.softserveinc.healthbody.users;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -7,22 +7,21 @@ import static org.testng.Assert.fail;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import edu.softserveinc.healthbody.constants.TestConstants;
+import edu.softserveinc.healthbody.db.CreateDropTestDatabase;
 import edu.softserveinc.healthbody.db.DBPopulateManager;
 import edu.softserveinc.healthbody.dto.UserDTO;
 import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.exceptions.TransactionException;
+import edu.softserveinc.healthbody.log.LoggerWrapper;
 import edu.softserveinc.healthbody.services.impl.UsersViewServiceImpl;
 
 public class UsersViewServiceImplTest {
-	private static Logger logger = LoggerFactory.getLogger(UsersViewServiceImplTest.class.getName());
-	private static final String EXCEPTION_CATCHED = "Exception catched while running test method.";
-	
+
 	@BeforeClass
 	public void populateTestData(){
 		new CreateDropTestDatabase().populateDBTables();
@@ -31,7 +30,7 @@ public class UsersViewServiceImplTest {
 	@AfterClass
 	public void CleanTableAfterTest() throws SQLException, JDBCDriverException{
 		DBPopulateManager.getInstance().deleteAllFromTables();
-		logger.info("Aftertest block Userviewserviceimpl worked");
+		LoggerWrapper.info(this.getClass(), "Aftertest block Userviewserviceimpl worked");
 	}
 
 	@Test
@@ -42,11 +41,11 @@ public class UsersViewServiceImplTest {
 			ud1 = uvs.getAll(1, 2);
 			assertNotNull(ud1);
 			assertEquals(ud1.size(), 2);
-			logger.info("testUserViewGetAll");
-			logger.info(ud1.toString());
+			LoggerWrapper.info(this.getClass(), "testUserViewGetAll");
+			LoggerWrapper.info(this.getClass(), ud1.toString());
 		} catch (JDBCDriverException | SQLException | TransactionException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			LoggerWrapper.error(this.getClass(), TestConstants.EXCEPTION_CATCHED + e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 
@@ -58,11 +57,11 @@ public class UsersViewServiceImplTest {
 			ud3 = uvs.getAllbyAdmin(1, 2);
 			assertNotNull(ud3);
 			assertEquals(ud3.size(), 2);
-			logger.info("testUserViewGetAllbyAdmin");
-			logger.info(ud3.toString());
+			LoggerWrapper.info(this.getClass(), "testUserViewGetAllbyAdmin");
+			LoggerWrapper.info(this.getClass(), ud3.toString());
 		} catch (JDBCDriverException | SQLException | TransactionException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			LoggerWrapper.error(this.getClass(), TestConstants.EXCEPTION_CATCHED + e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 
@@ -74,11 +73,11 @@ public class UsersViewServiceImplTest {
 			ud4 = uvs.getAllinCompetition(1, 2);
 			assertNotNull(ud4);
 			assertEquals(ud4.size(), 2);
-			logger.info("testUserViewGetAllinCompetition");
-			logger.info(ud4.toString());
+			LoggerWrapper.info(this.getClass(), "testUserViewGetAllinCompetition");
+			LoggerWrapper.info(this.getClass(), ud4.toString());
 		} catch (JDBCDriverException | SQLException | TransactionException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			LoggerWrapper.error(this.getClass(), TestConstants.EXCEPTION_CATCHED + e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 
@@ -90,11 +89,11 @@ public class UsersViewServiceImplTest {
 			ud5 = uvs.getAllinGroup(1, 2);
 			assertNotNull(ud5);
 			assertEquals(ud5.size(), 2);
-			logger.info("testUserViewGetAllinGroup");
-			logger.info(ud5.toString());
+			LoggerWrapper.info(this.getClass(), "testUserViewGetAllinGroup");
+			LoggerWrapper.info(this.getClass(), ud5.toString());
 		} catch (JDBCDriverException | SQLException | TransactionException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			LoggerWrapper.error(this.getClass(), TestConstants.EXCEPTION_CATCHED + e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 
@@ -106,11 +105,11 @@ public class UsersViewServiceImplTest {
 			ud6 = uvs.getAlltoAddInCompetition(1, 2);
 			assertNotNull(ud6);
 			assertEquals(ud6.size(), 2);
-			logger.info("testUserViewGetAlltoAddInCompetition");
-			logger.info(ud6.toString());
+			LoggerWrapper.info(this.getClass(), "testUserViewGetAlltoAddInCompetition");
+			LoggerWrapper.info(this.getClass(), ud6.toString());
 		} catch (JDBCDriverException | SQLException | TransactionException e) {
-			logger.error(EXCEPTION_CATCHED, e);
-			fail(EXCEPTION_CATCHED, e);
+			LoggerWrapper.error(this.getClass(), TestConstants.EXCEPTION_CATCHED + e);
+			fail(TestConstants.EXCEPTION_CATCHED, e);
 		}
 	}
 

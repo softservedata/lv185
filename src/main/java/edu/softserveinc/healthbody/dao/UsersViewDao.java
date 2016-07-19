@@ -6,7 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.softserveinc.healthbody.dao.DaoStatementsConstant.UsersViewQueries;
+import edu.softserveinc.healthbody.constants.DaoConstants;
+import edu.softserveinc.healthbody.constants.DaoStatementsConstant.UsersViewQueries;
 import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.entity.UsersView;
 import edu.softserveinc.healthbody.exceptions.CloseStatementException;
@@ -20,7 +21,6 @@ public class UsersViewDao extends AbstractDaoRead<UsersView> {
 	private static volatile UsersViewDao instance = null;
 
 	public UsersViewDao() {
-		super();
 		init();
 	}
 
@@ -79,7 +79,7 @@ public class UsersViewDao extends AbstractDaoRead<UsersView> {
 		List<UsersView> result = new ArrayList<>();
 		String query = sqlQueries.get(UsersViewQueries.GET_ALL).toString();
 		if (query == null) {
-			throw new QueryNotFoundException(String.format(QUERY_NOT_FOUND, UsersViewQueries.GET_ALL.name()));
+			throw new QueryNotFoundException(String.format(DaoConstants.QUERY_NOT_FOUND, UsersViewQueries.GET_ALL.name()));
 		}
 		if ((partNumber >= 0) && (partSize > 0)) {
 			query = query.substring(0, query.lastIndexOf(";")) + SQL_LIMIT;
@@ -91,7 +91,7 @@ public class UsersViewDao extends AbstractDaoRead<UsersView> {
 				result.add(createInstance(getQueryResultArr(queryResult, resultSet)));
 			}
 		} catch (SQLException e) {
-			throw new DataBaseReadingException(DATABASE_READING_ERROR, e);
+			throw new DataBaseReadingException(DaoConstants.DATABASE_READING_ERROR, e);
 		}
 		return result;
 	}
