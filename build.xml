@@ -74,31 +74,31 @@
 	</target>
 
 	<!-- Runs the file and generates Reportng report for TestNG                 -->
-	
+
 	<target name="testngdef" description="description">
 		<taskdef resource="testngtasks" classpath="./target/lib/testng-6.9.10.jar" />
 	</target>
 
 	<!-- Run all tests                                                          -->
-	
+
 	<target name="testng" depends="compile-tests, testngdef, test-offline" description="Run the test cases">
 		<mkdir dir="${test.reports}" />
 		<testng outputdir="${test.reports}" classpath="./target/lib/*;./target/classes;./target/test-classes;" useDefaultListeners="true" failureProperty="test.failed">
 			<xmlfileset dir="." includes="testng.xml" />
 		</testng>
 	</target>
-	
+
 	<target name="testng-failed" if="test.failed">
-	    <fail message="Some unit tests failed"/>
+		<fail message="Some unit tests failed" />
 	</target>
-	
-	<target name="test" depends="testng,testng-failed"/>
+
+	<target name="test" depends="testng,testng-failed" />
 
 	<!-- Javadoc target                                                         -->
 
 	<target name="javadoc" description="Generates the Javadoc of the application">
 		<javadoc sourcepath="${build.srcDir.0}" packagenames="*" destdir="${reporting.outputDirectory}/apidocs" access="protected" old="false" verbose="false" version="true" use="true" author="true" splitindex="false" nodeprecated="false" nodeprecatedlist="false" notree="false" noindex="false" nohelp="false" nonavbar="false" serialwarn="false" charset="ISO-8859-1" linksource="false" breakiterator="false" />
-		<echo message="I'm here. Now what?"/>
+		<echo message="I'm here. Now what?" />
 	</target>
 
 	<!-- Package target                                                         -->
@@ -166,54 +166,18 @@
 		<get src="https://repo.maven.apache.org/maven2/org/codehaus/woodstox/stax2-api/3.1.1/stax2-api-3.1.1.jar" dest="${lib}/stax2-api-3.1.1.jar" usetimestamp="false" ignoreerrors="true" />
 		<get src="https://repo.maven.apache.org/maven2/com/sun/org/apache/xml/internal/resolver/20050927/resolver-20050927.jar" dest="${lib}/resolver-20050927.jar" usetimestamp="false" ignoreerrors="true" />
 		<get src="https://repo.maven.apache.org/maven2/javax/servlet/javax.servlet-api/3.0.1/javax.servlet-api-3.0.1.jar" dest="${lib}/javax.servlet-api-3.0.1.jar" usetimestamp="false" ignoreerrors="true" />
-    <get src="https://repo.maven.apache.org/maven2/jstl/jstl/1.2/jstl-1.2.jar" 
-         dest="${lib}/jstl-1.2.jar" 
-         usetimestamp="false" 
-         ignoreerrors="true"/>
-    <get src="https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.7/gson-2.7.jar" 
-         dest="${lib}/gson-2.7.jar" 
-         usetimestamp="false" 
-         ignoreerrors="true"/>
-    <get src="https://repo.maven.apache.org/maven2/com/google/api-client/google-api-client/1.19.1/google-api-client-1.19.1.jar" 
-         dest="${lib}/google-api-client-1.19.1.jar" 
-         usetimestamp="false" 
-         ignoreerrors="true"/>
-    <get src="https://repo.maven.apache.org/maven2/com/google/oauth-client/google-oauth-client/1.19.0/google-oauth-client-1.19.0.jar" 
-         dest="${lib}/google-oauth-client-1.19.0.jar" 
-         usetimestamp="false" 
-         ignoreerrors="true"/>
-    <get src="https://repo.maven.apache.org/maven2/com/google/http-client/google-http-client/1.19.0/google-http-client-1.19.0.jar" 
-         dest="${lib}/google-http-client-1.19.0.jar" 
-         usetimestamp="false" 
-         ignoreerrors="true"/>
-    <get src="https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.0.1/httpclient-4.0.1.jar" 
-         dest="${lib}/httpclient-4.0.1.jar" 
-         usetimestamp="false" 
-         ignoreerrors="true"/>
-    <get src="https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcore/4.0.1/httpcore-4.0.1.jar" 
-         dest="${lib}/httpcore-4.0.1.jar" 
-         usetimestamp="false" 
-         ignoreerrors="true"/>
-    <get src="https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.3/commons-codec-1.3.jar" 
-         dest="${lib}/commons-codec-1.3.jar" 
-         usetimestamp="false" 
-         ignoreerrors="true"/>
-    <get src="https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar" 
-         dest="${lib}/jsr305-1.3.9.jar" 
-         usetimestamp="false" 
-         ignoreerrors="true"/>
-    <get src="https://repo.maven.apache.org/maven2/com/google/http-client/google-http-client-jackson2/1.19.0/google-http-client-jackson2-1.19.0.jar" 
-         dest="${lib}/google-http-client-jackson2-1.19.0.jar" 
-         usetimestamp="false" 
-         ignoreerrors="true"/>
-    <get src="https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-core/2.1.3/jackson-core-2.1.3.jar" 
-         dest="${lib}/jackson-core-2.1.3.jar" 
-         usetimestamp="false" 
-         ignoreerrors="true"/>
-    <get src="https://repo.maven.apache.org/maven2/com/google/guava/guava-jdk5/13.0/guava-jdk5-13.0.jar" 
-         dest="${lib}/guava-jdk5-13.0.jar" 
-         usetimestamp="false" 
-         ignoreerrors="true"/>
+		<get src="https://repo.maven.apache.org/maven2/jstl/jstl/1.2/jstl-1.2.jar" dest="${lib}/jstl-1.2.jar" usetimestamp="false" ignoreerrors="true" />
+		<get src="https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.7/gson-2.7.jar" dest="${lib}/gson-2.7.jar" usetimestamp="false" ignoreerrors="true" />
+		<get src="https://repo.maven.apache.org/maven2/com/google/api-client/google-api-client/1.19.1/google-api-client-1.19.1.jar" dest="${lib}/google-api-client-1.19.1.jar" usetimestamp="false" ignoreerrors="true" />
+		<get src="https://repo.maven.apache.org/maven2/com/google/oauth-client/google-oauth-client/1.19.0/google-oauth-client-1.19.0.jar" dest="${lib}/google-oauth-client-1.19.0.jar" usetimestamp="false" ignoreerrors="true" />
+		<get src="https://repo.maven.apache.org/maven2/com/google/http-client/google-http-client/1.19.0/google-http-client-1.19.0.jar" dest="${lib}/google-http-client-1.19.0.jar" usetimestamp="false" ignoreerrors="true" />
+		<get src="https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.0.1/httpclient-4.0.1.jar" dest="${lib}/httpclient-4.0.1.jar" usetimestamp="false" ignoreerrors="true" />
+		<get src="https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcore/4.0.1/httpcore-4.0.1.jar" dest="${lib}/httpcore-4.0.1.jar" usetimestamp="false" ignoreerrors="true" />
+		<get src="https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.3/commons-codec-1.3.jar" dest="${lib}/commons-codec-1.3.jar" usetimestamp="false" ignoreerrors="true" />
+		<get src="https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar" dest="${lib}/jsr305-1.3.9.jar" usetimestamp="false" ignoreerrors="true" />
+		<get src="https://repo.maven.apache.org/maven2/com/google/http-client/google-http-client-jackson2/1.19.0/google-http-client-jackson2-1.19.0.jar" dest="${lib}/google-http-client-jackson2-1.19.0.jar" usetimestamp="false" ignoreerrors="true" />
+		<get src="https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-core/2.1.3/jackson-core-2.1.3.jar" dest="${lib}/jackson-core-2.1.3.jar" usetimestamp="false" ignoreerrors="true" />
+		<get src="https://repo.maven.apache.org/maven2/com/google/guava/guava-jdk5/13.0/guava-jdk5-13.0.jar" dest="${lib}/guava-jdk5-13.0.jar" usetimestamp="false" ignoreerrors="true" />
 	</target>
 
 	<target name="help">
