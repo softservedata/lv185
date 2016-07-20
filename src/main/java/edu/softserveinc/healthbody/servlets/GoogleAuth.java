@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -52,7 +53,7 @@ public class GoogleAuth extends HttpServlet {
 
 			// get output in outputString
 			String line, outputString = "";
-			BufferedReader reader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(urlConn.getInputStream(), "windows-1251"));
 			while ((line = reader.readLine()) != null) {
 				outputString += line;
 			}
@@ -60,7 +61,8 @@ public class GoogleAuth extends HttpServlet {
 			// get Access Token
 			JsonObject json = new JsonParser().parse(outputString).getAsJsonObject();
 			String access_token = json.get("access_token").getAsString();
-
+			System.out.println(access_token);
+	
 			// get User Info
 			url = new URL("https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + access_token);
 			urlConn = url.openConnection();
@@ -70,8 +72,10 @@ public class GoogleAuth extends HttpServlet {
 				outputString += line;
 			}
 			System.out.println(outputString);
+			byte[] utf8JsonString = outputString.getBytes();
+			String str = new String(utf8JsonString, StandardCharsets.UTF_8);
 			// Convert JSON response into Pojo class
-			GooglePojo data = new Gson().fromJson(outputString, GooglePojo.class);
+			GooglePojo data = new Gson().fromJson(str, GooglePojo.class);
 			System.out.println(data);
 			writer.close();
 			reader.close();
