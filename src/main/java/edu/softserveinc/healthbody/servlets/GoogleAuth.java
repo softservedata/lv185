@@ -58,7 +58,7 @@ public class GoogleAuth extends HttpServlet {
 			}
 
 			// get Access Token
-			JsonObject json = (JsonObject) new JsonParser().parse(outputString);
+			JsonObject json = new JsonParser().parse(outputString).getAsJsonObject();
 			String access_token = json.get("access_token").getAsString();
 
 			// get User Info
@@ -69,7 +69,7 @@ public class GoogleAuth extends HttpServlet {
 			while ((line = reader.readLine()) != null) {
 				outputString += line;
 			}
-
+			System.out.println(outputString);
 			// Convert JSON response into Pojo class
 			GooglePojo data = new Gson().fromJson(outputString, GooglePojo.class);
 			System.out.println(data);
