@@ -20,6 +20,12 @@ public final class DataSourceRepository {
 		return instance;
 	}
 
+	public DataSource getPostgresOpenShift()throws JDBCDriverException{
+		return new DataSource(DriverRepository.getInstance().getPostgresDriver(), 
+				"jdbc:postgresql://" + System.getenv("OPENSHIFT_POSTGRESQL_DB_HOST") + ":" + 
+				System.getenv("OPENSHIFT_POSTGRESQL_DB_PORT") + "/ws",
+				"admindqufr92", "57UAv48D1n2-");
+	}
 	
 	public DataSource getPostgresJenkins()throws JDBCDriverException{
 		return new DataSource(DriverRepository.getInstance().getPostgresDriver(), 

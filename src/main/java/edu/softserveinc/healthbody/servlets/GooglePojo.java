@@ -7,6 +7,17 @@ public class GooglePojo {
 	String given_name;
 	String family_name;
 	String picture;
+	String gender;
+	String birthday;
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
 	public String getPicture() {
 		return picture;
 	}
@@ -14,8 +25,6 @@ public class GooglePojo {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
-
-	String gender;
 
 	public String getGender() {
 		return gender;
@@ -68,6 +77,6 @@ public class GooglePojo {
 	@Override
 	public String toString() {
 		return "GooglePojo [id=" + id + ", email=" + email + ", name=" + name + ", given_name=" + given_name
-				+ ", family_name=" + family_name + ", picture=" + picture + ", gender=" + gender + "]";
+				+ ", family_name=" + family_name + ", picture=" + picture + ", gender=" + gender + ", birthday=" + birthday + "]";
 	}
 }
