@@ -65,7 +65,7 @@ public class GoogleAuth extends HttpServlet {
 			JsonObject json = new JsonParser().parse(outputString).getAsJsonObject();
 			String access_token = json.get("access_token").getAsString();
 			System.out.println(access_token);
-	
+
 			// get User Info
 			url = new URL("https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + access_token);
 			urlConn = url.openConnection();
@@ -82,26 +82,32 @@ public class GoogleAuth extends HttpServlet {
 			System.out.println(data);
 			writer.close();
 			reader.close();
-			
+
 			HealthBodyServiceImpl healthBodyServiceImpl = new HealthBodyServiceImpl();
 			String email = data.getEmail();
-			String login = email.substring(0, email.length()-1-10); //minus @gmail.com
+			String login = email.substring(0, email.length() - 10).toString(); // minus
+			// @gmail.com
 			String firstname = data.getGiven_name();
 			String lastname = data.getFamily_name();
 			String photoURL = data.getPicture();
 			String gender = data.getGender();
-			if (healthBodyServiceImpl.getUserByLogin(login) == null) {
-			UserDTO userDTO = new UserDTO(login, null, firstname, lastname, email, null,
-					null, gender, photoURL, null, null, null,
-					null, "false");
-			healthBodyServiceImpl.createUser(userDTO);
-			request.setAttribute("login", healthBodyServiceImpl.getUserByLogin(login));
-			getServletContext().getRequestDispatcher("/WEB-INF/views/UserDTOView.jsp").forward(request, response);
+			System.out.println(healthBodyServiceImpl.getUserByLogin(login).toString());
+			if (healthBodyServiceImpl.getUserByLogin(login) != null) {
+				request.setAttribute("data", healthBodyServiceImpl.getUserByLogin(login));
+				System.out.println("still run?");
+				getServletContext().getRequestDispatcher("/WEB-INF/views/UserDTOView.jsp").forward(request, response);
+				System.out.println("do you run?");
 			} else {
-			request.setAttribute("login", healthBodyServiceImpl.getUserByLogin(login));
-			getServletContext().getRequestDispatcher("/WEB-INF/views/UserDTOView.jsp").forward(request, response);
+				UserDTO userDTO = new UserDTO(login, null, firstname, lastname, email, null, null, gender, photoURL,
+						null, null, null, null, null);
+				System.out.println(userDTO.toString());
+				healthBodyServiceImpl.createUser(userDTO);
+				System.out.println("do you create dto?");
+				request.setAttribute("data", healthBodyServiceImpl.getUserByLogin(login));
+				getServletContext().getRequestDispatcher("/WEB-INF/views/UserDTOView.jsp").forward(request, response);
+				System.out.println("run to the end?");
 			}
-			
+
 		} catch (MalformedURLException e) {
 			System.out.println(e);
 		} catch (ProtocolException e) {
