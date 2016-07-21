@@ -8,15 +8,6 @@ public class GooglePojo {
 	String family_name;
 	String picture;
 	String gender;
-	String birthday;
-
-	public String getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
-	}
 
 	public String getPicture() {
 		return picture;
@@ -77,6 +68,6 @@ public class GooglePojo {
 	@Override
 	public String toString() {
 		return "GooglePojo [id=" + id + ", email=" + email + ", name=" + name + ", given_name=" + given_name
-				+ ", family_name=" + family_name + ", picture=" + picture + ", gender=" + gender + ", birthday=" + birthday + "]";
+				+ ", family_name=" + family_name + ", picture=" + picture + ", gender=" + gender + "]";
 	}
 }
