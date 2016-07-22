@@ -9,8 +9,11 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,9 +22,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import edu.softserveinc.healthbody.db.ConnectionManager;
+import edu.softserveinc.healthbody.dto.GroupDTO;
 import edu.softserveinc.healthbody.dto.UserDTO;
+import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.webservice.HealthBodyServiceImpl;
 
+@WebServlet("/GoogleAuth")
 public class GoogleAuth extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -80,33 +87,37 @@ public class GoogleAuth extends HttpServlet {
 			// Convert JSON response into Pojo class
 			GooglePojo data = new Gson().fromJson(str, GooglePojo.class);
 			System.out.println(data);
-			writer.close();
-			reader.close();
 
 			HealthBodyServiceImpl healthBodyServiceImpl = new HealthBodyServiceImpl();
 			String email = data.getEmail();
-			String login = email.substring(0, email.length() - 10).toString(); // minus
-			// @gmail.com
+			String login = email.substring(0, email.length() - 10).toString(); // minus "@gmail.com"
 			String firstname = data.getGiven_name();
 			String lastname = data.getFamily_name();
 			String photoURL = data.getPicture();
 			String gender = data.getGender();
-			System.out.println(healthBodyServiceImpl.getUserByLogin(login).toString());
-			if (healthBodyServiceImpl.getUserByLogin(login) != null) {
-				request.setAttribute("data", healthBodyServiceImpl.getUserByLogin(login));
-				System.out.println("still run?");
-				getServletContext().getRequestDispatcher("/WEB-INF/views/UserDTOView.jsp").forward(request, response);
-				System.out.println("do you run?");
-			} else {
-				UserDTO userDTO = new UserDTO(login, null, firstname, lastname, email, null, null, gender, photoURL,
-						null, null, null, null, null);
-				System.out.println(userDTO.toString());
-				healthBodyServiceImpl.createUser(userDTO);
-				System.out.println("do you create dto?");
-				request.setAttribute("data", healthBodyServiceImpl.getUserByLogin(login));
-				getServletContext().getRequestDispatcher("/WEB-INF/views/UserDTOView.jsp").forward(request, response);
-				System.out.println("run to the end?");
+			UserDTO userDTO = new UserDTO(login, "", firstname, lastname, email, "0", "0.0", gender, photoURL,
+					"", "", "0.0", null, "false");
+			System.out.println(userDTO.toString());
+			
+			try {
+				ConnectionManager.getInstance().beginTransaction();
+				if (healthBodyServiceImpl.getUserByLogin(login) == null) {
+					healthBodyServiceImpl.createUser(userDTO);
+					ConnectionManager.getInstance().commitTransaction();
+					System.out.println(userDTO.toString());
+					UserDTO ud = healthBodyServiceImpl.getUserByLogin(login);
+					System.out.println("hy" + ud);
+				} else {
+					UserDTO ud = healthBodyServiceImpl.getUserByLogin(login);
+					System.out.println("hello" + ud);
+				}
+				
+			} catch (SQLException | JDBCDriverException e) {
+				e.printStackTrace();
 			}
+			
+			writer.close();
+			reader.close();
 
 		} catch (MalformedURLException e) {
 			System.out.println(e);
