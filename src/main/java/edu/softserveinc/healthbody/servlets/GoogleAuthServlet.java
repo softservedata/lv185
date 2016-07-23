@@ -4,13 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,19 +20,16 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import edu.softserveinc.healthbody.db.ConnectionManager;
 import edu.softserveinc.healthbody.dto.GroupDTO;
 import edu.softserveinc.healthbody.dto.UserDTO;
-import edu.softserveinc.healthbody.exceptions.JDBCDriverException;
 import edu.softserveinc.healthbody.webservice.HealthBodyServiceImpl;
 
 @WebServlet("/GoogleAuth")
-public class GoogleAuth extends HttpServlet {
+public class GoogleAuthServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public GoogleAuth() {
+	public GoogleAuthServlet() {
 		super();
-
 	}
 
 	/**
@@ -43,6 +38,8 @@ public class GoogleAuth extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		String rn = System.lineSeparator();
 
 		try {
 			// get code
@@ -71,61 +68,69 @@ public class GoogleAuth extends HttpServlet {
 			// get Access Token
 			JsonObject json = new JsonParser().parse(outputString).getAsJsonObject();
 			String access_token = json.get("access_token").getAsString();
-			System.out.println(access_token);
+			out.append(access_token + rn);
 
 			// get User Info
 			url = new URL("https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + access_token);
 			urlConn = url.openConnection();
 			outputString = "";
 			reader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
-			while ((line = reader.readLine()) != null) {
+			while ((line = reader.readLine()) != null)
 				outputString += line;
-			}
-			System.out.println(outputString);
-			byte[] utf8JsonString = outputString.getBytes();
-			String str = new String(utf8JsonString, StandardCharsets.UTF_8);
+			out.append(outputString + rn);
+//			byte[] utf8JsonString = outputString.getBytes();
+//			String str = new String(utf8JsonString, StandardCharsets.UTF_8);
 			// Convert JSON response into Pojo class
-			GooglePojo data = new Gson().fromJson(str, GooglePojo.class);
-			System.out.println(data);
-
-			HealthBodyServiceImpl healthBodyServiceImpl = new HealthBodyServiceImpl();
-			String email = data.getEmail();
-			String login = email.substring(0, email.length() - 10).toString(); // minus "@gmail.com"
-			String firstname = data.getGiven_name();
-			String lastname = data.getFamily_name();
-			String photoURL = data.getPicture();
-			String gender = data.getGender();
-			UserDTO userDTO = new UserDTO(login, "", firstname, lastname, email, "0", "0.0", gender, photoURL,
-					"", "", "0.0", null, "false");
-			System.out.println(userDTO.toString());
-			
-			try {
-				ConnectionManager.getInstance().beginTransaction();
-				if (healthBodyServiceImpl.getUserByLogin(login) == null) {
-					healthBodyServiceImpl.createUser(userDTO);
-					ConnectionManager.getInstance().commitTransaction();
-					System.out.println(userDTO.toString());
-					UserDTO ud = healthBodyServiceImpl.getUserByLogin(login);
-					System.out.println("hy" + ud);
-				} else {
-					UserDTO ud = healthBodyServiceImpl.getUserByLogin(login);
-					System.out.println("hello" + ud);
-				}
-				
-			} catch (SQLException | JDBCDriverException e) {
-				e.printStackTrace();
-			}
-			
+			GooglePojo data = new Gson().fromJson(outputString, GooglePojo.class);
+			out.append(data.toString() + rn);
 			writer.close();
 			reader.close();
 
-		} catch (MalformedURLException e) {
-			System.out.println(e);
-		} catch (ProtocolException e) {
-			System.out.println(e);
+			// form UserDTO
+			String email = data.getEmail();
+			String login = email.substring(0, email.length() - 10).toString(); // minus"@gmail.com"
+			String firstname = data.getGiven_name();
+			String lastname = data.getFamily_name();
+			String photoURL = data.getPicture();
+			String fullgender = data.getGender();
+			String gender = getGoogleGender(fullgender);
+			List<GroupDTO> groups = new ArrayList<GroupDTO>();
+			UserDTO userDTO = new UserDTO(login, "", firstname, lastname, email, "0", "0.0", gender, photoURL, "user",
+					"", "0", groups, "false");
+			out.append(userDTO.toString() + rn);
+
+			// work with base
+				HealthBodyServiceImpl healthBodyServiceImpl = new HealthBodyServiceImpl();
+				if (healthBodyServiceImpl.getUserByLogin(login) == null) {
+					healthBodyServiceImpl.createUser(userDTO);
+					out.append(userDTO.toString() + rn);
+					UserDTO ud = healthBodyServiceImpl.getUserByLogin(login);
+					out.append("hy" + ud);
+					out.append(login + ", wellcome HealthBody!" + rn);
+					out.flush();
+				} else {
+					UserDTO ud = healthBodyServiceImpl.getUserByLogin(login);
+					System.out.println("hello" + ud);
+					out.append(login + ", wellcome HealthBody!");
+					out.flush();
+				}
+
 		} catch (IOException e) {
-			System.out.println(e);
+			e.printStackTrace(out);
+			out.flush();
+			return;
 		}
+	}
+
+	public String getGoogleGender(String a) {
+		String b = null;
+		if (a.equalsIgnoreCase("male"))
+			b = "m";
+		else if (a.equalsIgnoreCase("female"))
+			b = "w";
+		else
+			b = "o";
+		return b;
 	}
 
 }
