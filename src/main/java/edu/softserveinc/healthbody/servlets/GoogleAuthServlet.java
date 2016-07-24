@@ -7,6 +7,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import com.google.gson.JsonParser;
 
 import edu.softserveinc.healthbody.dto.GroupDTO;
 import edu.softserveinc.healthbody.dto.UserDTO;
+import edu.softserveinc.healthbody.log.LoggerWrapper;
 import edu.softserveinc.healthbody.webservice.HealthBodyServiceImpl;
 
 @WebServlet("/GoogleAuth")
@@ -68,7 +70,7 @@ public class GoogleAuthServlet extends HttpServlet {
 			// get Access Token
 			JsonObject json = new JsonParser().parse(outputString).getAsJsonObject();
 			String access_token = json.get("access_token").getAsString();
-			out.append(access_token + rn);
+			LoggerWrapper.info(this.getClass(), access_token + rn);
 
 			// get User Info
 			url = new URL("https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + access_token);
@@ -77,12 +79,12 @@ public class GoogleAuthServlet extends HttpServlet {
 			reader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
 			while ((line = reader.readLine()) != null)
 				outputString += line;
-			out.append(outputString + rn);
-//			byte[] utf8JsonString = outputString.getBytes();
-//			String str = new String(utf8JsonString, StandardCharsets.UTF_8);
+			LoggerWrapper.info(this.getClass(), outputString + rn);
+			byte[] utf8JsonString = outputString.getBytes();
+			String str = new String(utf8JsonString, StandardCharsets.UTF_8);
 			// Convert JSON response into Pojo class
-			GooglePojo data = new Gson().fromJson(outputString, GooglePojo.class);
-			out.append(data.toString() + rn);
+			GooglePojo data = new Gson().fromJson(str, GooglePojo.class);
+			LoggerWrapper.info(this.getClass(), data.toString() + rn);
 			writer.close();
 			reader.close();
 
@@ -95,29 +97,26 @@ public class GoogleAuthServlet extends HttpServlet {
 			String fullgender = data.getGender();
 			String gender = getGoogleGender(fullgender);
 			List<GroupDTO> groups = new ArrayList<GroupDTO>();
-			UserDTO userDTO = new UserDTO(login, "", firstname, lastname, email, "0", "0.0", gender, photoURL, "user",
-					"", "0", groups, "false");
-			out.append(userDTO.toString() + rn);
+			groups.add(new GroupDTO("Name group number 1", "", "", ""));
+			UserDTO userDTO = new UserDTO(login, null, firstname, lastname, email, "0", "0.0", gender, photoURL, "user",
+					null, "0", groups, "false");
+			LoggerWrapper.info(this.getClass(), userDTO.toString());
 
 			// work with base
 				HealthBodyServiceImpl healthBodyServiceImpl = new HealthBodyServiceImpl();
 				if (healthBodyServiceImpl.getUserByLogin(login) == null) {
 					healthBodyServiceImpl.createUser(userDTO);
-					out.append(userDTO.toString() + rn);
 					UserDTO ud = healthBodyServiceImpl.getUserByLogin(login);
-					out.append("hy" + ud);
 					out.append(login + ", wellcome HealthBody!" + rn);
 					out.flush();
 				} else {
 					UserDTO ud = healthBodyServiceImpl.getUserByLogin(login);
-					System.out.println("hello" + ud);
 					out.append(login + ", wellcome HealthBody!");
 					out.flush();
 				}
 
 		} catch (IOException e) {
-			e.printStackTrace(out);
-			out.flush();
+			LoggerWrapper.error(this.getClass(), "IOException catched" + e);
 			return;
 		}
 	}

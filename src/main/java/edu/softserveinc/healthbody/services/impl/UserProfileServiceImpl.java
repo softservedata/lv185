@@ -89,7 +89,7 @@ public class UserProfileServiceImpl implements IBaseService<UserDTO> {
 			try {
 				user = UserDao.getInstance().getUserByLoginName(name);
 				if (user == null) {
-					LoggerWrapper.error(this.getClass(), "User " + name + " doesn't exist");
+//					LoggerWrapper.error(this.getClass(), "User " + name + " doesn't exist");
 					return null;
 				}
 				else {
