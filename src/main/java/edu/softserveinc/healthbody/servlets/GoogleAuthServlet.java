@@ -62,7 +62,7 @@ public class GoogleAuthServlet extends HttpServlet {
 
 			// get output in outputString
 			String line, outputString = "";
-			BufferedReader reader = new BufferedReader(new InputStreamReader(urlConn.getInputStream(), "windows-1251"));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
 			while ((line = reader.readLine()) != null) {
 				outputString += line;
 			}
@@ -76,7 +76,7 @@ public class GoogleAuthServlet extends HttpServlet {
 			url = new URL("https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + access_token);
 			urlConn = url.openConnection();
 			outputString = "";
-			reader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+			reader = new BufferedReader(new InputStreamReader(urlConn.getInputStream(), "windows-1251"));
 			while ((line = reader.readLine()) != null)
 				outputString += line;
 			LoggerWrapper.info(this.getClass(), outputString + rn);
@@ -103,17 +103,17 @@ public class GoogleAuthServlet extends HttpServlet {
 			LoggerWrapper.info(this.getClass(), userDTO.toString());
 
 			// work with base
-				HealthBodyServiceImpl healthBodyServiceImpl = new HealthBodyServiceImpl();
-				if (healthBodyServiceImpl.getUserByLogin(login) == null) {
-					healthBodyServiceImpl.createUser(userDTO);
-					UserDTO ud = healthBodyServiceImpl.getUserByLogin(login);
-					out.append(login + ", wellcome HealthBody!" + rn);
-					out.flush();
-				} else {
-					UserDTO ud = healthBodyServiceImpl.getUserByLogin(login);
-					out.append(login + ", wellcome HealthBody!");
-					out.flush();
-				}
+			HealthBodyServiceImpl healthBodyServiceImpl = new HealthBodyServiceImpl();
+			if (healthBodyServiceImpl.getUserByLogin(login) == null) {
+				healthBodyServiceImpl.createUser(userDTO);
+				UserDTO ud = healthBodyServiceImpl.getUserByLogin(login);
+				out.append(login + ", wellcome! You've singed up HealthBody!" + rn);
+				out.flush();
+			} else {
+				UserDTO ud = healthBodyServiceImpl.getUserByLogin(login);
+				out.append(login + ", wellcome HealthBody!");
+				out.flush();
+			}
 
 		} catch (IOException e) {
 			LoggerWrapper.error(this.getClass(), "IOException catched" + e);
