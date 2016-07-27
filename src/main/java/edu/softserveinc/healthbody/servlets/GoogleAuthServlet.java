@@ -66,6 +66,7 @@ public class GoogleAuthServlet extends HttpServlet {
 			while ((line = reader.readLine()) != null) {
 				outputString += line;
 			}
+			LoggerWrapper.info(this.getClass(), outputString + rn);
 
 			// get Access Token
 			JsonObject json = new JsonParser().parse(outputString).getAsJsonObject();
@@ -90,7 +91,7 @@ public class GoogleAuthServlet extends HttpServlet {
 
 			// form UserDTO
 			String email = data.getEmail();
-			String login = email.substring(0, email.length() - 10).toString(); // minus"@gmail.com"
+			String login = email.substring(0, email.indexOf("@")).toString();
 			String firstname = data.getGiven_name();
 			String lastname = data.getFamily_name();
 			String photoURL = data.getPicture();
